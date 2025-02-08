@@ -16,3 +16,7 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/trophyso/trophy-python"
 Repository = "https://github.com/trophyso/trophy-python"
+
+[tool.setuptools.packages.find]
+where = ["trophy_python"]
+include = ["trophy_python"]

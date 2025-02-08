@@ -16,7 +16,7 @@ information.
 You can install the package via pip:
 
 ```bash
-pip install trophy-python
+pip install trophy
 ```
 
 ## Usage

@@ -18,5 +18,5 @@ Homepage = "https://github.com/trophyso/trophy-python"
 Repository = "https://github.com/trophyso/trophy-python"
 
 [tool.setuptools.packages.find]
-where = ["trophy"]
+where = ["."]
 include = ["trophy"]

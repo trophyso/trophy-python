@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trophy-python"
+version = "0.1.0"
+description = "A Python library for the Trophy API"
+license = {text = "MIT"}
+readme = "README.md"
+dependencies = [
+    "requests",
+    "httpx",
+]
+
+[project.urls]
+Homepage = "https://github.com/trophyso/trophy-python"
+Repository = "https://github.com/trophyso/trophy-python"

@@ -25,17 +25,19 @@ The package needs to be configured with your account's API key which is availabl
 dashboard.
 
 ```python
-from trophy import TrophyApiClient
+from trophy import EventRequestUser, TrophyApi
 
-client = TrophyApiClient(api_key='your-api-key')
+client = TrophyApi(
+    api_key="YOUR_API_KEY",
+)
 
-# Send a metric event
-client.metrics.event("words-written", {
-    "user": {
-        "id": "18",
-        "email": "jk.rowling@harrypotter.com",
-        "tz": "Europe/London"
-    },
-    "value": 750
-})
+client.metrics.event(
+    key="words-written",
+    user=EventRequestUser(
+        id="18",
+        email="jk.rowling@harrypotter.com",
+        tz="Europe/London",
+    ),
+    value=750.0,
+)
 ```

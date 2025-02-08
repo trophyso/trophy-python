@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "trophy-python"
-version = "0.1.0"
+version = "0.1.4"
 description = "A Python library for the Trophy API"
 license = {text = "MIT"}
 readme = "README.md"

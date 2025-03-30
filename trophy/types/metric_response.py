@@ -55,7 +55,9 @@ class MetricResponse(UniversalBaseModel):
     A list of the metric's achievements and the user's progress towards each.
     """
 
-    streak: typing.Optional[StreakResponse] = pydantic.Field(default=None)
+    current_streak: typing_extensions.Annotated[
+        typing.Optional[StreakResponse], FieldMetadata(alias="currentStreak")
+    ] = pydantic.Field(default=None)
     """
     The user's current streak for the metric, if the metric has streaks enabled.
     """

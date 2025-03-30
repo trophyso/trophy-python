@@ -2,7 +2,7 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from ..types.event_request_user import EventRequestUser
+from ..types.upserted_user import UpsertedUser
 from ..core.request_options import RequestOptions
 from ..types.achievement_completion_response import AchievementCompletionResponse
 from ..core.jsonable_encoder import jsonable_encoder
@@ -28,7 +28,7 @@ class AchievementsClient:
         self,
         key: str,
         *,
-        user: EventRequestUser,
+        user: UpsertedUser,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AchievementCompletionResponse:
         """
@@ -39,7 +39,7 @@ class AchievementsClient:
         key : str
             Unique reference of the achievement as set when created.
 
-        user : EventRequestUser
+        user : UpsertedUser
             The user that completed the achievement.
 
         request_options : typing.Optional[RequestOptions]
@@ -52,17 +52,15 @@ class AchievementsClient:
 
         Examples
         --------
-        from trophy import EventRequestUser, TrophyApi
+        from trophy import TrophyApi, UpsertedUser
 
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
         client.achievements.complete(
             key="finish-onboarding",
-            user=EventRequestUser(
-                id="18",
-                email="jk.rowling@harrypotter.com",
-                tz="Europe/London",
+            user=UpsertedUser(
+                id="user-id",
             ),
         )
         """
@@ -71,7 +69,7 @@ class AchievementsClient:
             method="POST",
             json={
                 "user": convert_and_respect_annotation_metadata(
-                    object_=user, annotation=EventRequestUser, direction="write"
+                    object_=user, annotation=UpsertedUser, direction="write"
                 ),
             },
             headers={
@@ -133,7 +131,7 @@ class AsyncAchievementsClient:
         self,
         key: str,
         *,
-        user: EventRequestUser,
+        user: UpsertedUser,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AchievementCompletionResponse:
         """
@@ -144,7 +142,7 @@ class AsyncAchievementsClient:
         key : str
             Unique reference of the achievement as set when created.
 
-        user : EventRequestUser
+        user : UpsertedUser
             The user that completed the achievement.
 
         request_options : typing.Optional[RequestOptions]
@@ -159,7 +157,7 @@ class AsyncAchievementsClient:
         --------
         import asyncio
 
-        from trophy import AsyncTrophyApi, EventRequestUser
+        from trophy import AsyncTrophyApi, UpsertedUser
 
         client = AsyncTrophyApi(
             api_key="YOUR_API_KEY",
@@ -169,10 +167,8 @@ class AsyncAchievementsClient:
         async def main() -> None:
             await client.achievements.complete(
                 key="finish-onboarding",
-                user=EventRequestUser(
-                    id="18",
-                    email="jk.rowling@harrypotter.com",
-                    tz="Europe/London",
+                user=UpsertedUser(
+                    id="user-id",
                 ),
             )
 
@@ -184,7 +180,7 @@ class AsyncAchievementsClient:
             method="POST",
             json={
                 "user": convert_and_respect_annotation_metadata(
-                    object_=user, annotation=EventRequestUser, direction="write"
+                    object_=user, annotation=UpsertedUser, direction="write"
                 ),
             },
             headers={

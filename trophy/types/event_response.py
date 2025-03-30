@@ -6,6 +6,7 @@ from ..core.serialization import FieldMetadata
 import pydantic
 import typing
 from .event_response_metrics_item import EventResponseMetricsItem
+from .streak_response import StreakResponse
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -34,6 +35,13 @@ class EventResponse(UniversalBaseModel):
     )
     """
     Changes to achievements as a result of this event.
+    """
+
+    current_streak: typing_extensions.Annotated[
+        typing.Optional[StreakResponse], FieldMetadata(alias="currentStreak")
+    ] = pydantic.Field(default=None)
+    """
+    The user's current streak for the metric, if the metric has streaks enabled.
     """
 
     if IS_PYDANTIC_V2:

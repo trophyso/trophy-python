@@ -2,7 +2,7 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from ..types.event_request_user import EventRequestUser
+from ..types.upserted_user import UpsertedUser
 from ..core.request_options import RequestOptions
 from ..types.event_response import EventResponse
 from ..core.jsonable_encoder import jsonable_encoder
@@ -28,7 +28,7 @@ class MetricsClient:
         self,
         key: str,
         *,
-        user: EventRequestUser,
+        user: UpsertedUser,
         value: float,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EventResponse:
@@ -40,7 +40,7 @@ class MetricsClient:
         key : str
             Unique reference of the metric as set when created.
 
-        user : EventRequestUser
+        user : UpsertedUser
             The user that triggered the event.
 
         value : float
@@ -56,17 +56,17 @@ class MetricsClient:
 
         Examples
         --------
-        from trophy import EventRequestUser, TrophyApi
+        from trophy import TrophyApi, UpsertedUser
 
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
         client.metrics.event(
             key="words-written",
-            user=EventRequestUser(
-                id="18",
-                email="jk.rowling@harrypotter.com",
+            user=UpsertedUser(
+                email="user@example.com",
                 tz="Europe/London",
+                id="18",
             ),
             value=750.0,
         )
@@ -76,7 +76,7 @@ class MetricsClient:
             method="POST",
             json={
                 "user": convert_and_respect_annotation_metadata(
-                    object_=user, annotation=EventRequestUser, direction="write"
+                    object_=user, annotation=UpsertedUser, direction="write"
                 ),
                 "value": value,
             },
@@ -139,7 +139,7 @@ class AsyncMetricsClient:
         self,
         key: str,
         *,
-        user: EventRequestUser,
+        user: UpsertedUser,
         value: float,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EventResponse:
@@ -151,7 +151,7 @@ class AsyncMetricsClient:
         key : str
             Unique reference of the metric as set when created.
 
-        user : EventRequestUser
+        user : UpsertedUser
             The user that triggered the event.
 
         value : float
@@ -169,7 +169,7 @@ class AsyncMetricsClient:
         --------
         import asyncio
 
-        from trophy import AsyncTrophyApi, EventRequestUser
+        from trophy import AsyncTrophyApi, UpsertedUser
 
         client = AsyncTrophyApi(
             api_key="YOUR_API_KEY",
@@ -179,10 +179,10 @@ class AsyncMetricsClient:
         async def main() -> None:
             await client.metrics.event(
                 key="words-written",
-                user=EventRequestUser(
-                    id="18",
-                    email="jk.rowling@harrypotter.com",
+                user=UpsertedUser(
+                    email="user@example.com",
                     tz="Europe/London",
+                    id="18",
                 ),
                 value=750.0,
             )
@@ -195,7 +195,7 @@ class AsyncMetricsClient:
             method="POST",
             json={
                 "user": convert_and_respect_annotation_metadata(
-                    object_=user, annotation=EventRequestUser, direction="write"
+                    object_=user, annotation=UpsertedUser, direction="write"
                 ),
                 "value": value,
             },

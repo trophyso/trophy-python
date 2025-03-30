@@ -3,23 +3,27 @@
 from .achievement_completion_response import AchievementCompletionResponse
 from .achievement_response import AchievementResponse
 from .error_body import ErrorBody
-from .event_request_user import EventRequestUser
 from .event_response import EventResponse
 from .event_response_metrics_item import EventResponseMetricsItem
 from .metric_response import MetricResponse
 from .metric_status import MetricStatus
 from .streak_frequency import StreakFrequency
 from .streak_response import StreakResponse
+from .updated_user import UpdatedUser
+from .upserted_user import UpsertedUser
+from .user import User
 
 __all__ = [
     "AchievementCompletionResponse",
     "AchievementResponse",
     "ErrorBody",
-    "EventRequestUser",
     "EventResponse",
     "EventResponseMetricsItem",
     "MetricResponse",
     "MetricStatus",
     "StreakFrequency",
     "StreakResponse",
+    "UpdatedUser",
+    "UpsertedUser",
+    "User",
 ]

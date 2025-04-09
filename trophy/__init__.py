@@ -2,12 +2,13 @@
 
 from .types import (
     AchievementCompletionResponse,
-    AchievementResponse,
     ErrorBody,
     EventResponse,
     EventResponseMetricsItem,
     MetricResponse,
     MetricStatus,
+    MultiStageAchievementResponse,
+    OneOffAchievementResponse,
     StreakFrequency,
     StreakResponse,
     UpdatedUser,
@@ -26,7 +27,6 @@ from .environment import TrophyApiEnvironment
 
 __all__ = [
     "AchievementCompletionResponse",
-    "AchievementResponse",
     "AsyncTrophyApi",
     "BadRequestError",
     "ErrorBody",
@@ -34,7 +34,9 @@ __all__ = [
     "EventResponseMetricsItem",
     "MetricResponse",
     "MetricStatus",
+    "MultiStageAchievementResponse",
     "NotFoundError",
+    "OneOffAchievementResponse",
     "StreakFrequency",
     "StreakResponse",
     "TrophyApi",

@@ -7,7 +7,7 @@ from .streak_frequency import StreakFrequency
 from ..core.serialization import FieldMetadata
 from .metric_status import MetricStatus
 import typing
-from .achievement_response import AchievementResponse
+from .multi_stage_achievement_response import MultiStageAchievementResponse
 from .streak_response import StreakResponse
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -50,7 +50,7 @@ class MetricResponse(UniversalBaseModel):
     The user's current total for the metric.
     """
 
-    achievements: typing.List[AchievementResponse] = pydantic.Field()
+    achievements: typing.List[MultiStageAchievementResponse] = pydantic.Field()
     """
     A list of the metric's achievements and the user's progress towards each.
     """

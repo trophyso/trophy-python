@@ -14,7 +14,7 @@ from ..core.api_error import ApiError
 from ..core.jsonable_encoder import jsonable_encoder
 from ..types.metric_response import MetricResponse
 from ..errors.not_found_error import NotFoundError
-from ..types.achievement_response import AchievementResponse
+from ..types.multi_stage_achievement_response import MultiStageAchievementResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -36,7 +36,7 @@ class UsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
-        Create a new user.
+        Identify a new user.
 
         Parameters
         ----------
@@ -61,7 +61,7 @@ class UsersClient:
         Returns
         -------
         User
-            Created user
+            Identified user
 
         Examples
         --------
@@ -485,7 +485,7 @@ class UsersClient:
 
     def allachievements(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[AchievementResponse]:
+    ) -> typing.List[MultiStageAchievementResponse]:
         """
         Get all of a user's completed achievements.
 
@@ -499,7 +499,7 @@ class UsersClient:
 
         Returns
         -------
-        typing.List[AchievementResponse]
+        typing.List[MultiStageAchievementResponse]
             Successful operation
 
         Examples
@@ -521,9 +521,9 @@ class UsersClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[AchievementResponse],
+                    typing.List[MultiStageAchievementResponse],
                     parse_obj_as(
-                        type_=typing.List[AchievementResponse],  # type: ignore
+                        type_=typing.List[MultiStageAchievementResponse],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -578,7 +578,7 @@ class AsyncUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
-        Create a new user.
+        Identify a new user.
 
         Parameters
         ----------
@@ -603,7 +603,7 @@ class AsyncUsersClient:
         Returns
         -------
         User
-            Created user
+            Identified user
 
         Examples
         --------
@@ -1067,7 +1067,7 @@ class AsyncUsersClient:
 
     async def allachievements(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[AchievementResponse]:
+    ) -> typing.List[MultiStageAchievementResponse]:
         """
         Get all of a user's completed achievements.
 
@@ -1081,7 +1081,7 @@ class AsyncUsersClient:
 
         Returns
         -------
-        typing.List[AchievementResponse]
+        typing.List[MultiStageAchievementResponse]
             Successful operation
 
         Examples
@@ -1111,9 +1111,9 @@ class AsyncUsersClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[AchievementResponse],
+                    typing.List[MultiStageAchievementResponse],
                     parse_obj_as(
-                        type_=typing.List[AchievementResponse],  # type: ignore
+                        type_=typing.List[MultiStageAchievementResponse],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

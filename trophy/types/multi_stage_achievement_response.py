@@ -9,7 +9,7 @@ import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class AchievementResponse(UniversalBaseModel):
+class MultiStageAchievementResponse(UniversalBaseModel):
     id: str = pydantic.Field()
     """
     The unique ID of the achievement.

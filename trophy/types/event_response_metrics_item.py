@@ -5,7 +5,7 @@ import typing_extensions
 import typing
 from ..core.serialization import FieldMetadata
 import pydantic
-from .achievement_response import AchievementResponse
+from .multi_stage_achievement_response import MultiStageAchievementResponse
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -17,8 +17,8 @@ class EventResponseMetricsItem(UniversalBaseModel):
     The ID of the metric.
     """
 
-    completed: typing.Optional[typing.List[AchievementResponse]] = pydantic.Field(
-        default=None
+    completed: typing.Optional[typing.List[MultiStageAchievementResponse]] = (
+        pydantic.Field(default=None)
     )
     """
     A list of any new achievements that the user has now completed as a result of this event being submitted.

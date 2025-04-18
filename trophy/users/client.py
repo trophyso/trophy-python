@@ -15,6 +15,7 @@ from ..core.jsonable_encoder import jsonable_encoder
 from ..types.metric_response import MetricResponse
 from ..errors.not_found_error import NotFoundError
 from ..types.multi_stage_achievement_response import MultiStageAchievementResponse
+from ..types.streak_response import StreakResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -524,6 +525,95 @@ class UsersClient:
                     typing.List[MultiStageAchievementResponse],
                     parse_obj_as(
                         type_=typing.List[MultiStageAchievementResponse],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def streak(
+        self,
+        id: str,
+        *,
+        history_periods: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> StreakResponse:
+        """
+        Get a user's streak data.
+
+        Parameters
+        ----------
+        id : str
+            ID of the user.
+
+        history_periods : typing.Optional[int]
+            The number of past streak periods to include in the streakHistory field of the  response.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        StreakResponse
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.users.streak(
+            id="userId",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}/streak",
+            method="GET",
+            params={
+                "historyPeriods": history_periods,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    StreakResponse,
+                    parse_obj_as(
+                        type_=StreakResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1114,6 +1204,103 @@ class AsyncUsersClient:
                     typing.List[MultiStageAchievementResponse],
                     parse_obj_as(
                         type_=typing.List[MultiStageAchievementResponse],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def streak(
+        self,
+        id: str,
+        *,
+        history_periods: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> StreakResponse:
+        """
+        Get a user's streak data.
+
+        Parameters
+        ----------
+        id : str
+            ID of the user.
+
+        history_periods : typing.Optional[int]
+            The number of past streak periods to include in the streakHistory field of the  response.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        StreakResponse
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.streak(
+                id="userId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}/streak",
+            method="GET",
+            params={
+                "historyPeriods": history_periods,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    StreakResponse,
+                    parse_obj_as(
+                        type_=StreakResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

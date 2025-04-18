@@ -2,13 +2,9 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
-import typing_extensions
-from .streak_frequency import StreakFrequency
-from ..core.serialization import FieldMetadata
 from .metric_status import MetricStatus
 import typing
 from .multi_stage_achievement_response import MultiStageAchievementResponse
-from .streak_response import StreakResponse
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -33,13 +29,6 @@ class MetricResponse(UniversalBaseModel):
     The emoji to represent the metric.
     """
 
-    streak_frequency: typing_extensions.Annotated[
-        StreakFrequency, FieldMetadata(alias="streakFrequency")
-    ] = pydantic.Field()
-    """
-    The frequency of the streak.
-    """
-
     status: MetricStatus = pydantic.Field()
     """
     The status of the metric.
@@ -53,13 +42,6 @@ class MetricResponse(UniversalBaseModel):
     achievements: typing.List[MultiStageAchievementResponse] = pydantic.Field()
     """
     A list of the metric's achievements and the user's progress towards each.
-    """
-
-    current_streak: typing_extensions.Annotated[
-        typing.Optional[StreakResponse], FieldMetadata(alias="currentStreak")
-    ] = pydantic.Field(default=None)
-    """
-    The user's current streak for the metric, if the metric has streaks enabled.
     """
 
     if IS_PYDANTIC_V2:

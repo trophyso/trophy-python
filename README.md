@@ -1,9 +1,9 @@
 # Trophy Python SDK
 
 The Trophy Python SDK provides convenient access to the Trophy API from applications written in the
-Python language. 
+Python language.
 
-Trophy provides APIs and tools for adding gamification to your application, keeping users engaged 
+Trophy provides APIs and tools for adding gamification to your application, keeping users engaged
 through rewards, achievements, streaks, and personalized communication.
 
 ## Installation
@@ -39,5 +39,5 @@ client.metrics.event(
 
 ## Documentation
 
-See the [Trophy API Docs](https://trophy.docs.buildwithfern.com/overview/introduction) for more
+See the [Trophy API Docs](https://docs.trophy.so) for more
 information on the accessible endpoints.

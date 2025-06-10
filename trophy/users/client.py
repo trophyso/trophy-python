@@ -318,7 +318,7 @@ class UsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def allmetrics(
+    def all_metrics(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[MetricResponse]:
         """
@@ -344,7 +344,7 @@ class UsersClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.users.allmetrics(
+        client.users.all_metrics(
             id="userId",
         )
         """
@@ -397,7 +397,7 @@ class UsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def singlemetric(
+    def single_metric(
         self,
         id: str,
         key: str,
@@ -430,7 +430,7 @@ class UsersClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.users.singlemetric(
+        client.users.single_metric(
             id="userId",
             key="key",
         )
@@ -484,7 +484,7 @@ class UsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def allachievements(
+    def all_achievements(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[AchievementResponse]:
         """
@@ -510,7 +510,7 @@ class UsersClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.users.allachievements(
+        client.users.all_achievements(
             id="userId",
         )
         """
@@ -973,7 +973,7 @@ class AsyncUsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def allmetrics(
+    async def all_metrics(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[MetricResponse]:
         """
@@ -1004,7 +1004,7 @@ class AsyncUsersClient:
 
 
         async def main() -> None:
-            await client.users.allmetrics(
+            await client.users.all_metrics(
                 id="userId",
             )
 
@@ -1060,7 +1060,7 @@ class AsyncUsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def singlemetric(
+    async def single_metric(
         self,
         id: str,
         key: str,
@@ -1098,7 +1098,7 @@ class AsyncUsersClient:
 
 
         async def main() -> None:
-            await client.users.singlemetric(
+            await client.users.single_metric(
                 id="userId",
                 key="key",
             )
@@ -1155,7 +1155,7 @@ class AsyncUsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def allachievements(
+    async def all_achievements(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[AchievementResponse]:
         """
@@ -1186,7 +1186,7 @@ class AsyncUsersClient:
 
 
         async def main() -> None:
-            await client.users.allachievements(
+            await client.users.all_achievements(
                 id="userId",
             )
 

@@ -4,7 +4,7 @@ from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
 from .metric_status import MetricStatus
 import typing
-from .multi_stage_achievement_response import MultiStageAchievementResponse
+from .metric_achievement_response import MetricAchievementResponse
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -24,11 +24,6 @@ class MetricResponse(UniversalBaseModel):
     The name of the metric.
     """
 
-    emoji: str = pydantic.Field()
-    """
-    The emoji to represent the metric.
-    """
-
     status: MetricStatus = pydantic.Field()
     """
     The status of the metric.
@@ -39,7 +34,7 @@ class MetricResponse(UniversalBaseModel):
     The user's current total for the metric.
     """
 
-    achievements: typing.List[MultiStageAchievementResponse] = pydantic.Field()
+    achievements: typing.List[MetricAchievementResponse] = pydantic.Field()
     """
     A list of the metric's achievements and the user's progress towards each.
     """

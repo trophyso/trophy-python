@@ -2,20 +2,20 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
-import typing
 import typing_extensions
+import typing
 from ..core.serialization import FieldMetadata
 import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class MultiStageAchievementResponse(UniversalBaseModel):
+class BaseAchievementResponse(UniversalBaseModel):
     id: str = pydantic.Field()
     """
     The unique ID of the achievement.
     """
 
-    name: typing.Optional[str] = pydantic.Field(default=None)
+    name: str = pydantic.Field()
     """
     The name of this achievement.
     """
@@ -25,27 +25,6 @@ class MultiStageAchievementResponse(UniversalBaseModel):
     ] = pydantic.Field(default=None)
     """
     The URL of the badge image for the achievement, if one has been uploaded.
-    """
-
-    metric_id: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="metricId")
-    ] = pydantic.Field(default=None)
-    """
-    The ID of the metric associated with this achievement, if any.
-    """
-
-    metric_value: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="metricValue")
-    ] = pydantic.Field(default=None)
-    """
-    The value of the metric required to complete the achievement, if this achievement is associated with a metric.
-    """
-
-    metric_name: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="metricName")
-    ] = pydantic.Field(default=None)
-    """
-    The name of the metric associated with this achievement, if any.
     """
 
     key: typing.Optional[str] = pydantic.Field(default=None)

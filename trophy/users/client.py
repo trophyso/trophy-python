@@ -14,7 +14,7 @@ from ..core.api_error import ApiError
 from ..core.jsonable_encoder import jsonable_encoder
 from ..types.metric_response import MetricResponse
 from ..errors.not_found_error import NotFoundError
-from ..types.multi_stage_achievement_response import MultiStageAchievementResponse
+from ..types.achievement_response import AchievementResponse
 from ..types.streak_response import StreakResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
@@ -486,7 +486,7 @@ class UsersClient:
 
     def allachievements(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[MultiStageAchievementResponse]:
+    ) -> typing.List[AchievementResponse]:
         """
         Get all of a user's completed achievements.
 
@@ -500,7 +500,7 @@ class UsersClient:
 
         Returns
         -------
-        typing.List[MultiStageAchievementResponse]
+        typing.List[AchievementResponse]
             Successful operation
 
         Examples
@@ -522,9 +522,9 @@ class UsersClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[MultiStageAchievementResponse],
+                    typing.List[AchievementResponse],
                     parse_obj_as(
-                        type_=typing.List[MultiStageAchievementResponse],  # type: ignore
+                        type_=typing.List[AchievementResponse],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1157,7 +1157,7 @@ class AsyncUsersClient:
 
     async def allachievements(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[MultiStageAchievementResponse]:
+    ) -> typing.List[AchievementResponse]:
         """
         Get all of a user's completed achievements.
 
@@ -1171,7 +1171,7 @@ class AsyncUsersClient:
 
         Returns
         -------
-        typing.List[MultiStageAchievementResponse]
+        typing.List[AchievementResponse]
             Successful operation
 
         Examples
@@ -1201,9 +1201,9 @@ class AsyncUsersClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[MultiStageAchievementResponse],
+                    typing.List[AchievementResponse],
                     parse_obj_as(
-                        type_=typing.List[MultiStageAchievementResponse],  # type: ignore
+                        type_=typing.List[AchievementResponse],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -20,6 +20,11 @@ class AchievementResponse(UniversalBaseModel):
     The name of this achievement.
     """
 
+    trigger: str = pydantic.Field()
+    """
+    The trigger of the achievement, either 'metric', 'streak', or 'api'.
+    """
+
     badge_url: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="badgeUrl")
     ] = pydantic.Field(default=None)

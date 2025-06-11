@@ -4,7 +4,7 @@ from ..core.pydantic_utilities import UniversalBaseModel
 import typing_extensions
 from ..core.serialization import FieldMetadata
 import pydantic
-from .api_achievement_response import ApiAchievementResponse
+from .achievement_response import AchievementResponse
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
 
@@ -17,7 +17,7 @@ class AchievementCompletionResponse(UniversalBaseModel):
     The unique ID of the completion.
     """
 
-    achievement: ApiAchievementResponse
+    achievement: AchievementResponse
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(

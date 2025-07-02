@@ -2,7 +2,9 @@
 
 from .achievement_completion_response import AchievementCompletionResponse
 from .achievement_response import AchievementResponse
+from .achievement_with_stats_response import AchievementWithStatsResponse
 from .base_streak_response import BaseStreakResponse
+from .completed_achievement_response import CompletedAchievementResponse
 from .error_body import ErrorBody
 from .event_response import EventResponse
 from .increment_metric_streak_response import IncrementMetricStreakResponse
@@ -18,7 +20,9 @@ from .user import User
 __all__ = [
     "AchievementCompletionResponse",
     "AchievementResponse",
+    "AchievementWithStatsResponse",
     "BaseStreakResponse",
+    "CompletedAchievementResponse",
     "ErrorBody",
     "EventResponse",
     "IncrementMetricStreakResponse",

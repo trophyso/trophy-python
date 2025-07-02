@@ -3,7 +3,9 @@
 from .types import (
     AchievementCompletionResponse,
     AchievementResponse,
+    AchievementWithStatsResponse,
     BaseStreakResponse,
+    CompletedAchievementResponse,
     ErrorBody,
     EventResponse,
     IncrementMetricStreakResponse,
@@ -25,13 +27,19 @@ from .errors import (
 from . import achievements, metrics, users
 from .client import AsyncTrophyApi, TrophyApi
 from .environment import TrophyApiEnvironment
+from .users import (
+    UsersMetricEventSummaryRequestAggregation,
+    UsersMetricEventSummaryResponseItem,
+)
 
 __all__ = [
     "AchievementCompletionResponse",
     "AchievementResponse",
+    "AchievementWithStatsResponse",
     "AsyncTrophyApi",
     "BadRequestError",
     "BaseStreakResponse",
+    "CompletedAchievementResponse",
     "ErrorBody",
     "EventResponse",
     "IncrementMetricStreakResponse",
@@ -48,6 +56,8 @@ __all__ = [
     "UpdatedUser",
     "UpsertedUser",
     "User",
+    "UsersMetricEventSummaryRequestAggregation",
+    "UsersMetricEventSummaryResponseItem",
     "achievements",
     "metrics",
     "users",

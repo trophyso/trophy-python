@@ -14,7 +14,13 @@ from ..core.api_error import ApiError
 from ..core.jsonable_encoder import jsonable_encoder
 from ..types.metric_response import MetricResponse
 from ..errors.not_found_error import NotFoundError
-from ..types.achievement_response import AchievementResponse
+from .types.users_metric_event_summary_request_aggregation import (
+    UsersMetricEventSummaryRequestAggregation,
+)
+from .types.users_metric_event_summary_response_item import (
+    UsersMetricEventSummaryResponseItem,
+)
+from ..types.completed_achievement_response import CompletedAchievementResponse
 from ..types.streak_response import StreakResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
@@ -484,9 +490,116 @@ class UsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def metric_event_summary(
+        self,
+        id: str,
+        key: str,
+        *,
+        aggregation: UsersMetricEventSummaryRequestAggregation,
+        start_date: str,
+        end_date: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[UsersMetricEventSummaryResponseItem]:
+        """
+        Get a summary of metric events over time for a user.
+
+        Parameters
+        ----------
+        id : str
+            ID of the user.
+
+        key : str
+            Unique key of the metric.
+
+        aggregation : UsersMetricEventSummaryRequestAggregation
+            The time period over which to aggregate the event data.
+
+        start_date : str
+            The start date for the data range in YYYY-MM-DD format. The startDate must be before the endDate, and the date range must not exceed 400 days.
+
+        end_date : str
+            The end date for the data range in YYYY-MM-DD format. The endDate must be after the startDate, and the date range must not exceed 400 days.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[UsersMetricEventSummaryResponseItem]
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.users.metric_event_summary(
+            id="userId",
+            key="words-written",
+            aggregation="daily",
+            start_date="2024-01-01",
+            end_date="2024-01-31",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}/metrics/{jsonable_encoder(key)}/event-summary",
+            method="GET",
+            params={
+                "aggregation": aggregation,
+                "startDate": start_date,
+                "endDate": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[UsersMetricEventSummaryResponseItem],
+                    parse_obj_as(
+                        type_=typing.List[UsersMetricEventSummaryResponseItem],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def all_achievements(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[AchievementResponse]:
+    ) -> typing.List[CompletedAchievementResponse]:
         """
         Get all of a user's completed achievements.
 
@@ -500,7 +613,7 @@ class UsersClient:
 
         Returns
         -------
-        typing.List[AchievementResponse]
+        typing.List[CompletedAchievementResponse]
             Successful operation
 
         Examples
@@ -522,9 +635,9 @@ class UsersClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[AchievementResponse],
+                    typing.List[CompletedAchievementResponse],
                     parse_obj_as(
-                        type_=typing.List[AchievementResponse],  # type: ignore
+                        type_=typing.List[CompletedAchievementResponse],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1155,9 +1268,124 @@ class AsyncUsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    async def metric_event_summary(
+        self,
+        id: str,
+        key: str,
+        *,
+        aggregation: UsersMetricEventSummaryRequestAggregation,
+        start_date: str,
+        end_date: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[UsersMetricEventSummaryResponseItem]:
+        """
+        Get a summary of metric events over time for a user.
+
+        Parameters
+        ----------
+        id : str
+            ID of the user.
+
+        key : str
+            Unique key of the metric.
+
+        aggregation : UsersMetricEventSummaryRequestAggregation
+            The time period over which to aggregate the event data.
+
+        start_date : str
+            The start date for the data range in YYYY-MM-DD format. The startDate must be before the endDate, and the date range must not exceed 400 days.
+
+        end_date : str
+            The end date for the data range in YYYY-MM-DD format. The endDate must be after the startDate, and the date range must not exceed 400 days.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[UsersMetricEventSummaryResponseItem]
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.metric_event_summary(
+                id="userId",
+                key="words-written",
+                aggregation="daily",
+                start_date="2024-01-01",
+                end_date="2024-01-31",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}/metrics/{jsonable_encoder(key)}/event-summary",
+            method="GET",
+            params={
+                "aggregation": aggregation,
+                "startDate": start_date,
+                "endDate": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[UsersMetricEventSummaryResponseItem],
+                    parse_obj_as(
+                        type_=typing.List[UsersMetricEventSummaryResponseItem],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def all_achievements(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[AchievementResponse]:
+    ) -> typing.List[CompletedAchievementResponse]:
         """
         Get all of a user's completed achievements.
 
@@ -1171,7 +1399,7 @@ class AsyncUsersClient:
 
         Returns
         -------
-        typing.List[AchievementResponse]
+        typing.List[CompletedAchievementResponse]
             Successful operation
 
         Examples
@@ -1201,9 +1429,9 @@ class AsyncUsersClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[AchievementResponse],
+                    typing.List[CompletedAchievementResponse],
                     parse_obj_as(
-                        type_=typing.List[AchievementResponse],  # type: ignore
+                        type_=typing.List[CompletedAchievementResponse],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -2,10 +2,9 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
-import typing_extensions
 import typing
+import typing_extensions
 from ..core.serialization import FieldMetadata
-import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -25,18 +24,16 @@ class AchievementResponse(UniversalBaseModel):
     The trigger of the achievement, either 'metric', 'streak', or 'api'.
     """
 
+    description: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The description of this achievement.
+    """
+
     badge_url: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="badgeUrl")
     ] = pydantic.Field(default=None)
     """
     The URL of the badge image for the achievement, if one has been uploaded.
-    """
-
-    achieved_at: typing_extensions.Annotated[
-        typing.Optional[dt.datetime], FieldMetadata(alias="achievedAt")
-    ] = pydantic.Field(default=None)
-    """
-    The date and time the achievement was completed, in ISO 8601 format.
     """
 
     key: typing.Optional[str] = pydantic.Field(default=None)

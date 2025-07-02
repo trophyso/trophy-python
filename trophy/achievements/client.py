@@ -2,11 +2,8 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from ..types.upserted_user import UpsertedUser
 from ..core.request_options import RequestOptions
-from ..types.achievement_completion_response import AchievementCompletionResponse
-from ..core.jsonable_encoder import jsonable_encoder
-from ..core.serialization import convert_and_respect_annotation_metadata
+from ..types.achievement_with_stats_response import AchievementWithStatsResponse
 from ..core.pydantic_utilities import parse_obj_as
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.error_body import ErrorBody
@@ -14,6 +11,10 @@ from ..errors.not_found_error import NotFoundError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from ..types.updated_user import UpdatedUser
+from ..types.achievement_completion_response import AchievementCompletionResponse
+from ..core.jsonable_encoder import jsonable_encoder
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -24,11 +25,85 @@ class AchievementsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
+    def all_(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[AchievementWithStatsResponse]:
+        """
+        Get all achievements and their completion stats.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[AchievementWithStatsResponse]
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.achievements.all_()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "achievements",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[AchievementWithStatsResponse],
+                    parse_obj_as(
+                        type_=typing.List[AchievementWithStatsResponse],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def complete(
         self,
         key: str,
         *,
-        user: UpsertedUser,
+        user: UpdatedUser,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AchievementCompletionResponse:
         """
@@ -39,7 +114,7 @@ class AchievementsClient:
         key : str
             Unique reference of the achievement as set when created.
 
-        user : UpsertedUser
+        user : UpdatedUser
             The user that completed the achievement.
 
         request_options : typing.Optional[RequestOptions]
@@ -52,15 +127,16 @@ class AchievementsClient:
 
         Examples
         --------
-        from trophy import TrophyApi, UpsertedUser
+        from trophy import TrophyApi, UpdatedUser
 
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
         client.achievements.complete(
             key="finish-onboarding",
-            user=UpsertedUser(
-                id="user-id",
+            user=UpdatedUser(
+                email="user@example.com",
+                tz="Europe/London",
             ),
         )
         """
@@ -69,7 +145,7 @@ class AchievementsClient:
             method="POST",
             json={
                 "user": convert_and_respect_annotation_metadata(
-                    object_=user, annotation=UpsertedUser, direction="write"
+                    object_=user, annotation=UpdatedUser, direction="write"
                 ),
             },
             headers={
@@ -127,11 +203,93 @@ class AsyncAchievementsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
+    async def all_(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[AchievementWithStatsResponse]:
+        """
+        Get all achievements and their completion stats.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[AchievementWithStatsResponse]
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.achievements.all_()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "achievements",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[AchievementWithStatsResponse],
+                    parse_obj_as(
+                        type_=typing.List[AchievementWithStatsResponse],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def complete(
         self,
         key: str,
         *,
-        user: UpsertedUser,
+        user: UpdatedUser,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AchievementCompletionResponse:
         """
@@ -142,7 +300,7 @@ class AsyncAchievementsClient:
         key : str
             Unique reference of the achievement as set when created.
 
-        user : UpsertedUser
+        user : UpdatedUser
             The user that completed the achievement.
 
         request_options : typing.Optional[RequestOptions]
@@ -157,7 +315,7 @@ class AsyncAchievementsClient:
         --------
         import asyncio
 
-        from trophy import AsyncTrophyApi, UpsertedUser
+        from trophy import AsyncTrophyApi, UpdatedUser
 
         client = AsyncTrophyApi(
             api_key="YOUR_API_KEY",
@@ -167,8 +325,9 @@ class AsyncAchievementsClient:
         async def main() -> None:
             await client.achievements.complete(
                 key="finish-onboarding",
-                user=UpsertedUser(
-                    id="user-id",
+                user=UpdatedUser(
+                    email="user@example.com",
+                    tz="Europe/London",
                 ),
             )
 
@@ -180,7 +339,7 @@ class AsyncAchievementsClient:
             method="POST",
             json={
                 "user": convert_and_respect_annotation_metadata(
-                    object_=user, annotation=UpsertedUser, direction="write"
+                    object_=user, annotation=UpdatedUser, direction="write"
                 ),
             },
             headers={

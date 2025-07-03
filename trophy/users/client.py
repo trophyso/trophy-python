@@ -22,6 +22,13 @@ from .types.users_metric_event_summary_response_item import (
 )
 from ..types.completed_achievement_response import CompletedAchievementResponse
 from ..types.streak_response import StreakResponse
+from ..types.get_user_points_response import GetUserPointsResponse
+from .types.users_points_event_summary_request_aggregation import (
+    UsersPointsEventSummaryRequestAggregation,
+)
+from .types.users_points_event_summary_response_item import (
+    UsersPointsEventSummaryResponseItem,
+)
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -727,6 +734,197 @@ class UsersClient:
                     StreakResponse,
                     parse_obj_as(
                         type_=StreakResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def points(
+        self,
+        id: str,
+        *,
+        awards: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetUserPointsResponse:
+        """
+        Get a user's points.
+
+        Parameters
+        ----------
+        id : str
+            ID of the user.
+
+        awards : typing.Optional[int]
+            The number of recent point awards to return.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetUserPointsResponse
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.users.points(
+            id="userId",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}/points",
+            method="GET",
+            params={
+                "awards": awards,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GetUserPointsResponse,
+                    parse_obj_as(
+                        type_=GetUserPointsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def points_event_summary(
+        self,
+        id: str,
+        *,
+        aggregation: UsersPointsEventSummaryRequestAggregation,
+        start_date: str,
+        end_date: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[UsersPointsEventSummaryResponseItem]:
+        """
+        Get a summary of points awards over time for a user.
+
+        Parameters
+        ----------
+        id : str
+            ID of the user.
+
+        aggregation : UsersPointsEventSummaryRequestAggregation
+            The time period over which to aggregate the event data.
+
+        start_date : str
+            The start date for the data range in YYYY-MM-DD format. The startDate must be before the endDate, and the date range must not exceed 400 days.
+
+        end_date : str
+            The end date for the data range in YYYY-MM-DD format. The endDate must be after the startDate, and the date range must not exceed 400 days.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[UsersPointsEventSummaryResponseItem]
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.users.points_event_summary(
+            id="userId",
+            aggregation="daily",
+            start_date="2024-01-01",
+            end_date="2024-01-31",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}/points/event-summary",
+            method="GET",
+            params={
+                "aggregation": aggregation,
+                "startDate": start_date,
+                "endDate": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[UsersPointsEventSummaryResponseItem],
+                    parse_obj_as(
+                        type_=typing.List[UsersPointsEventSummaryResponseItem],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1529,6 +1727,213 @@ class AsyncUsersClient:
                     StreakResponse,
                     parse_obj_as(
                         type_=StreakResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def points(
+        self,
+        id: str,
+        *,
+        awards: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetUserPointsResponse:
+        """
+        Get a user's points.
+
+        Parameters
+        ----------
+        id : str
+            ID of the user.
+
+        awards : typing.Optional[int]
+            The number of recent point awards to return.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetUserPointsResponse
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.points(
+                id="userId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}/points",
+            method="GET",
+            params={
+                "awards": awards,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GetUserPointsResponse,
+                    parse_obj_as(
+                        type_=GetUserPointsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def points_event_summary(
+        self,
+        id: str,
+        *,
+        aggregation: UsersPointsEventSummaryRequestAggregation,
+        start_date: str,
+        end_date: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[UsersPointsEventSummaryResponseItem]:
+        """
+        Get a summary of points awards over time for a user.
+
+        Parameters
+        ----------
+        id : str
+            ID of the user.
+
+        aggregation : UsersPointsEventSummaryRequestAggregation
+            The time period over which to aggregate the event data.
+
+        start_date : str
+            The start date for the data range in YYYY-MM-DD format. The startDate must be before the endDate, and the date range must not exceed 400 days.
+
+        end_date : str
+            The end date for the data range in YYYY-MM-DD format. The endDate must be after the startDate, and the date range must not exceed 400 days.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[UsersPointsEventSummaryResponseItem]
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.points_event_summary(
+                id="userId",
+                aggregation="daily",
+                start_date="2024-01-01",
+                end_date="2024-01-31",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}/points/event-summary",
+            method="GET",
+            params={
+                "aggregation": aggregation,
+                "startDate": start_date,
+                "endDate": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[UsersPointsEventSummaryResponseItem],
+                    parse_obj_as(
+                        type_=typing.List[UsersPointsEventSummaryResponseItem],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

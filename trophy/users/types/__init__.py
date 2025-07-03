@@ -6,8 +6,16 @@ from .users_metric_event_summary_request_aggregation import (
 from .users_metric_event_summary_response_item import (
     UsersMetricEventSummaryResponseItem,
 )
+from .users_points_event_summary_request_aggregation import (
+    UsersPointsEventSummaryRequestAggregation,
+)
+from .users_points_event_summary_response_item import (
+    UsersPointsEventSummaryResponseItem,
+)
 
 __all__ = [
     "UsersMetricEventSummaryRequestAggregation",
     "UsersMetricEventSummaryResponseItem",
+    "UsersPointsEventSummaryRequestAggregation",
+    "UsersPointsEventSummaryResponseItem",
 ]

@@ -6,7 +6,8 @@ from ..core.serialization import FieldMetadata
 import pydantic
 import typing
 from .completed_achievement_response import CompletedAchievementResponse
-from .increment_metric_streak_response import IncrementMetricStreakResponse
+from .metric_event_streak_response import MetricEventStreakResponse
+from .points_award import PointsAward
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -38,11 +39,15 @@ class EventResponse(UniversalBaseModel):
     """
 
     current_streak: typing_extensions.Annotated[
-        typing.Optional[IncrementMetricStreakResponse],
-        FieldMetadata(alias="currentStreak"),
+        typing.Optional[MetricEventStreakResponse], FieldMetadata(alias="currentStreak")
     ] = pydantic.Field(default=None)
     """
     The user's current streak for the metric, if the metric has streaks enabled.
+    """
+
+    points: typing.Optional[PointsAward] = pydantic.Field(default=None)
+    """
+    The points added by this event, and a breakdown of the points awards that added points.
     """
 
     if IS_PYDANTIC_V2:

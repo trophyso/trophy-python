@@ -7,10 +7,12 @@ from .core.client_wrapper import SyncClientWrapper
 from .achievements.client import AchievementsClient
 from .metrics.client import MetricsClient
 from .users.client import UsersClient
+from .points.client import PointsClient
 from .core.client_wrapper import AsyncClientWrapper
 from .achievements.client import AsyncAchievementsClient
 from .metrics.client import AsyncMetricsClient
 from .users.client import AsyncUsersClient
+from .points.client import AsyncPointsClient
 
 
 class TrophyApi:
@@ -78,6 +80,7 @@ class TrophyApi:
         self.achievements = AchievementsClient(client_wrapper=self._client_wrapper)
         self.metrics = MetricsClient(client_wrapper=self._client_wrapper)
         self.users = UsersClient(client_wrapper=self._client_wrapper)
+        self.points = PointsClient(client_wrapper=self._client_wrapper)
 
 
 class AsyncTrophyApi:
@@ -145,6 +148,7 @@ class AsyncTrophyApi:
         self.achievements = AsyncAchievementsClient(client_wrapper=self._client_wrapper)
         self.metrics = AsyncMetricsClient(client_wrapper=self._client_wrapper)
         self.users = AsyncUsersClient(client_wrapper=self._client_wrapper)
+        self.points = AsyncPointsClient(client_wrapper=self._client_wrapper)
 
 
 def _get_base_url(

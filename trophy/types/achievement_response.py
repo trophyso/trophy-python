@@ -2,9 +2,11 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
+from .achievement_response_trigger import AchievementResponseTrigger
 import typing
 import typing_extensions
 from ..core.serialization import FieldMetadata
+from .metric_event_streak_response import MetricEventStreakResponse
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -19,9 +21,9 @@ class AchievementResponse(UniversalBaseModel):
     The name of this achievement.
     """
 
-    trigger: str = pydantic.Field()
+    trigger: AchievementResponseTrigger = pydantic.Field()
     """
-    The trigger of the achievement, either 'metric', 'streak', or 'api'.
+    The trigger of the achievement.
     """
 
     description: typing.Optional[str] = pydantic.Field(default=None)
@@ -67,6 +69,13 @@ class AchievementResponse(UniversalBaseModel):
     ] = pydantic.Field(default=None)
     """
     The name of the metric associated with this achievement (only applicable if trigger = 'metric')
+    """
+
+    current_streak: typing_extensions.Annotated[
+        typing.Optional[MetricEventStreakResponse], FieldMetadata(alias="currentStreak")
+    ] = pydantic.Field(default=None)
+    """
+    The user's current streak for the metric, if the metric has streaks enabled.
     """
 
     if IS_PYDANTIC_V2:

@@ -3,9 +3,13 @@
 from .types import (
     UsersMetricEventSummaryRequestAggregation,
     UsersMetricEventSummaryResponseItem,
+    UsersPointsEventSummaryRequestAggregation,
+    UsersPointsEventSummaryResponseItem,
 )
 
 __all__ = [
     "UsersMetricEventSummaryRequestAggregation",
     "UsersMetricEventSummaryResponseItem",
+    "UsersPointsEventSummaryRequestAggregation",
+    "UsersPointsEventSummaryResponseItem",
 ]

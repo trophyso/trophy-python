@@ -6,9 +6,9 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class IncrementMetricStreakResponse(BaseStreakResponse):
+class MetricEventStreakResponse(BaseStreakResponse):
     """
-    An object representing the user's streak after incrementing a metric.
+    An object representing the user's streak after sending a metric event.
     """
 
     extended: typing.Optional[bool] = pydantic.Field(default=None)

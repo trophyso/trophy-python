@@ -7,7 +7,7 @@ import pydantic
 import typing
 from .completed_achievement_response import CompletedAchievementResponse
 from .metric_event_streak_response import MetricEventStreakResponse
-from .points_award import PointsAward
+from .metric_event_points_response import MetricEventPointsResponse
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -45,7 +45,7 @@ class EventResponse(UniversalBaseModel):
     The user's current streak for the metric, if the metric has streaks enabled.
     """
 
-    points: typing.Optional[PointsAward] = pydantic.Field(default=None)
+    points: typing.Optional[MetricEventPointsResponse] = pydantic.Field(default=None)
     """
     The points added by this event, and a breakdown of the points awards that added points.
     """

@@ -18,6 +18,16 @@ class PointsAward(UniversalBaseModel):
     The points awarded by this trigger
     """
 
+    date: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The date these points were awarded, in ISO 8601 format.
+    """
+
+    total: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    The user's total points after this award occurred.
+    """
+
     trigger: typing.Optional[PointsTrigger] = None
 
     if IS_PYDANTIC_V2:

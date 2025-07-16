@@ -12,8 +12,8 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.jsonable_encoder import jsonable_encoder
-from ..types.metric_response import MetricResponse
 from ..errors.not_found_error import NotFoundError
+from ..types.metric_response import MetricResponse
 from .types.users_metric_event_summary_request_aggregation import (
     UsersMetricEventSummaryRequestAggregation,
 )
@@ -224,6 +224,113 @@ class UsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def upsert(
+        self,
+        id: str,
+        *,
+        email: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        tz: typing.Optional[str] = OMIT,
+        subscribe_to_emails: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> User:
+        """
+        Upsert a user (create or update).
+
+        Parameters
+        ----------
+        id : str
+            ID of the user to upsert.
+
+        email : typing.Optional[str]
+            The user's email address. Required if subscribeToEmails is true.
+
+        name : typing.Optional[str]
+            The name to refer to the user by in emails.
+
+        tz : typing.Optional[str]
+            The user's timezone (used for email scheduling).
+
+        subscribe_to_emails : typing.Optional[bool]
+            Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        User
+            Upserted user
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.users.upsert(
+            id="id",
+            email="user@example.com",
+            tz="Europe/London",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}",
+            method="PUT",
+            json={
+                "email": email,
+                "name": name,
+                "tz": tz,
+                "subscribeToEmails": subscribe_to_emails,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    User,
+                    parse_obj_as(
+                        type_=User,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def update(
         self,
         id: str,
@@ -308,6 +415,16 @@ class UsersClient:
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     typing.cast(
                         ErrorBody,
                         parse_obj_as(
@@ -1169,6 +1286,121 @@ class AsyncUsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    async def upsert(
+        self,
+        id: str,
+        *,
+        email: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        tz: typing.Optional[str] = OMIT,
+        subscribe_to_emails: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> User:
+        """
+        Upsert a user (create or update).
+
+        Parameters
+        ----------
+        id : str
+            ID of the user to upsert.
+
+        email : typing.Optional[str]
+            The user's email address. Required if subscribeToEmails is true.
+
+        name : typing.Optional[str]
+            The name to refer to the user by in emails.
+
+        tz : typing.Optional[str]
+            The user's timezone (used for email scheduling).
+
+        subscribe_to_emails : typing.Optional[bool]
+            Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        User
+            Upserted user
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.upsert(
+                id="id",
+                email="user@example.com",
+                tz="Europe/London",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}",
+            method="PUT",
+            json={
+                "email": email,
+                "name": name,
+                "tz": tz,
+                "subscribeToEmails": subscribe_to_emails,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    User,
+                    parse_obj_as(
+                        type_=User,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def update(
         self,
         id: str,
@@ -1261,6 +1493,16 @@ class AsyncUsersClient:
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     typing.cast(
                         ErrorBody,
                         parse_obj_as(

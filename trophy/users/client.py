@@ -50,7 +50,7 @@ class UsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
-        Identify a new user.
+        Create a new user.
 
         Parameters
         ----------
@@ -224,7 +224,7 @@ class UsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def upsert(
+    def identify(
         self,
         id: str,
         *,
@@ -235,12 +235,12 @@ class UsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
-        Upsert a user (create or update).
+        Identify a user.
 
         Parameters
         ----------
         id : str
-            ID of the user to upsert.
+            ID of the user to identify.
 
         email : typing.Optional[str]
             The user's email address. Required if subscribeToEmails is true.
@@ -269,7 +269,7 @@ class UsersClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.users.upsert(
+        client.users.identify(
             id="id",
             email="user@example.com",
             tz="Europe/London",
@@ -1096,7 +1096,7 @@ class AsyncUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
-        Identify a new user.
+        Create a new user.
 
         Parameters
         ----------
@@ -1286,7 +1286,7 @@ class AsyncUsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def upsert(
+    async def identify(
         self,
         id: str,
         *,
@@ -1297,12 +1297,12 @@ class AsyncUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
-        Upsert a user (create or update).
+        Identify a user.
 
         Parameters
         ----------
         id : str
-            ID of the user to upsert.
+            ID of the user to identify.
 
         email : typing.Optional[str]
             The user's email address. Required if subscribeToEmails is true.
@@ -1336,7 +1336,7 @@ class AsyncUsersClient:
 
 
         async def main() -> None:
-            await client.users.upsert(
+            await client.users.identify(
                 id="id",
                 email="user@example.com",
                 tz="Europe/London",

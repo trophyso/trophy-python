@@ -46,6 +46,7 @@ class UsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
@@ -65,6 +66,9 @@ class UsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        device_tokens : typing.Optional[typing.Sequence[str]]
+            The user's device tokens, used for push notifications.
 
         subscribe_to_emails : typing.Optional[bool]
             Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
@@ -96,6 +100,7 @@ class UsersClient:
                 "email": email,
                 "name": name,
                 "tz": tz,
+                "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
             },
             request_options=request_options,
@@ -231,6 +236,7 @@ class UsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
@@ -250,6 +256,9 @@ class UsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        device_tokens : typing.Optional[typing.Sequence[str]]
+            The user's device tokens, used for push notifications.
 
         subscribe_to_emails : typing.Optional[bool]
             Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
@@ -282,6 +291,7 @@ class UsersClient:
                 "email": email,
                 "name": name,
                 "tz": tz,
+                "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
             },
             request_options=request_options,
@@ -338,6 +348,7 @@ class UsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
@@ -357,6 +368,9 @@ class UsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        device_tokens : typing.Optional[typing.Sequence[str]]
+            The user's device tokens, used for push notifications.
 
         subscribe_to_emails : typing.Optional[bool]
             Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
@@ -389,6 +403,7 @@ class UsersClient:
                 "email": email,
                 "name": name,
                 "tz": tz,
+                "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
             },
             request_options=request_options,
@@ -1092,6 +1107,7 @@ class AsyncUsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
@@ -1111,6 +1127,9 @@ class AsyncUsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        device_tokens : typing.Optional[typing.Sequence[str]]
+            The user's device tokens, used for push notifications.
 
         subscribe_to_emails : typing.Optional[bool]
             Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
@@ -1150,6 +1169,7 @@ class AsyncUsersClient:
                 "email": email,
                 "name": name,
                 "tz": tz,
+                "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
             },
             request_options=request_options,
@@ -1293,6 +1313,7 @@ class AsyncUsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
@@ -1312,6 +1333,9 @@ class AsyncUsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        device_tokens : typing.Optional[typing.Sequence[str]]
+            The user's device tokens, used for push notifications.
 
         subscribe_to_emails : typing.Optional[bool]
             Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
@@ -1352,6 +1376,7 @@ class AsyncUsersClient:
                 "email": email,
                 "name": name,
                 "tz": tz,
+                "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
             },
             request_options=request_options,
@@ -1408,6 +1433,7 @@ class AsyncUsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
@@ -1427,6 +1453,9 @@ class AsyncUsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        device_tokens : typing.Optional[typing.Sequence[str]]
+            The user's device tokens, used for push notifications.
 
         subscribe_to_emails : typing.Optional[bool]
             Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
@@ -1467,6 +1496,7 @@ class AsyncUsersClient:
                 "email": email,
                 "name": name,
                 "tz": tz,
+                "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
             },
             request_options=request_options,

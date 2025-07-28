@@ -28,6 +28,13 @@ class UpdatedUser(UniversalBaseModel):
     The user's timezone (used for email scheduling).
     """
 
+    device_tokens: typing_extensions.Annotated[
+        typing.Optional[typing.List[str]], FieldMetadata(alias="deviceTokens")
+    ] = pydantic.Field(default=None)
+    """
+    The user's device tokens, used for push notifications.
+    """
+
     subscribe_to_emails: typing_extensions.Annotated[
         typing.Optional[bool], FieldMetadata(alias="subscribeToEmails")
     ] = pydantic.Field(default=None)

@@ -71,7 +71,7 @@ class UsersClient:
             The user's device tokens, used for push notifications.
 
         subscribe_to_emails : typing.Optional[bool]
-            Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
+            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -261,7 +261,7 @@ class UsersClient:
             The user's device tokens, used for push notifications.
 
         subscribe_to_emails : typing.Optional[bool]
-            Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
+            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -373,7 +373,7 @@ class UsersClient:
             The user's device tokens, used for push notifications.
 
         subscribe_to_emails : typing.Optional[bool]
-            Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
+            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1132,7 +1132,7 @@ class AsyncUsersClient:
             The user's device tokens, used for push notifications.
 
         subscribe_to_emails : typing.Optional[bool]
-            Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
+            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1338,7 +1338,7 @@ class AsyncUsersClient:
             The user's device tokens, used for push notifications.
 
         subscribe_to_emails : typing.Optional[bool]
-            Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
+            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1458,7 +1458,7 @@ class AsyncUsersClient:
             The user's device tokens, used for push notifications.
 
         subscribe_to_emails : typing.Optional[bool]
-            Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
+            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

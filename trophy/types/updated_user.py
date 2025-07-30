@@ -39,7 +39,7 @@ class UpdatedUser(UniversalBaseModel):
         typing.Optional[bool], FieldMetadata(alias="subscribeToEmails")
     ] = pydantic.Field(default=None)
     """
-    Whether the user should receive Trophy-powered emails. Cannot be false if an email is provided.
+    Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
     """
 
     if IS_PYDANTIC_V2:

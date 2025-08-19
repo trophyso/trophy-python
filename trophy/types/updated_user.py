@@ -42,6 +42,11 @@ class UpdatedUser(UniversalBaseModel):
     Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
     """
 
+    attributes: typing.Optional[typing.Dict[str, str]] = pydantic.Field(default=None)
+    """
+    User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(
             extra="allow", frozen=True

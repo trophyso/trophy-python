@@ -4,13 +4,15 @@ from ..core.client_wrapper import SyncClientWrapper
 import typing
 from ..core.request_options import RequestOptions
 from ..types.points_summary_response import PointsSummaryResponse
+from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import parse_obj_as
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.error_body import ErrorBody
 from ..errors.not_found_error import NotFoundError
+from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
-from ..types.points_trigger_response import PointsTriggerResponse
+from ..types.points_system_response import PointsSystemResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
 
@@ -19,13 +21,23 @@ class PointsClient:
         self._client_wrapper = client_wrapper
 
     def summary(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        key: str,
+        *,
+        user_attributes: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PointsSummaryResponse:
         """
         Get a breakdown of the number of users with points in each range.
 
         Parameters
         ----------
+        key : str
+            Key of the points system.
+
+        user_attributes : typing.Optional[str]
+            Optional colon-delimited user attribute filters in the format attributeKey:value,attributeKey:value. Only users matching ALL specified attributes will be included in the points breakdown.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -41,11 +53,17 @@ class PointsClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.points.summary()
+        client.points.summary(
+            key="points-system-key",
+            user_attributes="plan-type:premium,region:us-east",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "points/summary",
+            f"points/{jsonable_encoder(key)}/summary",
             method="GET",
+            params={
+                "userAttributes": user_attributes,
+            },
             request_options=request_options,
         )
         try:
@@ -77,25 +95,38 @@ class PointsClient:
                         ),
                     )
                 )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def triggers(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[PointsTriggerResponse]:
+    def system(
+        self, key: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PointsSystemResponse:
         """
-        Get all points triggers.
+        Get a points system with all its triggers.
 
         Parameters
         ----------
+        key : str
+            Key of the points system.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        typing.List[PointsTriggerResponse]
+        PointsSystemResponse
             Successful operation
 
         Examples
@@ -105,24 +136,36 @@ class PointsClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.points.triggers()
+        client.points.system(
+            key="points-system-key",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "points/triggers",
+            f"points/{jsonable_encoder(key)}",
             method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[PointsTriggerResponse],
+                    PointsSystemResponse,
                     parse_obj_as(
-                        type_=typing.List[PointsTriggerResponse],  # type: ignore
+                        type_=PointsSystemResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     typing.cast(
                         ErrorBody,
                         parse_obj_as(
@@ -142,13 +185,23 @@ class AsyncPointsClient:
         self._client_wrapper = client_wrapper
 
     async def summary(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        key: str,
+        *,
+        user_attributes: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PointsSummaryResponse:
         """
         Get a breakdown of the number of users with points in each range.
 
         Parameters
         ----------
+        key : str
+            Key of the points system.
+
+        user_attributes : typing.Optional[str]
+            Optional colon-delimited user attribute filters in the format attributeKey:value,attributeKey:value. Only users matching ALL specified attributes will be included in the points breakdown.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -169,14 +222,20 @@ class AsyncPointsClient:
 
 
         async def main() -> None:
-            await client.points.summary()
+            await client.points.summary(
+                key="points-system-key",
+                user_attributes="plan-type:premium,region:us-east",
+            )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "points/summary",
+            f"points/{jsonable_encoder(key)}/summary",
             method="GET",
+            params={
+                "userAttributes": user_attributes,
+            },
             request_options=request_options,
         )
         try:
@@ -208,25 +267,38 @@ class AsyncPointsClient:
                         ),
                     )
                 )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def triggers(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[PointsTriggerResponse]:
+    async def system(
+        self, key: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PointsSystemResponse:
         """
-        Get all points triggers.
+        Get a points system with all its triggers.
 
         Parameters
         ----------
+        key : str
+            Key of the points system.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        typing.List[PointsTriggerResponse]
+        PointsSystemResponse
             Successful operation
 
         Examples
@@ -241,27 +313,39 @@ class AsyncPointsClient:
 
 
         async def main() -> None:
-            await client.points.triggers()
+            await client.points.system(
+                key="points-system-key",
+            )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "points/triggers",
+            f"points/{jsonable_encoder(key)}",
             method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[PointsTriggerResponse],
+                    PointsSystemResponse,
                     parse_obj_as(
-                        type_=typing.List[PointsTriggerResponse],  # type: ignore
+                        type_=PointsSystemResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     typing.cast(
                         ErrorBody,
                         parse_obj_as(

@@ -45,9 +45,11 @@ class EventResponse(UniversalBaseModel):
     The user's current streak for the metric, if the metric has streaks enabled.
     """
 
-    points: typing.Optional[MetricEventPointsResponse] = pydantic.Field(default=None)
+    points: typing.Optional[typing.Dict[str, MetricEventPointsResponse]] = (
+        pydantic.Field(default=None)
+    )
     """
-    The points added by this event, and a breakdown of the points awards that added points.
+    A map of points systems by key that were affected by this event.
     """
 
     if IS_PYDANTIC_V2:

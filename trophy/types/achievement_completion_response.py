@@ -5,8 +5,9 @@ import typing_extensions
 from ..core.serialization import FieldMetadata
 import pydantic
 from .completed_achievement_response import CompletedAchievementResponse
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
+from .metric_event_points_response import MetricEventPointsResponse
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class AchievementCompletionResponse(UniversalBaseModel):
@@ -18,6 +19,12 @@ class AchievementCompletionResponse(UniversalBaseModel):
     """
 
     achievement: CompletedAchievementResponse
+    points: typing.Optional[typing.Dict[str, MetricEventPointsResponse]] = (
+        pydantic.Field(default=None)
+    )
+    """
+    A map of points systems by key that were affected by this achievement completion.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(

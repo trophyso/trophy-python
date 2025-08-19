@@ -4,6 +4,12 @@ from .achievement_completion_response import AchievementCompletionResponse
 from .achievement_response import AchievementResponse
 from .achievement_response_trigger import AchievementResponseTrigger
 from .achievement_with_stats_response import AchievementWithStatsResponse
+from .achievement_with_stats_response_event_attribute import (
+    AchievementWithStatsResponseEventAttribute,
+)
+from .achievement_with_stats_response_user_attributes_item import (
+    AchievementWithStatsResponseUserAttributesItem,
+)
 from .base_streak_response import BaseStreakResponse
 from .completed_achievement_response import CompletedAchievementResponse
 from .error_body import ErrorBody
@@ -16,10 +22,15 @@ from .metric_status import MetricStatus
 from .points_award import PointsAward
 from .points_range import PointsRange
 from .points_summary_response import PointsSummaryResponse
+from .points_system_response import PointsSystemResponse
 from .points_trigger import PointsTrigger
 from .points_trigger_response import PointsTriggerResponse
+from .points_trigger_response_event_attribute import PointsTriggerResponseEventAttribute
 from .points_trigger_response_status import PointsTriggerResponseStatus
 from .points_trigger_response_type import PointsTriggerResponseType
+from .points_trigger_response_user_attributes_item import (
+    PointsTriggerResponseUserAttributesItem,
+)
 from .points_trigger_type import PointsTriggerType
 from .streak_frequency import StreakFrequency
 from .streak_response import StreakResponse
@@ -33,6 +44,8 @@ __all__ = [
     "AchievementResponse",
     "AchievementResponseTrigger",
     "AchievementWithStatsResponse",
+    "AchievementWithStatsResponseEventAttribute",
+    "AchievementWithStatsResponseUserAttributesItem",
     "BaseStreakResponse",
     "CompletedAchievementResponse",
     "ErrorBody",
@@ -45,10 +58,13 @@ __all__ = [
     "PointsAward",
     "PointsRange",
     "PointsSummaryResponse",
+    "PointsSystemResponse",
     "PointsTrigger",
     "PointsTriggerResponse",
+    "PointsTriggerResponseEventAttribute",
     "PointsTriggerResponseStatus",
     "PointsTriggerResponseType",
+    "PointsTriggerResponseUserAttributesItem",
     "PointsTriggerType",
     "StreakFrequency",
     "StreakResponse",

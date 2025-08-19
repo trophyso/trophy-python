@@ -30,6 +30,7 @@ class MetricsClient:
         *,
         user: UpsertedUser,
         value: float,
+        attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EventResponse:
         """
@@ -45,6 +46,9 @@ class MetricsClient:
 
         value : float
             The value to add to the user's current total for the given metric.
+
+        attributes : typing.Optional[typing.Dict[str, str]]
+            Event attributes as key-value pairs. Keys must match existing event attributes set up in the Trophy dashboard.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -66,9 +70,11 @@ class MetricsClient:
             user=UpsertedUser(
                 email="user@example.com",
                 tz="Europe/London",
+                attributes={"department": "engineering", "role": "developer"},
                 id="18",
             ),
             value=750.0,
+            attributes={"category": "writing", "source": "mobile-app"},
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -79,6 +85,7 @@ class MetricsClient:
                     object_=user, annotation=UpsertedUser, direction="write"
                 ),
                 "value": value,
+                "attributes": attributes,
             },
             headers={
                 "content-type": "application/json",
@@ -141,6 +148,7 @@ class AsyncMetricsClient:
         *,
         user: UpsertedUser,
         value: float,
+        attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EventResponse:
         """
@@ -156,6 +164,9 @@ class AsyncMetricsClient:
 
         value : float
             The value to add to the user's current total for the given metric.
+
+        attributes : typing.Optional[typing.Dict[str, str]]
+            Event attributes as key-value pairs. Keys must match existing event attributes set up in the Trophy dashboard.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -182,9 +193,11 @@ class AsyncMetricsClient:
                 user=UpsertedUser(
                     email="user@example.com",
                     tz="Europe/London",
+                    attributes={"department": "engineering", "role": "developer"},
                     id="18",
                 ),
                 value=750.0,
+                attributes={"category": "writing", "source": "mobile-app"},
             )
 
 
@@ -198,6 +211,7 @@ class AsyncMetricsClient:
                     object_=user, annotation=UpsertedUser, direction="write"
                 ),
                 "value": value,
+                "attributes": attributes,
             },
             headers={
                 "content-type": "application/json",

@@ -7,14 +7,14 @@ from ..types.achievement_with_stats_response import AchievementWithStatsResponse
 from ..core.pydantic_utilities import parse_obj_as
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.error_body import ErrorBody
-from ..errors.not_found_error import NotFoundError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
-from ..types.updated_user import UpdatedUser
+from ..types.upserted_user import UpsertedUser
 from ..types.achievement_completion_response import AchievementCompletionResponse
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.serialization import convert_and_respect_annotation_metadata
+from ..errors.not_found_error import NotFoundError
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -74,16 +74,6 @@ class AchievementsClient:
                         ),
                     )
                 )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     typing.cast(
@@ -103,7 +93,7 @@ class AchievementsClient:
         self,
         key: str,
         *,
-        user: UpdatedUser,
+        user: UpsertedUser,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AchievementCompletionResponse:
         """
@@ -114,7 +104,7 @@ class AchievementsClient:
         key : str
             Unique reference of the achievement as set when created.
 
-        user : UpdatedUser
+        user : UpsertedUser
             The user that completed the achievement.
 
         request_options : typing.Optional[RequestOptions]
@@ -127,16 +117,17 @@ class AchievementsClient:
 
         Examples
         --------
-        from trophy import TrophyApi, UpdatedUser
+        from trophy import TrophyApi, UpsertedUser
 
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
         client.achievements.complete(
             key="finish-onboarding",
-            user=UpdatedUser(
+            user=UpsertedUser(
                 email="user@example.com",
                 tz="Europe/London",
+                id="user-id",
             ),
         )
         """
@@ -145,7 +136,7 @@ class AchievementsClient:
             method="POST",
             json={
                 "user": convert_and_respect_annotation_metadata(
-                    object_=user, annotation=UpdatedUser, direction="write"
+                    object_=user, annotation=UpsertedUser, direction="write"
                 ),
             },
             headers={
@@ -260,16 +251,6 @@ class AsyncAchievementsClient:
                         ),
                     )
                 )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     typing.cast(
@@ -289,7 +270,7 @@ class AsyncAchievementsClient:
         self,
         key: str,
         *,
-        user: UpdatedUser,
+        user: UpsertedUser,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AchievementCompletionResponse:
         """
@@ -300,7 +281,7 @@ class AsyncAchievementsClient:
         key : str
             Unique reference of the achievement as set when created.
 
-        user : UpdatedUser
+        user : UpsertedUser
             The user that completed the achievement.
 
         request_options : typing.Optional[RequestOptions]
@@ -315,7 +296,7 @@ class AsyncAchievementsClient:
         --------
         import asyncio
 
-        from trophy import AsyncTrophyApi, UpdatedUser
+        from trophy import AsyncTrophyApi, UpsertedUser
 
         client = AsyncTrophyApi(
             api_key="YOUR_API_KEY",
@@ -325,9 +306,10 @@ class AsyncAchievementsClient:
         async def main() -> None:
             await client.achievements.complete(
                 key="finish-onboarding",
-                user=UpdatedUser(
+                user=UpsertedUser(
                     email="user@example.com",
                     tz="Europe/London",
+                    id="user-id",
                 ),
             )
 
@@ -339,7 +321,7 @@ class AsyncAchievementsClient:
             method="POST",
             json={
                 "user": convert_and_respect_annotation_metadata(
-                    object_=user, annotation=UpdatedUser, direction="write"
+                    object_=user, annotation=UpsertedUser, direction="write"
                 ),
             },
             headers={

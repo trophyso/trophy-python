@@ -7,6 +7,10 @@ from .points_trigger_response_type import PointsTriggerResponseType
 from .points_trigger_response_status import PointsTriggerResponseStatus
 import typing_extensions
 from ..core.serialization import FieldMetadata
+from .points_trigger_response_user_attributes_item import (
+    PointsTriggerResponseUserAttributesItem,
+)
+from .points_trigger_response_event_attribute import PointsTriggerResponseEventAttribute
 import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -72,6 +76,22 @@ class PointsTriggerResponse(UniversalBaseModel):
     ] = pydantic.Field(default=None)
     """
     The name of the achievement associated with this trigger, if the trigger is an achievement.
+    """
+
+    user_attributes: typing_extensions.Annotated[
+        typing.Optional[typing.List[PointsTriggerResponseUserAttributesItem]],
+        FieldMetadata(alias="userAttributes"),
+    ] = pydantic.Field(default=None)
+    """
+    User attribute filters that must be met for this trigger to activate. Only present if the trigger has user attribute filters configured.
+    """
+
+    event_attribute: typing_extensions.Annotated[
+        typing.Optional[PointsTriggerResponseEventAttribute],
+        FieldMetadata(alias="eventAttribute"),
+    ] = pydantic.Field(default=None)
+    """
+    Event attribute filter that must be met for this trigger to activate. Only present if the trigger has an event filter configured.
     """
 
     created: typing.Optional[dt.datetime] = pydantic.Field(default=None)

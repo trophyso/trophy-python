@@ -5,41 +5,36 @@ import pydantic
 import typing
 import typing_extensions
 from ..core.serialization import FieldMetadata
-from .points_award import PointsAward
+from .points_trigger_response import PointsTriggerResponse
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class GetUserPointsResponse(UniversalBaseModel):
+class PointsSystemResponse(UniversalBaseModel):
     id: str = pydantic.Field()
     """
-    The ID of the points system
+    The unique ID of the points system.
     """
 
     name: str = pydantic.Field()
     """
-    The name of the points system
+    The name of the points system.
     """
 
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The description of the points system
+    The description of the points system.
     """
 
     badge_url: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="badgeUrl")
     ] = pydantic.Field(default=None)
     """
-    The URL of the badge image for the points system
+    The URL of the badge image for the points system, if one has been uploaded.
     """
 
-    total: float = pydantic.Field()
+    triggers: typing.List[PointsTriggerResponse] = pydantic.Field()
     """
-    The user's total points
-    """
-
-    awards: typing.List[PointsAward] = pydantic.Field()
-    """
-    Array of trigger awards that added points.
+    Array of active triggers for this points system.
     """
 
     if IS_PYDANTIC_V2:

@@ -48,6 +48,7 @@ class UsersClient:
         tz: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -72,6 +73,9 @@ class UsersClient:
 
         subscribe_to_emails : typing.Optional[bool]
             Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
+
+        attributes : typing.Optional[typing.Dict[str, str]]
+            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -102,6 +106,7 @@ class UsersClient:
                 "tz": tz,
                 "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
+                "attributes": attributes,
             },
             request_options=request_options,
             omit=OMIT,
@@ -238,6 +243,7 @@ class UsersClient:
         tz: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -263,6 +269,9 @@ class UsersClient:
         subscribe_to_emails : typing.Optional[bool]
             Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
 
+        attributes : typing.Optional[typing.Dict[str, str]]
+            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -282,6 +291,7 @@ class UsersClient:
             id="id",
             email="user@example.com",
             tz="Europe/London",
+            attributes={"department": "engineering", "role": "developer"},
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -293,6 +303,7 @@ class UsersClient:
                 "tz": tz,
                 "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
+                "attributes": attributes,
             },
             request_options=request_options,
             omit=OMIT,
@@ -350,6 +361,7 @@ class UsersClient:
         tz: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -375,6 +387,9 @@ class UsersClient:
         subscribe_to_emails : typing.Optional[bool]
             Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
 
+        attributes : typing.Optional[typing.Dict[str, str]]
+            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -394,6 +409,7 @@ class UsersClient:
             id="id",
             email="user@example.com",
             tz="Europe/London",
+            attributes={"department": "engineering", "role": "developer"},
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -405,6 +421,7 @@ class UsersClient:
                 "tz": tz,
                 "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
+                "attributes": attributes,
             },
             request_options=request_options,
             omit=OMIT,
@@ -736,16 +753,23 @@ class UsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def all_achievements(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    def achievements(
+        self,
+        id: str,
+        *,
+        include_incomplete: typing.Optional[typing.Literal["true"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[CompletedAchievementResponse]:
         """
-        Get all of a user's completed achievements.
+        Get a user's achievements.
 
         Parameters
         ----------
         id : str
             ID of the user.
+
+        include_incomplete : typing.Optional[typing.Literal["true"]]
+            When set to 'true', returns both completed and incomplete achievements for the user. When omitted or set to any other value, returns only completed achievements.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -762,13 +786,16 @@ class UsersClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.users.all_achievements(
+        client.users.achievements(
             id="userId",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/achievements",
             method="GET",
+            params={
+                "includeIncomplete": include_incomplete,
+            },
             request_options=request_options,
         )
         try:
@@ -907,17 +934,21 @@ class UsersClient:
     def points(
         self,
         id: str,
+        key: str,
         *,
         awards: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetUserPointsResponse:
         """
-        Get a user's points.
+        Get a user's points for a specific points system.
 
         Parameters
         ----------
         id : str
             ID of the user.
+
+        key : str
+            Key of the points system.
 
         awards : typing.Optional[int]
             The number of recent point awards to return.
@@ -939,10 +970,11 @@ class UsersClient:
         )
         client.users.points(
             id="userId",
+            key="points-system-key",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/points",
+            f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}",
             method="GET",
             params={
                 "awards": awards,
@@ -996,6 +1028,7 @@ class UsersClient:
     def points_event_summary(
         self,
         id: str,
+        key: str,
         *,
         aggregation: UsersPointsEventSummaryRequestAggregation,
         start_date: str,
@@ -1003,12 +1036,15 @@ class UsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[UsersPointsEventSummaryResponseItem]:
         """
-        Get a summary of points awards over time for a user.
+        Get a summary of points awards over time for a user for a specific points system.
 
         Parameters
         ----------
         id : str
             ID of the user.
+
+        key : str
+            Key of the points system.
 
         aggregation : UsersPointsEventSummaryRequestAggregation
             The time period over which to aggregate the event data.
@@ -1036,13 +1072,14 @@ class UsersClient:
         )
         client.users.points_event_summary(
             id="userId",
+            key="points-system-key",
             aggregation="daily",
             start_date="2024-01-01",
             end_date="2024-01-31",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/points/event-summary",
+            f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}/event-summary",
             method="GET",
             params={
                 "aggregation": aggregation,
@@ -1109,6 +1146,7 @@ class AsyncUsersClient:
         tz: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -1133,6 +1171,9 @@ class AsyncUsersClient:
 
         subscribe_to_emails : typing.Optional[bool]
             Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
+
+        attributes : typing.Optional[typing.Dict[str, str]]
+            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1171,6 +1212,7 @@ class AsyncUsersClient:
                 "tz": tz,
                 "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
+                "attributes": attributes,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1315,6 +1357,7 @@ class AsyncUsersClient:
         tz: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -1340,6 +1383,9 @@ class AsyncUsersClient:
         subscribe_to_emails : typing.Optional[bool]
             Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
 
+        attributes : typing.Optional[typing.Dict[str, str]]
+            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1364,6 +1410,7 @@ class AsyncUsersClient:
                 id="id",
                 email="user@example.com",
                 tz="Europe/London",
+                attributes={"department": "engineering", "role": "developer"},
             )
 
 
@@ -1378,6 +1425,7 @@ class AsyncUsersClient:
                 "tz": tz,
                 "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
+                "attributes": attributes,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1435,6 +1483,7 @@ class AsyncUsersClient:
         tz: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -1460,6 +1509,9 @@ class AsyncUsersClient:
         subscribe_to_emails : typing.Optional[bool]
             Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
 
+        attributes : typing.Optional[typing.Dict[str, str]]
+            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1484,6 +1536,7 @@ class AsyncUsersClient:
                 id="id",
                 email="user@example.com",
                 tz="Europe/London",
+                attributes={"department": "engineering", "role": "developer"},
             )
 
 
@@ -1498,6 +1551,7 @@ class AsyncUsersClient:
                 "tz": tz,
                 "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
+                "attributes": attributes,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1853,16 +1907,23 @@ class AsyncUsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def all_achievements(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    async def achievements(
+        self,
+        id: str,
+        *,
+        include_incomplete: typing.Optional[typing.Literal["true"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[CompletedAchievementResponse]:
         """
-        Get all of a user's completed achievements.
+        Get a user's achievements.
 
         Parameters
         ----------
         id : str
             ID of the user.
+
+        include_incomplete : typing.Optional[typing.Literal["true"]]
+            When set to 'true', returns both completed and incomplete achievements for the user. When omitted or set to any other value, returns only completed achievements.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1884,7 +1945,7 @@ class AsyncUsersClient:
 
 
         async def main() -> None:
-            await client.users.all_achievements(
+            await client.users.achievements(
                 id="userId",
             )
 
@@ -1894,6 +1955,9 @@ class AsyncUsersClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/achievements",
             method="GET",
+            params={
+                "includeIncomplete": include_incomplete,
+            },
             request_options=request_options,
         )
         try:
@@ -2040,17 +2104,21 @@ class AsyncUsersClient:
     async def points(
         self,
         id: str,
+        key: str,
         *,
         awards: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetUserPointsResponse:
         """
-        Get a user's points.
+        Get a user's points for a specific points system.
 
         Parameters
         ----------
         id : str
             ID of the user.
+
+        key : str
+            Key of the points system.
 
         awards : typing.Optional[int]
             The number of recent point awards to return.
@@ -2077,13 +2145,14 @@ class AsyncUsersClient:
         async def main() -> None:
             await client.users.points(
                 id="userId",
+                key="points-system-key",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/points",
+            f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}",
             method="GET",
             params={
                 "awards": awards,
@@ -2137,6 +2206,7 @@ class AsyncUsersClient:
     async def points_event_summary(
         self,
         id: str,
+        key: str,
         *,
         aggregation: UsersPointsEventSummaryRequestAggregation,
         start_date: str,
@@ -2144,12 +2214,15 @@ class AsyncUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[UsersPointsEventSummaryResponseItem]:
         """
-        Get a summary of points awards over time for a user.
+        Get a summary of points awards over time for a user for a specific points system.
 
         Parameters
         ----------
         id : str
             ID of the user.
+
+        key : str
+            Key of the points system.
 
         aggregation : UsersPointsEventSummaryRequestAggregation
             The time period over which to aggregate the event data.
@@ -2182,6 +2255,7 @@ class AsyncUsersClient:
         async def main() -> None:
             await client.users.points_event_summary(
                 id="userId",
+                key="points-system-key",
                 aggregation="daily",
                 start_date="2024-01-01",
                 end_date="2024-01-31",
@@ -2191,7 +2265,7 @@ class AsyncUsersClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/points/event-summary",
+            f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}/event-summary",
             method="GET",
             params={
                 "aggregation": aggregation,

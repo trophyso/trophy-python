@@ -28,6 +28,7 @@ from .types import (
     PointsTriggerResponseUserAttributesItem,
     PointsTriggerType,
     StreakFrequency,
+    StreakRankingUser,
     StreakResponse,
     StreakResponseStreakHistoryItem,
     UpdatedUser,
@@ -40,9 +41,10 @@ from .errors import (
     UnauthorizedError,
     UnprocessableEntityError,
 )
-from . import achievements, metrics, points, users
+from . import achievements, metrics, points, streaks, users
 from .client import AsyncTrophyApi, TrophyApi
 from .environment import TrophyApiEnvironment
+from .streaks import StreaksRankingsRequestType
 from .users import (
     UsersMetricEventSummaryRequestAggregation,
     UsersMetricEventSummaryResponseItem,
@@ -81,8 +83,10 @@ __all__ = [
     "PointsTriggerResponseUserAttributesItem",
     "PointsTriggerType",
     "StreakFrequency",
+    "StreakRankingUser",
     "StreakResponse",
     "StreakResponseStreakHistoryItem",
+    "StreaksRankingsRequestType",
     "TrophyApi",
     "TrophyApiEnvironment",
     "UnauthorizedError",
@@ -97,5 +101,6 @@ __all__ = [
     "achievements",
     "metrics",
     "points",
+    "streaks",
     "users",
 ]

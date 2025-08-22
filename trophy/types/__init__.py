@@ -33,6 +33,7 @@ from .points_trigger_response_user_attributes_item import (
 )
 from .points_trigger_type import PointsTriggerType
 from .streak_frequency import StreakFrequency
+from .streak_ranking_user import StreakRankingUser
 from .streak_response import StreakResponse
 from .streak_response_streak_history_item import StreakResponseStreakHistoryItem
 from .updated_user import UpdatedUser
@@ -67,6 +68,7 @@ __all__ = [
     "PointsTriggerResponseUserAttributesItem",
     "PointsTriggerType",
     "StreakFrequency",
+    "StreakRankingUser",
     "StreakResponse",
     "StreakResponseStreakHistoryItem",
     "UpdatedUser",

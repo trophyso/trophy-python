@@ -22,6 +22,11 @@ class StreakResponse(BaseStreakResponse):
     A list of the user's past streak periods up through the current period. Each period includes the start and end dates and the length of the streak.
     """
 
+    rank: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The user's rank across all users. Null if the user has no active streak.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(
             extra="allow", frozen=True

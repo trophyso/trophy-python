@@ -2,21 +2,95 @@
 
 from ..core.client_wrapper import SyncClientWrapper
 import typing
-from .types.streaks_rankings_request_type import StreaksRankingsRequestType
 from ..core.request_options import RequestOptions
-from ..types.streak_ranking_user import StreakRankingUser
+from ..types.bulk_streak_response import BulkStreakResponse
 from ..core.pydantic_utilities import parse_obj_as
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.error_body import ErrorBody
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from .types.streaks_rankings_request_type import StreaksRankingsRequestType
+from ..types.streak_ranking_user import StreakRankingUser
 from ..core.client_wrapper import AsyncClientWrapper
 
 
 class StreaksClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def list(
+        self,
+        *,
+        user_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> BulkStreakResponse:
+        """
+        Get the streak lengths of a list of users, ranked by streak length from longest to shortest.
+
+        Parameters
+        ----------
+        user_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            A list of up to 100 user IDs.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BulkStreakResponse
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.streaks.list()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "streaks",
+            method="GET",
+            params={
+                "userIds": user_ids,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    BulkStreakResponse,
+                    parse_obj_as(
+                        type_=BulkStreakResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def rankings(
         self,
@@ -100,6 +174,87 @@ class StreaksClient:
 class AsyncStreaksClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def list(
+        self,
+        *,
+        user_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> BulkStreakResponse:
+        """
+        Get the streak lengths of a list of users, ranked by streak length from longest to shortest.
+
+        Parameters
+        ----------
+        user_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            A list of up to 100 user IDs.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BulkStreakResponse
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.streaks.list()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "streaks",
+            method="GET",
+            params={
+                "userIds": user_ids,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    BulkStreakResponse,
+                    parse_obj_as(
+                        type_=BulkStreakResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def rankings(
         self,

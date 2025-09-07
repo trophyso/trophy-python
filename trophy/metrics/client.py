@@ -30,6 +30,7 @@ class MetricsClient:
         *,
         user: UpsertedUser,
         value: float,
+        idempotency_key: typing.Optional[str] = None,
         attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EventResponse:
@@ -46,6 +47,9 @@ class MetricsClient:
 
         value : float
             The value to add to the user's current total for the given metric.
+
+        idempotency_key : typing.Optional[str]
+            The idempotency key for the event.
 
         attributes : typing.Optional[typing.Dict[str, str]]
             Event attributes as key-value pairs. Keys must match existing event attributes set up in the Trophy dashboard.
@@ -67,6 +71,7 @@ class MetricsClient:
         )
         client.metrics.event(
             key="words-written",
+            idempotency_key="e4296e4b-8493-4bd1-9c30-5a1a9ac4d78f",
             user=UpsertedUser(
                 email="user@example.com",
                 tz="Europe/London",
@@ -89,6 +94,9 @@ class MetricsClient:
             },
             headers={
                 "content-type": "application/json",
+                "Idempotency-Key": str(idempotency_key)
+                if idempotency_key is not None
+                else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -148,6 +156,7 @@ class AsyncMetricsClient:
         *,
         user: UpsertedUser,
         value: float,
+        idempotency_key: typing.Optional[str] = None,
         attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EventResponse:
@@ -164,6 +173,9 @@ class AsyncMetricsClient:
 
         value : float
             The value to add to the user's current total for the given metric.
+
+        idempotency_key : typing.Optional[str]
+            The idempotency key for the event.
 
         attributes : typing.Optional[typing.Dict[str, str]]
             Event attributes as key-value pairs. Keys must match existing event attributes set up in the Trophy dashboard.
@@ -190,6 +202,7 @@ class AsyncMetricsClient:
         async def main() -> None:
             await client.metrics.event(
                 key="words-written",
+                idempotency_key="e4296e4b-8493-4bd1-9c30-5a1a9ac4d78f",
                 user=UpsertedUser(
                     email="user@example.com",
                     tz="Europe/London",
@@ -215,6 +228,9 @@ class AsyncMetricsClient:
             },
             headers={
                 "content-type": "application/json",
+                "Idempotency-Key": str(idempotency_key)
+                if idempotency_key is not None
+                else None,
             },
             request_options=request_options,
             omit=OMIT,

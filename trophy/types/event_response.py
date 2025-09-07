@@ -52,6 +52,20 @@ class EventResponse(UniversalBaseModel):
     A map of points systems by key that were affected by this event.
     """
 
+    idempotency_key: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="idempotencyKey")
+    ] = pydantic.Field(default=None)
+    """
+    The idempotency key used for the event, if one was provided.
+    """
+
+    idempotent_replayed: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="idempotentReplayed")
+    ] = pydantic.Field(default=None)
+    """
+    Whether the event was replayed due to idempotency.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(
             extra="allow", frozen=True

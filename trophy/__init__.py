@@ -14,6 +14,13 @@ from .types import (
     ErrorBody,
     EventResponse,
     GetUserPointsResponse,
+    LeaderboardEvent,
+    LeaderboardRanking,
+    LeaderboardResponse,
+    LeaderboardResponseRankBy,
+    LeaderboardResponseStatus,
+    LeaderboardResponseWithRankings,
+    MetricEventLeaderboardResponse,
     MetricEventPointsResponse,
     MetricEventStreakResponse,
     MetricResponse,
@@ -36,6 +43,7 @@ from .types import (
     UpdatedUser,
     UpsertedUser,
     User,
+    UserLeaderboardResponse,
 )
 from .errors import (
     BadRequestError,
@@ -43,7 +51,7 @@ from .errors import (
     UnauthorizedError,
     UnprocessableEntityError,
 )
-from . import achievements, metrics, points, streaks, users
+from . import achievements, leaderboards, metrics, points, streaks, users
 from .client import AsyncTrophyApi, TrophyApi
 from .environment import TrophyApiEnvironment
 from .streaks import StreaksRankingsRequestType
@@ -70,6 +78,13 @@ __all__ = [
     "ErrorBody",
     "EventResponse",
     "GetUserPointsResponse",
+    "LeaderboardEvent",
+    "LeaderboardRanking",
+    "LeaderboardResponse",
+    "LeaderboardResponseRankBy",
+    "LeaderboardResponseStatus",
+    "LeaderboardResponseWithRankings",
+    "MetricEventLeaderboardResponse",
     "MetricEventPointsResponse",
     "MetricEventStreakResponse",
     "MetricResponse",
@@ -98,11 +113,13 @@ __all__ = [
     "UpdatedUser",
     "UpsertedUser",
     "User",
+    "UserLeaderboardResponse",
     "UsersMetricEventSummaryRequestAggregation",
     "UsersMetricEventSummaryResponseItem",
     "UsersPointsEventSummaryRequestAggregation",
     "UsersPointsEventSummaryResponseItem",
     "achievements",
+    "leaderboards",
     "metrics",
     "points",
     "streaks",

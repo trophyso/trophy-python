@@ -9,12 +9,14 @@ from .metrics.client import MetricsClient
 from .users.client import UsersClient
 from .streaks.client import StreaksClient
 from .points.client import PointsClient
+from .leaderboards.client import LeaderboardsClient
 from .core.client_wrapper import AsyncClientWrapper
 from .achievements.client import AsyncAchievementsClient
 from .metrics.client import AsyncMetricsClient
 from .users.client import AsyncUsersClient
 from .streaks.client import AsyncStreaksClient
 from .points.client import AsyncPointsClient
+from .leaderboards.client import AsyncLeaderboardsClient
 
 
 class TrophyApi:
@@ -84,6 +86,7 @@ class TrophyApi:
         self.users = UsersClient(client_wrapper=self._client_wrapper)
         self.streaks = StreaksClient(client_wrapper=self._client_wrapper)
         self.points = PointsClient(client_wrapper=self._client_wrapper)
+        self.leaderboards = LeaderboardsClient(client_wrapper=self._client_wrapper)
 
 
 class AsyncTrophyApi:
@@ -153,6 +156,7 @@ class AsyncTrophyApi:
         self.users = AsyncUsersClient(client_wrapper=self._client_wrapper)
         self.streaks = AsyncStreaksClient(client_wrapper=self._client_wrapper)
         self.points = AsyncPointsClient(client_wrapper=self._client_wrapper)
+        self.leaderboards = AsyncLeaderboardsClient(client_wrapper=self._client_wrapper)
 
 
 def _get_base_url(

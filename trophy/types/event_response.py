@@ -8,6 +8,7 @@ import typing
 from .completed_achievement_response import CompletedAchievementResponse
 from .metric_event_streak_response import MetricEventStreakResponse
 from .metric_event_points_response import MetricEventPointsResponse
+from .metric_event_leaderboard_response import MetricEventLeaderboardResponse
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -42,14 +43,21 @@ class EventResponse(UniversalBaseModel):
         typing.Optional[MetricEventStreakResponse], FieldMetadata(alias="currentStreak")
     ] = pydantic.Field(default=None)
     """
-    The user's current streak for the metric, if the metric has streaks enabled.
+    The user's current streak.
     """
 
     points: typing.Optional[typing.Dict[str, MetricEventPointsResponse]] = (
         pydantic.Field(default=None)
     )
     """
-    A map of points systems by key that were affected by this event.
+    A map of points systems by key.
+    """
+
+    leaderboards: typing.Optional[typing.Dict[str, MetricEventLeaderboardResponse]] = (
+        pydantic.Field(default=None)
+    )
+    """
+    A map of leaderboards by key.
     """
 
     idempotency_key: typing_extensions.Annotated[

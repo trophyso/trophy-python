@@ -1133,7 +1133,7 @@ class UsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def leaderboards(
+    def leaderboard(
         self,
         id: str,
         key: str,
@@ -1170,7 +1170,7 @@ class UsersClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.users.leaderboards(
+        client.users.leaderboard(
             id="user-123",
             key="weekly-words",
             run="2025-01-15",
@@ -2414,7 +2414,7 @@ class AsyncUsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def leaderboards(
+    async def leaderboard(
         self,
         id: str,
         key: str,
@@ -2456,7 +2456,7 @@ class AsyncUsersClient:
 
 
         async def main() -> None:
-            await client.users.leaderboards(
+            await client.users.leaderboard(
                 id="user-123",
                 key="weekly-words",
                 run="2025-01-15",

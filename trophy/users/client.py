@@ -29,6 +29,7 @@ from .types.users_points_event_summary_request_aggregation import (
 from .types.users_points_event_summary_response_item import (
     UsersPointsEventSummaryResponseItem,
 )
+from ..types.user_leaderboard_response import UserLeaderboardResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -1094,6 +1095,101 @@ class UsersClient:
                     typing.List[UsersPointsEventSummaryResponseItem],
                     parse_obj_as(
                         type_=typing.List[UsersPointsEventSummaryResponseItem],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def leaderboards(
+        self,
+        id: str,
+        key: str,
+        *,
+        run: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UserLeaderboardResponse:
+        """
+        Get a user's rank, value, and history for a specific leaderboard.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        key : str
+            Unique key of the leaderboard as set when created.
+
+        run : typing.Optional[str]
+            Specific run date in YYYY-MM-DD format. If not provided, returns the current run.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UserLeaderboardResponse
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.users.leaderboards(
+            id="user-123",
+            key="weekly-words",
+            run="2025-01-15",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}/leaderboards/{jsonable_encoder(key)}",
+            method="GET",
+            params={
+                "run": run,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    UserLeaderboardResponse,
+                    parse_obj_as(
+                        type_=UserLeaderboardResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2280,6 +2376,109 @@ class AsyncUsersClient:
                     typing.List[UsersPointsEventSummaryResponseItem],
                     parse_obj_as(
                         type_=typing.List[UsersPointsEventSummaryResponseItem],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def leaderboards(
+        self,
+        id: str,
+        key: str,
+        *,
+        run: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UserLeaderboardResponse:
+        """
+        Get a user's rank, value, and history for a specific leaderboard.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        key : str
+            Unique key of the leaderboard as set when created.
+
+        run : typing.Optional[str]
+            Specific run date in YYYY-MM-DD format. If not provided, returns the current run.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UserLeaderboardResponse
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.leaderboards(
+                id="user-123",
+                key="weekly-words",
+                run="2025-01-15",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}/leaderboards/{jsonable_encoder(key)}",
+            method="GET",
+            params={
+                "run": run,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    UserLeaderboardResponse,
+                    parse_obj_as(
+                        type_=UserLeaderboardResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -52,6 +52,7 @@ class AchievementsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "achievements",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -133,6 +134,7 @@ class AchievementsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"achievements/{jsonable_encoder(key)}/complete",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "user": convert_and_respect_annotation_metadata(
@@ -229,6 +231,7 @@ class AsyncAchievementsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "achievements",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -318,6 +321,7 @@ class AsyncAchievementsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"achievements/{jsonable_encoder(key)}/complete",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "user": convert_and_respect_annotation_metadata(

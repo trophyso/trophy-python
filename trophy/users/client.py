@@ -99,6 +99,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "users",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "id": id,
@@ -188,6 +189,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -297,6 +299,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PUT",
             json={
                 "email": email,
@@ -415,6 +418,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "email": email,
@@ -513,6 +517,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/metrics",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -600,6 +605,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/metrics/{jsonable_encoder(key)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -702,6 +708,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/metrics/{jsonable_encoder(key)}/event-summary",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "aggregation": aggregation,
@@ -793,6 +800,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/achievements",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "includeIncomplete": include_incomplete,
@@ -882,6 +890,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/streak",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "historyPeriods": history_periods,
@@ -976,6 +985,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "awards": awards,
@@ -1081,6 +1091,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}/event-summary",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "aggregation": aggregation,
@@ -1178,6 +1189,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/leaderboards/{jsonable_encoder(key)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "run": run,
@@ -1300,6 +1312,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "users",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "id": id,
@@ -1397,6 +1410,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1514,6 +1528,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PUT",
             json={
                 "email": email,
@@ -1640,6 +1655,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "email": email,
@@ -1746,6 +1762,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/metrics",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1841,6 +1858,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/metrics/{jsonable_encoder(key)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1951,6 +1969,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/metrics/{jsonable_encoder(key)}/event-summary",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "aggregation": aggregation,
@@ -2050,6 +2069,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/achievements",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "includeIncomplete": include_incomplete,
@@ -2147,6 +2167,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/streak",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "historyPeriods": history_periods,
@@ -2249,6 +2270,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "awards": awards,
@@ -2362,6 +2384,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}/event-summary",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "aggregation": aggregation,
@@ -2467,6 +2490,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{jsonable_encoder(id)}/leaderboards/{jsonable_encoder(key)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "run": run,

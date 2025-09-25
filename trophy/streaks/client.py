@@ -52,6 +52,7 @@ class StreaksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "streaks",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "userIds": user_ids,
@@ -129,6 +130,7 @@ class StreaksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "streaks/rankings",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "limit": limit,
@@ -216,6 +218,7 @@ class AsyncStreaksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "streaks",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "userIds": user_ids,
@@ -301,6 +304,7 @@ class AsyncStreaksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "streaks/rankings",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "limit": limit,

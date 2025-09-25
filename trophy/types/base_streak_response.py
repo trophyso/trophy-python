@@ -44,6 +44,32 @@ class BaseStreakResponse(UniversalBaseModel):
     The date the streak will expire if the user does not increment a metric.
     """
 
+    freezes: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The number of available streak freezes. Only present if the organization has enabled streak freezes.
+    """
+
+    max_freezes: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="maxFreezes")
+    ] = pydantic.Field(default=None)
+    """
+    The maximum number of streak freezes a user can have. Only present if the organization has enabled streak freezes.
+    """
+
+    freeze_auto_earn_interval: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="freezeAutoEarnInterval")
+    ] = pydantic.Field(default=None)
+    """
+    The interval at which the user will earn streak freezes, in days. Only present if the organization has enabled streak freeze auto-earn.
+    """
+
+    freeze_auto_earn_amount: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="freezeAutoEarnAmount")
+    ] = pydantic.Field(default=None)
+    """
+    The amount of streak freezes the user will earn per interval. Only present if the organization has enabled streak freeze auto-earn.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(
             extra="allow", frozen=True

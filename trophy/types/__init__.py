@@ -11,9 +11,12 @@ from .achievement_with_stats_response_user_attributes_item import (
     AchievementWithStatsResponseUserAttributesItem,
 )
 from .base_streak_response import BaseStreakResponse
+from .bulk_insert_issue import BulkInsertIssue
+from .bulk_insert_issue_level import BulkInsertIssueLevel
 from .bulk_streak_response import BulkStreakResponse
 from .bulk_streak_response_item import BulkStreakResponseItem
 from .completed_achievement_response import CompletedAchievementResponse
+from .create_streak_freezes_response import CreateStreakFreezesResponse
 from .error_body import ErrorBody
 from .event_response import EventResponse
 from .get_user_points_response import GetUserPointsResponse
@@ -58,9 +61,12 @@ __all__ = [
     "AchievementWithStatsResponseEventAttribute",
     "AchievementWithStatsResponseUserAttributesItem",
     "BaseStreakResponse",
+    "BulkInsertIssue",
+    "BulkInsertIssueLevel",
     "BulkStreakResponse",
     "BulkStreakResponseItem",
     "CompletedAchievementResponse",
+    "CreateStreakFreezesResponse",
     "ErrorBody",
     "EventResponse",
     "GetUserPointsResponse",

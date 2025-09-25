@@ -4,8 +4,8 @@ from ..core.pydantic_utilities import UniversalBaseModel
 import typing_extensions
 from ..core.serialization import FieldMetadata
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class StreakResponseStreakHistoryItem(UniversalBaseModel):
@@ -30,6 +30,13 @@ class StreakResponseStreakHistoryItem(UniversalBaseModel):
     length: int = pydantic.Field()
     """
     The length of the user's streak during this period.
+    """
+
+    used_freeze: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="usedFreeze")
+    ] = pydantic.Field(default=None)
+    """
+    Whether the user used a streak freeze during this period. Only present if the organization has enabled streak freezes.
     """
 
     if IS_PYDANTIC_V2:

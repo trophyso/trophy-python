@@ -47,6 +47,7 @@ class LeaderboardsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "leaderboards",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -137,6 +138,7 @@ class LeaderboardsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"leaderboards/{jsonable_encoder(key)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "offset": offset,
@@ -230,6 +232,7 @@ class AsyncLeaderboardsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "leaderboards",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -328,6 +331,7 @@ class AsyncLeaderboardsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"leaderboards/{jsonable_encoder(key)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "offset": offset,

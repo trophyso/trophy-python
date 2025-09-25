@@ -60,6 +60,7 @@ class PointsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"points/{jsonable_encoder(key)}/summary",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "userAttributes": user_attributes,
@@ -142,6 +143,7 @@ class PointsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"points/{jsonable_encoder(key)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -232,6 +234,7 @@ class AsyncPointsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"points/{jsonable_encoder(key)}/summary",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "userAttributes": user_attributes,
@@ -322,6 +325,7 @@ class AsyncPointsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"points/{jsonable_encoder(key)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

@@ -8,9 +8,12 @@ from .types import (
     AchievementWithStatsResponseEventAttribute,
     AchievementWithStatsResponseUserAttributesItem,
     BaseStreakResponse,
+    BulkInsertIssue,
+    BulkInsertIssueLevel,
     BulkStreakResponse,
     BulkStreakResponseItem,
     CompletedAchievementResponse,
+    CreateStreakFreezesResponse,
     ErrorBody,
     EventResponse,
     GetUserPointsResponse,
@@ -51,7 +54,7 @@ from .errors import (
     UnauthorizedError,
     UnprocessableEntityError,
 )
-from . import achievements, leaderboards, metrics, points, streaks, users
+from . import achievements, admin, leaderboards, metrics, points, streaks, users
 from .client import AsyncTrophyApi, TrophyApi
 from .environment import TrophyApiEnvironment
 from .streaks import StreaksRankingsRequestType
@@ -72,9 +75,12 @@ __all__ = [
     "AsyncTrophyApi",
     "BadRequestError",
     "BaseStreakResponse",
+    "BulkInsertIssue",
+    "BulkInsertIssueLevel",
     "BulkStreakResponse",
     "BulkStreakResponseItem",
     "CompletedAchievementResponse",
+    "CreateStreakFreezesResponse",
     "ErrorBody",
     "EventResponse",
     "GetUserPointsResponse",
@@ -119,6 +125,7 @@ __all__ = [
     "UsersPointsEventSummaryRequestAggregation",
     "UsersPointsEventSummaryResponseItem",
     "achievements",
+    "admin",
     "leaderboards",
     "metrics",
     "points",

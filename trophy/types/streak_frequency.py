@@ -2,6 +2,4 @@
 
 import typing
 
-StreakFrequency = typing.Union[
-    typing.Literal["daily", "weekly", "monthly", "yearly"], typing.Any
-]
+StreakFrequency = typing.Union[typing.Literal["daily", "weekly", "monthly", "yearly"], typing.Any]

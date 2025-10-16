@@ -2,6 +2,4 @@
 
 import typing
 
-LeaderboardResponseRankBy = typing.Union[
-    typing.Literal["points", "streak", "metric"], typing.Any
-]
+LeaderboardResponseRankBy = typing.Union[typing.Literal["points", "streak", "metric"], typing.Any]

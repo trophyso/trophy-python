@@ -2,6 +2,4 @@
 
 import typing
 
-UsersMetricEventSummaryRequestAggregation = typing.Union[
-    typing.Literal["daily", "weekly", "monthly"], typing.Any
-]
+UsersMetricEventSummaryRequestAggregation = typing.Union[typing.Literal["daily", "weekly", "monthly"], typing.Any]

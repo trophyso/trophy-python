@@ -2,6 +2,4 @@
 
 import typing
 
-AchievementResponseTrigger = typing.Union[
-    typing.Literal["metric", "streak", "api"], typing.Any
-]
+AchievementResponseTrigger = typing.Union[typing.Literal["metric", "streak", "api"], typing.Any]

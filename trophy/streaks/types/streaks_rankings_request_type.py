@@ -2,6 +2,4 @@
 
 import typing
 
-StreaksRankingsRequestType = typing.Union[
-    typing.Literal["active", "longest"], typing.Any
-]
+StreaksRankingsRequestType = typing.Union[typing.Literal["active", "longest"], typing.Any]

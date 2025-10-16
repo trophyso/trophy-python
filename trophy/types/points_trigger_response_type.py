@@ -3,5 +3,5 @@
 import typing
 
 PointsTriggerResponseType = typing.Union[
-    typing.Literal["metric", "achievement", "streak"], typing.Any
+    typing.Literal["metric", "achievement", "streak", "time", "user_creation"], typing.Any
 ]

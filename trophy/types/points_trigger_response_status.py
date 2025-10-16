@@ -2,6 +2,4 @@
 
 import typing
 
-PointsTriggerResponseStatus = typing.Union[
-    typing.Literal["active", "archived"], typing.Any
-]
+PointsTriggerResponseStatus = typing.Union[typing.Literal["active", "archived"], typing.Any]

@@ -2,6 +2,4 @@
 
 import typing
 
-UsersPointsEventSummaryRequestAggregation = typing.Union[
-    typing.Literal["daily", "weekly", "monthly"], typing.Any
-]
+UsersPointsEventSummaryRequestAggregation = typing.Union[typing.Literal["daily", "weekly", "monthly"], typing.Any]

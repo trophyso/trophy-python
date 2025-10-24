@@ -40,7 +40,7 @@ class PointsClient:
             Key of the points system.
 
         user_attributes : typing.Optional[str]
-            Optional colon-delimited user attribute filters in the format attributeKey:value,attributeKey:value. Only users matching ALL specified attributes will be included in the points breakdown.
+            Optional colon-delimited user attribute filters in the format attribute:value,attribute:value. Only users matching ALL specified attributes will be included in the points breakdown.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -128,7 +128,7 @@ class AsyncPointsClient:
             Key of the points system.
 
         user_attributes : typing.Optional[str]
-            Optional colon-delimited user attribute filters in the format attributeKey:value,attributeKey:value. Only users matching ALL specified attributes will be included in the points breakdown.
+            Optional colon-delimited user attribute filters in the format attribute:value,attribute:value. Only users matching ALL specified attributes will be included in the points breakdown.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

@@ -60,6 +60,7 @@ class LeaderboardsClient:
         limit: typing.Optional[int] = None,
         run: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        user_attributes: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LeaderboardResponseWithRankings:
         """
@@ -82,6 +83,9 @@ class LeaderboardsClient:
         user_id : typing.Optional[str]
             When provided, offset is relative to this user's position on the leaderboard. If the user is not found in the leaderboard, returns empty rankings array.
 
+        user_attributes : typing.Optional[str]
+            Attribute key and value to filter the rankings by, separated by a colon. This parameter is required, and only valid for leaderboards with a breakdown attribute.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -103,10 +107,17 @@ class LeaderboardsClient:
             limit=1,
             run="2025-01-15",
             user_id="user-123",
+            user_attributes="city:London",
         )
         """
         _response = self._raw_client.get(
-            key, offset=offset, limit=limit, run=run, user_id=user_id, request_options=request_options
+            key,
+            offset=offset,
+            limit=limit,
+            run=run,
+            user_id=user_id,
+            user_attributes=user_attributes,
+            request_options=request_options,
         )
         return _response.data
 
@@ -170,6 +181,7 @@ class AsyncLeaderboardsClient:
         limit: typing.Optional[int] = None,
         run: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        user_attributes: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LeaderboardResponseWithRankings:
         """
@@ -191,6 +203,9 @@ class AsyncLeaderboardsClient:
 
         user_id : typing.Optional[str]
             When provided, offset is relative to this user's position on the leaderboard. If the user is not found in the leaderboard, returns empty rankings array.
+
+        user_attributes : typing.Optional[str]
+            Attribute key and value to filter the rankings by, separated by a colon. This parameter is required, and only valid for leaderboards with a breakdown attribute.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -218,12 +233,19 @@ class AsyncLeaderboardsClient:
                 limit=1,
                 run="2025-01-15",
                 user_id="user-123",
+                user_attributes="city:London",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.get(
-            key, offset=offset, limit=limit, run=run, user_id=user_id, request_options=request_options
+            key,
+            offset=offset,
+            limit=limit,
+            run=run,
+            user_id=user_id,
+            user_attributes=user_attributes,
+            request_options=request_options,
         )
         return _response.data

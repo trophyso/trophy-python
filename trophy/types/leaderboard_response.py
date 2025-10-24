@@ -35,6 +35,13 @@ class LeaderboardResponse(UniversalBaseModel):
     What the leaderboard ranks by.
     """
 
+    breakdown_attribute: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="breakdownAttribute")
+    ] = pydantic.Field(default=None)
+    """
+    The key of the attribute to break down this leaderboard by.
+    """
+
     metric_key: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricKey")] = pydantic.Field(
         default=None
     )

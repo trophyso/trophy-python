@@ -33,6 +33,13 @@ class MetricEventLeaderboardResponse(UniversalBaseModel):
     The minimum value required to enter the leaderboard according to its current rankings.
     """
 
+    breakdown_attribute_value: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="breakdownAttributeValue")
+    ] = pydantic.Field(default=None)
+    """
+    For leaderboards with a breakdown attribute, the value of the attribute for the user.
+    """
+
     id: str = pydantic.Field()
     """
     The unique ID of the leaderboard.
@@ -51,6 +58,13 @@ class MetricEventLeaderboardResponse(UniversalBaseModel):
     rank_by: typing_extensions.Annotated[LeaderboardResponseRankBy, FieldMetadata(alias="rankBy")] = pydantic.Field()
     """
     What the leaderboard ranks by.
+    """
+
+    breakdown_attribute: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="breakdownAttribute")
+    ] = pydantic.Field(default=None)
+    """
+    The key of the attribute to break down this leaderboard by.
     """
 
     metric_key: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricKey")] = pydantic.Field(

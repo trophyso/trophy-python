@@ -29,13 +29,16 @@ class AchievementsClient:
         return self._raw_client
 
     def all_(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self, *, user_attributes: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[AchievementWithStatsResponse]:
         """
         Get all achievements and their completion stats.
 
         Parameters
         ----------
+        user_attributes : typing.Optional[str]
+            Optional colon-delimited user attributes in the format attribute:value,attribute:value. Only achievements accessible to a user with the provided attributes will be returned.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -51,9 +54,11 @@ class AchievementsClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.achievements.all_()
+        client.achievements.all_(
+            user_attributes="plan-type:premium,region:us-east",
+        )
         """
-        _response = self._raw_client.all_(request_options=request_options)
+        _response = self._raw_client.all_(user_attributes=user_attributes, request_options=request_options)
         return _response.data
 
     def complete(
@@ -118,13 +123,16 @@ class AsyncAchievementsClient:
         return self._raw_client
 
     async def all_(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self, *, user_attributes: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[AchievementWithStatsResponse]:
         """
         Get all achievements and their completion stats.
 
         Parameters
         ----------
+        user_attributes : typing.Optional[str]
+            Optional colon-delimited user attributes in the format attribute:value,attribute:value. Only achievements accessible to a user with the provided attributes will be returned.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -145,12 +153,14 @@ class AsyncAchievementsClient:
 
 
         async def main() -> None:
-            await client.achievements.all_()
+            await client.achievements.all_(
+                user_attributes="plan-type:premium,region:us-east",
+            )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.all_(request_options=request_options)
+        _response = await self._raw_client.all_(user_attributes=user_attributes, request_options=request_options)
         return _response.data
 
     async def complete(

@@ -27,13 +27,16 @@ class RawAchievementsClient:
         self._client_wrapper = client_wrapper
 
     def all_(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self, *, user_attributes: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[typing.List[AchievementWithStatsResponse]]:
         """
         Get all achievements and their completion stats.
 
         Parameters
         ----------
+        user_attributes : typing.Optional[str]
+            Optional colon-delimited user attributes in the format attribute:value,attribute:value. Only achievements accessible to a user with the provided attributes will be returned.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -46,6 +49,9 @@ class RawAchievementsClient:
             "achievements",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "userAttributes": user_attributes,
+            },
             request_options=request_options,
         )
         try:
@@ -176,13 +182,16 @@ class AsyncRawAchievementsClient:
         self._client_wrapper = client_wrapper
 
     async def all_(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self, *, user_attributes: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[typing.List[AchievementWithStatsResponse]]:
         """
         Get all achievements and their completion stats.
 
         Parameters
         ----------
+        user_attributes : typing.Optional[str]
+            Optional colon-delimited user attributes in the format attribute:value,attribute:value. Only achievements accessible to a user with the provided attributes will be returned.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -195,6 +204,9 @@ class AsyncRawAchievementsClient:
             "achievements",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "userAttributes": user_attributes,
+            },
             request_options=request_options,
         )
         try:

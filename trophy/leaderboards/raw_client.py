@@ -88,6 +88,7 @@ class RawLeaderboardsClient:
         limit: typing.Optional[int] = None,
         run: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        user_attributes: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[LeaderboardResponseWithRankings]:
         """
@@ -110,6 +111,9 @@ class RawLeaderboardsClient:
         user_id : typing.Optional[str]
             When provided, offset is relative to this user's position on the leaderboard. If the user is not found in the leaderboard, returns empty rankings array.
 
+        user_attributes : typing.Optional[str]
+            Attribute key and value to filter the rankings by, separated by a colon. This parameter is required, and only valid for leaderboards with a breakdown attribute.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -127,6 +131,7 @@ class RawLeaderboardsClient:
                 "limit": limit,
                 "run": run,
                 "userId": user_id,
+                "userAttributes": user_attributes,
             },
             request_options=request_options,
         )
@@ -250,6 +255,7 @@ class AsyncRawLeaderboardsClient:
         limit: typing.Optional[int] = None,
         run: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        user_attributes: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[LeaderboardResponseWithRankings]:
         """
@@ -272,6 +278,9 @@ class AsyncRawLeaderboardsClient:
         user_id : typing.Optional[str]
             When provided, offset is relative to this user's position on the leaderboard. If the user is not found in the leaderboard, returns empty rankings array.
 
+        user_attributes : typing.Optional[str]
+            Attribute key and value to filter the rankings by, separated by a colon. This parameter is required, and only valid for leaderboards with a breakdown attribute.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -289,6 +298,7 @@ class AsyncRawLeaderboardsClient:
                 "limit": limit,
                 "run": run,
                 "userId": user_id,
+                "userAttributes": user_attributes,
             },
             request_options=request_options,
         )

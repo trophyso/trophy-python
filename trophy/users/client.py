@@ -39,12 +39,12 @@ class UsersClient:
         self,
         *,
         id: str,
-        email: str,
-        name: str,
-        device_tokens: typing.Sequence[str],
-        subscribe_to_emails: bool,
-        attributes: typing.Dict[str, str],
+        email: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
+        subscribe_to_emails: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -55,23 +55,23 @@ class UsersClient:
         id : str
             The ID of the user in your database. Must be a string.
 
-        email : str
+        email : typing.Optional[str]
             The user's email address. Required if subscribeToEmails is true.
 
-        name : str
+        name : typing.Optional[str]
             The name to refer to the user by in emails.
-
-        device_tokens : typing.Sequence[str]
-            The user's device tokens, used for push notifications.
-
-        subscribe_to_emails : bool
-            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
-
-        attributes : typing.Dict[str, str]
-            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        device_tokens : typing.Optional[typing.Sequence[str]]
+            The user's device tokens, used for push notifications.
+
+        subscribe_to_emails : typing.Optional[bool]
+            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
+
+        attributes : typing.Optional[typing.Dict[str, str]]
+            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -89,11 +89,6 @@ class UsersClient:
             api_key="YOUR_API_KEY",
         )
         client.users.create(
-            email="user@example.com",
-            name="User",
-            device_tokens=["token1", "token2"],
-            subscribe_to_emails=True,
-            attributes={"department": "engineering", "role": "developer"},
             id="user-id",
         )
         """
@@ -101,10 +96,10 @@ class UsersClient:
             id=id,
             email=email,
             name=name,
+            tz=tz,
             device_tokens=device_tokens,
             subscribe_to_emails=subscribe_to_emails,
             attributes=attributes,
-            tz=tz,
             request_options=request_options,
         )
         return _response.data
@@ -144,12 +139,12 @@ class UsersClient:
         self,
         id: str,
         *,
-        email: str,
-        name: str,
-        device_tokens: typing.Sequence[str],
-        subscribe_to_emails: bool,
-        attributes: typing.Dict[str, str],
+        email: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
+        subscribe_to_emails: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -160,23 +155,23 @@ class UsersClient:
         id : str
             ID of the user to identify.
 
-        email : str
+        email : typing.Optional[str]
             The user's email address. Required if subscribeToEmails is true.
 
-        name : str
+        name : typing.Optional[str]
             The name to refer to the user by in emails.
-
-        device_tokens : typing.Sequence[str]
-            The user's device tokens, used for push notifications.
-
-        subscribe_to_emails : bool
-            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
-
-        attributes : typing.Dict[str, str]
-            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        device_tokens : typing.Optional[typing.Sequence[str]]
+            The user's device tokens, used for push notifications.
+
+        subscribe_to_emails : typing.Optional[bool]
+            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
+
+        attributes : typing.Optional[typing.Dict[str, str]]
+            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -196,10 +191,7 @@ class UsersClient:
         client.users.identify(
             id="id",
             email="user@example.com",
-            name="User",
             tz="Europe/London",
-            device_tokens=["token1", "token2"],
-            subscribe_to_emails=True,
             attributes={"department": "engineering", "role": "developer"},
         )
         """
@@ -207,10 +199,10 @@ class UsersClient:
             id,
             email=email,
             name=name,
+            tz=tz,
             device_tokens=device_tokens,
             subscribe_to_emails=subscribe_to_emails,
             attributes=attributes,
-            tz=tz,
             request_options=request_options,
         )
         return _response.data
@@ -219,12 +211,12 @@ class UsersClient:
         self,
         id: str,
         *,
-        email: str,
-        name: str,
-        device_tokens: typing.Sequence[str],
-        subscribe_to_emails: bool,
-        attributes: typing.Dict[str, str],
+        email: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
+        subscribe_to_emails: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -235,23 +227,23 @@ class UsersClient:
         id : str
             ID of the user to update.
 
-        email : str
+        email : typing.Optional[str]
             The user's email address. Required if subscribeToEmails is true.
 
-        name : str
+        name : typing.Optional[str]
             The name to refer to the user by in emails.
-
-        device_tokens : typing.Sequence[str]
-            The user's device tokens, used for push notifications.
-
-        subscribe_to_emails : bool
-            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
-
-        attributes : typing.Dict[str, str]
-            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        device_tokens : typing.Optional[typing.Sequence[str]]
+            The user's device tokens, used for push notifications.
+
+        subscribe_to_emails : typing.Optional[bool]
+            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
+
+        attributes : typing.Optional[typing.Dict[str, str]]
+            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -271,10 +263,7 @@ class UsersClient:
         client.users.update(
             id="id",
             email="user@example.com",
-            name="User",
             tz="Europe/London",
-            device_tokens=["token1", "token2"],
-            subscribe_to_emails=True,
             attributes={"department": "engineering", "role": "developer"},
         )
         """
@@ -282,10 +271,10 @@ class UsersClient:
             id,
             email=email,
             name=name,
+            tz=tz,
             device_tokens=device_tokens,
             subscribe_to_emails=subscribe_to_emails,
             attributes=attributes,
-            tz=tz,
             request_options=request_options,
         )
         return _response.data
@@ -671,12 +660,12 @@ class AsyncUsersClient:
         self,
         *,
         id: str,
-        email: str,
-        name: str,
-        device_tokens: typing.Sequence[str],
-        subscribe_to_emails: bool,
-        attributes: typing.Dict[str, str],
+        email: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
+        subscribe_to_emails: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -687,23 +676,23 @@ class AsyncUsersClient:
         id : str
             The ID of the user in your database. Must be a string.
 
-        email : str
+        email : typing.Optional[str]
             The user's email address. Required if subscribeToEmails is true.
 
-        name : str
+        name : typing.Optional[str]
             The name to refer to the user by in emails.
-
-        device_tokens : typing.Sequence[str]
-            The user's device tokens, used for push notifications.
-
-        subscribe_to_emails : bool
-            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
-
-        attributes : typing.Dict[str, str]
-            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        device_tokens : typing.Optional[typing.Sequence[str]]
+            The user's device tokens, used for push notifications.
+
+        subscribe_to_emails : typing.Optional[bool]
+            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
+
+        attributes : typing.Optional[typing.Dict[str, str]]
+            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -726,11 +715,6 @@ class AsyncUsersClient:
 
         async def main() -> None:
             await client.users.create(
-                email="user@example.com",
-                name="User",
-                device_tokens=["token1", "token2"],
-                subscribe_to_emails=True,
-                attributes={"department": "engineering", "role": "developer"},
                 id="user-id",
             )
 
@@ -741,10 +725,10 @@ class AsyncUsersClient:
             id=id,
             email=email,
             name=name,
+            tz=tz,
             device_tokens=device_tokens,
             subscribe_to_emails=subscribe_to_emails,
             attributes=attributes,
-            tz=tz,
             request_options=request_options,
         )
         return _response.data
@@ -792,12 +776,12 @@ class AsyncUsersClient:
         self,
         id: str,
         *,
-        email: str,
-        name: str,
-        device_tokens: typing.Sequence[str],
-        subscribe_to_emails: bool,
-        attributes: typing.Dict[str, str],
+        email: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
+        subscribe_to_emails: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -808,23 +792,23 @@ class AsyncUsersClient:
         id : str
             ID of the user to identify.
 
-        email : str
+        email : typing.Optional[str]
             The user's email address. Required if subscribeToEmails is true.
 
-        name : str
+        name : typing.Optional[str]
             The name to refer to the user by in emails.
-
-        device_tokens : typing.Sequence[str]
-            The user's device tokens, used for push notifications.
-
-        subscribe_to_emails : bool
-            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
-
-        attributes : typing.Dict[str, str]
-            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        device_tokens : typing.Optional[typing.Sequence[str]]
+            The user's device tokens, used for push notifications.
+
+        subscribe_to_emails : typing.Optional[bool]
+            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
+
+        attributes : typing.Optional[typing.Dict[str, str]]
+            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -849,10 +833,7 @@ class AsyncUsersClient:
             await client.users.identify(
                 id="id",
                 email="user@example.com",
-                name="User",
                 tz="Europe/London",
-                device_tokens=["token1", "token2"],
-                subscribe_to_emails=True,
                 attributes={"department": "engineering", "role": "developer"},
             )
 
@@ -863,10 +844,10 @@ class AsyncUsersClient:
             id,
             email=email,
             name=name,
+            tz=tz,
             device_tokens=device_tokens,
             subscribe_to_emails=subscribe_to_emails,
             attributes=attributes,
-            tz=tz,
             request_options=request_options,
         )
         return _response.data
@@ -875,12 +856,12 @@ class AsyncUsersClient:
         self,
         id: str,
         *,
-        email: str,
-        name: str,
-        device_tokens: typing.Sequence[str],
-        subscribe_to_emails: bool,
-        attributes: typing.Dict[str, str],
+        email: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
+        subscribe_to_emails: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -891,23 +872,23 @@ class AsyncUsersClient:
         id : str
             ID of the user to update.
 
-        email : str
+        email : typing.Optional[str]
             The user's email address. Required if subscribeToEmails is true.
 
-        name : str
+        name : typing.Optional[str]
             The name to refer to the user by in emails.
-
-        device_tokens : typing.Sequence[str]
-            The user's device tokens, used for push notifications.
-
-        subscribe_to_emails : bool
-            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
-
-        attributes : typing.Dict[str, str]
-            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        device_tokens : typing.Optional[typing.Sequence[str]]
+            The user's device tokens, used for push notifications.
+
+        subscribe_to_emails : typing.Optional[bool]
+            Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
+
+        attributes : typing.Optional[typing.Dict[str, str]]
+            User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -932,10 +913,7 @@ class AsyncUsersClient:
             await client.users.update(
                 id="id",
                 email="user@example.com",
-                name="User",
                 tz="Europe/London",
-                device_tokens=["token1", "token2"],
-                subscribe_to_emails=True,
                 attributes={"department": "engineering", "role": "developer"},
             )
 
@@ -946,10 +924,10 @@ class AsyncUsersClient:
             id,
             email=email,
             name=name,
+            tz=tz,
             device_tokens=device_tokens,
             subscribe_to_emails=subscribe_to_emails,
             attributes=attributes,
-            tz=tz,
             request_options=request_options,
         )
         return _response.data

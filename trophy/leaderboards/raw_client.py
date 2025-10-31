@@ -103,7 +103,7 @@ class RawLeaderboardsClient:
             Number of rankings to skip for pagination.
 
         limit : typing.Optional[int]
-            Maximum number of rankings to return.
+            Maximum number of rankings to return. Cannot be greater than the size of the leaderboard.
 
         run : typing.Optional[str]
             Specific run date in YYYY-MM-DD format. If not provided, returns the current run.
@@ -112,7 +112,7 @@ class RawLeaderboardsClient:
             When provided, offset is relative to this user's position on the leaderboard. If the user is not found in the leaderboard, returns empty rankings array.
 
         user_attributes : typing.Optional[str]
-            Attribute key and value to filter the rankings by, separated by a colon. This parameter is required, and only valid for leaderboards with a breakdown attribute.
+            Attribute key and value to filter the rankings by, separated by a colon. For example, `city:London`. This parameter is required, and only valid for leaderboards with a breakdown attribute.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -270,7 +270,7 @@ class AsyncRawLeaderboardsClient:
             Number of rankings to skip for pagination.
 
         limit : typing.Optional[int]
-            Maximum number of rankings to return.
+            Maximum number of rankings to return. Cannot be greater than the size of the leaderboard.
 
         run : typing.Optional[str]
             Specific run date in YYYY-MM-DD format. If not provided, returns the current run.
@@ -279,7 +279,7 @@ class AsyncRawLeaderboardsClient:
             When provided, offset is relative to this user's position on the leaderboard. If the user is not found in the leaderboard, returns empty rankings array.
 
         user_attributes : typing.Optional[str]
-            Attribute key and value to filter the rankings by, separated by a colon. This parameter is required, and only valid for leaderboards with a breakdown attribute.
+            Attribute key and value to filter the rankings by, separated by a colon. For example, `city:London`. This parameter is required, and only valid for leaderboards with a breakdown attribute.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

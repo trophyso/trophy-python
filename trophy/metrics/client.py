@@ -77,10 +77,7 @@ class MetricsClient:
             idempotency_key="e4296e4b-8493-4bd1-9c30-5a1a9ac4d78f",
             user=UpsertedUser(
                 email="user@example.com",
-                name="User",
                 tz="Europe/London",
-                device_tokens=["token1", "token2"],
-                subscribe_to_emails=True,
                 attributes={"department": "engineering", "role": "developer"},
                 id="18",
             ),
@@ -169,10 +166,7 @@ class AsyncMetricsClient:
                 idempotency_key="e4296e4b-8493-4bd1-9c30-5a1a9ac4d78f",
                 user=UpsertedUser(
                     email="user@example.com",
-                    name="User",
                     tz="Europe/London",
-                    device_tokens=["token1", "token2"],
-                    subscribe_to_emails=True,
                     attributes={"department": "engineering", "role": "developer"},
                     id="18",
                 ),

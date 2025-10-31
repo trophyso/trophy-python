@@ -13,12 +13,12 @@ class UpdatedUser(UniversalBaseModel):
     An object with editable user fields.
     """
 
-    email: str = pydantic.Field()
+    email: typing.Optional[str] = pydantic.Field(default=None)
     """
     The user's email address. Required if subscribeToEmails is true.
     """
 
-    name: str = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name to refer to the user by in emails.
     """
@@ -28,17 +28,21 @@ class UpdatedUser(UniversalBaseModel):
     The user's timezone (used for email scheduling).
     """
 
-    device_tokens: typing_extensions.Annotated[typing.List[str], FieldMetadata(alias="deviceTokens")] = pydantic.Field()
+    device_tokens: typing_extensions.Annotated[
+        typing.Optional[typing.List[str]], FieldMetadata(alias="deviceTokens")
+    ] = pydantic.Field(default=None)
     """
     The user's device tokens, used for push notifications.
     """
 
-    subscribe_to_emails: typing_extensions.Annotated[bool, FieldMetadata(alias="subscribeToEmails")] = pydantic.Field()
+    subscribe_to_emails: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="subscribeToEmails")
+    ] = pydantic.Field(default=None)
     """
     Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
     """
 
-    attributes: typing.Dict[str, str] = pydantic.Field()
+    attributes: typing.Optional[typing.Dict[str, str]] = pydantic.Field(default=None)
     """
     User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
     """

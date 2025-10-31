@@ -4,13 +4,49 @@ import datetime as dt
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .upserted_user import UpsertedUser
+import typing_extensions
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 
 
-class User(UpsertedUser):
+class User(UniversalBaseModel):
     """
     A user of your application.
+    """
+
+    id: str = pydantic.Field()
+    """
+    The ID of the user in your database. Must be a string.
+    """
+
+    email: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The user's email address.
+    """
+
+    name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The name of the user.
+    """
+
+    tz: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The user's timezone.
+    """
+
+    device_tokens: typing_extensions.Annotated[typing.List[str], FieldMetadata(alias="deviceTokens")] = pydantic.Field()
+    """
+    The user's device tokens.
+    """
+
+    subscribe_to_emails: typing_extensions.Annotated[bool, FieldMetadata(alias="subscribeToEmails")] = pydantic.Field()
+    """
+    Whether the user is opted into receiving Trophy-powered emails.
+    """
+
+    attributes: typing.Dict[str, str] = pydantic.Field()
+    """
+    User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.
     """
 
     control: bool = pydantic.Field()

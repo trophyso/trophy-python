@@ -94,11 +94,7 @@ class AchievementsClient:
             key="finish-onboarding",
             user=UpsertedUser(
                 email="user@example.com",
-                name="User",
                 tz="Europe/London",
-                device_tokens=["token1", "token2"],
-                subscribe_to_emails=True,
-                attributes={"department": "engineering", "role": "developer"},
                 id="user-id",
             ),
         )
@@ -201,11 +197,7 @@ class AsyncAchievementsClient:
                 key="finish-onboarding",
                 user=UpsertedUser(
                     email="user@example.com",
-                    name="User",
                     tz="Europe/London",
-                    device_tokens=["token1", "token2"],
-                    subscribe_to_emails=True,
-                    attributes={"department": "engineering", "role": "developer"},
                     id="user-id",
                 ),
             )

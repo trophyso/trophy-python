@@ -42,12 +42,12 @@ class EventResponse(UniversalBaseModel):
 
     points: typing.Dict[str, MetricEventPointsResponse] = pydantic.Field()
     """
-    A map of points systems by key.
+    A map of points systems by key. Only contains points systems that were affected by the event.
     """
 
     leaderboards: typing.Dict[str, MetricEventLeaderboardResponse] = pydantic.Field()
     """
-    A map of leaderboards by key.
+    A map of leaderboards by key. Only contains leaderboards that were affected by the event.
     """
 
     idempotency_key: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="idempotencyKey")] = (

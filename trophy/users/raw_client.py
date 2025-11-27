@@ -1054,6 +1054,7 @@ class RawUsersClient:
         key: str,
         *,
         run: typing.Optional[str] = None,
+        num_events: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UserLeaderboardResponseWithHistory]:
         """
@@ -1070,6 +1071,9 @@ class RawUsersClient:
         run : typing.Optional[str]
             Specific run date in YYYY-MM-DD format. If not provided, returns the current run.
 
+        num_events : typing.Optional[int]
+            The number of events to return in the history array.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1084,6 +1088,7 @@ class RawUsersClient:
             method="GET",
             params={
                 "run": run,
+                "numEvents": num_events,
             },
             request_options=request_options,
         )
@@ -2161,6 +2166,7 @@ class AsyncRawUsersClient:
         key: str,
         *,
         run: typing.Optional[str] = None,
+        num_events: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UserLeaderboardResponseWithHistory]:
         """
@@ -2177,6 +2183,9 @@ class AsyncRawUsersClient:
         run : typing.Optional[str]
             Specific run date in YYYY-MM-DD format. If not provided, returns the current run.
 
+        num_events : typing.Optional[int]
+            The number of events to return in the history array.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2191,6 +2200,7 @@ class AsyncRawUsersClient:
             method="GET",
             params={
                 "run": run,
+                "numEvents": num_events,
             },
             request_options=request_options,
         )

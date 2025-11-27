@@ -600,6 +600,7 @@ class UsersClient:
         key: str,
         *,
         run: typing.Optional[str] = None,
+        num_events: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UserLeaderboardResponseWithHistory:
         """
@@ -615,6 +616,9 @@ class UsersClient:
 
         run : typing.Optional[str]
             Specific run date in YYYY-MM-DD format. If not provided, returns the current run.
+
+        num_events : typing.Optional[int]
+            The number of events to return in the history array.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -635,9 +639,12 @@ class UsersClient:
             id="user-123",
             key="weekly-words",
             run="2025-01-15",
+            num_events=1,
         )
         """
-        _response = self._raw_client.leaderboard(id, key, run=run, request_options=request_options)
+        _response = self._raw_client.leaderboard(
+            id, key, run=run, num_events=num_events, request_options=request_options
+        )
         return _response.data
 
 
@@ -1309,6 +1316,7 @@ class AsyncUsersClient:
         key: str,
         *,
         run: typing.Optional[str] = None,
+        num_events: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UserLeaderboardResponseWithHistory:
         """
@@ -1324,6 +1332,9 @@ class AsyncUsersClient:
 
         run : typing.Optional[str]
             Specific run date in YYYY-MM-DD format. If not provided, returns the current run.
+
+        num_events : typing.Optional[int]
+            The number of events to return in the history array.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1349,10 +1360,13 @@ class AsyncUsersClient:
                 id="user-123",
                 key="weekly-words",
                 run="2025-01-15",
+                num_events=1,
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.leaderboard(id, key, run=run, request_options=request_options)
+        _response = await self._raw_client.leaderboard(
+            id, key, run=run, num_events=num_events, request_options=request_options
+        )
         return _response.data

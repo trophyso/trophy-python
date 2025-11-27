@@ -95,7 +95,7 @@ class MetricEventLeaderboardResponse(UniversalBaseModel):
     The name of the points system to rank by, if rankBy is 'points'.
     """
 
-    description: str = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The user-facing description of the leaderboard.
     """
@@ -117,9 +117,11 @@ class MetricEventLeaderboardResponse(UniversalBaseModel):
     The repetition type for recurring leaderboards, or null for one-time leaderboards.
     """
 
-    run_interval: typing_extensions.Annotated[int, FieldMetadata(alias="runInterval")] = pydantic.Field()
+    run_interval: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="runInterval")] = (
+        pydantic.Field(default=None)
+    )
     """
-    The interval between repetitions, relative to the start date and repetition type.
+    The interval between repetitions, relative to the start date and repetition type. Null for one-time leaderboards.
     """
 
     if IS_PYDANTIC_V2:

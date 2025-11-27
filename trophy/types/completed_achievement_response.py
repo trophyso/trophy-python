@@ -11,9 +11,11 @@ from .achievement_response import AchievementResponse
 
 
 class CompletedAchievementResponse(AchievementResponse):
-    achieved_at: typing_extensions.Annotated[dt.datetime, FieldMetadata(alias="achievedAt")] = pydantic.Field()
+    achieved_at: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="achievedAt")] = (
+        pydantic.Field(default=None)
+    )
     """
-    The date and time the achievement was completed, in ISO 8601 format.
+    The date and time the achievement was completed, in ISO 8601 format. Null if the achievement has not been completed.
     """
 
     if IS_PYDANTIC_V2:

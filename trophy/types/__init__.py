@@ -48,6 +48,7 @@ if typing.TYPE_CHECKING:
     from .points_trigger_response_user_attributes_item import PointsTriggerResponseUserAttributesItem
     from .points_trigger_time_unit import PointsTriggerTimeUnit
     from .points_trigger_type import PointsTriggerType
+    from .restore_streaks_response import RestoreStreaksResponse
     from .streak_frequency import StreakFrequency
     from .streak_ranking_user import StreakRankingUser
     from .streak_response import StreakResponse
@@ -69,6 +70,17 @@ if typing.TYPE_CHECKING:
     from .webhooks_streak_freeze_earned_payload import WebhooksStreakFreezeEarnedPayload
     from .webhooks_streak_lost_payload import WebhooksStreakLostPayload
     from .webhooks_streak_started_payload import WebhooksStreakStartedPayload
+    from .wrapped_activity import WrappedActivity
+    from .wrapped_activity_period import WrappedActivityPeriod
+    from .wrapped_entire_year import WrappedEntireYear
+    from .wrapped_metric import WrappedMetric
+    from .wrapped_metric_by_attribute_value_value import WrappedMetricByAttributeValueValue
+    from .wrapped_most_active_day import WrappedMostActiveDay
+    from .wrapped_most_active_month import WrappedMostActiveMonth
+    from .wrapped_most_active_week import WrappedMostActiveWeek
+    from .wrapped_points import WrappedPoints
+    from .wrapped_response import WrappedResponse
+    from .wrapped_streak import WrappedStreak
 _dynamic_imports: typing.Dict[str, str] = {
     "AchievementCompletionResponse": ".achievement_completion_response",
     "AchievementCompletionResponseAchievement": ".achievement_completion_response_achievement",
@@ -112,6 +124,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PointsTriggerResponseUserAttributesItem": ".points_trigger_response_user_attributes_item",
     "PointsTriggerTimeUnit": ".points_trigger_time_unit",
     "PointsTriggerType": ".points_trigger_type",
+    "RestoreStreaksResponse": ".restore_streaks_response",
     "StreakFrequency": ".streak_frequency",
     "StreakRankingUser": ".streak_ranking_user",
     "StreakResponse": ".streak_response",
@@ -133,6 +146,17 @@ _dynamic_imports: typing.Dict[str, str] = {
     "WebhooksStreakFreezeEarnedPayload": ".webhooks_streak_freeze_earned_payload",
     "WebhooksStreakLostPayload": ".webhooks_streak_lost_payload",
     "WebhooksStreakStartedPayload": ".webhooks_streak_started_payload",
+    "WrappedActivity": ".wrapped_activity",
+    "WrappedActivityPeriod": ".wrapped_activity_period",
+    "WrappedEntireYear": ".wrapped_entire_year",
+    "WrappedMetric": ".wrapped_metric",
+    "WrappedMetricByAttributeValueValue": ".wrapped_metric_by_attribute_value_value",
+    "WrappedMostActiveDay": ".wrapped_most_active_day",
+    "WrappedMostActiveMonth": ".wrapped_most_active_month",
+    "WrappedMostActiveWeek": ".wrapped_most_active_week",
+    "WrappedPoints": ".wrapped_points",
+    "WrappedResponse": ".wrapped_response",
+    "WrappedStreak": ".wrapped_streak",
 }
 
 
@@ -200,6 +224,7 @@ __all__ = [
     "PointsTriggerResponseUserAttributesItem",
     "PointsTriggerTimeUnit",
     "PointsTriggerType",
+    "RestoreStreaksResponse",
     "StreakFrequency",
     "StreakRankingUser",
     "StreakResponse",
@@ -221,4 +246,15 @@ __all__ = [
     "WebhooksStreakFreezeEarnedPayload",
     "WebhooksStreakLostPayload",
     "WebhooksStreakStartedPayload",
+    "WrappedActivity",
+    "WrappedActivityPeriod",
+    "WrappedEntireYear",
+    "WrappedMetric",
+    "WrappedMetricByAttributeValueValue",
+    "WrappedMostActiveDay",
+    "WrappedMostActiveMonth",
+    "WrappedMostActiveWeek",
+    "WrappedPoints",
+    "WrappedResponse",
+    "WrappedStreak",
 ]

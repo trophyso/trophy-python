@@ -20,6 +20,7 @@ from ..types.metric_response import MetricResponse
 from ..types.streak_response import StreakResponse
 from ..types.user import User
 from ..types.user_leaderboard_response_with_history import UserLeaderboardResponseWithHistory
+from ..types.wrapped_response import WrappedResponse
 from .types.users_metric_event_summary_request_aggregation import UsersMetricEventSummaryRequestAggregation
 from .types.users_metric_event_summary_response_item import UsersMetricEventSummaryResponseItem
 from .types.users_points_event_summary_request_aggregation import UsersPointsEventSummaryRequestAggregation
@@ -1140,6 +1141,85 @@ class RawUsersClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def wrapped(
+        self, id: str, *, year: typing.Optional[int] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[WrappedResponse]:
+        """
+        Get a user's year-in-review wrapped data.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        year : typing.Optional[int]
+            The year to get wrapped data for. Defaults to the current year. Must be an integer between 1 and the current year.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[WrappedResponse]
+            Successful operation
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}/wrapped",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            params={
+                "year": year,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    WrappedResponse,
+                    parse_obj_as(
+                        type_=WrappedResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawUsersClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -2210,6 +2290,85 @@ class AsyncRawUsersClient:
                     UserLeaderboardResponseWithHistory,
                     parse_obj_as(
                         type_=UserLeaderboardResponseWithHistory,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def wrapped(
+        self, id: str, *, year: typing.Optional[int] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[WrappedResponse]:
+        """
+        Get a user's year-in-review wrapped data.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        year : typing.Optional[int]
+            The year to get wrapped data for. Defaults to the current year. Must be an integer between 1 and the current year.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[WrappedResponse]
+            Successful operation
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}/wrapped",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            params={
+                "year": year,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    WrappedResponse,
+                    parse_obj_as(
+                        type_=WrappedResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

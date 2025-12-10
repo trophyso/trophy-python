@@ -10,6 +10,7 @@ from ..types.metric_response import MetricResponse
 from ..types.streak_response import StreakResponse
 from ..types.user import User
 from ..types.user_leaderboard_response_with_history import UserLeaderboardResponseWithHistory
+from ..types.wrapped_response import WrappedResponse
 from .raw_client import AsyncRawUsersClient, RawUsersClient
 from .types.users_metric_event_summary_request_aggregation import UsersMetricEventSummaryRequestAggregation
 from .types.users_metric_event_summary_response_item import UsersMetricEventSummaryResponseItem
@@ -645,6 +646,43 @@ class UsersClient:
         _response = self._raw_client.leaderboard(
             id, key, run=run, num_events=num_events, request_options=request_options
         )
+        return _response.data
+
+    def wrapped(
+        self, id: str, *, year: typing.Optional[int] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> WrappedResponse:
+        """
+        Get a user's year-in-review wrapped data.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        year : typing.Optional[int]
+            The year to get wrapped data for. Defaults to the current year. Must be an integer between 1 and the current year.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        WrappedResponse
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.users.wrapped(
+            id="user-123",
+            year=1,
+        )
+        """
+        _response = self._raw_client.wrapped(id, year=year, request_options=request_options)
         return _response.data
 
 
@@ -1369,4 +1407,49 @@ class AsyncUsersClient:
         _response = await self._raw_client.leaderboard(
             id, key, run=run, num_events=num_events, request_options=request_options
         )
+        return _response.data
+
+    async def wrapped(
+        self, id: str, *, year: typing.Optional[int] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> WrappedResponse:
+        """
+        Get a user's year-in-review wrapped data.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        year : typing.Optional[int]
+            The year to get wrapped data for. Defaults to the current year. Must be an integer between 1 and the current year.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        WrappedResponse
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.wrapped(
+                id="user-123",
+                year=1,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.wrapped(id, year=year, request_options=request_options)
         return _response.data

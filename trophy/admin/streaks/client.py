@@ -5,10 +5,14 @@ from __future__ import annotations
 import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.request_options import RequestOptions
+from ...types.restore_streaks_response import RestoreStreaksResponse
 from .raw_client import AsyncRawStreaksClient, RawStreaksClient
 
 if typing.TYPE_CHECKING:
     from .freezes.client import AsyncFreezesClient, FreezesClient
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
 class StreaksClient:
@@ -27,6 +31,39 @@ class StreaksClient:
         RawStreaksClient
         """
         return self._raw_client
+
+    def restore(
+        self, *, user_ids: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+    ) -> RestoreStreaksResponse:
+        """
+        Restore streaks for multiple users to the maximum length in the last 90 days (in the case of daily streaks), one year (in the case of weekly streaks), or two years (in the case of monthly streaks).
+
+        Parameters
+        ----------
+        user_ids : typing.Sequence[str]
+            Array of user IDs to restore streaks for. Maximum 100 users per request.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RestoreStreaksResponse
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.admin.streaks.restore(
+            user_ids=["user-123", "user-456"],
+        )
+        """
+        _response = self._raw_client.restore(user_ids=user_ids, request_options=request_options)
+        return _response.data
 
     @property
     def freezes(self):
@@ -53,6 +90,47 @@ class AsyncStreaksClient:
         AsyncRawStreaksClient
         """
         return self._raw_client
+
+    async def restore(
+        self, *, user_ids: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+    ) -> RestoreStreaksResponse:
+        """
+        Restore streaks for multiple users to the maximum length in the last 90 days (in the case of daily streaks), one year (in the case of weekly streaks), or two years (in the case of monthly streaks).
+
+        Parameters
+        ----------
+        user_ids : typing.Sequence[str]
+            Array of user IDs to restore streaks for. Maximum 100 users per request.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RestoreStreaksResponse
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.admin.streaks.restore(
+                user_ids=["user-123", "user-456"],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.restore(user_ids=user_ids, request_options=request_options)
+        return _response.data
 
     @property
     def freezes(self):

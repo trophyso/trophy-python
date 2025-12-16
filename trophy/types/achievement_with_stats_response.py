@@ -3,12 +3,8 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from ..core.serialization import FieldMetadata
 from .achievement_response import AchievementResponse
-from .achievement_with_stats_response_event_attribute import AchievementWithStatsResponseEventAttribute
-from .achievement_with_stats_response_user_attributes_item import AchievementWithStatsResponseUserAttributesItem
 
 
 class AchievementWithStatsResponse(AchievementResponse):
@@ -20,21 +16,6 @@ class AchievementWithStatsResponse(AchievementResponse):
     rarity: float = pydantic.Field()
     """
     The percentage of all users who have completed this achievement.
-    """
-
-    user_attributes: typing_extensions.Annotated[
-        typing.Optional[typing.List[AchievementWithStatsResponseUserAttributesItem]],
-        FieldMetadata(alias="userAttributes"),
-    ] = pydantic.Field(default=None)
-    """
-    User attribute filters that must be met for this achievement to be completed. Only present if the achievement has user attribute filters configured.
-    """
-
-    event_attribute: typing_extensions.Annotated[
-        typing.Optional[AchievementWithStatsResponseEventAttribute], FieldMetadata(alias="eventAttribute")
-    ] = pydantic.Field(default=None)
-    """
-    Event attribute filter that must be met for this achievement to be completed. Only present if the achievement has an event filter configured.
     """
 
     if IS_PYDANTIC_V2:

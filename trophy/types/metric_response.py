@@ -4,8 +4,8 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .completed_achievement_response import CompletedAchievementResponse
 from .metric_status import MetricStatus
+from .user_achievement_response import UserAchievementResponse
 
 
 class MetricResponse(UniversalBaseModel):
@@ -34,7 +34,7 @@ class MetricResponse(UniversalBaseModel):
     The user's current total for the metric.
     """
 
-    achievements: typing.List[CompletedAchievementResponse] = pydantic.Field()
+    achievements: typing.List[UserAchievementResponse] = pydantic.Field()
     """
     A list of the metric's achievements and the user's progress towards each.
     """

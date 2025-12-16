@@ -6,19 +6,15 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class AchievementWithStatsResponseEventAttribute(UniversalBaseModel):
-    """
-    Event attribute filter that must be met for this achievement to be completed. Only present if the achievement has an event filter configured.
-    """
-
+class AchievementResponseUserAttributesItem(UniversalBaseModel):
     key: str = pydantic.Field()
     """
-    The key of the event attribute.
+    The key of the user attribute.
     """
 
     value: str = pydantic.Field()
     """
-    The value of the event attribute.
+    The value of the user attribute.
     """
 
     if IS_PYDANTIC_V2:

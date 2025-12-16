@@ -4,11 +4,11 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..types.completed_achievement_response import CompletedAchievementResponse
 from ..types.get_user_points_response import GetUserPointsResponse
 from ..types.metric_response import MetricResponse
 from ..types.streak_response import StreakResponse
 from ..types.user import User
+from ..types.user_achievement_with_stats_response import UserAchievementWithStatsResponse
 from ..types.user_leaderboard_response_with_history import UserLeaderboardResponseWithHistory
 from ..types.wrapped_response import WrappedResponse
 from .raw_client import AsyncRawUsersClient, RawUsersClient
@@ -414,7 +414,7 @@ class UsersClient:
         *,
         include_incomplete: typing.Optional[typing.Literal["true"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[CompletedAchievementResponse]:
+    ) -> typing.List[UserAchievementWithStatsResponse]:
         """
         Get a user's achievements.
 
@@ -431,7 +431,7 @@ class UsersClient:
 
         Returns
         -------
-        typing.List[CompletedAchievementResponse]
+        typing.List[UserAchievementWithStatsResponse]
             Successful operation
 
         Examples
@@ -1135,7 +1135,7 @@ class AsyncUsersClient:
         *,
         include_incomplete: typing.Optional[typing.Literal["true"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[CompletedAchievementResponse]:
+    ) -> typing.List[UserAchievementWithStatsResponse]:
         """
         Get a user's achievements.
 
@@ -1152,7 +1152,7 @@ class AsyncUsersClient:
 
         Returns
         -------
-        typing.List[CompletedAchievementResponse]
+        typing.List[UserAchievementWithStatsResponse]
             Successful operation
 
         Examples

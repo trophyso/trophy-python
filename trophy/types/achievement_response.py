@@ -6,7 +6,9 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .achievement_response_event_attribute import AchievementResponseEventAttribute
 from .achievement_response_trigger import AchievementResponseTrigger
+from .achievement_response_user_attributes_item import AchievementResponseUserAttributesItem
 
 
 class AchievementResponse(UniversalBaseModel):
@@ -37,7 +39,7 @@ class AchievementResponse(UniversalBaseModel):
     The URL of the badge image for the achievement, if one has been uploaded.
     """
 
-    key: str = pydantic.Field()
+    key: typing.Optional[str] = pydantic.Field(default=None)
     """
     The key used to reference this achievement in the API (only applicable if trigger = 'api')
     """
@@ -68,6 +70,20 @@ class AchievementResponse(UniversalBaseModel):
     )
     """
     The name of the metric associated with this achievement (only applicable if trigger = 'metric')
+    """
+
+    user_attributes: typing_extensions.Annotated[
+        typing.Optional[typing.List[AchievementResponseUserAttributesItem]], FieldMetadata(alias="userAttributes")
+    ] = pydantic.Field(default=None)
+    """
+    User attribute filters that must be met for this achievement to be completed. Only present if the achievement has user attribute filters configured.
+    """
+
+    event_attribute: typing_extensions.Annotated[
+        typing.Optional[AchievementResponseEventAttribute], FieldMetadata(alias="eventAttribute")
+    ] = pydantic.Field(default=None)
+    """
+    Event attribute filter that must be met for this achievement to be completed. Only present if the achievement has an event filter configured.
     """
 
     if IS_PYDANTIC_V2:

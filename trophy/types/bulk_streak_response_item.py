@@ -19,9 +19,9 @@ class BulkStreakResponseItem(UniversalBaseModel):
     The length of the user's streak.
     """
 
-    extended: str = pydantic.Field()
+    extended: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The timestamp the streak was extended, as a string.
+    The timestamp the streak was extended, as a string. Null if the streak is not active.
     """
 
     if IS_PYDANTIC_V2:

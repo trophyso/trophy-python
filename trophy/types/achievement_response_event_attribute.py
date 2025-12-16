@@ -4,24 +4,21 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .user import User
-from .user_achievement_response import UserAchievementResponse
 
 
-class WebhooksAchievementCompletedPayload(UniversalBaseModel):
-    type: typing.Literal["achievement.completed"] = pydantic.Field(default="achievement.completed")
+class AchievementResponseEventAttribute(UniversalBaseModel):
     """
-    The webhook event type.
-    """
-
-    user: User = pydantic.Field()
-    """
-    The user who completed the achievement.
+    Event attribute filter that must be met for this achievement to be completed. Only present if the achievement has an event filter configured.
     """
 
-    achievement: UserAchievementResponse = pydantic.Field()
+    key: str = pydantic.Field()
     """
-    The achievement completion that occurred.
+    The key of the event attribute.
+    """
+
+    value: str = pydantic.Field()
+    """
+    The value of the event attribute.
     """
 
     if IS_PYDANTIC_V2:

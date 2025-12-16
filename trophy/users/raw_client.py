@@ -13,12 +13,12 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
-from ..types.completed_achievement_response import CompletedAchievementResponse
 from ..types.error_body import ErrorBody
 from ..types.get_user_points_response import GetUserPointsResponse
 from ..types.metric_response import MetricResponse
 from ..types.streak_response import StreakResponse
 from ..types.user import User
+from ..types.user_achievement_with_stats_response import UserAchievementWithStatsResponse
 from ..types.user_leaderboard_response_with_history import UserLeaderboardResponseWithHistory
 from ..types.wrapped_response import WrappedResponse
 from .types.users_metric_event_summary_request_aggregation import UsersMetricEventSummaryRequestAggregation
@@ -705,7 +705,7 @@ class RawUsersClient:
         *,
         include_incomplete: typing.Optional[typing.Literal["true"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.List[CompletedAchievementResponse]]:
+    ) -> HttpResponse[typing.List[UserAchievementWithStatsResponse]]:
         """
         Get a user's achievements.
 
@@ -722,7 +722,7 @@ class RawUsersClient:
 
         Returns
         -------
-        HttpResponse[typing.List[CompletedAchievementResponse]]
+        HttpResponse[typing.List[UserAchievementWithStatsResponse]]
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -737,9 +737,9 @@ class RawUsersClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.List[CompletedAchievementResponse],
+                    typing.List[UserAchievementWithStatsResponse],
                     parse_obj_as(
-                        type_=typing.List[CompletedAchievementResponse],  # type: ignore
+                        type_=typing.List[UserAchievementWithStatsResponse],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1896,7 +1896,7 @@ class AsyncRawUsersClient:
         *,
         include_incomplete: typing.Optional[typing.Literal["true"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.List[CompletedAchievementResponse]]:
+    ) -> AsyncHttpResponse[typing.List[UserAchievementWithStatsResponse]]:
         """
         Get a user's achievements.
 
@@ -1913,7 +1913,7 @@ class AsyncRawUsersClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.List[CompletedAchievementResponse]]
+        AsyncHttpResponse[typing.List[UserAchievementWithStatsResponse]]
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1928,9 +1928,9 @@ class AsyncRawUsersClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.List[CompletedAchievementResponse],
+                    typing.List[UserAchievementWithStatsResponse],
                     parse_obj_as(
-                        type_=typing.List[CompletedAchievementResponse],  # type: ignore
+                        type_=typing.List[UserAchievementWithStatsResponse],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

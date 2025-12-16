@@ -8,11 +8,13 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
+from ...core.serialization import convert_and_respect_annotation_metadata
 from ...errors.bad_request_error import BadRequestError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.error_body import ErrorBody
 from ...types.restore_streaks_response import RestoreStreaksResponse
+from .types.restore_streaks_request_users_item import RestoreStreaksRequestUsersItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -23,15 +25,18 @@ class RawStreaksClient:
         self._client_wrapper = client_wrapper
 
     def restore(
-        self, *, user_ids: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        users: typing.Sequence[RestoreStreaksRequestUsersItem],
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[RestoreStreaksResponse]:
         """
         Restore streaks for multiple users to the maximum length in the last 90 days (in the case of daily streaks), one year (in the case of weekly streaks), or two years (in the case of monthly streaks).
 
         Parameters
         ----------
-        user_ids : typing.Sequence[str]
-            Array of user IDs to restore streaks for. Maximum 100 users per request.
+        users : typing.Sequence[RestoreStreaksRequestUsersItem]
+            Array of users to restore streaks for. Maximum 100 users per request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -46,7 +51,9 @@ class RawStreaksClient:
             base_url=self._client_wrapper.get_environment().admin,
             method="POST",
             json={
-                "userIds": user_ids,
+                "users": convert_and_respect_annotation_metadata(
+                    object_=users, annotation=typing.Sequence[RestoreStreaksRequestUsersItem], direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -108,15 +115,18 @@ class AsyncRawStreaksClient:
         self._client_wrapper = client_wrapper
 
     async def restore(
-        self, *, user_ids: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        users: typing.Sequence[RestoreStreaksRequestUsersItem],
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[RestoreStreaksResponse]:
         """
         Restore streaks for multiple users to the maximum length in the last 90 days (in the case of daily streaks), one year (in the case of weekly streaks), or two years (in the case of monthly streaks).
 
         Parameters
         ----------
-        user_ids : typing.Sequence[str]
-            Array of user IDs to restore streaks for. Maximum 100 users per request.
+        users : typing.Sequence[RestoreStreaksRequestUsersItem]
+            Array of users to restore streaks for. Maximum 100 users per request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -131,7 +141,9 @@ class AsyncRawStreaksClient:
             base_url=self._client_wrapper.get_environment().admin,
             method="POST",
             json={
-                "userIds": user_ids,
+                "users": convert_and_respect_annotation_metadata(
+                    object_=users, annotation=typing.Sequence[RestoreStreaksRequestUsersItem], direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",

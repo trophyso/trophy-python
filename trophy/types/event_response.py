@@ -6,10 +6,10 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .completed_achievement_response import CompletedAchievementResponse
 from .metric_event_leaderboard_response import MetricEventLeaderboardResponse
 from .metric_event_points_response import MetricEventPointsResponse
 from .metric_event_streak_response import MetricEventStreakResponse
+from .user_achievement_response import UserAchievementResponse
 
 
 class EventResponse(UniversalBaseModel):
@@ -28,7 +28,7 @@ class EventResponse(UniversalBaseModel):
     The user's new total progress against the metric.
     """
 
-    achievements: typing.List[CompletedAchievementResponse] = pydantic.Field()
+    achievements: typing.List[UserAchievementResponse] = pydantic.Field()
     """
     Achievements completed as a result of this event.
     """

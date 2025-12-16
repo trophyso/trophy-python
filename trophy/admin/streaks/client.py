@@ -8,6 +8,7 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.restore_streaks_response import RestoreStreaksResponse
 from .raw_client import AsyncRawStreaksClient, RawStreaksClient
+from .types.restore_streaks_request_users_item import RestoreStreaksRequestUsersItem
 
 if typing.TYPE_CHECKING:
     from .freezes.client import AsyncFreezesClient, FreezesClient
@@ -33,15 +34,18 @@ class StreaksClient:
         return self._raw_client
 
     def restore(
-        self, *, user_ids: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        users: typing.Sequence[RestoreStreaksRequestUsersItem],
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> RestoreStreaksResponse:
         """
         Restore streaks for multiple users to the maximum length in the last 90 days (in the case of daily streaks), one year (in the case of weekly streaks), or two years (in the case of monthly streaks).
 
         Parameters
         ----------
-        user_ids : typing.Sequence[str]
-            Array of user IDs to restore streaks for. Maximum 100 users per request.
+        users : typing.Sequence[RestoreStreaksRequestUsersItem]
+            Array of users to restore streaks for. Maximum 100 users per request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -54,15 +58,23 @@ class StreaksClient:
         Examples
         --------
         from trophy import TrophyApi
+        from trophy.admin.streaks import RestoreStreaksRequestUsersItem
 
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
         client.admin.streaks.restore(
-            user_ids=["user-123", "user-456"],
+            users=[
+                RestoreStreaksRequestUsersItem(
+                    id="user-123",
+                ),
+                RestoreStreaksRequestUsersItem(
+                    id="user-456",
+                ),
+            ],
         )
         """
-        _response = self._raw_client.restore(user_ids=user_ids, request_options=request_options)
+        _response = self._raw_client.restore(users=users, request_options=request_options)
         return _response.data
 
     @property
@@ -92,15 +104,18 @@ class AsyncStreaksClient:
         return self._raw_client
 
     async def restore(
-        self, *, user_ids: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        users: typing.Sequence[RestoreStreaksRequestUsersItem],
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> RestoreStreaksResponse:
         """
         Restore streaks for multiple users to the maximum length in the last 90 days (in the case of daily streaks), one year (in the case of weekly streaks), or two years (in the case of monthly streaks).
 
         Parameters
         ----------
-        user_ids : typing.Sequence[str]
-            Array of user IDs to restore streaks for. Maximum 100 users per request.
+        users : typing.Sequence[RestoreStreaksRequestUsersItem]
+            Array of users to restore streaks for. Maximum 100 users per request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -115,6 +130,7 @@ class AsyncStreaksClient:
         import asyncio
 
         from trophy import AsyncTrophyApi
+        from trophy.admin.streaks import RestoreStreaksRequestUsersItem
 
         client = AsyncTrophyApi(
             api_key="YOUR_API_KEY",
@@ -123,13 +139,20 @@ class AsyncStreaksClient:
 
         async def main() -> None:
             await client.admin.streaks.restore(
-                user_ids=["user-123", "user-456"],
+                users=[
+                    RestoreStreaksRequestUsersItem(
+                        id="user-123",
+                    ),
+                    RestoreStreaksRequestUsersItem(
+                        id="user-456",
+                    ),
+                ],
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.restore(user_ids=user_ids, request_options=request_options)
+        _response = await self._raw_client.restore(users=users, request_options=request_options)
         return _response.data
 
     @property

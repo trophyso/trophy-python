@@ -7,18 +7,16 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .achievement_completion_response import AchievementCompletionResponse
-    from .achievement_completion_response_achievement import AchievementCompletionResponseAchievement
     from .achievement_response import AchievementResponse
+    from .achievement_response_event_attribute import AchievementResponseEventAttribute
     from .achievement_response_trigger import AchievementResponseTrigger
+    from .achievement_response_user_attributes_item import AchievementResponseUserAttributesItem
     from .achievement_with_stats_response import AchievementWithStatsResponse
-    from .achievement_with_stats_response_event_attribute import AchievementWithStatsResponseEventAttribute
-    from .achievement_with_stats_response_user_attributes_item import AchievementWithStatsResponseUserAttributesItem
     from .base_streak_response import BaseStreakResponse
     from .bulk_insert_issue import BulkInsertIssue
     from .bulk_insert_issue_level import BulkInsertIssueLevel
     from .bulk_streak_response import BulkStreakResponse
     from .bulk_streak_response_item import BulkStreakResponseItem
-    from .completed_achievement_response import CompletedAchievementResponse
     from .create_streak_freezes_response import CreateStreakFreezesResponse
     from .error_body import ErrorBody
     from .event_response import EventResponse
@@ -56,6 +54,8 @@ if typing.TYPE_CHECKING:
     from .updated_user import UpdatedUser
     from .upserted_user import UpsertedUser
     from .user import User
+    from .user_achievement_response import UserAchievementResponse
+    from .user_achievement_with_stats_response import UserAchievementWithStatsResponse
     from .user_leaderboard_response import UserLeaderboardResponse
     from .user_leaderboard_response_with_history import UserLeaderboardResponseWithHistory
     from .webhook_user_leaderboard_response import WebhookUserLeaderboardResponse
@@ -83,18 +83,16 @@ if typing.TYPE_CHECKING:
     from .wrapped_streak import WrappedStreak
 _dynamic_imports: typing.Dict[str, str] = {
     "AchievementCompletionResponse": ".achievement_completion_response",
-    "AchievementCompletionResponseAchievement": ".achievement_completion_response_achievement",
     "AchievementResponse": ".achievement_response",
+    "AchievementResponseEventAttribute": ".achievement_response_event_attribute",
     "AchievementResponseTrigger": ".achievement_response_trigger",
+    "AchievementResponseUserAttributesItem": ".achievement_response_user_attributes_item",
     "AchievementWithStatsResponse": ".achievement_with_stats_response",
-    "AchievementWithStatsResponseEventAttribute": ".achievement_with_stats_response_event_attribute",
-    "AchievementWithStatsResponseUserAttributesItem": ".achievement_with_stats_response_user_attributes_item",
     "BaseStreakResponse": ".base_streak_response",
     "BulkInsertIssue": ".bulk_insert_issue",
     "BulkInsertIssueLevel": ".bulk_insert_issue_level",
     "BulkStreakResponse": ".bulk_streak_response",
     "BulkStreakResponseItem": ".bulk_streak_response_item",
-    "CompletedAchievementResponse": ".completed_achievement_response",
     "CreateStreakFreezesResponse": ".create_streak_freezes_response",
     "ErrorBody": ".error_body",
     "EventResponse": ".event_response",
@@ -132,6 +130,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatedUser": ".updated_user",
     "UpsertedUser": ".upserted_user",
     "User": ".user",
+    "UserAchievementResponse": ".user_achievement_response",
+    "UserAchievementWithStatsResponse": ".user_achievement_with_stats_response",
     "UserLeaderboardResponse": ".user_leaderboard_response",
     "UserLeaderboardResponseWithHistory": ".user_leaderboard_response_with_history",
     "WebhookUserLeaderboardResponse": ".webhook_user_leaderboard_response",
@@ -183,18 +183,16 @@ def __dir__():
 
 __all__ = [
     "AchievementCompletionResponse",
-    "AchievementCompletionResponseAchievement",
     "AchievementResponse",
+    "AchievementResponseEventAttribute",
     "AchievementResponseTrigger",
+    "AchievementResponseUserAttributesItem",
     "AchievementWithStatsResponse",
-    "AchievementWithStatsResponseEventAttribute",
-    "AchievementWithStatsResponseUserAttributesItem",
     "BaseStreakResponse",
     "BulkInsertIssue",
     "BulkInsertIssueLevel",
     "BulkStreakResponse",
     "BulkStreakResponseItem",
-    "CompletedAchievementResponse",
     "CreateStreakFreezesResponse",
     "ErrorBody",
     "EventResponse",
@@ -232,6 +230,8 @@ __all__ = [
     "UpdatedUser",
     "UpsertedUser",
     "User",
+    "UserAchievementResponse",
+    "UserAchievementWithStatsResponse",
     "UserLeaderboardResponse",
     "UserLeaderboardResponseWithHistory",
     "WebhookUserLeaderboardResponse",

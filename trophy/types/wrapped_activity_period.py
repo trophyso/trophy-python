@@ -4,7 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .completed_achievement_response import CompletedAchievementResponse
+from .user_achievement_response import UserAchievementResponse
 from .user_leaderboard_response import UserLeaderboardResponse
 from .wrapped_metric import WrappedMetric
 from .wrapped_points import WrappedPoints
@@ -25,7 +25,7 @@ class WrappedActivityPeriod(UniversalBaseModel):
     The user's points during this period, keyed by points system key.
     """
 
-    achievements: typing.List[CompletedAchievementResponse] = pydantic.Field()
+    achievements: typing.List[UserAchievementResponse] = pydantic.Field()
     """
     Achievements completed during this period.
     """

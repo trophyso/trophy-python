@@ -3,18 +3,13 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class AchievementWithStatsResponseUserAttributesItem(UniversalBaseModel):
-    key: str = pydantic.Field()
+class RestoreStreaksRequestUsersItem(UniversalBaseModel):
+    id: str = pydantic.Field()
     """
-    The key of the user attribute.
-    """
-
-    value: str = pydantic.Field()
-    """
-    The value of the user attribute.
+    The ID of the user to restore streaks for.
     """
 
     if IS_PYDANTIC_V2:

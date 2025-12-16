@@ -6,8 +6,8 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .achievement_completion_response_achievement import AchievementCompletionResponseAchievement
 from .metric_event_points_response import MetricEventPointsResponse
+from .user_achievement_response import UserAchievementResponse
 
 
 class AchievementCompletionResponse(UniversalBaseModel):
@@ -16,7 +16,7 @@ class AchievementCompletionResponse(UniversalBaseModel):
     The unique ID of the completion.
     """
 
-    achievement: AchievementCompletionResponseAchievement
+    achievement: UserAchievementResponse
     points: typing.Dict[str, MetricEventPointsResponse] = pydantic.Field()
     """
     A map of points systems by key that were affected by this achievement completion.

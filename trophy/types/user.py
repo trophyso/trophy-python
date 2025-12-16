@@ -34,7 +34,9 @@ class User(UniversalBaseModel):
     The user's timezone.
     """
 
-    device_tokens: typing_extensions.Annotated[typing.List[str], FieldMetadata(alias="deviceTokens")] = pydantic.Field()
+    device_tokens: typing_extensions.Annotated[
+        typing.Optional[typing.List[str]], FieldMetadata(alias="deviceTokens")
+    ] = pydantic.Field(default=None)
     """
     The user's device tokens.
     """

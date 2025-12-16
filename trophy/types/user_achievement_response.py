@@ -7,10 +7,10 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
-from .achievement_with_stats_response import AchievementWithStatsResponse
+from .achievement_response import AchievementResponse
 
 
-class CompletedAchievementResponse(AchievementWithStatsResponse):
+class UserAchievementResponse(AchievementResponse):
     achieved_at: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="achievedAt")] = (
         pydantic.Field(default=None)
     )

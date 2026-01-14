@@ -33,6 +33,9 @@ if typing.TYPE_CHECKING:
     from .metric_event_streak_response import MetricEventStreakResponse
     from .metric_response import MetricResponse
     from .metric_status import MetricStatus
+    from .notification_channel import NotificationChannel
+    from .notification_preferences import NotificationPreferences
+    from .notification_type import NotificationType
     from .points_award import PointsAward
     from .points_range import PointsRange
     from .points_summary_response import PointsSummaryResponse
@@ -58,6 +61,7 @@ if typing.TYPE_CHECKING:
     from .user_achievement_with_stats_response import UserAchievementWithStatsResponse
     from .user_leaderboard_response import UserLeaderboardResponse
     from .user_leaderboard_response_with_history import UserLeaderboardResponseWithHistory
+    from .user_preferences_response import UserPreferencesResponse
     from .webhook_user_leaderboard_response import WebhookUserLeaderboardResponse
     from .webhooks_achievement_completed_payload import WebhooksAchievementCompletedPayload
     from .webhooks_leaderboard_changed_payload import WebhooksLeaderboardChangedPayload
@@ -109,6 +113,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MetricEventStreakResponse": ".metric_event_streak_response",
     "MetricResponse": ".metric_response",
     "MetricStatus": ".metric_status",
+    "NotificationChannel": ".notification_channel",
+    "NotificationPreferences": ".notification_preferences",
+    "NotificationType": ".notification_type",
     "PointsAward": ".points_award",
     "PointsRange": ".points_range",
     "PointsSummaryResponse": ".points_summary_response",
@@ -134,6 +141,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UserAchievementWithStatsResponse": ".user_achievement_with_stats_response",
     "UserLeaderboardResponse": ".user_leaderboard_response",
     "UserLeaderboardResponseWithHistory": ".user_leaderboard_response_with_history",
+    "UserPreferencesResponse": ".user_preferences_response",
     "WebhookUserLeaderboardResponse": ".webhook_user_leaderboard_response",
     "WebhooksAchievementCompletedPayload": ".webhooks_achievement_completed_payload",
     "WebhooksLeaderboardChangedPayload": ".webhooks_leaderboard_changed_payload",
@@ -209,6 +217,9 @@ __all__ = [
     "MetricEventStreakResponse",
     "MetricResponse",
     "MetricStatus",
+    "NotificationChannel",
+    "NotificationPreferences",
+    "NotificationType",
     "PointsAward",
     "PointsRange",
     "PointsSummaryResponse",
@@ -234,6 +245,7 @@ __all__ = [
     "UserAchievementWithStatsResponse",
     "UserLeaderboardResponse",
     "UserLeaderboardResponseWithHistory",
+    "UserPreferencesResponse",
     "WebhookUserLeaderboardResponse",
     "WebhooksAchievementCompletedPayload",
     "WebhooksLeaderboardChangedPayload",

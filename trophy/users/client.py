@@ -6,10 +6,12 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.get_user_points_response import GetUserPointsResponse
 from ..types.metric_response import MetricResponse
+from ..types.notification_preferences import NotificationPreferences
 from ..types.streak_response import StreakResponse
 from ..types.user import User
 from ..types.user_achievement_with_stats_response import UserAchievementWithStatsResponse
 from ..types.user_leaderboard_response_with_history import UserLeaderboardResponseWithHistory
+from ..types.user_preferences_response import UserPreferencesResponse
 from ..types.wrapped_response import WrappedResponse
 from .raw_client import AsyncRawUsersClient, RawUsersClient
 from .types.users_metric_event_summary_request_aggregation import UsersMetricEventSummaryRequestAggregation
@@ -277,6 +279,83 @@ class UsersClient:
             subscribe_to_emails=subscribe_to_emails,
             attributes=attributes,
             request_options=request_options,
+        )
+        return _response.data
+
+    def get_preferences(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> UserPreferencesResponse:
+        """
+        Get a user's notification preferences.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UserPreferencesResponse
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.users.get_preferences(
+            id="user-123",
+        )
+        """
+        _response = self._raw_client.get_preferences(id, request_options=request_options)
+        return _response.data
+
+    def update_preferences(
+        self,
+        id: str,
+        *,
+        notifications: typing.Optional[NotificationPreferences] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UserPreferencesResponse:
+        """
+        Update a user's notification preferences.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        notifications : typing.Optional[NotificationPreferences]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UserPreferencesResponse
+            Successful operation
+
+        Examples
+        --------
+        from trophy import NotificationPreferences, TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.users.update_preferences(
+            id="user-123",
+            notifications=NotificationPreferences(
+                streak_reminder=["email"],
+            ),
+        )
+        """
+        _response = self._raw_client.update_preferences(
+            id, notifications=notifications, request_options=request_options
         )
         return _response.data
 
@@ -974,6 +1053,99 @@ class AsyncUsersClient:
             subscribe_to_emails=subscribe_to_emails,
             attributes=attributes,
             request_options=request_options,
+        )
+        return _response.data
+
+    async def get_preferences(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> UserPreferencesResponse:
+        """
+        Get a user's notification preferences.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UserPreferencesResponse
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.get_preferences(
+                id="user-123",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_preferences(id, request_options=request_options)
+        return _response.data
+
+    async def update_preferences(
+        self,
+        id: str,
+        *,
+        notifications: typing.Optional[NotificationPreferences] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UserPreferencesResponse:
+        """
+        Update a user's notification preferences.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        notifications : typing.Optional[NotificationPreferences]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UserPreferencesResponse
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi, NotificationPreferences
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.update_preferences(
+                id="user-123",
+                notifications=NotificationPreferences(
+                    streak_reminder=["email"],
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_preferences(
+            id, notifications=notifications, request_options=request_options
         )
         return _response.data
 

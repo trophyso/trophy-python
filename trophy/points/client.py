@@ -4,6 +4,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.points_boost import PointsBoost
 from ..types.points_summary_response import PointsSummaryResponse
 from ..types.points_system_response import PointsSystemResponse
 from .raw_client import AsyncRawPointsClient, RawPointsClient
@@ -67,7 +68,7 @@ class PointsClient:
 
     def system(self, key: str, *, request_options: typing.Optional[RequestOptions] = None) -> PointsSystemResponse:
         """
-        Get a points system with all its triggers.
+        Get a points system with its triggers.
 
         Parameters
         ----------
@@ -94,6 +95,47 @@ class PointsClient:
         )
         """
         _response = self._raw_client.system(key, request_options=request_options)
+        return _response.data
+
+    def boosts(
+        self,
+        key: str,
+        *,
+        include_finished: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[PointsBoost]:
+        """
+        Get all global boosts for a points system. Finished boosts are excluded by default.
+
+        Parameters
+        ----------
+        key : str
+            Key of the points system.
+
+        include_finished : typing.Optional[bool]
+            When set to 'true', boosts that have finished (past their end date) will be included in the response. By default, finished boosts are excluded.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[PointsBoost]
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.points.boosts(
+            key="points-system-key",
+            include_finished=True,
+        )
+        """
+        _response = self._raw_client.boosts(key, include_finished=include_finished, request_options=request_options)
         return _response.data
 
 
@@ -167,7 +209,7 @@ class AsyncPointsClient:
         self, key: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> PointsSystemResponse:
         """
-        Get a points system with all its triggers.
+        Get a points system with its triggers.
 
         Parameters
         ----------
@@ -202,4 +244,55 @@ class AsyncPointsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.system(key, request_options=request_options)
+        return _response.data
+
+    async def boosts(
+        self,
+        key: str,
+        *,
+        include_finished: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[PointsBoost]:
+        """
+        Get all global boosts for a points system. Finished boosts are excluded by default.
+
+        Parameters
+        ----------
+        key : str
+            Key of the points system.
+
+        include_finished : typing.Optional[bool]
+            When set to 'true', boosts that have finished (past their end date) will be included in the response. By default, finished boosts are excluded.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[PointsBoost]
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.points.boosts(
+                key="points-system-key",
+                include_finished=True,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.boosts(
+            key, include_finished=include_finished, request_options=request_options
+        )
         return _response.data

@@ -22,13 +22,16 @@ class RawLeaderboardsClient:
         self._client_wrapper = client_wrapper
 
     def all_(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self, *, include_finished: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[typing.List[LeaderboardsAllResponseItem]]:
         """
-        Get all active leaderboards for your organization.
+        Get all leaderboards for your organization. Finished leaderboards are excluded by default.
 
         Parameters
         ----------
+        include_finished : typing.Optional[bool]
+            When set to 'true', leaderboards with status 'finished' will be included in the response. By default, finished leaderboards are excluded.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -41,6 +44,9 @@ class RawLeaderboardsClient:
             "leaderboards",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "includeFinished": include_finished,
+            },
             request_options=request_options,
         )
         try:
@@ -189,13 +195,16 @@ class AsyncRawLeaderboardsClient:
         self._client_wrapper = client_wrapper
 
     async def all_(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self, *, include_finished: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[typing.List[LeaderboardsAllResponseItem]]:
         """
-        Get all active leaderboards for your organization.
+        Get all leaderboards for your organization. Finished leaderboards are excluded by default.
 
         Parameters
         ----------
+        include_finished : typing.Optional[bool]
+            When set to 'true', leaderboards with status 'finished' will be included in the response. By default, finished leaderboards are excluded.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -208,6 +217,9 @@ class AsyncRawLeaderboardsClient:
             "leaderboards",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "includeFinished": include_finished,
+            },
             request_options=request_options,
         )
         try:

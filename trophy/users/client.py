@@ -7,6 +7,7 @@ from ..core.request_options import RequestOptions
 from ..types.get_user_points_response import GetUserPointsResponse
 from ..types.metric_response import MetricResponse
 from ..types.notification_preferences import NotificationPreferences
+from ..types.points_boost import PointsBoost
 from ..types.streak_response import StreakResponse
 from ..types.user import User
 from ..types.user_achievement_with_stats_response import UserAchievementWithStatsResponse
@@ -614,6 +615,43 @@ class UsersClient:
         )
         """
         _response = self._raw_client.points(id, key, awards=awards, request_options=request_options)
+        return _response.data
+
+    def points_boosts(
+        self, id: str, key: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[PointsBoost]:
+        """
+        Get active points boosts for a user in a specific points system. Returns both global boosts the user is eligible for and user-specific boosts.
+
+        Parameters
+        ----------
+        id : str
+            ID of the user.
+
+        key : str
+            Key of the points system.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[PointsBoost]
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.users.points_boosts(
+            id="userId",
+            key="points-system-key",
+        )
+        """
+        _response = self._raw_client.points_boosts(id, key, request_options=request_options)
         return _response.data
 
     def points_event_summary(
@@ -1452,6 +1490,51 @@ class AsyncUsersClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.points(id, key, awards=awards, request_options=request_options)
+        return _response.data
+
+    async def points_boosts(
+        self, id: str, key: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[PointsBoost]:
+        """
+        Get active points boosts for a user in a specific points system. Returns both global boosts the user is eligible for and user-specific boosts.
+
+        Parameters
+        ----------
+        id : str
+            ID of the user.
+
+        key : str
+            Key of the points system.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[PointsBoost]
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.points_boosts(
+                id="userId",
+                key="points-system-key",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.points_boosts(id, key, request_options=request_options)
         return _response.data
 
     async def points_event_summary(

@@ -8,6 +8,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .raw_client import AsyncRawAdminClient, RawAdminClient
 
 if typing.TYPE_CHECKING:
+    from .points.client import AsyncPointsClient, PointsClient
     from .streaks.client import AsyncStreaksClient, StreaksClient
 
 
@@ -16,6 +17,7 @@ class AdminClient:
         self._raw_client = RawAdminClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._streaks: typing.Optional[StreaksClient] = None
+        self._points: typing.Optional[PointsClient] = None
 
     @property
     def with_raw_response(self) -> RawAdminClient:
@@ -36,12 +38,21 @@ class AdminClient:
             self._streaks = StreaksClient(client_wrapper=self._client_wrapper)
         return self._streaks
 
+    @property
+    def points(self):
+        if self._points is None:
+            from .points.client import PointsClient  # noqa: E402
+
+            self._points = PointsClient(client_wrapper=self._client_wrapper)
+        return self._points
+
 
 class AsyncAdminClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawAdminClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._streaks: typing.Optional[AsyncStreaksClient] = None
+        self._points: typing.Optional[AsyncPointsClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawAdminClient:
@@ -61,3 +72,11 @@ class AsyncAdminClient:
 
             self._streaks = AsyncStreaksClient(client_wrapper=self._client_wrapper)
         return self._streaks
+
+    @property
+    def points(self):
+        if self._points is None:
+            from .points.client import AsyncPointsClient  # noqa: E402
+
+            self._points = AsyncPointsClient(client_wrapper=self._client_wrapper)
+        return self._points

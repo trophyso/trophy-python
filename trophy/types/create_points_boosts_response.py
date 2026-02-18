@@ -4,24 +4,23 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .metric_event_points_response import MetricEventPointsResponse
-from .user import User
+from .bulk_insert_issue import BulkInsertIssue
+from .created_points_boost import CreatedPointsBoost
 
 
-class WebhooksPointsChangedPayload(UniversalBaseModel):
-    type: typing.Literal["points.changed"] = pydantic.Field(default="points.changed")
+class CreatePointsBoostsResponse(UniversalBaseModel):
     """
-    The webhook event type.
-    """
-
-    user: User = pydantic.Field()
-    """
-    The user whose points increased or decreased.
+    Response containing created boosts and any issues encountered while creating points boosts.
     """
 
-    points: MetricEventPointsResponse = pydantic.Field()
+    created: typing.List[CreatedPointsBoost] = pydantic.Field()
     """
-    The user's points after the event (includes added amount for this event).
+    Array of successfully created boosts.
+    """
+
+    issues: typing.List[BulkInsertIssue] = pydantic.Field()
+    """
+    Array of issues encountered during boost creation.
     """
 
     if IS_PYDANTIC_V2:

@@ -3,14 +3,64 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .get_user_points_response import GetUserPointsResponse
+import typing_extensions
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
+from .points_award import PointsAward
 
 
-class MetricEventPointsResponse(GetUserPointsResponse):
+class MetricEventPointsResponse(UniversalBaseModel):
+    """
+    Points system response for metric events.
+    """
+
+    id: str = pydantic.Field()
+    """
+    The ID of the points system
+    """
+
+    key: str = pydantic.Field()
+    """
+    The key of the points system
+    """
+
+    name: str = pydantic.Field()
+    """
+    The name of the points system
+    """
+
+    description: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The description of the points system
+    """
+
+    badge_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="badgeUrl")] = pydantic.Field(
+        default=None
+    )
+    """
+    The URL of the badge image for the points system
+    """
+
+    max_points: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="maxPoints")] = pydantic.Field(
+        default=None
+    )
+    """
+    The maximum number of points a user can be awarded in this points system
+    """
+
+    total: int = pydantic.Field()
+    """
+    The user's total points
+    """
+
     added: int = pydantic.Field()
     """
     The points added by this event.
+    """
+
+    awards: typing.List[PointsAward] = pydantic.Field()
+    """
+    Array of trigger awards that added points.
     """
 
     if IS_PYDANTIC_V2:

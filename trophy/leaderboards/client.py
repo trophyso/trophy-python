@@ -25,13 +25,16 @@ class LeaderboardsClient:
         return self._raw_client
 
     def all_(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self, *, include_finished: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[LeaderboardsAllResponseItem]:
         """
-        Get all active leaderboards for your organization.
+        Get all leaderboards for your organization. Finished leaderboards are excluded by default.
 
         Parameters
         ----------
+        include_finished : typing.Optional[bool]
+            When set to 'true', leaderboards with status 'finished' will be included in the response. By default, finished leaderboards are excluded.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -47,9 +50,11 @@ class LeaderboardsClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.leaderboards.all_()
+        client.leaderboards.all_(
+            include_finished=True,
+        )
         """
-        _response = self._raw_client.all_(request_options=request_options)
+        _response = self._raw_client.all_(include_finished=include_finished, request_options=request_options)
         return _response.data
 
     def get(
@@ -138,13 +143,16 @@ class AsyncLeaderboardsClient:
         return self._raw_client
 
     async def all_(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self, *, include_finished: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[LeaderboardsAllResponseItem]:
         """
-        Get all active leaderboards for your organization.
+        Get all leaderboards for your organization. Finished leaderboards are excluded by default.
 
         Parameters
         ----------
+        include_finished : typing.Optional[bool]
+            When set to 'true', leaderboards with status 'finished' will be included in the response. By default, finished leaderboards are excluded.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -165,12 +173,14 @@ class AsyncLeaderboardsClient:
 
 
         async def main() -> None:
-            await client.leaderboards.all_()
+            await client.leaderboards.all_(
+                include_finished=True,
+            )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.all_(request_options=request_options)
+        _response = await self._raw_client.all_(include_finished=include_finished, request_options=request_options)
         return _response.data
 
     async def get(

@@ -12,12 +12,17 @@ if typing.TYPE_CHECKING:
     from .achievement_response_trigger import AchievementResponseTrigger
     from .achievement_response_user_attributes_item import AchievementResponseUserAttributesItem
     from .achievement_with_stats_response import AchievementWithStatsResponse
+    from .archive_points_boosts_response import ArchivePointsBoostsResponse
     from .base_streak_response import BaseStreakResponse
     from .bulk_insert_issue import BulkInsertIssue
     from .bulk_insert_issue_level import BulkInsertIssueLevel
     from .bulk_streak_response import BulkStreakResponse
     from .bulk_streak_response_item import BulkStreakResponseItem
+    from .create_points_boosts_response import CreatePointsBoostsResponse
     from .create_streak_freezes_response import CreateStreakFreezesResponse
+    from .created_points_boost import CreatedPointsBoost
+    from .created_points_boost_rounding import CreatedPointsBoostRounding
+    from .created_points_boost_status import CreatedPointsBoostStatus
     from .error_body import ErrorBody
     from .event_response import EventResponse
     from .get_user_points_response import GetUserPointsResponse
@@ -37,6 +42,12 @@ if typing.TYPE_CHECKING:
     from .notification_preferences import NotificationPreferences
     from .notification_type import NotificationType
     from .points_award import PointsAward
+    from .points_boost import PointsBoost
+    from .points_boost_rounding import PointsBoostRounding
+    from .points_boost_status import PointsBoostStatus
+    from .points_boost_webhook_payload import PointsBoostWebhookPayload
+    from .points_boost_webhook_payload_rounding import PointsBoostWebhookPayloadRounding
+    from .points_boost_webhook_payload_status import PointsBoostWebhookPayloadStatus
     from .points_range import PointsRange
     from .points_summary_response import PointsSummaryResponse
     from .points_system_response import PointsSystemResponse
@@ -68,6 +79,8 @@ if typing.TYPE_CHECKING:
     from .webhooks_leaderboard_finished_payload import WebhooksLeaderboardFinishedPayload
     from .webhooks_leaderboard_rank_changed_payload import WebhooksLeaderboardRankChangedPayload
     from .webhooks_leaderboard_started_payload import WebhooksLeaderboardStartedPayload
+    from .webhooks_points_boost_finished_payload import WebhooksPointsBoostFinishedPayload
+    from .webhooks_points_boost_started_payload import WebhooksPointsBoostStartedPayload
     from .webhooks_points_changed_payload import WebhooksPointsChangedPayload
     from .webhooks_streak_extended_payload import WebhooksStreakExtendedPayload
     from .webhooks_streak_freeze_consumed_payload import WebhooksStreakFreezeConsumedPayload
@@ -92,12 +105,17 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AchievementResponseTrigger": ".achievement_response_trigger",
     "AchievementResponseUserAttributesItem": ".achievement_response_user_attributes_item",
     "AchievementWithStatsResponse": ".achievement_with_stats_response",
+    "ArchivePointsBoostsResponse": ".archive_points_boosts_response",
     "BaseStreakResponse": ".base_streak_response",
     "BulkInsertIssue": ".bulk_insert_issue",
     "BulkInsertIssueLevel": ".bulk_insert_issue_level",
     "BulkStreakResponse": ".bulk_streak_response",
     "BulkStreakResponseItem": ".bulk_streak_response_item",
+    "CreatePointsBoostsResponse": ".create_points_boosts_response",
     "CreateStreakFreezesResponse": ".create_streak_freezes_response",
+    "CreatedPointsBoost": ".created_points_boost",
+    "CreatedPointsBoostRounding": ".created_points_boost_rounding",
+    "CreatedPointsBoostStatus": ".created_points_boost_status",
     "ErrorBody": ".error_body",
     "EventResponse": ".event_response",
     "GetUserPointsResponse": ".get_user_points_response",
@@ -117,6 +135,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NotificationPreferences": ".notification_preferences",
     "NotificationType": ".notification_type",
     "PointsAward": ".points_award",
+    "PointsBoost": ".points_boost",
+    "PointsBoostRounding": ".points_boost_rounding",
+    "PointsBoostStatus": ".points_boost_status",
+    "PointsBoostWebhookPayload": ".points_boost_webhook_payload",
+    "PointsBoostWebhookPayloadRounding": ".points_boost_webhook_payload_rounding",
+    "PointsBoostWebhookPayloadStatus": ".points_boost_webhook_payload_status",
     "PointsRange": ".points_range",
     "PointsSummaryResponse": ".points_summary_response",
     "PointsSystemResponse": ".points_system_response",
@@ -148,6 +172,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "WebhooksLeaderboardFinishedPayload": ".webhooks_leaderboard_finished_payload",
     "WebhooksLeaderboardRankChangedPayload": ".webhooks_leaderboard_rank_changed_payload",
     "WebhooksLeaderboardStartedPayload": ".webhooks_leaderboard_started_payload",
+    "WebhooksPointsBoostFinishedPayload": ".webhooks_points_boost_finished_payload",
+    "WebhooksPointsBoostStartedPayload": ".webhooks_points_boost_started_payload",
     "WebhooksPointsChangedPayload": ".webhooks_points_changed_payload",
     "WebhooksStreakExtendedPayload": ".webhooks_streak_extended_payload",
     "WebhooksStreakFreezeConsumedPayload": ".webhooks_streak_freeze_consumed_payload",
@@ -196,12 +222,17 @@ __all__ = [
     "AchievementResponseTrigger",
     "AchievementResponseUserAttributesItem",
     "AchievementWithStatsResponse",
+    "ArchivePointsBoostsResponse",
     "BaseStreakResponse",
     "BulkInsertIssue",
     "BulkInsertIssueLevel",
     "BulkStreakResponse",
     "BulkStreakResponseItem",
+    "CreatePointsBoostsResponse",
     "CreateStreakFreezesResponse",
+    "CreatedPointsBoost",
+    "CreatedPointsBoostRounding",
+    "CreatedPointsBoostStatus",
     "ErrorBody",
     "EventResponse",
     "GetUserPointsResponse",
@@ -221,6 +252,12 @@ __all__ = [
     "NotificationPreferences",
     "NotificationType",
     "PointsAward",
+    "PointsBoost",
+    "PointsBoostRounding",
+    "PointsBoostStatus",
+    "PointsBoostWebhookPayload",
+    "PointsBoostWebhookPayloadRounding",
+    "PointsBoostWebhookPayloadStatus",
     "PointsRange",
     "PointsSummaryResponse",
     "PointsSystemResponse",
@@ -252,6 +289,8 @@ __all__ = [
     "WebhooksLeaderboardFinishedPayload",
     "WebhooksLeaderboardRankChangedPayload",
     "WebhooksLeaderboardStartedPayload",
+    "WebhooksPointsBoostFinishedPayload",
+    "WebhooksPointsBoostStartedPayload",
     "WebhooksPointsChangedPayload",
     "WebhooksStreakExtendedPayload",
     "WebhooksStreakFreezeConsumedPayload",

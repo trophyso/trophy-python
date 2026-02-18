@@ -18,6 +18,7 @@ from ..types.error_body import ErrorBody
 from ..types.get_user_points_response import GetUserPointsResponse
 from ..types.metric_response import MetricResponse
 from ..types.notification_preferences import NotificationPreferences
+from ..types.points_boost import PointsBoost
 from ..types.streak_response import StreakResponse
 from ..types.user import User
 from ..types.user_achievement_with_stats_response import UserAchievementWithStatsResponse
@@ -1074,6 +1075,82 @@ class RawUsersClient:
                     GetUserPointsResponse,
                     parse_obj_as(
                         type_=GetUserPointsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def points_boosts(
+        self, id: str, key: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[typing.List[PointsBoost]]:
+        """
+        Get active points boosts for a user in a specific points system. Returns both global boosts the user is eligible for and user-specific boosts.
+
+        Parameters
+        ----------
+        id : str
+            ID of the user.
+
+        key : str
+            Key of the points system.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[typing.List[PointsBoost]]
+            Successful operation
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}/boosts",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.List[PointsBoost],
+                    parse_obj_as(
+                        type_=typing.List[PointsBoost],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2426,6 +2503,82 @@ class AsyncRawUsersClient:
                     GetUserPointsResponse,
                     parse_obj_as(
                         type_=GetUserPointsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def points_boosts(
+        self, id: str, key: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[typing.List[PointsBoost]]:
+        """
+        Get active points boosts for a user in a specific points system. Returns both global boosts the user is eligible for and user-specific boosts.
+
+        Parameters
+        ----------
+        id : str
+            ID of the user.
+
+        key : str
+            Key of the points system.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[typing.List[PointsBoost]]
+            Successful operation
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}/boosts",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.List[PointsBoost],
+                    parse_obj_as(
+                        type_=typing.List[PointsBoost],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

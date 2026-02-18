@@ -3,70 +3,93 @@
 import typing
 from json.decoder import JSONDecodeError
 
-from ..core.api_error import ApiError
-from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
-from ..core.pydantic_utilities import parse_obj_as
-from ..core.request_options import RequestOptions
-from ..errors.not_found_error import NotFoundError
-from ..errors.unauthorized_error import UnauthorizedError
-from ..errors.unprocessable_entity_error import UnprocessableEntityError
-from ..types.error_body import ErrorBody
-from ..types.points_boost import PointsBoost
-from ..types.points_summary_response import PointsSummaryResponse
-from ..types.points_system_response import PointsSystemResponse
+from ....core.api_error import ApiError
+from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ....core.http_response import AsyncHttpResponse, HttpResponse
+from ....core.jsonable_encoder import jsonable_encoder
+from ....core.pydantic_utilities import parse_obj_as
+from ....core.request_options import RequestOptions
+from ....core.serialization import convert_and_respect_annotation_metadata
+from ....errors.bad_request_error import BadRequestError
+from ....errors.not_found_error import NotFoundError
+from ....errors.unauthorized_error import UnauthorizedError
+from ....errors.unprocessable_entity_error import UnprocessableEntityError
+from ....types.archive_points_boosts_response import ArchivePointsBoostsResponse
+from ....types.create_points_boosts_response import CreatePointsBoostsResponse
+from ....types.error_body import ErrorBody
+from .types.create_points_boosts_request_boosts_item import CreatePointsBoostsRequestBoostsItem
+
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
-class RawPointsClient:
+class RawBoostsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def summary(
+    def create(
         self,
-        key: str,
         *,
-        user_attributes: typing.Optional[str] = None,
+        system_key: str,
+        boosts: typing.Sequence[CreatePointsBoostsRequestBoostsItem],
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PointsSummaryResponse]:
+    ) -> HttpResponse[CreatePointsBoostsResponse]:
         """
-        Get a breakdown of the number of users with points in each range.
+        Create points boosts for multiple users.
 
         Parameters
         ----------
-        key : str
-            Key of the points system.
+        system_key : str
+            The key of the points system to create boosts for.
 
-        user_attributes : typing.Optional[str]
-            Optional colon-delimited user attribute filters in the format attribute:value,attribute:value. Only users matching ALL specified attributes will be included in the points breakdown.
+        boosts : typing.Sequence[CreatePointsBoostsRequestBoostsItem]
+            Array of boosts to create. Maximum 1,000 boosts per request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[PointsSummaryResponse]
-            Successful operation
+        HttpResponse[CreatePointsBoostsResponse]
+            Successful operation (no boosts created)
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}/summary",
-            base_url=self._client_wrapper.get_environment().api,
-            method="GET",
-            params={
-                "userAttributes": user_attributes,
+            "points/boosts",
+            base_url=self._client_wrapper.get_environment().admin,
+            method="POST",
+            json={
+                "systemKey": system_key,
+                "boosts": convert_and_respect_annotation_metadata(
+                    object_=boosts, annotation=typing.Sequence[CreatePointsBoostsRequestBoostsItem], direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PointsSummaryResponse,
+                    CreatePointsBoostsResponse,
                     parse_obj_as(
-                        type_=PointsSummaryResponse,  # type: ignore
+                        type_=CreatePointsBoostsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -105,113 +128,99 @@ class RawPointsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def system(
-        self, key: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[PointsSystemResponse]:
-        """
-        Get a points system with its triggers.
-
-        Parameters
-        ----------
-        key : str
-            Key of the points system.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[PointsSystemResponse]
-            Successful operation
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}",
-            base_url=self._client_wrapper.get_environment().api,
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PointsSystemResponse,
-                    parse_obj_as(
-                        type_=PointsSystemResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def boosts(
+    def batch_archive(
         self,
-        key: str,
         *,
-        include_finished: typing.Optional[bool] = None,
+        ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.List[PointsBoost]]:
+    ) -> HttpResponse[ArchivePointsBoostsResponse]:
         """
-        Get all global boosts for a points system. Finished boosts are excluded by default.
+        Archive multiple points boosts by ID.
 
         Parameters
         ----------
-        key : str
-            Key of the points system.
-
-        include_finished : typing.Optional[bool]
-            When set to 'true', boosts that have finished (past their end date) will be included in the response. By default, finished boosts are excluded.
+        ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            A list of up to 100 boost IDs.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[typing.List[PointsBoost]]
+        HttpResponse[ArchivePointsBoostsResponse]
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}/boosts",
-            base_url=self._client_wrapper.get_environment().api,
-            method="GET",
+            "points/boosts",
+            base_url=self._client_wrapper.get_environment().admin,
+            method="DELETE",
             params={
-                "includeFinished": include_finished,
+                "ids": ids,
             },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.List[PointsBoost],
+                    ArchivePointsBoostsResponse,
                     parse_obj_as(
-                        type_=typing.List[PointsBoost],  # type: ignore
+                        type_=ArchivePointsBoostsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def archive(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
+        """
+        Archive a points boost by ID.
+
+        Parameters
+        ----------
+        id : str
+            The UUID of the points boost to archive
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[None]
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"points/boosts/{jsonable_encoder(id)}",
+            base_url=self._client_wrapper.get_environment().admin,
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return HttpResponse(response=_response, data=None)
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -240,55 +249,73 @@ class RawPointsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
-class AsyncRawPointsClient:
+class AsyncRawBoostsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def summary(
+    async def create(
         self,
-        key: str,
         *,
-        user_attributes: typing.Optional[str] = None,
+        system_key: str,
+        boosts: typing.Sequence[CreatePointsBoostsRequestBoostsItem],
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PointsSummaryResponse]:
+    ) -> AsyncHttpResponse[CreatePointsBoostsResponse]:
         """
-        Get a breakdown of the number of users with points in each range.
+        Create points boosts for multiple users.
 
         Parameters
         ----------
-        key : str
-            Key of the points system.
+        system_key : str
+            The key of the points system to create boosts for.
 
-        user_attributes : typing.Optional[str]
-            Optional colon-delimited user attribute filters in the format attribute:value,attribute:value. Only users matching ALL specified attributes will be included in the points breakdown.
+        boosts : typing.Sequence[CreatePointsBoostsRequestBoostsItem]
+            Array of boosts to create. Maximum 1,000 boosts per request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[PointsSummaryResponse]
-            Successful operation
+        AsyncHttpResponse[CreatePointsBoostsResponse]
+            Successful operation (no boosts created)
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}/summary",
-            base_url=self._client_wrapper.get_environment().api,
-            method="GET",
-            params={
-                "userAttributes": user_attributes,
+            "points/boosts",
+            base_url=self._client_wrapper.get_environment().admin,
+            method="POST",
+            json={
+                "systemKey": system_key,
+                "boosts": convert_and_respect_annotation_metadata(
+                    object_=boosts, annotation=typing.Sequence[CreatePointsBoostsRequestBoostsItem], direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PointsSummaryResponse,
+                    CreatePointsBoostsResponse,
                     parse_obj_as(
-                        type_=PointsSummaryResponse,  # type: ignore
+                        type_=CreatePointsBoostsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -327,43 +354,49 @@ class AsyncRawPointsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def system(
-        self, key: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[PointsSystemResponse]:
+    async def batch_archive(
+        self,
+        *,
+        ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ArchivePointsBoostsResponse]:
         """
-        Get a points system with its triggers.
+        Archive multiple points boosts by ID.
 
         Parameters
         ----------
-        key : str
-            Key of the points system.
+        ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            A list of up to 100 boost IDs.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[PointsSystemResponse]
+        AsyncHttpResponse[ArchivePointsBoostsResponse]
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}",
-            base_url=self._client_wrapper.get_environment().api,
-            method="GET",
+            "points/boosts",
+            base_url=self._client_wrapper.get_environment().admin,
+            method="DELETE",
+            params={
+                "ids": ids,
+            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PointsSystemResponse,
+                    ArchivePointsBoostsResponse,
                     parse_obj_as(
-                        type_=PointsSystemResponse,  # type: ignore
+                        type_=ArchivePointsBoostsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 401:
-                raise UnauthorizedError(
+            if _response.status_code == 400:
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         ErrorBody,
@@ -373,8 +406,8 @@ class AsyncRawPointsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 404:
-                raise NotFoundError(
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         ErrorBody,
@@ -389,51 +422,33 @@ class AsyncRawPointsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def boosts(
-        self,
-        key: str,
-        *,
-        include_finished: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.List[PointsBoost]]:
+    async def archive(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[None]:
         """
-        Get all global boosts for a points system. Finished boosts are excluded by default.
+        Archive a points boost by ID.
 
         Parameters
         ----------
-        key : str
-            Key of the points system.
-
-        include_finished : typing.Optional[bool]
-            When set to 'true', boosts that have finished (past their end date) will be included in the response. By default, finished boosts are excluded.
+        id : str
+            The UUID of the points boost to archive
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[typing.List[PointsBoost]]
-            Successful operation
+        AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}/boosts",
-            base_url=self._client_wrapper.get_environment().api,
-            method="GET",
-            params={
-                "includeFinished": include_finished,
-            },
+            f"points/boosts/{jsonable_encoder(id)}",
+            base_url=self._client_wrapper.get_environment().admin,
+            method="DELETE",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[PointsBoost],
-                    parse_obj_as(
-                        type_=typing.List[PointsBoost],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=None)
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),

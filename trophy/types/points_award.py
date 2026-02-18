@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .points_boost import PointsBoost
 from .points_trigger import PointsTrigger
 
 
@@ -29,6 +30,10 @@ class PointsAward(UniversalBaseModel):
     """
 
     trigger: typing.Optional[PointsTrigger] = None
+    boosts: typing.Optional[typing.List[PointsBoost]] = pydantic.Field(default=None)
+    """
+    Array of points boosts that applied to this award.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

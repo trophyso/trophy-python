@@ -3,25 +3,19 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .metric_event_points_response import MetricEventPointsResponse
-from .user import User
+from ..core.serialization import FieldMetadata
 
 
-class WebhooksPointsChangedPayload(UniversalBaseModel):
-    type: typing.Literal["points.changed"] = pydantic.Field(default="points.changed")
+class ArchivePointsBoostsResponse(UniversalBaseModel):
     """
-    The webhook event type.
-    """
-
-    user: User = pydantic.Field()
-    """
-    The user whose points increased or decreased.
+    Response containing the count of archived points boosts.
     """
 
-    points: MetricEventPointsResponse = pydantic.Field()
+    archived_count: typing_extensions.Annotated[int, FieldMetadata(alias="archivedCount")] = pydantic.Field()
     """
-    The user's points after the event (includes added amount for this event).
+    The number of boosts that were archived.
     """
 
     if IS_PYDANTIC_V2:

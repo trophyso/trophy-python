@@ -51,6 +51,13 @@ class AchievementResponse(UniversalBaseModel):
     The length of the streak required to complete the achievement (only applicable if trigger = 'streak')
     """
 
+    achievement_ids: typing_extensions.Annotated[
+        typing.Optional[typing.List[str]], FieldMetadata(alias="achievementIds")
+    ] = pydantic.Field(default=None)
+    """
+    The IDs of the prerequisite achievements that must be completed to earn this achievement (only applicable if trigger = 'achievement')
+    """
+
     metric_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricId")] = pydantic.Field(
         default=None
     )

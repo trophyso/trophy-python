@@ -3,54 +3,25 @@
 import typing
 
 import pydantic
-import typing_extensions
-from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .points_award import PointsAward
+from .points_level import PointsLevel
+from .points_response import PointsResponse
 
 
-class MetricEventPointsResponse(UniversalBaseModel):
+class MetricEventPointsResponse(PointsResponse):
     """
-    Points system response for metric events.
-    """
-
-    id: str = pydantic.Field()
-    """
-    The ID of the points system
-    """
-
-    key: str = pydantic.Field()
-    """
-    The key of the points system
-    """
-
-    name: str = pydantic.Field()
-    """
-    The name of the points system
-    """
-
-    description: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The description of the points system
-    """
-
-    badge_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="badgeUrl")] = pydantic.Field(
-        default=None
-    )
-    """
-    The URL of the badge image for the points system
-    """
-
-    max_points: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="maxPoints")] = pydantic.Field(
-        default=None
-    )
-    """
-    The maximum number of points a user can be awarded in this points system
+    Points system response for metric events and achievement completions.
     """
 
     total: int = pydantic.Field()
     """
     The user's total points
+    """
+
+    level: typing.Optional[PointsLevel] = pydantic.Field(default=None)
+    """
+    The user's new level, included only when the level changed as a result of this event.
     """
 
     added: int = pydantic.Field()

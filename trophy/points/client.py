@@ -5,6 +5,8 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.points_boost import PointsBoost
+from ..types.points_level import PointsLevel
+from ..types.points_level_summary_response import PointsLevelSummaryResponse
 from ..types.points_summary_response import PointsSummaryResponse
 from ..types.points_system_response import PointsSystemResponse
 from .raw_client import AsyncRawPointsClient, RawPointsClient
@@ -136,6 +138,70 @@ class PointsClient:
         )
         """
         _response = self._raw_client.boosts(key, include_finished=include_finished, request_options=request_options)
+        return _response.data
+
+    def levels(self, key: str, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[PointsLevel]:
+        """
+        Get all levels for a points system.
+
+        Parameters
+        ----------
+        key : str
+            Key of the points system.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[PointsLevel]
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.points.levels(
+            key="points-system-key",
+        )
+        """
+        _response = self._raw_client.levels(key, request_options=request_options)
+        return _response.data
+
+    def level_summary(
+        self, key: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PointsLevelSummaryResponse:
+        """
+        Get a breakdown of the number of users at each level in a points system.
+
+        Parameters
+        ----------
+        key : str
+            Key of the points system.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PointsLevelSummaryResponse
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+        client.points.level_summary(
+            key="points-system-key",
+        )
+        """
+        _response = self._raw_client.level_summary(key, request_options=request_options)
         return _response.data
 
 
@@ -295,4 +361,86 @@ class AsyncPointsClient:
         _response = await self._raw_client.boosts(
             key, include_finished=include_finished, request_options=request_options
         )
+        return _response.data
+
+    async def levels(
+        self, key: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[PointsLevel]:
+        """
+        Get all levels for a points system.
+
+        Parameters
+        ----------
+        key : str
+            Key of the points system.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[PointsLevel]
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.points.levels(
+                key="points-system-key",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.levels(key, request_options=request_options)
+        return _response.data
+
+    async def level_summary(
+        self, key: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PointsLevelSummaryResponse:
+        """
+        Get a breakdown of the number of users at each level in a points system.
+
+        Parameters
+        ----------
+        key : str
+            Key of the points system.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PointsLevelSummaryResponse
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.points.level_summary(
+                key="points-system-key",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.level_summary(key, request_options=request_options)
         return _response.data

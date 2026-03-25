@@ -4,25 +4,17 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .points_award import PointsAward
-from .points_level import PointsLevel
 from .points_response import PointsResponse
 
 
-class GetUserPointsResponse(PointsResponse):
+class WebhooksPointsLevelChangedPayloadPoints(PointsResponse):
+    """
+    The points system in which the level changed.
+    """
+
     total: int = pydantic.Field()
     """
-    The user's total points
-    """
-
-    level: typing.Optional[PointsLevel] = pydantic.Field(default=None)
-    """
-    The user's current level in this points system, or null if no levels are configured or the user hasn't reached any level yet.
-    """
-
-    awards: typing.List[PointsAward] = pydantic.Field()
-    """
-    Array of trigger awards that added points.
+    The user's total points in this system.
     """
 
     if IS_PYDANTIC_V2:

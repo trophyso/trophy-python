@@ -6,11 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class PointsTriggerResponseEventAttribute(UniversalBaseModel):
-    """
-    Event attribute filter that must be met for this trigger to activate. Only present if the trigger has an event filter configured.
-    """
-
+class AchievementResponseEventAttributesItem(UniversalBaseModel):
     key: str = pydantic.Field()
     """
     The key of the event attribute.
@@ -18,7 +14,7 @@ class PointsTriggerResponseEventAttribute(UniversalBaseModel):
 
     value: str = pydantic.Field()
     """
-    The required value of the event attribute.
+    The value of the event attribute.
     """
 
     if IS_PYDANTIC_V2:

@@ -7,6 +7,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .achievement_response_event_attribute import AchievementResponseEventAttribute
+from .achievement_response_event_attributes_item import AchievementResponseEventAttributesItem
 from .achievement_response_trigger import AchievementResponseTrigger
 from .achievement_response_user_attributes_item import AchievementResponseUserAttributesItem
 
@@ -80,17 +81,24 @@ class AchievementResponse(UniversalBaseModel):
     """
 
     user_attributes: typing_extensions.Annotated[
-        typing.Optional[typing.List[AchievementResponseUserAttributesItem]], FieldMetadata(alias="userAttributes")
-    ] = pydantic.Field(default=None)
+        typing.List[AchievementResponseUserAttributesItem], FieldMetadata(alias="userAttributes")
+    ] = pydantic.Field()
     """
-    User attribute filters that must be met for this achievement to be completed. Only present if the achievement has user attribute filters configured.
+    User attribute filters that must be met for this achievement to be completed.
     """
 
     event_attribute: typing_extensions.Annotated[
         typing.Optional[AchievementResponseEventAttribute], FieldMetadata(alias="eventAttribute")
     ] = pydantic.Field(default=None)
     """
-    Event attribute filter that must be met for this achievement to be completed. Only present if the achievement has an event filter configured.
+    Deprecated. Event attribute filter that must be met for this achievement to be completed. Only present if the achievement has an event filter configured.
+    """
+
+    event_attributes: typing_extensions.Annotated[
+        typing.Optional[typing.List[AchievementResponseEventAttributesItem]], FieldMetadata(alias="eventAttributes")
+    ] = pydantic.Field(default=None)
+    """
+    Event attribute filters that must be met for this achievement to be completed. Omitted for non-metric achievements.
     """
 
     if IS_PYDANTIC_V2:

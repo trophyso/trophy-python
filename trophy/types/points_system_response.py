@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .points_trigger_response import PointsTriggerResponse
+from .points_trigger import PointsTrigger
 
 
 class PointsSystemResponse(UniversalBaseModel):
@@ -39,7 +39,7 @@ class PointsSystemResponse(UniversalBaseModel):
     The maximum number of points a user can be awarded in this points system
     """
 
-    triggers: typing.List[PointsTriggerResponse] = pydantic.Field()
+    triggers: typing.List[PointsTrigger] = pydantic.Field()
     """
     Array of active triggers for this points system.
     """

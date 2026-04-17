@@ -9,6 +9,7 @@ if typing.TYPE_CHECKING:
     from .achievement_completion_response import AchievementCompletionResponse
     from .achievement_response import AchievementResponse
     from .achievement_response_event_attribute import AchievementResponseEventAttribute
+    from .achievement_response_event_attributes_item import AchievementResponseEventAttributesItem
     from .achievement_response_trigger import AchievementResponseTrigger
     from .achievement_response_user_attributes_item import AchievementResponseUserAttributesItem
     from .achievement_with_stats_response import AchievementWithStatsResponse
@@ -34,6 +35,9 @@ if typing.TYPE_CHECKING:
     from .leaderboard_response_with_rankings import LeaderboardResponseWithRankings
     from .leaderboard_response_with_rankings_status import LeaderboardResponseWithRankingsStatus
     from .metric_event_leaderboard_response import MetricEventLeaderboardResponse
+    from .metric_event_leaderboard_response_breakdown_attribute_values_item import (
+        MetricEventLeaderboardResponseBreakdownAttributeValuesItem,
+    )
     from .metric_event_points_response import MetricEventPointsResponse
     from .metric_event_streak_response import MetricEventStreakResponse
     from .metric_response import MetricResponse
@@ -56,14 +60,12 @@ if typing.TYPE_CHECKING:
     from .points_summary_response import PointsSummaryResponse
     from .points_system_response import PointsSystemResponse
     from .points_trigger import PointsTrigger
-    from .points_trigger_response import PointsTriggerResponse
-    from .points_trigger_response_event_attribute import PointsTriggerResponseEventAttribute
-    from .points_trigger_response_status import PointsTriggerResponseStatus
-    from .points_trigger_response_time_unit import PointsTriggerResponseTimeUnit
-    from .points_trigger_response_type import PointsTriggerResponseType
-    from .points_trigger_response_user_attributes_item import PointsTriggerResponseUserAttributesItem
+    from .points_trigger_event_attribute import PointsTriggerEventAttribute
+    from .points_trigger_event_attributes_item import PointsTriggerEventAttributesItem
+    from .points_trigger_status import PointsTriggerStatus
     from .points_trigger_time_unit import PointsTriggerTimeUnit
     from .points_trigger_type import PointsTriggerType
+    from .points_trigger_user_attributes_item import PointsTriggerUserAttributesItem
     from .restore_streaks_response import RestoreStreaksResponse
     from .streak_frequency import StreakFrequency
     from .streak_ranking_user import StreakRankingUser
@@ -108,6 +110,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AchievementCompletionResponse": ".achievement_completion_response",
     "AchievementResponse": ".achievement_response",
     "AchievementResponseEventAttribute": ".achievement_response_event_attribute",
+    "AchievementResponseEventAttributesItem": ".achievement_response_event_attributes_item",
     "AchievementResponseTrigger": ".achievement_response_trigger",
     "AchievementResponseUserAttributesItem": ".achievement_response_user_attributes_item",
     "AchievementWithStatsResponse": ".achievement_with_stats_response",
@@ -133,6 +136,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LeaderboardResponseWithRankings": ".leaderboard_response_with_rankings",
     "LeaderboardResponseWithRankingsStatus": ".leaderboard_response_with_rankings_status",
     "MetricEventLeaderboardResponse": ".metric_event_leaderboard_response",
+    "MetricEventLeaderboardResponseBreakdownAttributeValuesItem": ".metric_event_leaderboard_response_breakdown_attribute_values_item",
     "MetricEventPointsResponse": ".metric_event_points_response",
     "MetricEventStreakResponse": ".metric_event_streak_response",
     "MetricResponse": ".metric_response",
@@ -155,14 +159,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PointsSummaryResponse": ".points_summary_response",
     "PointsSystemResponse": ".points_system_response",
     "PointsTrigger": ".points_trigger",
-    "PointsTriggerResponse": ".points_trigger_response",
-    "PointsTriggerResponseEventAttribute": ".points_trigger_response_event_attribute",
-    "PointsTriggerResponseStatus": ".points_trigger_response_status",
-    "PointsTriggerResponseTimeUnit": ".points_trigger_response_time_unit",
-    "PointsTriggerResponseType": ".points_trigger_response_type",
-    "PointsTriggerResponseUserAttributesItem": ".points_trigger_response_user_attributes_item",
+    "PointsTriggerEventAttribute": ".points_trigger_event_attribute",
+    "PointsTriggerEventAttributesItem": ".points_trigger_event_attributes_item",
+    "PointsTriggerStatus": ".points_trigger_status",
     "PointsTriggerTimeUnit": ".points_trigger_time_unit",
     "PointsTriggerType": ".points_trigger_type",
+    "PointsTriggerUserAttributesItem": ".points_trigger_user_attributes_item",
     "RestoreStreaksResponse": ".restore_streaks_response",
     "StreakFrequency": ".streak_frequency",
     "StreakRankingUser": ".streak_ranking_user",
@@ -231,6 +233,7 @@ __all__ = [
     "AchievementCompletionResponse",
     "AchievementResponse",
     "AchievementResponseEventAttribute",
+    "AchievementResponseEventAttributesItem",
     "AchievementResponseTrigger",
     "AchievementResponseUserAttributesItem",
     "AchievementWithStatsResponse",
@@ -256,6 +259,7 @@ __all__ = [
     "LeaderboardResponseWithRankings",
     "LeaderboardResponseWithRankingsStatus",
     "MetricEventLeaderboardResponse",
+    "MetricEventLeaderboardResponseBreakdownAttributeValuesItem",
     "MetricEventPointsResponse",
     "MetricEventStreakResponse",
     "MetricResponse",
@@ -278,14 +282,12 @@ __all__ = [
     "PointsSummaryResponse",
     "PointsSystemResponse",
     "PointsTrigger",
-    "PointsTriggerResponse",
-    "PointsTriggerResponseEventAttribute",
-    "PointsTriggerResponseStatus",
-    "PointsTriggerResponseTimeUnit",
-    "PointsTriggerResponseType",
-    "PointsTriggerResponseUserAttributesItem",
+    "PointsTriggerEventAttribute",
+    "PointsTriggerEventAttributesItem",
+    "PointsTriggerStatus",
     "PointsTriggerTimeUnit",
     "PointsTriggerType",
+    "PointsTriggerUserAttributesItem",
     "RestoreStreaksResponse",
     "StreakFrequency",
     "StreakRankingUser",

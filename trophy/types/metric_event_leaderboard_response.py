@@ -8,6 +8,9 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .leaderboard_response_rank_by import LeaderboardResponseRankBy
 from .leaderboard_response_run_unit import LeaderboardResponseRunUnit
+from .metric_event_leaderboard_response_breakdown_attribute_values_item import (
+    MetricEventLeaderboardResponseBreakdownAttributeValuesItem,
+)
 
 
 class MetricEventLeaderboardResponse(UniversalBaseModel):
@@ -37,7 +40,15 @@ class MetricEventLeaderboardResponse(UniversalBaseModel):
         typing.Optional[str], FieldMetadata(alias="breakdownAttributeValue")
     ] = pydantic.Field(default=None)
     """
-    For leaderboards with a breakdown attribute, the value of the attribute for the user.
+    Deprecated. For leaderboards with a single breakdown attribute, the value of that attribute for the user.
+    """
+
+    breakdown_attribute_values: typing_extensions.Annotated[
+        typing.Optional[typing.List[MetricEventLeaderboardResponseBreakdownAttributeValuesItem]],
+        FieldMetadata(alias="breakdownAttributeValues"),
+    ] = pydantic.Field(default=None)
+    """
+    For leaderboards with breakdown attributes, the user's values for each breakdown attribute.
     """
 
     id: str = pydantic.Field()
@@ -64,7 +75,14 @@ class MetricEventLeaderboardResponse(UniversalBaseModel):
         typing.Optional[str], FieldMetadata(alias="breakdownAttribute")
     ] = pydantic.Field(default=None)
     """
-    The key of the attribute to break down this leaderboard by.
+    Deprecated. The key of the attribute to break down this leaderboard by.
+    """
+
+    breakdown_attributes: typing_extensions.Annotated[typing.List[str], FieldMetadata(alias="breakdownAttributes")] = (
+        pydantic.Field()
+    )
+    """
+    The user attribute keys that this leaderboard is broken down by.
     """
 
     metric_key: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricKey")] = pydantic.Field(

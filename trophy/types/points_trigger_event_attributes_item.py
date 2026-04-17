@@ -6,11 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class AchievementResponseEventAttribute(UniversalBaseModel):
-    """
-    Deprecated. Event attribute filter that must be met for this achievement to be completed. Only present if the achievement has an event filter configured.
-    """
-
+class PointsTriggerEventAttributesItem(UniversalBaseModel):
     key: str = pydantic.Field()
     """
     The key of the event attribute.
@@ -18,7 +14,7 @@ class AchievementResponseEventAttribute(UniversalBaseModel):
 
     value: str = pydantic.Field()
     """
-    The value of the event attribute.
+    The required value of the event attribute.
     """
 
     if IS_PYDANTIC_V2:

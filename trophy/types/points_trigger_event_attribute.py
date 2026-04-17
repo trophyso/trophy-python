@@ -6,15 +6,19 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class PointsTriggerResponseUserAttributesItem(UniversalBaseModel):
+class PointsTriggerEventAttribute(UniversalBaseModel):
+    """
+    Deprecated. Event attribute filter that must be met for this trigger to award points. Only present if the trigger has an event filter configured.
+    """
+
     key: str = pydantic.Field()
     """
-    The key of the user attribute.
+    The key of the event attribute.
     """
 
     value: str = pydantic.Field()
     """
-    The value of the user attribute.
+    The required value of the event attribute.
     """
 
     if IS_PYDANTIC_V2:

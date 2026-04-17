@@ -24,7 +24,7 @@ class StreakResponse(BaseStreakResponse):
 
     rank: typing.Optional[int] = pydantic.Field(default=None)
     """
-    The user's rank across all users. Null if the user has no active streak.
+    Deprecated. The user's rank across all users. Null if the user has no active streak.
     """
 
     if IS_PYDANTIC_V2:

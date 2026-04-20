@@ -10,12 +10,12 @@ from .deleted_resource import DeletedResource
 
 class DeletePointsBoostsResponse(UniversalBaseModel):
     """
-    Response containing the points boosts that were archived and any per-item issues.
+    Response containing the points boosts that were deleted and any per-item issues.
     """
 
     deleted: typing.List[DeletedResource] = pydantic.Field()
     """
-    Array of archived points boosts represented by ID.
+    Array of deleted points boosts represented by ID.
     """
 
     issues: typing.List[AdminIssue] = pydantic.Field()

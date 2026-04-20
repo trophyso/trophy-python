@@ -8,12 +8,12 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class DeletedResource(UniversalBaseModel):
     """
-    A soft-deleted resource represented by ID.
+    A deleted resource represented by ID.
     """
 
     id: str = pydantic.Field()
     """
-    The ID of the archived resource.
+    The ID of the deleted resource.
     """
 
     if IS_PYDANTIC_V2:

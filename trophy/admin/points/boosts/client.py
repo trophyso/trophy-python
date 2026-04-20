@@ -85,14 +85,14 @@ class BoostsClient:
         _response = self._raw_client.create(system_key=system_key, boosts=boosts, request_options=request_options)
         return _response.data
 
-    def batch_archive(
+    def delete(
         self,
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DeletePointsBoostsResponse:
         """
-        Archive multiple points boosts by ID.
+        Delete multiple points boosts by ID.
 
         Parameters
         ----------
@@ -114,42 +114,9 @@ class BoostsClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.boosts.batch_archive()
+        client.admin.points.boosts.delete()
         """
-        _response = self._raw_client.batch_archive(ids=ids, request_options=request_options)
-        return _response.data
-
-    def archive(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> DeletePointsBoostsResponse:
-        """
-        Archive a points boost by ID.
-
-        Parameters
-        ----------
-        id : str
-            The UUID of the points boost to archive
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        DeletePointsBoostsResponse
-            Successfully archived the points boost
-
-        Examples
-        --------
-        from trophy import TrophyApi
-
-        client = TrophyApi(
-            api_key="YOUR_API_KEY",
-        )
-        client.admin.points.boosts.archive(
-            id="id",
-        )
-        """
-        _response = self._raw_client.archive(id, request_options=request_options)
+        _response = self._raw_client.delete(ids=ids, request_options=request_options)
         return _response.data
 
 
@@ -233,14 +200,14 @@ class AsyncBoostsClient:
         _response = await self._raw_client.create(system_key=system_key, boosts=boosts, request_options=request_options)
         return _response.data
 
-    async def batch_archive(
+    async def delete(
         self,
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DeletePointsBoostsResponse:
         """
-        Archive multiple points boosts by ID.
+        Delete multiple points boosts by ID.
 
         Parameters
         ----------
@@ -267,51 +234,10 @@ class AsyncBoostsClient:
 
 
         async def main() -> None:
-            await client.admin.points.boosts.batch_archive()
+            await client.admin.points.boosts.delete()
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.batch_archive(ids=ids, request_options=request_options)
-        return _response.data
-
-    async def archive(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> DeletePointsBoostsResponse:
-        """
-        Archive a points boost by ID.
-
-        Parameters
-        ----------
-        id : str
-            The UUID of the points boost to archive
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        DeletePointsBoostsResponse
-            Successfully archived the points boost
-
-        Examples
-        --------
-        import asyncio
-
-        from trophy import AsyncTrophyApi
-
-        client = AsyncTrophyApi(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.admin.points.boosts.archive(
-                id="id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.archive(id, request_options=request_options)
+        _response = await self._raw_client.delete(ids=ids, request_options=request_options)
         return _response.data

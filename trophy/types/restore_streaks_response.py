@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .bulk_insert_issue import BulkInsertIssue
+from .admin_issue import AdminIssue
 
 
 class RestoreStreaksResponse(UniversalBaseModel):
@@ -21,7 +21,7 @@ class RestoreStreaksResponse(UniversalBaseModel):
     Array of user IDs whose streaks were successfully restored.
     """
 
-    issues: typing.List[BulkInsertIssue] = pydantic.Field()
+    issues: typing.List[AdminIssue] = pydantic.Field()
     """
     Array of issues encountered during streak restoration.
     """

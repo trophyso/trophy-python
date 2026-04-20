@@ -3,19 +3,17 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
 
 
-class ArchivePointsBoostsResponse(UniversalBaseModel):
+class DeletedResource(UniversalBaseModel):
     """
-    Response containing the count of archived points boosts.
+    A soft-deleted resource represented by ID.
     """
 
-    archived_count: typing_extensions.Annotated[int, FieldMetadata(alias="archivedCount")] = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    The number of boosts that were archived.
+    The ID of the archived resource.
     """
 
     if IS_PYDANTIC_V2:

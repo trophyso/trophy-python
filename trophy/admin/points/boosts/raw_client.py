@@ -14,8 +14,8 @@ from ....errors.bad_request_error import BadRequestError
 from ....errors.not_found_error import NotFoundError
 from ....errors.unauthorized_error import UnauthorizedError
 from ....errors.unprocessable_entity_error import UnprocessableEntityError
-from ....types.archive_points_boosts_response import ArchivePointsBoostsResponse
 from ....types.create_points_boosts_response import CreatePointsBoostsResponse
+from ....types.delete_points_boosts_response import DeletePointsBoostsResponse
 from ....types.error_body import ErrorBody
 from .types.create_points_boosts_request_boosts_item import CreatePointsBoostsRequestBoostsItem
 
@@ -43,7 +43,7 @@ class RawBoostsClient:
             The key of the points system to create boosts for.
 
         boosts : typing.Sequence[CreatePointsBoostsRequestBoostsItem]
-            Array of boosts to create. Maximum 1,000 boosts per request.
+            Array of boosts to create. Maximum 100 boosts per request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -133,7 +133,7 @@ class RawBoostsClient:
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[ArchivePointsBoostsResponse]:
+    ) -> HttpResponse[DeletePointsBoostsResponse]:
         """
         Archive multiple points boosts by ID.
 
@@ -147,7 +147,7 @@ class RawBoostsClient:
 
         Returns
         -------
-        HttpResponse[ArchivePointsBoostsResponse]
+        HttpResponse[DeletePointsBoostsResponse]
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -162,9 +162,9 @@ class RawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ArchivePointsBoostsResponse,
+                    DeletePointsBoostsResponse,
                     parse_obj_as(
-                        type_=ArchivePointsBoostsResponse,  # type: ignore
+                        type_=DeletePointsBoostsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -196,7 +196,9 @@ class RawBoostsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def archive(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
+    def archive(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[DeletePointsBoostsResponse]:
         """
         Archive a points boost by ID.
 
@@ -210,7 +212,8 @@ class RawBoostsClient:
 
         Returns
         -------
-        HttpResponse[None]
+        HttpResponse[DeletePointsBoostsResponse]
+            Successfully archived the points boost
         """
         _response = self._client_wrapper.httpx_client.request(
             f"points/boosts/{jsonable_encoder(id)}",
@@ -220,7 +223,25 @@ class RawBoostsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                return HttpResponse(response=_response, data=None)
+                _data = typing.cast(
+                    DeletePointsBoostsResponse,
+                    parse_obj_as(
+                        type_=DeletePointsBoostsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -269,7 +290,7 @@ class AsyncRawBoostsClient:
             The key of the points system to create boosts for.
 
         boosts : typing.Sequence[CreatePointsBoostsRequestBoostsItem]
-            Array of boosts to create. Maximum 1,000 boosts per request.
+            Array of boosts to create. Maximum 100 boosts per request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -359,7 +380,7 @@ class AsyncRawBoostsClient:
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[ArchivePointsBoostsResponse]:
+    ) -> AsyncHttpResponse[DeletePointsBoostsResponse]:
         """
         Archive multiple points boosts by ID.
 
@@ -373,7 +394,7 @@ class AsyncRawBoostsClient:
 
         Returns
         -------
-        AsyncHttpResponse[ArchivePointsBoostsResponse]
+        AsyncHttpResponse[DeletePointsBoostsResponse]
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -388,9 +409,9 @@ class AsyncRawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ArchivePointsBoostsResponse,
+                    DeletePointsBoostsResponse,
                     parse_obj_as(
-                        type_=ArchivePointsBoostsResponse,  # type: ignore
+                        type_=DeletePointsBoostsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -424,7 +445,7 @@ class AsyncRawBoostsClient:
 
     async def archive(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[None]:
+    ) -> AsyncHttpResponse[DeletePointsBoostsResponse]:
         """
         Archive a points boost by ID.
 
@@ -438,7 +459,8 @@ class AsyncRawBoostsClient:
 
         Returns
         -------
-        AsyncHttpResponse[None]
+        AsyncHttpResponse[DeletePointsBoostsResponse]
+            Successfully archived the points boost
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"points/boosts/{jsonable_encoder(id)}",
@@ -448,7 +470,25 @@ class AsyncRawBoostsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                return AsyncHttpResponse(response=_response, data=None)
+                _data = typing.cast(
+                    DeletePointsBoostsResponse,
+                    parse_obj_as(
+                        type_=DeletePointsBoostsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),

@@ -31,7 +31,7 @@ class RawStreaksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[RestoreStreaksResponse]:
         """
-        Restore streaks for multiple users to the maximum length in the last 90 days (in the case of daily streaks), one year (in the case of weekly streaks), or two years (in the case of monthly streaks).
+        Restore streaks for multiple users to the maximum previously achieved streak length found within the current restore window: the last 90 days for daily streaks, weekly periods starting with the week containing the start of the current calendar year for weekly streaks, and monthly periods starting at the beginning of the previous calendar year for monthly streaks.
 
         Parameters
         ----------
@@ -44,7 +44,7 @@ class RawStreaksClient:
         Returns
         -------
         HttpResponse[RestoreStreaksResponse]
-            Successful operation
+            Successful operation (no streaks restored)
         """
         _response = self._client_wrapper.httpx_client.request(
             "streaks/restore",
@@ -121,7 +121,7 @@ class AsyncRawStreaksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[RestoreStreaksResponse]:
         """
-        Restore streaks for multiple users to the maximum length in the last 90 days (in the case of daily streaks), one year (in the case of weekly streaks), or two years (in the case of monthly streaks).
+        Restore streaks for multiple users to the maximum previously achieved streak length found within the current restore window: the last 90 days for daily streaks, weekly periods starting with the week containing the start of the current calendar year for weekly streaks, and monthly periods starting at the beginning of the previous calendar year for monthly streaks.
 
         Parameters
         ----------
@@ -134,7 +134,7 @@ class AsyncRawStreaksClient:
         Returns
         -------
         AsyncHttpResponse[RestoreStreaksResponse]
-            Successful operation
+            Successful operation (no streaks restored)
         """
         _response = await self._client_wrapper.httpx_client.request(
             "streaks/restore",

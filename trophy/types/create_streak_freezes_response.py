@@ -4,7 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .bulk_insert_issue import BulkInsertIssue
+from .admin_issue import AdminIssue
 
 
 class CreateStreakFreezesResponse(UniversalBaseModel):
@@ -12,7 +12,7 @@ class CreateStreakFreezesResponse(UniversalBaseModel):
     Response containing any issues encountered while creating streak freezes.
     """
 
-    issues: typing.List[BulkInsertIssue] = pydantic.Field()
+    issues: typing.List[AdminIssue] = pydantic.Field()
     """
     Array of issues encountered during freeze creation.
     """

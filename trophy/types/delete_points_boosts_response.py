@@ -5,22 +5,22 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .admin_issue import AdminIssue
-from .created_points_boost import CreatedPointsBoost
+from .deleted_resource import DeletedResource
 
 
-class CreatePointsBoostsResponse(UniversalBaseModel):
+class DeletePointsBoostsResponse(UniversalBaseModel):
     """
-    Response containing created boosts and any issues encountered while creating points boosts.
+    Response containing the points boosts that were archived and any per-item issues.
     """
 
-    created: typing.List[CreatedPointsBoost] = pydantic.Field()
+    deleted: typing.List[DeletedResource] = pydantic.Field()
     """
-    Array of successfully created boosts.
+    Array of archived points boosts represented by ID.
     """
 
     issues: typing.List[AdminIssue] = pydantic.Field()
     """
-    Array of issues encountered during boost creation.
+    Array of issues encountered during boost archival.
     """
 
     if IS_PYDANTIC_V2:

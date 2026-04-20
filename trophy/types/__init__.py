@@ -13,10 +13,9 @@ if typing.TYPE_CHECKING:
     from .achievement_response_trigger import AchievementResponseTrigger
     from .achievement_response_user_attributes_item import AchievementResponseUserAttributesItem
     from .achievement_with_stats_response import AchievementWithStatsResponse
-    from .archive_points_boosts_response import ArchivePointsBoostsResponse
+    from .admin_issue import AdminIssue
+    from .admin_issue_severity import AdminIssueSeverity
     from .base_streak_response import BaseStreakResponse
-    from .bulk_insert_issue import BulkInsertIssue
-    from .bulk_insert_issue_level import BulkInsertIssueLevel
     from .bulk_streak_response import BulkStreakResponse
     from .bulk_streak_response_item import BulkStreakResponseItem
     from .create_points_boosts_response import CreatePointsBoostsResponse
@@ -24,6 +23,8 @@ if typing.TYPE_CHECKING:
     from .created_points_boost import CreatedPointsBoost
     from .created_points_boost_rounding import CreatedPointsBoostRounding
     from .created_points_boost_status import CreatedPointsBoostStatus
+    from .delete_points_boosts_response import DeletePointsBoostsResponse
+    from .deleted_resource import DeletedResource
     from .error_body import ErrorBody
     from .event_response import EventResponse
     from .get_user_points_response import GetUserPointsResponse
@@ -114,10 +115,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AchievementResponseTrigger": ".achievement_response_trigger",
     "AchievementResponseUserAttributesItem": ".achievement_response_user_attributes_item",
     "AchievementWithStatsResponse": ".achievement_with_stats_response",
-    "ArchivePointsBoostsResponse": ".archive_points_boosts_response",
+    "AdminIssue": ".admin_issue",
+    "AdminIssueSeverity": ".admin_issue_severity",
     "BaseStreakResponse": ".base_streak_response",
-    "BulkInsertIssue": ".bulk_insert_issue",
-    "BulkInsertIssueLevel": ".bulk_insert_issue_level",
     "BulkStreakResponse": ".bulk_streak_response",
     "BulkStreakResponseItem": ".bulk_streak_response_item",
     "CreatePointsBoostsResponse": ".create_points_boosts_response",
@@ -125,6 +125,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatedPointsBoost": ".created_points_boost",
     "CreatedPointsBoostRounding": ".created_points_boost_rounding",
     "CreatedPointsBoostStatus": ".created_points_boost_status",
+    "DeletePointsBoostsResponse": ".delete_points_boosts_response",
+    "DeletedResource": ".deleted_resource",
     "ErrorBody": ".error_body",
     "EventResponse": ".event_response",
     "GetUserPointsResponse": ".get_user_points_response",
@@ -237,10 +239,9 @@ __all__ = [
     "AchievementResponseTrigger",
     "AchievementResponseUserAttributesItem",
     "AchievementWithStatsResponse",
-    "ArchivePointsBoostsResponse",
+    "AdminIssue",
+    "AdminIssueSeverity",
     "BaseStreakResponse",
-    "BulkInsertIssue",
-    "BulkInsertIssueLevel",
     "BulkStreakResponse",
     "BulkStreakResponseItem",
     "CreatePointsBoostsResponse",
@@ -248,6 +249,8 @@ __all__ = [
     "CreatedPointsBoost",
     "CreatedPointsBoostRounding",
     "CreatedPointsBoostStatus",
+    "DeletePointsBoostsResponse",
+    "DeletedResource",
     "ErrorBody",
     "EventResponse",
     "GetUserPointsResponse",

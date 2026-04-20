@@ -4,8 +4,8 @@ import typing
 
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.request_options import RequestOptions
-from ....types.archive_points_boosts_response import ArchivePointsBoostsResponse
 from ....types.create_points_boosts_response import CreatePointsBoostsResponse
+from ....types.delete_points_boosts_response import DeletePointsBoostsResponse
 from .raw_client import AsyncRawBoostsClient, RawBoostsClient
 from .types.create_points_boosts_request_boosts_item import CreatePointsBoostsRequestBoostsItem
 
@@ -44,7 +44,7 @@ class BoostsClient:
             The key of the points system to create boosts for.
 
         boosts : typing.Sequence[CreatePointsBoostsRequestBoostsItem]
-            Array of boosts to create. Maximum 1,000 boosts per request.
+            Array of boosts to create. Maximum 100 boosts per request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -90,7 +90,7 @@ class BoostsClient:
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ArchivePointsBoostsResponse:
+    ) -> DeletePointsBoostsResponse:
         """
         Archive multiple points boosts by ID.
 
@@ -104,7 +104,7 @@ class BoostsClient:
 
         Returns
         -------
-        ArchivePointsBoostsResponse
+        DeletePointsBoostsResponse
             Successful operation
 
         Examples
@@ -119,7 +119,9 @@ class BoostsClient:
         _response = self._raw_client.batch_archive(ids=ids, request_options=request_options)
         return _response.data
 
-    def archive(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    def archive(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeletePointsBoostsResponse:
         """
         Archive a points boost by ID.
 
@@ -133,7 +135,8 @@ class BoostsClient:
 
         Returns
         -------
-        None
+        DeletePointsBoostsResponse
+            Successfully archived the points boost
 
         Examples
         --------
@@ -181,7 +184,7 @@ class AsyncBoostsClient:
             The key of the points system to create boosts for.
 
         boosts : typing.Sequence[CreatePointsBoostsRequestBoostsItem]
-            Array of boosts to create. Maximum 1,000 boosts per request.
+            Array of boosts to create. Maximum 100 boosts per request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -235,7 +238,7 @@ class AsyncBoostsClient:
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ArchivePointsBoostsResponse:
+    ) -> DeletePointsBoostsResponse:
         """
         Archive multiple points boosts by ID.
 
@@ -249,7 +252,7 @@ class AsyncBoostsClient:
 
         Returns
         -------
-        ArchivePointsBoostsResponse
+        DeletePointsBoostsResponse
             Successful operation
 
         Examples
@@ -272,7 +275,9 @@ class AsyncBoostsClient:
         _response = await self._raw_client.batch_archive(ids=ids, request_options=request_options)
         return _response.data
 
-    async def archive(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    async def archive(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeletePointsBoostsResponse:
         """
         Archive a points boost by ID.
 
@@ -286,7 +291,8 @@ class AsyncBoostsClient:
 
         Returns
         -------
-        None
+        DeletePointsBoostsResponse
+            Successfully archived the points boost
 
         Examples
         --------

@@ -39,7 +39,7 @@ class FreezesClient:
         Parameters
         ----------
         freezes : typing.Sequence[CreateStreakFreezesRequestFreezesItem]
-            Array of freezes to create. Maximum 1,000 freezes per request.
+            Array of freezes to create. Maximum 100 freezes per request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -47,7 +47,7 @@ class FreezesClient:
         Returns
         -------
         CreateStreakFreezesResponse
-            Successful operation
+            Successful operation (no freezes created)
 
         Examples
         --------
@@ -102,7 +102,7 @@ class AsyncFreezesClient:
         Parameters
         ----------
         freezes : typing.Sequence[CreateStreakFreezesRequestFreezesItem]
-            Array of freezes to create. Maximum 1,000 freezes per request.
+            Array of freezes to create. Maximum 100 freezes per request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -110,7 +110,7 @@ class AsyncFreezesClient:
         Returns
         -------
         CreateStreakFreezesResponse
-            Successful operation
+            Successful operation (no freezes created)
 
         Examples
         --------

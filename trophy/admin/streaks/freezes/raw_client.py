@@ -36,7 +36,7 @@ class RawFreezesClient:
         Parameters
         ----------
         freezes : typing.Sequence[CreateStreakFreezesRequestFreezesItem]
-            Array of freezes to create. Maximum 1,000 freezes per request.
+            Array of freezes to create. Maximum 100 freezes per request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -44,7 +44,7 @@ class RawFreezesClient:
         Returns
         -------
         HttpResponse[CreateStreakFreezesResponse]
-            Successful operation
+            Successful operation (no freezes created)
         """
         _response = self._client_wrapper.httpx_client.request(
             "streaks/freezes",
@@ -128,7 +128,7 @@ class AsyncRawFreezesClient:
         Parameters
         ----------
         freezes : typing.Sequence[CreateStreakFreezesRequestFreezesItem]
-            Array of freezes to create. Maximum 1,000 freezes per request.
+            Array of freezes to create. Maximum 100 freezes per request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -136,7 +136,7 @@ class AsyncRawFreezesClient:
         Returns
         -------
         AsyncHttpResponse[CreateStreakFreezesResponse]
-            Successful operation
+            Successful operation (no freezes created)
         """
         _response = await self._client_wrapper.httpx_client.request(
             "streaks/freezes",

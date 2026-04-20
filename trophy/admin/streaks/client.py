@@ -40,7 +40,7 @@ class StreaksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RestoreStreaksResponse:
         """
-        Restore streaks for multiple users to the maximum length in the last 90 days (in the case of daily streaks), one year (in the case of weekly streaks), or two years (in the case of monthly streaks).
+        Restore streaks for multiple users to the maximum previously achieved streak length found within the current restore window: the last 90 days for daily streaks, weekly periods starting with the week containing the start of the current calendar year for weekly streaks, and monthly periods starting at the beginning of the previous calendar year for monthly streaks.
 
         Parameters
         ----------
@@ -53,7 +53,7 @@ class StreaksClient:
         Returns
         -------
         RestoreStreaksResponse
-            Successful operation
+            Successful operation (no streaks restored)
 
         Examples
         --------
@@ -110,7 +110,7 @@ class AsyncStreaksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RestoreStreaksResponse:
         """
-        Restore streaks for multiple users to the maximum length in the last 90 days (in the case of daily streaks), one year (in the case of weekly streaks), or two years (in the case of monthly streaks).
+        Restore streaks for multiple users to the maximum previously achieved streak length found within the current restore window: the last 90 days for daily streaks, weekly periods starting with the week containing the start of the current calendar year for weekly streaks, and monthly periods starting at the beginning of the previous calendar year for monthly streaks.
 
         Parameters
         ----------
@@ -123,7 +123,7 @@ class AsyncStreaksClient:
         Returns
         -------
         RestoreStreaksResponse
-            Successful operation
+            Successful operation (no streaks restored)
 
         Examples
         --------

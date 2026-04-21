@@ -8,6 +8,8 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .raw_client import AsyncRawAdminClient, RawAdminClient
 
 if typing.TYPE_CHECKING:
+    from .attributes.client import AsyncAttributesClient, AttributesClient
+    from .metrics.client import AsyncMetricsClient, MetricsClient
     from .points.client import AsyncPointsClient, PointsClient
     from .streaks.client import AsyncStreaksClient, StreaksClient
 
@@ -17,6 +19,8 @@ class AdminClient:
         self._raw_client = RawAdminClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._streaks: typing.Optional[StreaksClient] = None
+        self._attributes: typing.Optional[AttributesClient] = None
+        self._metrics: typing.Optional[MetricsClient] = None
         self._points: typing.Optional[PointsClient] = None
 
     @property
@@ -39,6 +43,22 @@ class AdminClient:
         return self._streaks
 
     @property
+    def attributes(self):
+        if self._attributes is None:
+            from .attributes.client import AttributesClient  # noqa: E402
+
+            self._attributes = AttributesClient(client_wrapper=self._client_wrapper)
+        return self._attributes
+
+    @property
+    def metrics(self):
+        if self._metrics is None:
+            from .metrics.client import MetricsClient  # noqa: E402
+
+            self._metrics = MetricsClient(client_wrapper=self._client_wrapper)
+        return self._metrics
+
+    @property
     def points(self):
         if self._points is None:
             from .points.client import PointsClient  # noqa: E402
@@ -52,6 +72,8 @@ class AsyncAdminClient:
         self._raw_client = AsyncRawAdminClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._streaks: typing.Optional[AsyncStreaksClient] = None
+        self._attributes: typing.Optional[AsyncAttributesClient] = None
+        self._metrics: typing.Optional[AsyncMetricsClient] = None
         self._points: typing.Optional[AsyncPointsClient] = None
 
     @property
@@ -72,6 +94,22 @@ class AsyncAdminClient:
 
             self._streaks = AsyncStreaksClient(client_wrapper=self._client_wrapper)
         return self._streaks
+
+    @property
+    def attributes(self):
+        if self._attributes is None:
+            from .attributes.client import AsyncAttributesClient  # noqa: E402
+
+            self._attributes = AsyncAttributesClient(client_wrapper=self._client_wrapper)
+        return self._attributes
+
+    @property
+    def metrics(self):
+        if self._metrics is None:
+            from .metrics.client import AsyncMetricsClient  # noqa: E402
+
+            self._metrics = AsyncMetricsClient(client_wrapper=self._client_wrapper)
+        return self._metrics
 
     @property
     def points(self):

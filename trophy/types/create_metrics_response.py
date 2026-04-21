@@ -5,22 +5,22 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .admin_issue import AdminIssue
-from .deleted_resource import DeletedResource
+from .created_metric import CreatedMetric
 
 
-class DeletePointsBoostsResponse(UniversalBaseModel):
+class CreateMetricsResponse(UniversalBaseModel):
     """
-    Response containing the points boosts that were deleted and any per-item issues.
+    Response containing created metrics and any per-item issues.
     """
 
-    deleted: typing.List[DeletedResource] = pydantic.Field()
+    created: typing.List[CreatedMetric] = pydantic.Field()
     """
-    Array of deleted points boosts represented by ID.
+    Array of successfully created metrics.
     """
 
     issues: typing.List[AdminIssue] = pydantic.Field()
     """
-    Array of issues encountered during boost deletion.
+    Array of issues encountered during metric creation.
     """
 
     if IS_PYDANTIC_V2:

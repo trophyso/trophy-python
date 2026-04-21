@@ -2,4 +2,4 @@
 
 import typing
 
-MetricStatus = typing.Union[typing.Literal["archived", "active"], typing.Any]
+AdminAttributeType = typing.Union[typing.Literal["user", "event"], typing.Any]

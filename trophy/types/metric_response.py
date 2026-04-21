@@ -4,7 +4,6 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .metric_status import MetricStatus
 from .user_achievement_response import UserAchievementResponse
 
 
@@ -22,11 +21,6 @@ class MetricResponse(UniversalBaseModel):
     name: str = pydantic.Field()
     """
     The name of the metric.
-    """
-
-    status: MetricStatus = pydantic.Field()
-    """
-    The status of the metric.
     """
 
     current: float = pydantic.Field()

@@ -4,23 +4,27 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .admin_issue import AdminIssue
-from .deleted_resource import DeletedResource
+from .create_attribute_request_item_type import CreateAttributeRequestItemType
 
 
-class DeletePointsBoostsResponse(UniversalBaseModel):
+class CreateAttributeRequestItem(UniversalBaseModel):
     """
-    Response containing the points boosts that were deleted and any per-item issues.
-    """
-
-    deleted: typing.List[DeletedResource] = pydantic.Field()
-    """
-    Array of deleted points boosts represented by ID.
+    An attribute to create.
     """
 
-    issues: typing.List[AdminIssue] = pydantic.Field()
+    name: str = pydantic.Field()
     """
-    Array of issues encountered during boost deletion.
+    The attribute name.
+    """
+
+    key: str = pydantic.Field()
+    """
+    The attribute key. Only alphanumeric characters, hyphens, and underscores are permitted.
+    """
+
+    type: CreateAttributeRequestItemType = pydantic.Field()
+    """
+    The attribute type.
     """
 
     if IS_PYDANTIC_V2:

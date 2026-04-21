@@ -8,19 +8,19 @@ from .admin_issue import AdminIssue
 from .deleted_resource import DeletedResource
 
 
-class DeletePointsBoostsResponse(UniversalBaseModel):
+class DeleteAttributesResponse(UniversalBaseModel):
     """
-    Response containing the points boosts that were deleted and any per-item issues.
+    Response containing deleted attributes represented by ID and any per-item issues, including invalid or missing attribute IDs.
     """
 
     deleted: typing.List[DeletedResource] = pydantic.Field()
     """
-    Array of deleted points boosts represented by ID.
+    Array of deleted attributes represented by ID.
     """
 
     issues: typing.List[AdminIssue] = pydantic.Field()
     """
-    Array of issues encountered during boost deletion.
+    Array of issues encountered during attribute deletion.
     """
 
     if IS_PYDANTIC_V2:

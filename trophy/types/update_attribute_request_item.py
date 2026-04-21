@@ -4,23 +4,21 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .admin_issue import AdminIssue
-from .deleted_resource import DeletedResource
 
 
-class DeletePointsBoostsResponse(UniversalBaseModel):
+class UpdateAttributeRequestItem(UniversalBaseModel):
     """
-    Response containing the points boosts that were deleted and any per-item issues.
-    """
-
-    deleted: typing.List[DeletedResource] = pydantic.Field()
-    """
-    Array of deleted points boosts represented by ID.
+    An attribute update object. `id` is required and `name` is optional. `key` and `type` cannot be changed through this endpoint.
     """
 
-    issues: typing.List[AdminIssue] = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Array of issues encountered during boost deletion.
+    The UUID of the attribute to update.
+    """
+
+    name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The updated attribute name.
     """
 
     if IS_PYDANTIC_V2:

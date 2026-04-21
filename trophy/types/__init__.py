@@ -13,16 +13,30 @@ if typing.TYPE_CHECKING:
     from .achievement_response_trigger import AchievementResponseTrigger
     from .achievement_response_user_attributes_item import AchievementResponseUserAttributesItem
     from .achievement_with_stats_response import AchievementWithStatsResponse
+    from .admin_attribute import AdminAttribute
+    from .admin_attribute_type import AdminAttributeType
     from .admin_issue import AdminIssue
     from .admin_issue_severity import AdminIssueSeverity
     from .base_streak_response import BaseStreakResponse
     from .bulk_streak_response import BulkStreakResponse
     from .bulk_streak_response_item import BulkStreakResponseItem
+    from .create_attribute_request_item import CreateAttributeRequestItem
+    from .create_attribute_request_item_type import CreateAttributeRequestItemType
+    from .create_attributes_request import CreateAttributesRequest
+    from .create_attributes_response import CreateAttributesResponse
+    from .create_metric_request_item import CreateMetricRequestItem
+    from .create_metric_request_item_unit_type import CreateMetricRequestItemUnitType
+    from .create_metrics_request import CreateMetricsRequest
+    from .create_metrics_response import CreateMetricsResponse
     from .create_points_boosts_response import CreatePointsBoostsResponse
     from .create_streak_freezes_response import CreateStreakFreezesResponse
+    from .created_metric import CreatedMetric
+    from .created_metric_unit_type import CreatedMetricUnitType
     from .created_points_boost import CreatedPointsBoost
     from .created_points_boost_rounding import CreatedPointsBoostRounding
     from .created_points_boost_status import CreatedPointsBoostStatus
+    from .delete_attributes_response import DeleteAttributesResponse
+    from .delete_metrics_response import DeleteMetricsResponse
     from .delete_points_boosts_response import DeletePointsBoostsResponse
     from .deleted_resource import DeletedResource
     from .error_body import ErrorBody
@@ -35,6 +49,8 @@ if typing.TYPE_CHECKING:
     from .leaderboard_response_run_unit import LeaderboardResponseRunUnit
     from .leaderboard_response_with_rankings import LeaderboardResponseWithRankings
     from .leaderboard_response_with_rankings_status import LeaderboardResponseWithRankingsStatus
+    from .list_attributes_response import ListAttributesResponse
+    from .list_metrics_response import ListMetricsResponse
     from .metric_event_leaderboard_response import MetricEventLeaderboardResponse
     from .metric_event_leaderboard_response_breakdown_attribute_values_item import (
         MetricEventLeaderboardResponseBreakdownAttributeValuesItem,
@@ -42,7 +58,6 @@ if typing.TYPE_CHECKING:
     from .metric_event_points_response import MetricEventPointsResponse
     from .metric_event_streak_response import MetricEventStreakResponse
     from .metric_response import MetricResponse
-    from .metric_status import MetricStatus
     from .notification_channel import NotificationChannel
     from .notification_preferences import NotificationPreferences
     from .notification_type import NotificationType
@@ -72,6 +87,13 @@ if typing.TYPE_CHECKING:
     from .streak_ranking_user import StreakRankingUser
     from .streak_response import StreakResponse
     from .streak_response_streak_history_item import StreakResponseStreakHistoryItem
+    from .update_attribute_request_item import UpdateAttributeRequestItem
+    from .update_attributes_request import UpdateAttributesRequest
+    from .update_attributes_response import UpdateAttributesResponse
+    from .update_metric_request_item import UpdateMetricRequestItem
+    from .update_metric_request_item_unit_type import UpdateMetricRequestItemUnitType
+    from .update_metrics_request import UpdateMetricsRequest
+    from .update_metrics_response import UpdateMetricsResponse
     from .updated_user import UpdatedUser
     from .upserted_user import UpsertedUser
     from .user import User
@@ -115,16 +137,30 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AchievementResponseTrigger": ".achievement_response_trigger",
     "AchievementResponseUserAttributesItem": ".achievement_response_user_attributes_item",
     "AchievementWithStatsResponse": ".achievement_with_stats_response",
+    "AdminAttribute": ".admin_attribute",
+    "AdminAttributeType": ".admin_attribute_type",
     "AdminIssue": ".admin_issue",
     "AdminIssueSeverity": ".admin_issue_severity",
     "BaseStreakResponse": ".base_streak_response",
     "BulkStreakResponse": ".bulk_streak_response",
     "BulkStreakResponseItem": ".bulk_streak_response_item",
+    "CreateAttributeRequestItem": ".create_attribute_request_item",
+    "CreateAttributeRequestItemType": ".create_attribute_request_item_type",
+    "CreateAttributesRequest": ".create_attributes_request",
+    "CreateAttributesResponse": ".create_attributes_response",
+    "CreateMetricRequestItem": ".create_metric_request_item",
+    "CreateMetricRequestItemUnitType": ".create_metric_request_item_unit_type",
+    "CreateMetricsRequest": ".create_metrics_request",
+    "CreateMetricsResponse": ".create_metrics_response",
     "CreatePointsBoostsResponse": ".create_points_boosts_response",
     "CreateStreakFreezesResponse": ".create_streak_freezes_response",
+    "CreatedMetric": ".created_metric",
+    "CreatedMetricUnitType": ".created_metric_unit_type",
     "CreatedPointsBoost": ".created_points_boost",
     "CreatedPointsBoostRounding": ".created_points_boost_rounding",
     "CreatedPointsBoostStatus": ".created_points_boost_status",
+    "DeleteAttributesResponse": ".delete_attributes_response",
+    "DeleteMetricsResponse": ".delete_metrics_response",
     "DeletePointsBoostsResponse": ".delete_points_boosts_response",
     "DeletedResource": ".deleted_resource",
     "ErrorBody": ".error_body",
@@ -137,12 +173,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LeaderboardResponseRunUnit": ".leaderboard_response_run_unit",
     "LeaderboardResponseWithRankings": ".leaderboard_response_with_rankings",
     "LeaderboardResponseWithRankingsStatus": ".leaderboard_response_with_rankings_status",
+    "ListAttributesResponse": ".list_attributes_response",
+    "ListMetricsResponse": ".list_metrics_response",
     "MetricEventLeaderboardResponse": ".metric_event_leaderboard_response",
     "MetricEventLeaderboardResponseBreakdownAttributeValuesItem": ".metric_event_leaderboard_response_breakdown_attribute_values_item",
     "MetricEventPointsResponse": ".metric_event_points_response",
     "MetricEventStreakResponse": ".metric_event_streak_response",
     "MetricResponse": ".metric_response",
-    "MetricStatus": ".metric_status",
     "NotificationChannel": ".notification_channel",
     "NotificationPreferences": ".notification_preferences",
     "NotificationType": ".notification_type",
@@ -172,6 +209,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "StreakRankingUser": ".streak_ranking_user",
     "StreakResponse": ".streak_response",
     "StreakResponseStreakHistoryItem": ".streak_response_streak_history_item",
+    "UpdateAttributeRequestItem": ".update_attribute_request_item",
+    "UpdateAttributesRequest": ".update_attributes_request",
+    "UpdateAttributesResponse": ".update_attributes_response",
+    "UpdateMetricRequestItem": ".update_metric_request_item",
+    "UpdateMetricRequestItemUnitType": ".update_metric_request_item_unit_type",
+    "UpdateMetricsRequest": ".update_metrics_request",
+    "UpdateMetricsResponse": ".update_metrics_response",
     "UpdatedUser": ".updated_user",
     "UpsertedUser": ".upserted_user",
     "User": ".user",
@@ -239,16 +283,30 @@ __all__ = [
     "AchievementResponseTrigger",
     "AchievementResponseUserAttributesItem",
     "AchievementWithStatsResponse",
+    "AdminAttribute",
+    "AdminAttributeType",
     "AdminIssue",
     "AdminIssueSeverity",
     "BaseStreakResponse",
     "BulkStreakResponse",
     "BulkStreakResponseItem",
+    "CreateAttributeRequestItem",
+    "CreateAttributeRequestItemType",
+    "CreateAttributesRequest",
+    "CreateAttributesResponse",
+    "CreateMetricRequestItem",
+    "CreateMetricRequestItemUnitType",
+    "CreateMetricsRequest",
+    "CreateMetricsResponse",
     "CreatePointsBoostsResponse",
     "CreateStreakFreezesResponse",
+    "CreatedMetric",
+    "CreatedMetricUnitType",
     "CreatedPointsBoost",
     "CreatedPointsBoostRounding",
     "CreatedPointsBoostStatus",
+    "DeleteAttributesResponse",
+    "DeleteMetricsResponse",
     "DeletePointsBoostsResponse",
     "DeletedResource",
     "ErrorBody",
@@ -261,12 +319,13 @@ __all__ = [
     "LeaderboardResponseRunUnit",
     "LeaderboardResponseWithRankings",
     "LeaderboardResponseWithRankingsStatus",
+    "ListAttributesResponse",
+    "ListMetricsResponse",
     "MetricEventLeaderboardResponse",
     "MetricEventLeaderboardResponseBreakdownAttributeValuesItem",
     "MetricEventPointsResponse",
     "MetricEventStreakResponse",
     "MetricResponse",
-    "MetricStatus",
     "NotificationChannel",
     "NotificationPreferences",
     "NotificationType",
@@ -296,6 +355,13 @@ __all__ = [
     "StreakRankingUser",
     "StreakResponse",
     "StreakResponseStreakHistoryItem",
+    "UpdateAttributeRequestItem",
+    "UpdateAttributesRequest",
+    "UpdateAttributesResponse",
+    "UpdateMetricRequestItem",
+    "UpdateMetricRequestItemUnitType",
+    "UpdateMetricsRequest",
+    "UpdateMetricsResponse",
     "UpdatedUser",
     "UpsertedUser",
     "User",

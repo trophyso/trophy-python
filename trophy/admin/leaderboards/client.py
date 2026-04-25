@@ -4,31 +4,31 @@ import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
-from ...types.admin_attribute import AdminAttribute
-from ...types.create_attributes_request import CreateAttributesRequest
-from ...types.create_attributes_response import CreateAttributesResponse
-from ...types.delete_attributes_response import DeleteAttributesResponse
-from ...types.list_attributes_response import ListAttributesResponse
-from ...types.update_attributes_request import UpdateAttributesRequest
-from ...types.update_attributes_response import UpdateAttributesResponse
-from .raw_client import AsyncRawAttributesClient, RawAttributesClient
+from ...types.admin_leaderboard import AdminLeaderboard
+from ...types.create_leaderboards_request import CreateLeaderboardsRequest
+from ...types.create_leaderboards_response import CreateLeaderboardsResponse
+from ...types.delete_leaderboards_response import DeleteLeaderboardsResponse
+from ...types.list_leaderboards_response import ListLeaderboardsResponse
+from ...types.update_leaderboards_request import UpdateLeaderboardsRequest
+from ...types.update_leaderboards_response import UpdateLeaderboardsResponse
+from .raw_client import AsyncRawLeaderboardsClient, RawLeaderboardsClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
-class AttributesClient:
+class LeaderboardsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._raw_client = RawAttributesClient(client_wrapper=client_wrapper)
+        self._raw_client = RawLeaderboardsClient(client_wrapper=client_wrapper)
 
     @property
-    def with_raw_response(self) -> RawAttributesClient:
+    def with_raw_response(self) -> RawLeaderboardsClient:
         """
         Retrieves a raw implementation of this client that returns raw responses.
 
         Returns
         -------
-        RawAttributesClient
+        RawLeaderboardsClient
         """
         return self._raw_client
 
@@ -38,9 +38,9 @@ class AttributesClient:
         limit: typing.Optional[int] = None,
         skip: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ListAttributesResponse:
+    ) -> ListLeaderboardsResponse:
         """
-        List attributes.
+        List leaderboards.
 
         Parameters
         ----------
@@ -55,7 +55,7 @@ class AttributesClient:
 
         Returns
         -------
-        ListAttributesResponse
+        ListLeaderboardsResponse
             Successful operation
 
         Examples
@@ -65,7 +65,7 @@ class AttributesClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.admin.attributes.list(
+        client.admin.leaderboards.list(
             limit=1,
             skip=1,
         )
@@ -74,41 +74,50 @@ class AttributesClient:
         return _response.data
 
     def create(
-        self, *, request: CreateAttributesRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> CreateAttributesResponse:
+        self, *, request: CreateLeaderboardsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> CreateLeaderboardsResponse:
         """
-        Create attributes.
+        Create leaderboards. Maximum 100 leaderboards per request.
 
         Parameters
         ----------
-        request : CreateAttributesRequest
+        request : CreateLeaderboardsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        CreateAttributesResponse
-            Successful operation (no attributes created)
+        CreateLeaderboardsResponse
+            Successful operation (no leaderboards created)
 
         Examples
         --------
-        from trophy import CreateAttributeRequestItem, TrophyApi
+        from trophy import CreateLeaderboardRequestItem, TrophyApi
 
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.admin.attributes.create(
+        client.admin.leaderboards.create(
             request=[
-                CreateAttributeRequestItem(
-                    name="Plan",
-                    key="plan",
-                    type="user",
+                CreateLeaderboardRequestItem(
+                    name="Revenue Champions",
+                    key="revenue-champions",
+                    status="inactive",
+                    rank_by="metric",
+                    metric_id="550e8400-e29b-41d4-a716-446655440000",
+                    max_participants=100,
+                    start="2026-04-20",
+                    breakdown_attributes=["550e8400-e29b-41d4-a716-446655440010"],
+                    run_unit="month",
+                    run_interval=1,
                 ),
-                CreateAttributeRequestItem(
-                    name="Device",
-                    key="device",
-                    type="event",
+                CreateLeaderboardRequestItem(
+                    name="Streak Legends",
+                    key="streak-legends",
+                    status="scheduled",
+                    rank_by="streak",
+                    start="2026-04-27",
                 ),
             ],
         )
@@ -121,21 +130,21 @@ class AttributesClient:
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> DeleteAttributesResponse:
+    ) -> DeleteLeaderboardsResponse:
         """
-        Delete attributes by ID.
+        Delete leaderboards by ID.
 
         Parameters
         ----------
         ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Attribute IDs to delete. Repeat the query param or provide a comma-separated list.
+            Leaderboard IDs to delete. Repeat the query param or provide a comma-separated list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        DeleteAttributesResponse
+        DeleteLeaderboardsResponse
             Successful operation
 
         Examples
@@ -145,63 +154,69 @@ class AttributesClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.admin.attributes.delete()
+        client.admin.leaderboards.delete()
         """
         _response = self._raw_client.delete(ids=ids, request_options=request_options)
         return _response.data
 
     def update(
-        self, *, request: UpdateAttributesRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> UpdateAttributesResponse:
+        self, *, request: UpdateLeaderboardsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> UpdateLeaderboardsResponse:
         """
-        Update attributes by ID.
+        Update leaderboards by ID. Updating `status` behaves the same as activating, scheduling, deactivating, or finishing a leaderboard in the dashboard.
 
         Parameters
         ----------
-        request : UpdateAttributesRequest
+        request : UpdateLeaderboardsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        UpdateAttributesResponse
+        UpdateLeaderboardsResponse
             Successful operation
 
         Examples
         --------
-        from trophy import TrophyApi, UpdateAttributeRequestItem
+        from trophy import TrophyApi, UpdateLeaderboardRequestItem
 
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.admin.attributes.update(
+        client.admin.leaderboards.update(
             request=[
-                UpdateAttributeRequestItem(
-                    id="550e8400-e29b-41d4-a716-446655440000",
-                    name="Subscription Plan",
-                )
+                UpdateLeaderboardRequestItem(
+                    id="550e8400-e29b-41d4-a716-446655440100",
+                    name="Monthly Revenue Champions",
+                    description="Ranked by monthly revenue",
+                    status="active",
+                ),
+                UpdateLeaderboardRequestItem(
+                    id="550e8400-e29b-41d4-a716-446655440101",
+                    status="finished",
+                ),
             ],
         )
         """
         _response = self._raw_client.update(request=request, request_options=request_options)
         return _response.data
 
-    def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdminAttribute:
+    def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdminLeaderboard:
         """
-        Get an attribute by ID.
+        Get a leaderboard by ID.
 
         Parameters
         ----------
         id : str
-            The UUID of the attribute to retrieve.
+            The UUID of the leaderboard to retrieve.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AdminAttribute
+        AdminLeaderboard
             Successful operation
 
         Examples
@@ -211,26 +226,26 @@ class AttributesClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.admin.attributes.get(
-            id="550e8400-e29b-41d4-a716-446655440000",
+        client.admin.leaderboards.get(
+            id="550e8400-e29b-41d4-a716-446655440100",
         )
         """
         _response = self._raw_client.get(id, request_options=request_options)
         return _response.data
 
 
-class AsyncAttributesClient:
+class AsyncLeaderboardsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._raw_client = AsyncRawAttributesClient(client_wrapper=client_wrapper)
+        self._raw_client = AsyncRawLeaderboardsClient(client_wrapper=client_wrapper)
 
     @property
-    def with_raw_response(self) -> AsyncRawAttributesClient:
+    def with_raw_response(self) -> AsyncRawLeaderboardsClient:
         """
         Retrieves a raw implementation of this client that returns raw responses.
 
         Returns
         -------
-        AsyncRawAttributesClient
+        AsyncRawLeaderboardsClient
         """
         return self._raw_client
 
@@ -240,9 +255,9 @@ class AsyncAttributesClient:
         limit: typing.Optional[int] = None,
         skip: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ListAttributesResponse:
+    ) -> ListLeaderboardsResponse:
         """
-        List attributes.
+        List leaderboards.
 
         Parameters
         ----------
@@ -257,7 +272,7 @@ class AsyncAttributesClient:
 
         Returns
         -------
-        ListAttributesResponse
+        ListLeaderboardsResponse
             Successful operation
 
         Examples
@@ -272,7 +287,7 @@ class AsyncAttributesClient:
 
 
         async def main() -> None:
-            await client.admin.attributes.list(
+            await client.admin.leaderboards.list(
                 limit=1,
                 skip=1,
             )
@@ -284,28 +299,28 @@ class AsyncAttributesClient:
         return _response.data
 
     async def create(
-        self, *, request: CreateAttributesRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> CreateAttributesResponse:
+        self, *, request: CreateLeaderboardsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> CreateLeaderboardsResponse:
         """
-        Create attributes.
+        Create leaderboards. Maximum 100 leaderboards per request.
 
         Parameters
         ----------
-        request : CreateAttributesRequest
+        request : CreateLeaderboardsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        CreateAttributesResponse
-            Successful operation (no attributes created)
+        CreateLeaderboardsResponse
+            Successful operation (no leaderboards created)
 
         Examples
         --------
         import asyncio
 
-        from trophy import AsyncTrophyApi, CreateAttributeRequestItem
+        from trophy import AsyncTrophyApi, CreateLeaderboardRequestItem
 
         client = AsyncTrophyApi(
             api_key="YOUR_API_KEY",
@@ -313,17 +328,26 @@ class AsyncAttributesClient:
 
 
         async def main() -> None:
-            await client.admin.attributes.create(
+            await client.admin.leaderboards.create(
                 request=[
-                    CreateAttributeRequestItem(
-                        name="Plan",
-                        key="plan",
-                        type="user",
+                    CreateLeaderboardRequestItem(
+                        name="Revenue Champions",
+                        key="revenue-champions",
+                        status="inactive",
+                        rank_by="metric",
+                        metric_id="550e8400-e29b-41d4-a716-446655440000",
+                        max_participants=100,
+                        start="2026-04-20",
+                        breakdown_attributes=["550e8400-e29b-41d4-a716-446655440010"],
+                        run_unit="month",
+                        run_interval=1,
                     ),
-                    CreateAttributeRequestItem(
-                        name="Device",
-                        key="device",
-                        type="event",
+                    CreateLeaderboardRequestItem(
+                        name="Streak Legends",
+                        key="streak-legends",
+                        status="scheduled",
+                        rank_by="streak",
+                        start="2026-04-27",
                     ),
                 ],
             )
@@ -339,21 +363,21 @@ class AsyncAttributesClient:
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> DeleteAttributesResponse:
+    ) -> DeleteLeaderboardsResponse:
         """
-        Delete attributes by ID.
+        Delete leaderboards by ID.
 
         Parameters
         ----------
         ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Attribute IDs to delete. Repeat the query param or provide a comma-separated list.
+            Leaderboard IDs to delete. Repeat the query param or provide a comma-separated list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        DeleteAttributesResponse
+        DeleteLeaderboardsResponse
             Successful operation
 
         Examples
@@ -368,7 +392,7 @@ class AsyncAttributesClient:
 
 
         async def main() -> None:
-            await client.admin.attributes.delete()
+            await client.admin.leaderboards.delete()
 
 
         asyncio.run(main())
@@ -377,28 +401,28 @@ class AsyncAttributesClient:
         return _response.data
 
     async def update(
-        self, *, request: UpdateAttributesRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> UpdateAttributesResponse:
+        self, *, request: UpdateLeaderboardsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> UpdateLeaderboardsResponse:
         """
-        Update attributes by ID.
+        Update leaderboards by ID. Updating `status` behaves the same as activating, scheduling, deactivating, or finishing a leaderboard in the dashboard.
 
         Parameters
         ----------
-        request : UpdateAttributesRequest
+        request : UpdateLeaderboardsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        UpdateAttributesResponse
+        UpdateLeaderboardsResponse
             Successful operation
 
         Examples
         --------
         import asyncio
 
-        from trophy import AsyncTrophyApi, UpdateAttributeRequestItem
+        from trophy import AsyncTrophyApi, UpdateLeaderboardRequestItem
 
         client = AsyncTrophyApi(
             api_key="YOUR_API_KEY",
@@ -406,12 +430,18 @@ class AsyncAttributesClient:
 
 
         async def main() -> None:
-            await client.admin.attributes.update(
+            await client.admin.leaderboards.update(
                 request=[
-                    UpdateAttributeRequestItem(
-                        id="550e8400-e29b-41d4-a716-446655440000",
-                        name="Subscription Plan",
-                    )
+                    UpdateLeaderboardRequestItem(
+                        id="550e8400-e29b-41d4-a716-446655440100",
+                        name="Monthly Revenue Champions",
+                        description="Ranked by monthly revenue",
+                        status="active",
+                    ),
+                    UpdateLeaderboardRequestItem(
+                        id="550e8400-e29b-41d4-a716-446655440101",
+                        status="finished",
+                    ),
                 ],
             )
 
@@ -421,21 +451,21 @@ class AsyncAttributesClient:
         _response = await self._raw_client.update(request=request, request_options=request_options)
         return _response.data
 
-    async def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdminAttribute:
+    async def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdminLeaderboard:
         """
-        Get an attribute by ID.
+        Get a leaderboard by ID.
 
         Parameters
         ----------
         id : str
-            The UUID of the attribute to retrieve.
+            The UUID of the leaderboard to retrieve.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AdminAttribute
+        AdminLeaderboard
             Successful operation
 
         Examples
@@ -450,8 +480,8 @@ class AsyncAttributesClient:
 
 
         async def main() -> None:
-            await client.admin.attributes.get(
-                id="550e8400-e29b-41d4-a716-446655440000",
+            await client.admin.leaderboards.get(
+                id="550e8400-e29b-41d4-a716-446655440100",
             )
 
 

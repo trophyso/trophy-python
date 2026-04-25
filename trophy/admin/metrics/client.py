@@ -77,7 +77,7 @@ class MetricsClient:
         self, *, request: CreateMetricsRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> CreateMetricsResponse:
         """
-        Create metrics in bulk.
+        Create metrics.
 
         Parameters
         ----------
@@ -123,7 +123,7 @@ class MetricsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DeleteMetricsResponse:
         """
-        Delete metrics in bulk by ID.
+        Delete metrics by ID.
 
         Parameters
         ----------
@@ -154,7 +154,7 @@ class MetricsClient:
         self, *, request: UpdateMetricsRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> UpdateMetricsResponse:
         """
-        Update metrics in bulk by ID.
+        Update metrics by ID.
 
         Parameters
         ----------
@@ -293,7 +293,7 @@ class AsyncMetricsClient:
         self, *, request: CreateMetricsRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> CreateMetricsResponse:
         """
-        Create metrics in bulk.
+        Create metrics.
 
         Parameters
         ----------
@@ -347,7 +347,7 @@ class AsyncMetricsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DeleteMetricsResponse:
         """
-        Delete metrics in bulk by ID.
+        Delete metrics by ID.
 
         Parameters
         ----------
@@ -386,7 +386,7 @@ class AsyncMetricsClient:
         self, *, request: UpdateMetricsRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> UpdateMetricsResponse:
         """
-        Update metrics in bulk by ID.
+        Update metrics by ID.
 
         Parameters
         ----------

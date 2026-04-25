@@ -17,6 +17,10 @@ if typing.TYPE_CHECKING:
     from .admin_attribute_type import AdminAttributeType
     from .admin_issue import AdminIssue
     from .admin_issue_severity import AdminIssueSeverity
+    from .admin_leaderboard import AdminLeaderboard
+    from .admin_leaderboard_rank_by import AdminLeaderboardRankBy
+    from .admin_leaderboard_run_unit import AdminLeaderboardRunUnit
+    from .admin_leaderboard_status import AdminLeaderboardStatus
     from .base_streak_response import BaseStreakResponse
     from .bulk_streak_response import BulkStreakResponse
     from .bulk_streak_response_item import BulkStreakResponseItem
@@ -24,6 +28,12 @@ if typing.TYPE_CHECKING:
     from .create_attribute_request_item_type import CreateAttributeRequestItemType
     from .create_attributes_request import CreateAttributesRequest
     from .create_attributes_response import CreateAttributesResponse
+    from .create_leaderboard_request_item import CreateLeaderboardRequestItem
+    from .create_leaderboard_request_item_rank_by import CreateLeaderboardRequestItemRankBy
+    from .create_leaderboard_request_item_run_unit import CreateLeaderboardRequestItemRunUnit
+    from .create_leaderboard_request_item_status import CreateLeaderboardRequestItemStatus
+    from .create_leaderboards_request import CreateLeaderboardsRequest
+    from .create_leaderboards_response import CreateLeaderboardsResponse
     from .create_metric_request_item import CreateMetricRequestItem
     from .create_metric_request_item_unit_type import CreateMetricRequestItemUnitType
     from .create_metrics_request import CreateMetricsRequest
@@ -36,6 +46,7 @@ if typing.TYPE_CHECKING:
     from .created_points_boost_rounding import CreatedPointsBoostRounding
     from .created_points_boost_status import CreatedPointsBoostStatus
     from .delete_attributes_response import DeleteAttributesResponse
+    from .delete_leaderboards_response import DeleteLeaderboardsResponse
     from .delete_metrics_response import DeleteMetricsResponse
     from .delete_points_boosts_response import DeletePointsBoostsResponse
     from .deleted_resource import DeletedResource
@@ -50,6 +61,7 @@ if typing.TYPE_CHECKING:
     from .leaderboard_response_with_rankings import LeaderboardResponseWithRankings
     from .leaderboard_response_with_rankings_status import LeaderboardResponseWithRankingsStatus
     from .list_attributes_response import ListAttributesResponse
+    from .list_leaderboards_response import ListLeaderboardsResponse
     from .list_metrics_response import ListMetricsResponse
     from .metric_event_leaderboard_response import MetricEventLeaderboardResponse
     from .metric_event_leaderboard_response_breakdown_attribute_values_item import (
@@ -60,7 +72,6 @@ if typing.TYPE_CHECKING:
     from .metric_response import MetricResponse
     from .notification_channel import NotificationChannel
     from .notification_preferences import NotificationPreferences
-    from .notification_type import NotificationType
     from .points_award import PointsAward
     from .points_boost import PointsBoost
     from .points_boost_rounding import PointsBoostRounding
@@ -90,6 +101,12 @@ if typing.TYPE_CHECKING:
     from .update_attribute_request_item import UpdateAttributeRequestItem
     from .update_attributes_request import UpdateAttributesRequest
     from .update_attributes_response import UpdateAttributesResponse
+    from .update_leaderboard_request_item import UpdateLeaderboardRequestItem
+    from .update_leaderboard_request_item_rank_by import UpdateLeaderboardRequestItemRankBy
+    from .update_leaderboard_request_item_run_unit import UpdateLeaderboardRequestItemRunUnit
+    from .update_leaderboard_request_item_status import UpdateLeaderboardRequestItemStatus
+    from .update_leaderboards_request import UpdateLeaderboardsRequest
+    from .update_leaderboards_response import UpdateLeaderboardsResponse
     from .update_metric_request_item import UpdateMetricRequestItem
     from .update_metric_request_item_unit_type import UpdateMetricRequestItemUnitType
     from .update_metrics_request import UpdateMetricsRequest
@@ -141,6 +158,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdminAttributeType": ".admin_attribute_type",
     "AdminIssue": ".admin_issue",
     "AdminIssueSeverity": ".admin_issue_severity",
+    "AdminLeaderboard": ".admin_leaderboard",
+    "AdminLeaderboardRankBy": ".admin_leaderboard_rank_by",
+    "AdminLeaderboardRunUnit": ".admin_leaderboard_run_unit",
+    "AdminLeaderboardStatus": ".admin_leaderboard_status",
     "BaseStreakResponse": ".base_streak_response",
     "BulkStreakResponse": ".bulk_streak_response",
     "BulkStreakResponseItem": ".bulk_streak_response_item",
@@ -148,6 +169,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAttributeRequestItemType": ".create_attribute_request_item_type",
     "CreateAttributesRequest": ".create_attributes_request",
     "CreateAttributesResponse": ".create_attributes_response",
+    "CreateLeaderboardRequestItem": ".create_leaderboard_request_item",
+    "CreateLeaderboardRequestItemRankBy": ".create_leaderboard_request_item_rank_by",
+    "CreateLeaderboardRequestItemRunUnit": ".create_leaderboard_request_item_run_unit",
+    "CreateLeaderboardRequestItemStatus": ".create_leaderboard_request_item_status",
+    "CreateLeaderboardsRequest": ".create_leaderboards_request",
+    "CreateLeaderboardsResponse": ".create_leaderboards_response",
     "CreateMetricRequestItem": ".create_metric_request_item",
     "CreateMetricRequestItemUnitType": ".create_metric_request_item_unit_type",
     "CreateMetricsRequest": ".create_metrics_request",
@@ -160,6 +187,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatedPointsBoostRounding": ".created_points_boost_rounding",
     "CreatedPointsBoostStatus": ".created_points_boost_status",
     "DeleteAttributesResponse": ".delete_attributes_response",
+    "DeleteLeaderboardsResponse": ".delete_leaderboards_response",
     "DeleteMetricsResponse": ".delete_metrics_response",
     "DeletePointsBoostsResponse": ".delete_points_boosts_response",
     "DeletedResource": ".deleted_resource",
@@ -174,6 +202,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LeaderboardResponseWithRankings": ".leaderboard_response_with_rankings",
     "LeaderboardResponseWithRankingsStatus": ".leaderboard_response_with_rankings_status",
     "ListAttributesResponse": ".list_attributes_response",
+    "ListLeaderboardsResponse": ".list_leaderboards_response",
     "ListMetricsResponse": ".list_metrics_response",
     "MetricEventLeaderboardResponse": ".metric_event_leaderboard_response",
     "MetricEventLeaderboardResponseBreakdownAttributeValuesItem": ".metric_event_leaderboard_response_breakdown_attribute_values_item",
@@ -182,7 +211,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MetricResponse": ".metric_response",
     "NotificationChannel": ".notification_channel",
     "NotificationPreferences": ".notification_preferences",
-    "NotificationType": ".notification_type",
     "PointsAward": ".points_award",
     "PointsBoost": ".points_boost",
     "PointsBoostRounding": ".points_boost_rounding",
@@ -212,6 +240,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAttributeRequestItem": ".update_attribute_request_item",
     "UpdateAttributesRequest": ".update_attributes_request",
     "UpdateAttributesResponse": ".update_attributes_response",
+    "UpdateLeaderboardRequestItem": ".update_leaderboard_request_item",
+    "UpdateLeaderboardRequestItemRankBy": ".update_leaderboard_request_item_rank_by",
+    "UpdateLeaderboardRequestItemRunUnit": ".update_leaderboard_request_item_run_unit",
+    "UpdateLeaderboardRequestItemStatus": ".update_leaderboard_request_item_status",
+    "UpdateLeaderboardsRequest": ".update_leaderboards_request",
+    "UpdateLeaderboardsResponse": ".update_leaderboards_response",
     "UpdateMetricRequestItem": ".update_metric_request_item",
     "UpdateMetricRequestItemUnitType": ".update_metric_request_item_unit_type",
     "UpdateMetricsRequest": ".update_metrics_request",
@@ -287,6 +321,10 @@ __all__ = [
     "AdminAttributeType",
     "AdminIssue",
     "AdminIssueSeverity",
+    "AdminLeaderboard",
+    "AdminLeaderboardRankBy",
+    "AdminLeaderboardRunUnit",
+    "AdminLeaderboardStatus",
     "BaseStreakResponse",
     "BulkStreakResponse",
     "BulkStreakResponseItem",
@@ -294,6 +332,12 @@ __all__ = [
     "CreateAttributeRequestItemType",
     "CreateAttributesRequest",
     "CreateAttributesResponse",
+    "CreateLeaderboardRequestItem",
+    "CreateLeaderboardRequestItemRankBy",
+    "CreateLeaderboardRequestItemRunUnit",
+    "CreateLeaderboardRequestItemStatus",
+    "CreateLeaderboardsRequest",
+    "CreateLeaderboardsResponse",
     "CreateMetricRequestItem",
     "CreateMetricRequestItemUnitType",
     "CreateMetricsRequest",
@@ -306,6 +350,7 @@ __all__ = [
     "CreatedPointsBoostRounding",
     "CreatedPointsBoostStatus",
     "DeleteAttributesResponse",
+    "DeleteLeaderboardsResponse",
     "DeleteMetricsResponse",
     "DeletePointsBoostsResponse",
     "DeletedResource",
@@ -320,6 +365,7 @@ __all__ = [
     "LeaderboardResponseWithRankings",
     "LeaderboardResponseWithRankingsStatus",
     "ListAttributesResponse",
+    "ListLeaderboardsResponse",
     "ListMetricsResponse",
     "MetricEventLeaderboardResponse",
     "MetricEventLeaderboardResponseBreakdownAttributeValuesItem",
@@ -328,7 +374,6 @@ __all__ = [
     "MetricResponse",
     "NotificationChannel",
     "NotificationPreferences",
-    "NotificationType",
     "PointsAward",
     "PointsBoost",
     "PointsBoostRounding",
@@ -358,6 +403,12 @@ __all__ = [
     "UpdateAttributeRequestItem",
     "UpdateAttributesRequest",
     "UpdateAttributesResponse",
+    "UpdateLeaderboardRequestItem",
+    "UpdateLeaderboardRequestItemRankBy",
+    "UpdateLeaderboardRequestItemRunUnit",
+    "UpdateLeaderboardRequestItemStatus",
+    "UpdateLeaderboardsRequest",
+    "UpdateLeaderboardsResponse",
     "UpdateMetricRequestItem",
     "UpdateMetricRequestItemUnitType",
     "UpdateMetricsRequest",

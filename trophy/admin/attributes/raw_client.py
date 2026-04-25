@@ -107,7 +107,7 @@ class RawAttributesClient:
         self, *, request: CreateAttributesRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[CreateAttributesResponse]:
         """
-        Create attributes in bulk.
+        Create attributes.
 
         Parameters
         ----------
@@ -178,7 +178,7 @@ class RawAttributesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[DeleteAttributesResponse]:
         """
-        Delete attributes in bulk by ID.
+        Delete attributes by ID.
 
         Parameters
         ----------
@@ -243,7 +243,7 @@ class RawAttributesClient:
         self, *, request: UpdateAttributesRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[UpdateAttributesResponse]:
         """
-        Update attributes in bulk by ID.
+        Update attributes by ID.
 
         Parameters
         ----------
@@ -460,7 +460,7 @@ class AsyncRawAttributesClient:
         self, *, request: CreateAttributesRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[CreateAttributesResponse]:
         """
-        Create attributes in bulk.
+        Create attributes.
 
         Parameters
         ----------
@@ -531,7 +531,7 @@ class AsyncRawAttributesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[DeleteAttributesResponse]:
         """
-        Delete attributes in bulk by ID.
+        Delete attributes by ID.
 
         Parameters
         ----------
@@ -596,7 +596,7 @@ class AsyncRawAttributesClient:
         self, *, request: UpdateAttributesRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[UpdateAttributesResponse]:
         """
-        Update attributes in bulk by ID.
+        Update attributes by ID.
 
         Parameters
         ----------

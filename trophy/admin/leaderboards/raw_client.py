@@ -13,20 +13,20 @@ from ...core.serialization import convert_and_respect_annotation_metadata
 from ...errors.not_found_error import NotFoundError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
-from ...types.create_metrics_request import CreateMetricsRequest
-from ...types.create_metrics_response import CreateMetricsResponse
-from ...types.created_metric import CreatedMetric
-from ...types.delete_metrics_response import DeleteMetricsResponse
+from ...types.admin_leaderboard import AdminLeaderboard
+from ...types.create_leaderboards_request import CreateLeaderboardsRequest
+from ...types.create_leaderboards_response import CreateLeaderboardsResponse
+from ...types.delete_leaderboards_response import DeleteLeaderboardsResponse
 from ...types.error_body import ErrorBody
-from ...types.list_metrics_response import ListMetricsResponse
-from ...types.update_metrics_request import UpdateMetricsRequest
-from ...types.update_metrics_response import UpdateMetricsResponse
+from ...types.list_leaderboards_response import ListLeaderboardsResponse
+from ...types.update_leaderboards_request import UpdateLeaderboardsRequest
+from ...types.update_leaderboards_response import UpdateLeaderboardsResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
-class RawMetricsClient:
+class RawLeaderboardsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
@@ -36,9 +36,9 @@ class RawMetricsClient:
         limit: typing.Optional[int] = None,
         skip: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[ListMetricsResponse]:
+    ) -> HttpResponse[ListLeaderboardsResponse]:
         """
-        List metrics.
+        List leaderboards.
 
         Parameters
         ----------
@@ -53,11 +53,11 @@ class RawMetricsClient:
 
         Returns
         -------
-        HttpResponse[ListMetricsResponse]
+        HttpResponse[ListLeaderboardsResponse]
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            "metrics",
+            "leaderboards",
             base_url=self._client_wrapper.get_environment().admin,
             method="GET",
             params={
@@ -69,9 +69,9 @@ class RawMetricsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ListMetricsResponse,
+                    ListLeaderboardsResponse,
                     parse_obj_as(
-                        type_=ListMetricsResponse,  # type: ignore
+                        type_=ListLeaderboardsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -104,29 +104,29 @@ class RawMetricsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
-        self, *, request: CreateMetricsRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[CreateMetricsResponse]:
+        self, *, request: CreateLeaderboardsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[CreateLeaderboardsResponse]:
         """
-        Create metrics.
+        Create leaderboards. Maximum 100 leaderboards per request.
 
         Parameters
         ----------
-        request : CreateMetricsRequest
+        request : CreateLeaderboardsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[CreateMetricsResponse]
-            Successful operation (no metrics created)
+        HttpResponse[CreateLeaderboardsResponse]
+            Successful operation (no leaderboards created)
         """
         _response = self._client_wrapper.httpx_client.request(
-            "metrics",
+            "leaderboards",
             base_url=self._client_wrapper.get_environment().admin,
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreateMetricsRequest, direction="write"
+                object_=request, annotation=CreateLeaderboardsRequest, direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -137,9 +137,9 @@ class RawMetricsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    CreateMetricsResponse,
+                    CreateLeaderboardsResponse,
                     parse_obj_as(
-                        type_=CreateMetricsResponse,  # type: ignore
+                        type_=CreateLeaderboardsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -176,25 +176,25 @@ class RawMetricsClient:
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[DeleteMetricsResponse]:
+    ) -> HttpResponse[DeleteLeaderboardsResponse]:
         """
-        Delete metrics by ID.
+        Delete leaderboards by ID.
 
         Parameters
         ----------
         ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Metric IDs to delete. Repeat the query param or provide a comma-separated list.
+            Leaderboard IDs to delete. Repeat the query param or provide a comma-separated list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[DeleteMetricsResponse]
+        HttpResponse[DeleteLeaderboardsResponse]
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            "metrics",
+            "leaderboards",
             base_url=self._client_wrapper.get_environment().admin,
             method="DELETE",
             params={
@@ -205,9 +205,9 @@ class RawMetricsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    DeleteMetricsResponse,
+                    DeleteLeaderboardsResponse,
                     parse_obj_as(
-                        type_=DeleteMetricsResponse,  # type: ignore
+                        type_=DeleteLeaderboardsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -240,29 +240,29 @@ class RawMetricsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
-        self, *, request: UpdateMetricsRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[UpdateMetricsResponse]:
+        self, *, request: UpdateLeaderboardsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[UpdateLeaderboardsResponse]:
         """
-        Update metrics by ID.
+        Update leaderboards by ID. Updating `status` behaves the same as activating, scheduling, deactivating, or finishing a leaderboard in the dashboard.
 
         Parameters
         ----------
-        request : UpdateMetricsRequest
+        request : UpdateLeaderboardsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[UpdateMetricsResponse]
+        HttpResponse[UpdateLeaderboardsResponse]
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            "metrics",
+            "leaderboards",
             base_url=self._client_wrapper.get_environment().admin,
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=UpdateMetricsRequest, direction="write"
+                object_=request, annotation=UpdateLeaderboardsRequest, direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -273,9 +273,9 @@ class RawMetricsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    UpdateMetricsResponse,
+                    UpdateLeaderboardsResponse,
                     parse_obj_as(
-                        type_=UpdateMetricsResponse,  # type: ignore
+                        type_=UpdateLeaderboardsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -307,25 +307,27 @@ class RawMetricsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[CreatedMetric]:
+    def get(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[AdminLeaderboard]:
         """
-        Get a metric by ID.
+        Get a leaderboard by ID.
 
         Parameters
         ----------
         id : str
-            The UUID of the metric to retrieve.
+            The UUID of the leaderboard to retrieve.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[CreatedMetric]
+        HttpResponse[AdminLeaderboard]
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"metrics/{jsonable_encoder(id)}",
+            f"leaderboards/{jsonable_encoder(id)}",
             base_url=self._client_wrapper.get_environment().admin,
             method="GET",
             request_options=request_options,
@@ -333,9 +335,9 @@ class RawMetricsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    CreatedMetric,
+                    AdminLeaderboard,
                     parse_obj_as(
-                        type_=CreatedMetric,  # type: ignore
+                        type_=AdminLeaderboard,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -379,7 +381,7 @@ class RawMetricsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
-class AsyncRawMetricsClient:
+class AsyncRawLeaderboardsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
@@ -389,9 +391,9 @@ class AsyncRawMetricsClient:
         limit: typing.Optional[int] = None,
         skip: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[ListMetricsResponse]:
+    ) -> AsyncHttpResponse[ListLeaderboardsResponse]:
         """
-        List metrics.
+        List leaderboards.
 
         Parameters
         ----------
@@ -406,11 +408,11 @@ class AsyncRawMetricsClient:
 
         Returns
         -------
-        AsyncHttpResponse[ListMetricsResponse]
+        AsyncHttpResponse[ListLeaderboardsResponse]
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "metrics",
+            "leaderboards",
             base_url=self._client_wrapper.get_environment().admin,
             method="GET",
             params={
@@ -422,9 +424,9 @@ class AsyncRawMetricsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ListMetricsResponse,
+                    ListLeaderboardsResponse,
                     parse_obj_as(
-                        type_=ListMetricsResponse,  # type: ignore
+                        type_=ListLeaderboardsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -457,29 +459,29 @@ class AsyncRawMetricsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
-        self, *, request: CreateMetricsRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[CreateMetricsResponse]:
+        self, *, request: CreateLeaderboardsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[CreateLeaderboardsResponse]:
         """
-        Create metrics.
+        Create leaderboards. Maximum 100 leaderboards per request.
 
         Parameters
         ----------
-        request : CreateMetricsRequest
+        request : CreateLeaderboardsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[CreateMetricsResponse]
-            Successful operation (no metrics created)
+        AsyncHttpResponse[CreateLeaderboardsResponse]
+            Successful operation (no leaderboards created)
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "metrics",
+            "leaderboards",
             base_url=self._client_wrapper.get_environment().admin,
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreateMetricsRequest, direction="write"
+                object_=request, annotation=CreateLeaderboardsRequest, direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -490,9 +492,9 @@ class AsyncRawMetricsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    CreateMetricsResponse,
+                    CreateLeaderboardsResponse,
                     parse_obj_as(
-                        type_=CreateMetricsResponse,  # type: ignore
+                        type_=CreateLeaderboardsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -529,25 +531,25 @@ class AsyncRawMetricsClient:
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[DeleteMetricsResponse]:
+    ) -> AsyncHttpResponse[DeleteLeaderboardsResponse]:
         """
-        Delete metrics by ID.
+        Delete leaderboards by ID.
 
         Parameters
         ----------
         ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Metric IDs to delete. Repeat the query param or provide a comma-separated list.
+            Leaderboard IDs to delete. Repeat the query param or provide a comma-separated list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[DeleteMetricsResponse]
+        AsyncHttpResponse[DeleteLeaderboardsResponse]
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "metrics",
+            "leaderboards",
             base_url=self._client_wrapper.get_environment().admin,
             method="DELETE",
             params={
@@ -558,9 +560,9 @@ class AsyncRawMetricsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    DeleteMetricsResponse,
+                    DeleteLeaderboardsResponse,
                     parse_obj_as(
-                        type_=DeleteMetricsResponse,  # type: ignore
+                        type_=DeleteLeaderboardsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -593,29 +595,29 @@ class AsyncRawMetricsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
-        self, *, request: UpdateMetricsRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[UpdateMetricsResponse]:
+        self, *, request: UpdateLeaderboardsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[UpdateLeaderboardsResponse]:
         """
-        Update metrics by ID.
+        Update leaderboards by ID. Updating `status` behaves the same as activating, scheduling, deactivating, or finishing a leaderboard in the dashboard.
 
         Parameters
         ----------
-        request : UpdateMetricsRequest
+        request : UpdateLeaderboardsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[UpdateMetricsResponse]
+        AsyncHttpResponse[UpdateLeaderboardsResponse]
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "metrics",
+            "leaderboards",
             base_url=self._client_wrapper.get_environment().admin,
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=UpdateMetricsRequest, direction="write"
+                object_=request, annotation=UpdateLeaderboardsRequest, direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -626,9 +628,9 @@ class AsyncRawMetricsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    UpdateMetricsResponse,
+                    UpdateLeaderboardsResponse,
                     parse_obj_as(
-                        type_=UpdateMetricsResponse,  # type: ignore
+                        type_=UpdateLeaderboardsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -662,25 +664,25 @@ class AsyncRawMetricsClient:
 
     async def get(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[CreatedMetric]:
+    ) -> AsyncHttpResponse[AdminLeaderboard]:
         """
-        Get a metric by ID.
+        Get a leaderboard by ID.
 
         Parameters
         ----------
         id : str
-            The UUID of the metric to retrieve.
+            The UUID of the leaderboard to retrieve.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[CreatedMetric]
+        AsyncHttpResponse[AdminLeaderboard]
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"metrics/{jsonable_encoder(id)}",
+            f"leaderboards/{jsonable_encoder(id)}",
             base_url=self._client_wrapper.get_environment().admin,
             method="GET",
             request_options=request_options,
@@ -688,9 +690,9 @@ class AsyncRawMetricsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    CreatedMetric,
+                    AdminLeaderboard,
                     parse_obj_as(
-                        type_=CreatedMetric,  # type: ignore
+                        type_=AdminLeaderboard,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -9,6 +9,7 @@ from .raw_client import AsyncRawAdminClient, RawAdminClient
 
 if typing.TYPE_CHECKING:
     from .attributes.client import AsyncAttributesClient, AttributesClient
+    from .leaderboards.client import AsyncLeaderboardsClient, LeaderboardsClient
     from .metrics.client import AsyncMetricsClient, MetricsClient
     from .points.client import AsyncPointsClient, PointsClient
     from .streaks.client import AsyncStreaksClient, StreaksClient
@@ -18,9 +19,10 @@ class AdminClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawAdminClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
-        self._streaks: typing.Optional[StreaksClient] = None
         self._attributes: typing.Optional[AttributesClient] = None
         self._metrics: typing.Optional[MetricsClient] = None
+        self._leaderboards: typing.Optional[LeaderboardsClient] = None
+        self._streaks: typing.Optional[StreaksClient] = None
         self._points: typing.Optional[PointsClient] = None
 
     @property
@@ -33,14 +35,6 @@ class AdminClient:
         RawAdminClient
         """
         return self._raw_client
-
-    @property
-    def streaks(self):
-        if self._streaks is None:
-            from .streaks.client import StreaksClient  # noqa: E402
-
-            self._streaks = StreaksClient(client_wrapper=self._client_wrapper)
-        return self._streaks
 
     @property
     def attributes(self):
@@ -59,6 +53,22 @@ class AdminClient:
         return self._metrics
 
     @property
+    def leaderboards(self):
+        if self._leaderboards is None:
+            from .leaderboards.client import LeaderboardsClient  # noqa: E402
+
+            self._leaderboards = LeaderboardsClient(client_wrapper=self._client_wrapper)
+        return self._leaderboards
+
+    @property
+    def streaks(self):
+        if self._streaks is None:
+            from .streaks.client import StreaksClient  # noqa: E402
+
+            self._streaks = StreaksClient(client_wrapper=self._client_wrapper)
+        return self._streaks
+
+    @property
     def points(self):
         if self._points is None:
             from .points.client import PointsClient  # noqa: E402
@@ -71,9 +81,10 @@ class AsyncAdminClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawAdminClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
-        self._streaks: typing.Optional[AsyncStreaksClient] = None
         self._attributes: typing.Optional[AsyncAttributesClient] = None
         self._metrics: typing.Optional[AsyncMetricsClient] = None
+        self._leaderboards: typing.Optional[AsyncLeaderboardsClient] = None
+        self._streaks: typing.Optional[AsyncStreaksClient] = None
         self._points: typing.Optional[AsyncPointsClient] = None
 
     @property
@@ -86,14 +97,6 @@ class AsyncAdminClient:
         AsyncRawAdminClient
         """
         return self._raw_client
-
-    @property
-    def streaks(self):
-        if self._streaks is None:
-            from .streaks.client import AsyncStreaksClient  # noqa: E402
-
-            self._streaks = AsyncStreaksClient(client_wrapper=self._client_wrapper)
-        return self._streaks
 
     @property
     def attributes(self):
@@ -110,6 +113,22 @@ class AsyncAdminClient:
 
             self._metrics = AsyncMetricsClient(client_wrapper=self._client_wrapper)
         return self._metrics
+
+    @property
+    def leaderboards(self):
+        if self._leaderboards is None:
+            from .leaderboards.client import AsyncLeaderboardsClient  # noqa: E402
+
+            self._leaderboards = AsyncLeaderboardsClient(client_wrapper=self._client_wrapper)
+        return self._leaderboards
+
+    @property
+    def streaks(self):
+        if self._streaks is None:
+            from .streaks.client import AsyncStreaksClient  # noqa: E402
+
+            self._streaks = AsyncStreaksClient(client_wrapper=self._client_wrapper)
+        return self._streaks
 
     @property
     def points(self):

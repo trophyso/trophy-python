@@ -5,22 +5,22 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .admin_issue import AdminIssue
-from .admin_points_boost import AdminPointsBoost
+from .admin_points_level import AdminPointsLevel
 
 
-class CreatePointsBoostsResponse(UniversalBaseModel):
+class PatchPointsLevelsResponse(UniversalBaseModel):
     """
-    Response containing created boosts and any issues encountered while creating points boosts.
+    Response containing updated levels and any issues encountered.
     """
 
-    created: typing.List[AdminPointsBoost] = pydantic.Field()
+    updated: typing.List[AdminPointsLevel] = pydantic.Field()
     """
-    Array of successfully created boosts.
+    Array of successfully updated levels.
     """
 
     issues: typing.List[AdminIssue] = pydantic.Field()
     """
-    Array of issues encountered during boost creation.
+    Array of issues encountered during level updates.
     """
 
     if IS_PYDANTIC_V2:

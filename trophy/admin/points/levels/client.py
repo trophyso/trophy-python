@@ -4,31 +4,31 @@ import typing
 
 from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ....core.request_options import RequestOptions
-from ....types.admin_points_boost import AdminPointsBoost
-from ....types.create_points_boosts_request import CreatePointsBoostsRequest
-from ....types.create_points_boosts_response import CreatePointsBoostsResponse
-from ....types.delete_points_boosts_response import DeletePointsBoostsResponse
-from ....types.list_points_boosts_response import ListPointsBoostsResponse
-from ....types.patch_points_boosts_request import PatchPointsBoostsRequest
-from ....types.patch_points_boosts_response import PatchPointsBoostsResponse
-from .raw_client import AsyncRawBoostsClient, RawBoostsClient
+from ....types.admin_points_level import AdminPointsLevel
+from ....types.create_points_levels_request import CreatePointsLevelsRequest
+from ....types.create_points_levels_response import CreatePointsLevelsResponse
+from ....types.delete_points_levels_response import DeletePointsLevelsResponse
+from ....types.list_points_levels_response import ListPointsLevelsResponse
+from ....types.patch_points_levels_request import PatchPointsLevelsRequest
+from ....types.patch_points_levels_response import PatchPointsLevelsResponse
+from .raw_client import AsyncRawLevelsClient, RawLevelsClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
-class BoostsClient:
+class LevelsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._raw_client = RawBoostsClient(client_wrapper=client_wrapper)
+        self._raw_client = RawLevelsClient(client_wrapper=client_wrapper)
 
     @property
-    def with_raw_response(self) -> RawBoostsClient:
+    def with_raw_response(self) -> RawLevelsClient:
         """
         Retrieves a raw implementation of this client that returns raw responses.
 
         Returns
         -------
-        RawBoostsClient
+        RawLevelsClient
         """
         return self._raw_client
 
@@ -39,9 +39,9 @@ class BoostsClient:
         limit: typing.Optional[int] = None,
         skip: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ListPointsBoostsResponse:
+    ) -> ListPointsLevelsResponse:
         """
-        List points boosts for a system.
+        List points levels for a system.
 
         Parameters
         ----------
@@ -49,18 +49,18 @@ class BoostsClient:
             The UUID of the points system.
 
         limit : typing.Optional[int]
-            Maximum number of results to return (1-100, default 10).
+            Number of records to return.
 
         skip : typing.Optional[int]
-            Number of results to skip for pagination (default 0).
+            Number of records to skip from the start of the list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        ListPointsBoostsResponse
-            A paginated list of points boosts.
+        ListPointsLevelsResponse
+            A paginated list of points levels.
 
         Examples
         --------
@@ -69,7 +69,7 @@ class BoostsClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.boosts.list(
+        client.admin.points.levels.list(
             system_id="550e8400-e29b-41d4-a716-446655440000",
             limit=1,
             skip=1,
@@ -82,43 +82,41 @@ class BoostsClient:
         self,
         system_id: str,
         *,
-        request: CreatePointsBoostsRequest,
+        request: CreatePointsLevelsRequest,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> CreatePointsBoostsResponse:
+    ) -> CreatePointsLevelsResponse:
         """
-        Create points boosts.
+        Create points levels. Maximum 100 levels per request.
 
         Parameters
         ----------
         system_id : str
             The UUID of the points system.
 
-        request : CreatePointsBoostsRequest
+        request : CreatePointsLevelsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        CreatePointsBoostsResponse
-            Successful operation (no boosts created)
+        CreatePointsLevelsResponse
+            Successful operation (no levels created)
 
         Examples
         --------
-        from trophy import CreatePointsBoostRequestItem, TrophyApi
+        from trophy import CreatePointsLevelRequestItem, TrophyApi
 
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.boosts.create(
+        client.admin.points.levels.create(
             system_id="550e8400-e29b-41d4-a716-446655440000",
             request=[
-                CreatePointsBoostRequestItem(
-                    user_id="user-123",
-                    name="Double XP Weekend",
-                    start="2024-01-01",
-                    end="2024-01-03",
-                    multiplier=2.0,
+                CreatePointsLevelRequestItem(
+                    name="Bronze",
+                    key="bronze",
+                    points=100,
                 )
             ],
         )
@@ -132,9 +130,9 @@ class BoostsClient:
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> DeletePointsBoostsResponse:
+    ) -> DeletePointsLevelsResponse:
         """
-        Delete multiple points boosts by ID.
+        Delete multiple points levels by ID.
 
         Parameters
         ----------
@@ -142,14 +140,14 @@ class BoostsClient:
             The UUID of the points system.
 
         ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            A list of up to 100 boost IDs.
+            Comma-separated list of level UUIDs to delete.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        DeletePointsBoostsResponse
+        DeletePointsLevelsResponse
             Successful operation
 
         Examples
@@ -159,7 +157,7 @@ class BoostsClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.boosts.delete()
+        client.admin.points.levels.delete()
         """
         _response = self._raw_client.delete(system_id, ids=ids, request_options=request_options)
         return _response.data
@@ -168,41 +166,39 @@ class BoostsClient:
         self,
         system_id: str,
         *,
-        request: PatchPointsBoostsRequest,
+        request: PatchPointsLevelsRequest,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PatchPointsBoostsResponse:
+    ) -> PatchPointsLevelsResponse:
         """
-        Update multiple points boosts.
+        Update multiple points levels. Each item must include an ID. `key` cannot be changed.
 
         Parameters
         ----------
         system_id : str
             The UUID of the points system.
 
-        request : PatchPointsBoostsRequest
+        request : PatchPointsLevelsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PatchPointsBoostsResponse
+        PatchPointsLevelsResponse
             Successful operation
 
         Examples
         --------
-        from trophy import PatchPointsBoostsRequestItem, TrophyApi
+        from trophy import PatchPointsLevelsRequestItem, TrophyApi
 
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.boosts.update(
+        client.admin.points.levels.update(
             system_id="550e8400-e29b-41d4-a716-446655440000",
             request=[
-                PatchPointsBoostsRequestItem(
+                PatchPointsLevelsRequestItem(
                     id="550e8400-e29b-41d4-a716-446655440000",
-                    name="Updated Boost Name",
-                    multiplier=3.0,
                 )
             ],
         )
@@ -212,9 +208,9 @@ class BoostsClient:
 
     def get(
         self, system_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AdminPointsBoost:
+    ) -> AdminPointsLevel:
         """
-        Get a single points boost by ID.
+        Get a single points level by ID.
 
         Parameters
         ----------
@@ -222,15 +218,15 @@ class BoostsClient:
             The UUID of the points system.
 
         id : str
-            The UUID of the points boost.
+            The UUID of the points level.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AdminPointsBoost
-            The points boost.
+        AdminPointsLevel
+            The points level.
 
         Examples
         --------
@@ -239,7 +235,7 @@ class BoostsClient:
         client = TrophyApi(
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.boosts.get(
+        client.admin.points.levels.get(
             system_id="550e8400-e29b-41d4-a716-446655440000",
             id="660f9500-f30c-42e5-b827-557766550001",
         )
@@ -248,18 +244,18 @@ class BoostsClient:
         return _response.data
 
 
-class AsyncBoostsClient:
+class AsyncLevelsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._raw_client = AsyncRawBoostsClient(client_wrapper=client_wrapper)
+        self._raw_client = AsyncRawLevelsClient(client_wrapper=client_wrapper)
 
     @property
-    def with_raw_response(self) -> AsyncRawBoostsClient:
+    def with_raw_response(self) -> AsyncRawLevelsClient:
         """
         Retrieves a raw implementation of this client that returns raw responses.
 
         Returns
         -------
-        AsyncRawBoostsClient
+        AsyncRawLevelsClient
         """
         return self._raw_client
 
@@ -270,9 +266,9 @@ class AsyncBoostsClient:
         limit: typing.Optional[int] = None,
         skip: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ListPointsBoostsResponse:
+    ) -> ListPointsLevelsResponse:
         """
-        List points boosts for a system.
+        List points levels for a system.
 
         Parameters
         ----------
@@ -280,18 +276,18 @@ class AsyncBoostsClient:
             The UUID of the points system.
 
         limit : typing.Optional[int]
-            Maximum number of results to return (1-100, default 10).
+            Number of records to return.
 
         skip : typing.Optional[int]
-            Number of results to skip for pagination (default 0).
+            Number of records to skip from the start of the list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        ListPointsBoostsResponse
-            A paginated list of points boosts.
+        ListPointsLevelsResponse
+            A paginated list of points levels.
 
         Examples
         --------
@@ -305,7 +301,7 @@ class AsyncBoostsClient:
 
 
         async def main() -> None:
-            await client.admin.points.boosts.list(
+            await client.admin.points.levels.list(
                 system_id="550e8400-e29b-41d4-a716-446655440000",
                 limit=1,
                 skip=1,
@@ -321,32 +317,32 @@ class AsyncBoostsClient:
         self,
         system_id: str,
         *,
-        request: CreatePointsBoostsRequest,
+        request: CreatePointsLevelsRequest,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> CreatePointsBoostsResponse:
+    ) -> CreatePointsLevelsResponse:
         """
-        Create points boosts.
+        Create points levels. Maximum 100 levels per request.
 
         Parameters
         ----------
         system_id : str
             The UUID of the points system.
 
-        request : CreatePointsBoostsRequest
+        request : CreatePointsLevelsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        CreatePointsBoostsResponse
-            Successful operation (no boosts created)
+        CreatePointsLevelsResponse
+            Successful operation (no levels created)
 
         Examples
         --------
         import asyncio
 
-        from trophy import AsyncTrophyApi, CreatePointsBoostRequestItem
+        from trophy import AsyncTrophyApi, CreatePointsLevelRequestItem
 
         client = AsyncTrophyApi(
             api_key="YOUR_API_KEY",
@@ -354,15 +350,13 @@ class AsyncBoostsClient:
 
 
         async def main() -> None:
-            await client.admin.points.boosts.create(
+            await client.admin.points.levels.create(
                 system_id="550e8400-e29b-41d4-a716-446655440000",
                 request=[
-                    CreatePointsBoostRequestItem(
-                        user_id="user-123",
-                        name="Double XP Weekend",
-                        start="2024-01-01",
-                        end="2024-01-03",
-                        multiplier=2.0,
+                    CreatePointsLevelRequestItem(
+                        name="Bronze",
+                        key="bronze",
+                        points=100,
                     )
                 ],
             )
@@ -379,9 +373,9 @@ class AsyncBoostsClient:
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> DeletePointsBoostsResponse:
+    ) -> DeletePointsLevelsResponse:
         """
-        Delete multiple points boosts by ID.
+        Delete multiple points levels by ID.
 
         Parameters
         ----------
@@ -389,14 +383,14 @@ class AsyncBoostsClient:
             The UUID of the points system.
 
         ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            A list of up to 100 boost IDs.
+            Comma-separated list of level UUIDs to delete.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        DeletePointsBoostsResponse
+        DeletePointsLevelsResponse
             Successful operation
 
         Examples
@@ -411,7 +405,7 @@ class AsyncBoostsClient:
 
 
         async def main() -> None:
-            await client.admin.points.boosts.delete()
+            await client.admin.points.levels.delete()
 
 
         asyncio.run(main())
@@ -423,32 +417,32 @@ class AsyncBoostsClient:
         self,
         system_id: str,
         *,
-        request: PatchPointsBoostsRequest,
+        request: PatchPointsLevelsRequest,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PatchPointsBoostsResponse:
+    ) -> PatchPointsLevelsResponse:
         """
-        Update multiple points boosts.
+        Update multiple points levels. Each item must include an ID. `key` cannot be changed.
 
         Parameters
         ----------
         system_id : str
             The UUID of the points system.
 
-        request : PatchPointsBoostsRequest
+        request : PatchPointsLevelsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PatchPointsBoostsResponse
+        PatchPointsLevelsResponse
             Successful operation
 
         Examples
         --------
         import asyncio
 
-        from trophy import AsyncTrophyApi, PatchPointsBoostsRequestItem
+        from trophy import AsyncTrophyApi, PatchPointsLevelsRequestItem
 
         client = AsyncTrophyApi(
             api_key="YOUR_API_KEY",
@@ -456,13 +450,11 @@ class AsyncBoostsClient:
 
 
         async def main() -> None:
-            await client.admin.points.boosts.update(
+            await client.admin.points.levels.update(
                 system_id="550e8400-e29b-41d4-a716-446655440000",
                 request=[
-                    PatchPointsBoostsRequestItem(
+                    PatchPointsLevelsRequestItem(
                         id="550e8400-e29b-41d4-a716-446655440000",
-                        name="Updated Boost Name",
-                        multiplier=3.0,
                     )
                 ],
             )
@@ -475,9 +467,9 @@ class AsyncBoostsClient:
 
     async def get(
         self, system_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AdminPointsBoost:
+    ) -> AdminPointsLevel:
         """
-        Get a single points boost by ID.
+        Get a single points level by ID.
 
         Parameters
         ----------
@@ -485,15 +477,15 @@ class AsyncBoostsClient:
             The UUID of the points system.
 
         id : str
-            The UUID of the points boost.
+            The UUID of the points level.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AdminPointsBoost
-            The points boost.
+        AdminPointsLevel
+            The points level.
 
         Examples
         --------
@@ -507,7 +499,7 @@ class AsyncBoostsClient:
 
 
         async def main() -> None:
-            await client.admin.points.boosts.get(
+            await client.admin.points.levels.get(
                 system_id="550e8400-e29b-41d4-a716-446655440000",
                 id="660f9500-f30c-42e5-b827-557766550001",
             )

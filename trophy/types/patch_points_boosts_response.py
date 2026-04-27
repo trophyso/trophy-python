@@ -8,19 +8,19 @@ from .admin_issue import AdminIssue
 from .admin_points_boost import AdminPointsBoost
 
 
-class CreatePointsBoostsResponse(UniversalBaseModel):
+class PatchPointsBoostsResponse(UniversalBaseModel):
     """
-    Response containing created boosts and any issues encountered while creating points boosts.
+    Response containing updated boosts and any issues encountered.
     """
 
-    created: typing.List[AdminPointsBoost] = pydantic.Field()
+    updated: typing.List[AdminPointsBoost] = pydantic.Field()
     """
-    Array of successfully created boosts.
+    Array of successfully updated boosts.
     """
 
     issues: typing.List[AdminIssue] = pydantic.Field()
     """
-    Array of issues encountered during boost creation.
+    Array of issues encountered during boost updates.
     """
 
     if IS_PYDANTIC_V2:

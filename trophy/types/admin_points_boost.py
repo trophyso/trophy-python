@@ -6,18 +6,19 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .created_points_boost_rounding import CreatedPointsBoostRounding
-from .created_points_boost_status import CreatedPointsBoostStatus
+from .admin_points_boost_rounding import AdminPointsBoostRounding
+from .admin_points_boost_status import AdminPointsBoostStatus
+from .admin_points_boost_user_attributes_item import AdminPointsBoostUserAttributesItem
 
 
-class CreatedPointsBoost(UniversalBaseModel):
+class AdminPointsBoost(UniversalBaseModel):
     """
-    A successfully created points boost returned from the create endpoint.
+    A points boost as returned from admin endpoints.
     """
 
     id: str = pydantic.Field()
     """
-    The UUID of the created boost.
+    The UUID of the boost.
     """
 
     name: str = pydantic.Field()
@@ -25,7 +26,7 @@ class CreatedPointsBoost(UniversalBaseModel):
     The name of the boost.
     """
 
-    status: CreatedPointsBoostStatus = pydantic.Field()
+    status: AdminPointsBoostStatus = pydantic.Field()
     """
     The status of the boost.
     """
@@ -45,14 +46,23 @@ class CreatedPointsBoost(UniversalBaseModel):
     The points multiplier.
     """
 
-    rounding: CreatedPointsBoostRounding = pydantic.Field()
+    rounding: AdminPointsBoostRounding = pydantic.Field()
     """
     How boosted points are rounded.
     """
 
-    user_id: typing_extensions.Annotated[str, FieldMetadata(alias="userId")] = pydantic.Field()
+    user_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="userId")] = pydantic.Field(
+        default=None
+    )
     """
-    The customer ID of the user the boost was created for.
+    The customer ID of the user the boost was created for, or null for global/attribute-filtered boosts.
+    """
+
+    user_attributes: typing_extensions.Annotated[
+        typing.Optional[typing.List[AdminPointsBoostUserAttributesItem]], FieldMetadata(alias="userAttributes")
+    ] = pydantic.Field(default=None)
+    """
+    User attribute filters applied to the boost. Only present for non-user-specific boosts (i.e. when `userId` is null). Empty array if no filters are set.
     """
 
     if IS_PYDANTIC_V2:

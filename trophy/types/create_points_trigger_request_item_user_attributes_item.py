@@ -3,24 +3,20 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .admin_issue import AdminIssue
-from .admin_points_boost import AdminPointsBoost
+from ..core.serialization import FieldMetadata
 
 
-class CreatePointsBoostsResponse(UniversalBaseModel):
+class CreatePointsTriggerRequestItemUserAttributesItem(UniversalBaseModel):
+    attribute_id: typing_extensions.Annotated[str, FieldMetadata(alias="attributeId")] = pydantic.Field()
     """
-    Response containing created boosts and any issues encountered while creating points boosts.
-    """
-
-    created: typing.List[AdminPointsBoost] = pydantic.Field()
-    """
-    Array of successfully created boosts.
+    The UUID of the user attribute.
     """
 
-    issues: typing.List[AdminIssue] = pydantic.Field()
+    attribute_value: typing_extensions.Annotated[str, FieldMetadata(alias="attributeValue")] = pydantic.Field()
     """
-    Array of issues encountered during boost creation.
+    The value to match.
     """
 
     if IS_PYDANTIC_V2:

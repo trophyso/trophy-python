@@ -13,55 +13,51 @@ from ....core.serialization import convert_and_respect_annotation_metadata
 from ....errors.not_found_error import NotFoundError
 from ....errors.unauthorized_error import UnauthorizedError
 from ....errors.unprocessable_entity_error import UnprocessableEntityError
-from ....types.admin_points_boost import AdminPointsBoost
-from ....types.create_points_boosts_request import CreatePointsBoostsRequest
-from ....types.create_points_boosts_response import CreatePointsBoostsResponse
-from ....types.delete_points_boosts_response import DeletePointsBoostsResponse
+from ....types.admin_points_system import AdminPointsSystem
+from ....types.create_points_systems_request import CreatePointsSystemsRequest
+from ....types.create_points_systems_response import CreatePointsSystemsResponse
+from ....types.delete_points_systems_response import DeletePointsSystemsResponse
 from ....types.error_body import ErrorBody
-from ....types.list_points_boosts_response import ListPointsBoostsResponse
-from ....types.patch_points_boosts_request import PatchPointsBoostsRequest
-from ....types.patch_points_boosts_response import PatchPointsBoostsResponse
+from ....types.list_points_systems_response import ListPointsSystemsResponse
+from ....types.update_points_systems_request import UpdatePointsSystemsRequest
+from ....types.update_points_systems_response import UpdatePointsSystemsResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
-class RawBoostsClient:
+class RawSystemsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     def list(
         self,
-        system_id: str,
         *,
         limit: typing.Optional[int] = None,
         skip: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[ListPointsBoostsResponse]:
+    ) -> HttpResponse[ListPointsSystemsResponse]:
         """
-        List points boosts for a system.
+        List points systems.
 
         Parameters
         ----------
-        system_id : str
-            The UUID of the points system.
-
         limit : typing.Optional[int]
-            Maximum number of results to return (1-100, default 10).
+            Number of records to return.
 
         skip : typing.Optional[int]
-            Number of results to skip for pagination (default 0).
+            Number of records to skip from the start of the list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[ListPointsBoostsResponse]
-            A paginated list of points boosts.
+        HttpResponse[ListPointsSystemsResponse]
+            Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            "points",
             base_url=self._client_wrapper.get_environment().admin,
             method="GET",
             params={
@@ -73,26 +69,15 @@ class RawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ListPointsBoostsResponse,
+                    ListPointsSystemsResponse,
                     parse_obj_as(
-                        type_=ListPointsBoostsResponse,  # type: ignore
+                        type_=ListPointsSystemsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         ErrorBody,
@@ -119,36 +104,29 @@ class RawBoostsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
-        self,
-        system_id: str,
-        *,
-        request: CreatePointsBoostsRequest,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[CreatePointsBoostsResponse]:
+        self, *, request: CreatePointsSystemsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[CreatePointsSystemsResponse]:
         """
-        Create points boosts.
+        Create points systems. Optionally include sub-entities (levels, boosts, triggers) in each system payload to create them alongside the system.
 
         Parameters
         ----------
-        system_id : str
-            The UUID of the points system.
-
-        request : CreatePointsBoostsRequest
+        request : CreatePointsSystemsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[CreatePointsBoostsResponse]
-            Successful operation (no boosts created)
+        HttpResponse[CreatePointsSystemsResponse]
+            Successful operation (no systems created)
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            "points",
             base_url=self._client_wrapper.get_environment().admin,
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreatePointsBoostsRequest, direction="write"
+                object_=request, annotation=CreatePointsSystemsRequest, direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -159,26 +137,15 @@ class RawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    CreatePointsBoostsResponse,
+                    CreatePointsSystemsResponse,
                     parse_obj_as(
-                        type_=CreatePointsBoostsResponse,  # type: ignore
+                        type_=CreatePointsSystemsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         ErrorBody,
@@ -206,32 +173,28 @@ class RawBoostsClient:
 
     def delete(
         self,
-        system_id: str,
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[DeletePointsBoostsResponse]:
+    ) -> HttpResponse[DeletePointsSystemsResponse]:
         """
-        Delete multiple points boosts by ID.
+        Delete (archive) points systems by ID.
 
         Parameters
         ----------
-        system_id : str
-            The UUID of the points system.
-
         ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            A list of up to 100 boost IDs.
+            The IDs of the points systems to delete.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[DeletePointsBoostsResponse]
+        HttpResponse[DeletePointsSystemsResponse]
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            "points",
             base_url=self._client_wrapper.get_environment().admin,
             method="DELETE",
             params={
@@ -242,26 +205,15 @@ class RawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    DeletePointsBoostsResponse,
+                    DeletePointsSystemsResponse,
                     parse_obj_as(
-                        type_=DeletePointsBoostsResponse,  # type: ignore
+                        type_=DeletePointsSystemsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         ErrorBody,
@@ -288,36 +240,29 @@ class RawBoostsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
-        self,
-        system_id: str,
-        *,
-        request: PatchPointsBoostsRequest,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PatchPointsBoostsResponse]:
+        self, *, request: UpdatePointsSystemsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[UpdatePointsSystemsResponse]:
         """
-        Update multiple points boosts.
+        Update points systems by ID.
 
         Parameters
         ----------
-        system_id : str
-            The UUID of the points system.
-
-        request : PatchPointsBoostsRequest
+        request : UpdatePointsSystemsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[PatchPointsBoostsResponse]
+        HttpResponse[UpdatePointsSystemsResponse]
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            "points",
             base_url=self._client_wrapper.get_environment().admin,
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=PatchPointsBoostsRequest, direction="write"
+                object_=request, annotation=UpdatePointsSystemsRequest, direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -328,26 +273,15 @@ class RawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PatchPointsBoostsResponse,
+                    UpdatePointsSystemsResponse,
                     parse_obj_as(
-                        type_=PatchPointsBoostsResponse,  # type: ignore
+                        type_=UpdatePointsSystemsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         ErrorBody,
@@ -374,29 +308,26 @@ class RawBoostsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
-        self, system_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[AdminPointsBoost]:
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[AdminPointsSystem]:
         """
-        Get a single points boost by ID.
+        Get a points system by ID.
 
         Parameters
         ----------
-        system_id : str
-            The UUID of the points system.
-
         id : str
-            The UUID of the points boost.
+            The ID of the points system.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[AdminPointsBoost]
-            The points boost.
+        HttpResponse[AdminPointsSystem]
+            Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts/{jsonable_encoder(id)}",
+            f"points/{jsonable_encoder(id)}",
             base_url=self._client_wrapper.get_environment().admin,
             method="GET",
             request_options=request_options,
@@ -404,9 +335,9 @@ class RawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AdminPointsBoost,
+                    AdminPointsSystem,
                     parse_obj_as(
-                        type_=AdminPointsBoost,  # type: ignore
+                        type_=AdminPointsSystem,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -450,42 +381,38 @@ class RawBoostsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
-class AsyncRawBoostsClient:
+class AsyncRawSystemsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     async def list(
         self,
-        system_id: str,
         *,
         limit: typing.Optional[int] = None,
         skip: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[ListPointsBoostsResponse]:
+    ) -> AsyncHttpResponse[ListPointsSystemsResponse]:
         """
-        List points boosts for a system.
+        List points systems.
 
         Parameters
         ----------
-        system_id : str
-            The UUID of the points system.
-
         limit : typing.Optional[int]
-            Maximum number of results to return (1-100, default 10).
+            Number of records to return.
 
         skip : typing.Optional[int]
-            Number of results to skip for pagination (default 0).
+            Number of records to skip from the start of the list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[ListPointsBoostsResponse]
-            A paginated list of points boosts.
+        AsyncHttpResponse[ListPointsSystemsResponse]
+            Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            "points",
             base_url=self._client_wrapper.get_environment().admin,
             method="GET",
             params={
@@ -497,26 +424,15 @@ class AsyncRawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ListPointsBoostsResponse,
+                    ListPointsSystemsResponse,
                     parse_obj_as(
-                        type_=ListPointsBoostsResponse,  # type: ignore
+                        type_=ListPointsSystemsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         ErrorBody,
@@ -543,36 +459,29 @@ class AsyncRawBoostsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
-        self,
-        system_id: str,
-        *,
-        request: CreatePointsBoostsRequest,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[CreatePointsBoostsResponse]:
+        self, *, request: CreatePointsSystemsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[CreatePointsSystemsResponse]:
         """
-        Create points boosts.
+        Create points systems. Optionally include sub-entities (levels, boosts, triggers) in each system payload to create them alongside the system.
 
         Parameters
         ----------
-        system_id : str
-            The UUID of the points system.
-
-        request : CreatePointsBoostsRequest
+        request : CreatePointsSystemsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[CreatePointsBoostsResponse]
-            Successful operation (no boosts created)
+        AsyncHttpResponse[CreatePointsSystemsResponse]
+            Successful operation (no systems created)
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            "points",
             base_url=self._client_wrapper.get_environment().admin,
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreatePointsBoostsRequest, direction="write"
+                object_=request, annotation=CreatePointsSystemsRequest, direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -583,26 +492,15 @@ class AsyncRawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    CreatePointsBoostsResponse,
+                    CreatePointsSystemsResponse,
                     parse_obj_as(
-                        type_=CreatePointsBoostsResponse,  # type: ignore
+                        type_=CreatePointsSystemsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         ErrorBody,
@@ -630,32 +528,28 @@ class AsyncRawBoostsClient:
 
     async def delete(
         self,
-        system_id: str,
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[DeletePointsBoostsResponse]:
+    ) -> AsyncHttpResponse[DeletePointsSystemsResponse]:
         """
-        Delete multiple points boosts by ID.
+        Delete (archive) points systems by ID.
 
         Parameters
         ----------
-        system_id : str
-            The UUID of the points system.
-
         ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            A list of up to 100 boost IDs.
+            The IDs of the points systems to delete.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[DeletePointsBoostsResponse]
+        AsyncHttpResponse[DeletePointsSystemsResponse]
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            "points",
             base_url=self._client_wrapper.get_environment().admin,
             method="DELETE",
             params={
@@ -666,26 +560,15 @@ class AsyncRawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    DeletePointsBoostsResponse,
+                    DeletePointsSystemsResponse,
                     parse_obj_as(
-                        type_=DeletePointsBoostsResponse,  # type: ignore
+                        type_=DeletePointsSystemsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         ErrorBody,
@@ -712,36 +595,29 @@ class AsyncRawBoostsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
-        self,
-        system_id: str,
-        *,
-        request: PatchPointsBoostsRequest,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PatchPointsBoostsResponse]:
+        self, *, request: UpdatePointsSystemsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[UpdatePointsSystemsResponse]:
         """
-        Update multiple points boosts.
+        Update points systems by ID.
 
         Parameters
         ----------
-        system_id : str
-            The UUID of the points system.
-
-        request : PatchPointsBoostsRequest
+        request : UpdatePointsSystemsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[PatchPointsBoostsResponse]
+        AsyncHttpResponse[UpdatePointsSystemsResponse]
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            "points",
             base_url=self._client_wrapper.get_environment().admin,
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=PatchPointsBoostsRequest, direction="write"
+                object_=request, annotation=UpdatePointsSystemsRequest, direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -752,26 +628,15 @@ class AsyncRawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PatchPointsBoostsResponse,
+                    UpdatePointsSystemsResponse,
                     parse_obj_as(
-                        type_=PatchPointsBoostsResponse,  # type: ignore
+                        type_=UpdatePointsSystemsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         ErrorBody,
@@ -798,29 +663,26 @@ class AsyncRawBoostsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
-        self, system_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[AdminPointsBoost]:
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[AdminPointsSystem]:
         """
-        Get a single points boost by ID.
+        Get a points system by ID.
 
         Parameters
         ----------
-        system_id : str
-            The UUID of the points system.
-
         id : str
-            The UUID of the points boost.
+            The ID of the points system.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[AdminPointsBoost]
-            The points boost.
+        AsyncHttpResponse[AdminPointsSystem]
+            Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts/{jsonable_encoder(id)}",
+            f"points/{jsonable_encoder(id)}",
             base_url=self._client_wrapper.get_environment().admin,
             method="GET",
             request_options=request_options,
@@ -828,9 +690,9 @@ class AsyncRawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AdminPointsBoost,
+                    AdminPointsSystem,
                     parse_obj_as(
-                        type_=AdminPointsBoost,  # type: ignore
+                        type_=AdminPointsSystem,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -9,13 +9,19 @@ from .raw_client import AsyncRawPointsClient, RawPointsClient
 
 if typing.TYPE_CHECKING:
     from .boosts.client import AsyncBoostsClient, BoostsClient
+    from .levels.client import AsyncLevelsClient, LevelsClient
+    from .systems.client import AsyncSystemsClient, SystemsClient
+    from .triggers.client import AsyncTriggersClient, TriggersClient
 
 
 class PointsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawPointsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._systems: typing.Optional[SystemsClient] = None
         self._boosts: typing.Optional[BoostsClient] = None
+        self._levels: typing.Optional[LevelsClient] = None
+        self._triggers: typing.Optional[TriggersClient] = None
 
     @property
     def with_raw_response(self) -> RawPointsClient:
@@ -29,6 +35,14 @@ class PointsClient:
         return self._raw_client
 
     @property
+    def systems(self):
+        if self._systems is None:
+            from .systems.client import SystemsClient  # noqa: E402
+
+            self._systems = SystemsClient(client_wrapper=self._client_wrapper)
+        return self._systems
+
+    @property
     def boosts(self):
         if self._boosts is None:
             from .boosts.client import BoostsClient  # noqa: E402
@@ -36,12 +50,31 @@ class PointsClient:
             self._boosts = BoostsClient(client_wrapper=self._client_wrapper)
         return self._boosts
 
+    @property
+    def levels(self):
+        if self._levels is None:
+            from .levels.client import LevelsClient  # noqa: E402
+
+            self._levels = LevelsClient(client_wrapper=self._client_wrapper)
+        return self._levels
+
+    @property
+    def triggers(self):
+        if self._triggers is None:
+            from .triggers.client import TriggersClient  # noqa: E402
+
+            self._triggers = TriggersClient(client_wrapper=self._client_wrapper)
+        return self._triggers
+
 
 class AsyncPointsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawPointsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._systems: typing.Optional[AsyncSystemsClient] = None
         self._boosts: typing.Optional[AsyncBoostsClient] = None
+        self._levels: typing.Optional[AsyncLevelsClient] = None
+        self._triggers: typing.Optional[AsyncTriggersClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawPointsClient:
@@ -55,9 +88,33 @@ class AsyncPointsClient:
         return self._raw_client
 
     @property
+    def systems(self):
+        if self._systems is None:
+            from .systems.client import AsyncSystemsClient  # noqa: E402
+
+            self._systems = AsyncSystemsClient(client_wrapper=self._client_wrapper)
+        return self._systems
+
+    @property
     def boosts(self):
         if self._boosts is None:
             from .boosts.client import AsyncBoostsClient  # noqa: E402
 
             self._boosts = AsyncBoostsClient(client_wrapper=self._client_wrapper)
         return self._boosts
+
+    @property
+    def levels(self):
+        if self._levels is None:
+            from .levels.client import AsyncLevelsClient  # noqa: E402
+
+            self._levels = AsyncLevelsClient(client_wrapper=self._client_wrapper)
+        return self._levels
+
+    @property
+    def triggers(self):
+        if self._triggers is None:
+            from .triggers.client import AsyncTriggersClient  # noqa: E402
+
+            self._triggers = AsyncTriggersClient(client_wrapper=self._client_wrapper)
+        return self._triggers

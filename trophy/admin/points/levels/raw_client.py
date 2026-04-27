@@ -13,20 +13,20 @@ from ....core.serialization import convert_and_respect_annotation_metadata
 from ....errors.not_found_error import NotFoundError
 from ....errors.unauthorized_error import UnauthorizedError
 from ....errors.unprocessable_entity_error import UnprocessableEntityError
-from ....types.admin_points_boost import AdminPointsBoost
-from ....types.create_points_boosts_request import CreatePointsBoostsRequest
-from ....types.create_points_boosts_response import CreatePointsBoostsResponse
-from ....types.delete_points_boosts_response import DeletePointsBoostsResponse
+from ....types.admin_points_level import AdminPointsLevel
+from ....types.create_points_levels_request import CreatePointsLevelsRequest
+from ....types.create_points_levels_response import CreatePointsLevelsResponse
+from ....types.delete_points_levels_response import DeletePointsLevelsResponse
 from ....types.error_body import ErrorBody
-from ....types.list_points_boosts_response import ListPointsBoostsResponse
-from ....types.patch_points_boosts_request import PatchPointsBoostsRequest
-from ....types.patch_points_boosts_response import PatchPointsBoostsResponse
+from ....types.list_points_levels_response import ListPointsLevelsResponse
+from ....types.patch_points_levels_request import PatchPointsLevelsRequest
+from ....types.patch_points_levels_response import PatchPointsLevelsResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
-class RawBoostsClient:
+class RawLevelsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
@@ -37,9 +37,9 @@ class RawBoostsClient:
         limit: typing.Optional[int] = None,
         skip: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[ListPointsBoostsResponse]:
+    ) -> HttpResponse[ListPointsLevelsResponse]:
         """
-        List points boosts for a system.
+        List points levels for a system.
 
         Parameters
         ----------
@@ -47,21 +47,21 @@ class RawBoostsClient:
             The UUID of the points system.
 
         limit : typing.Optional[int]
-            Maximum number of results to return (1-100, default 10).
+            Number of records to return.
 
         skip : typing.Optional[int]
-            Number of results to skip for pagination (default 0).
+            Number of records to skip from the start of the list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[ListPointsBoostsResponse]
-            A paginated list of points boosts.
+        HttpResponse[ListPointsLevelsResponse]
+            A paginated list of points levels.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            f"points/{jsonable_encoder(system_id)}/levels",
             base_url=self._client_wrapper.get_environment().admin,
             method="GET",
             params={
@@ -73,9 +73,9 @@ class RawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ListPointsBoostsResponse,
+                    ListPointsLevelsResponse,
                     parse_obj_as(
-                        type_=ListPointsBoostsResponse,  # type: ignore
+                        type_=ListPointsLevelsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -122,33 +122,33 @@ class RawBoostsClient:
         self,
         system_id: str,
         *,
-        request: CreatePointsBoostsRequest,
+        request: CreatePointsLevelsRequest,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[CreatePointsBoostsResponse]:
+    ) -> HttpResponse[CreatePointsLevelsResponse]:
         """
-        Create points boosts.
+        Create points levels. Maximum 100 levels per request.
 
         Parameters
         ----------
         system_id : str
             The UUID of the points system.
 
-        request : CreatePointsBoostsRequest
+        request : CreatePointsLevelsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[CreatePointsBoostsResponse]
-            Successful operation (no boosts created)
+        HttpResponse[CreatePointsLevelsResponse]
+            Successful operation (no levels created)
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            f"points/{jsonable_encoder(system_id)}/levels",
             base_url=self._client_wrapper.get_environment().admin,
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreatePointsBoostsRequest, direction="write"
+                object_=request, annotation=CreatePointsLevelsRequest, direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -159,9 +159,9 @@ class RawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    CreatePointsBoostsResponse,
+                    CreatePointsLevelsResponse,
                     parse_obj_as(
-                        type_=CreatePointsBoostsResponse,  # type: ignore
+                        type_=CreatePointsLevelsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -210,9 +210,9 @@ class RawBoostsClient:
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[DeletePointsBoostsResponse]:
+    ) -> HttpResponse[DeletePointsLevelsResponse]:
         """
-        Delete multiple points boosts by ID.
+        Delete multiple points levels by ID.
 
         Parameters
         ----------
@@ -220,18 +220,18 @@ class RawBoostsClient:
             The UUID of the points system.
 
         ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            A list of up to 100 boost IDs.
+            Comma-separated list of level UUIDs to delete.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[DeletePointsBoostsResponse]
+        HttpResponse[DeletePointsLevelsResponse]
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            f"points/{jsonable_encoder(system_id)}/levels",
             base_url=self._client_wrapper.get_environment().admin,
             method="DELETE",
             params={
@@ -242,9 +242,9 @@ class RawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    DeletePointsBoostsResponse,
+                    DeletePointsLevelsResponse,
                     parse_obj_as(
-                        type_=DeletePointsBoostsResponse,  # type: ignore
+                        type_=DeletePointsLevelsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -291,33 +291,33 @@ class RawBoostsClient:
         self,
         system_id: str,
         *,
-        request: PatchPointsBoostsRequest,
+        request: PatchPointsLevelsRequest,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PatchPointsBoostsResponse]:
+    ) -> HttpResponse[PatchPointsLevelsResponse]:
         """
-        Update multiple points boosts.
+        Update multiple points levels. Each item must include an ID. `key` cannot be changed.
 
         Parameters
         ----------
         system_id : str
             The UUID of the points system.
 
-        request : PatchPointsBoostsRequest
+        request : PatchPointsLevelsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[PatchPointsBoostsResponse]
+        HttpResponse[PatchPointsLevelsResponse]
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            f"points/{jsonable_encoder(system_id)}/levels",
             base_url=self._client_wrapper.get_environment().admin,
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=PatchPointsBoostsRequest, direction="write"
+                object_=request, annotation=PatchPointsLevelsRequest, direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -328,9 +328,9 @@ class RawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PatchPointsBoostsResponse,
+                    PatchPointsLevelsResponse,
                     parse_obj_as(
-                        type_=PatchPointsBoostsResponse,  # type: ignore
+                        type_=PatchPointsLevelsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -375,9 +375,9 @@ class RawBoostsClient:
 
     def get(
         self, system_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[AdminPointsBoost]:
+    ) -> HttpResponse[AdminPointsLevel]:
         """
-        Get a single points boost by ID.
+        Get a single points level by ID.
 
         Parameters
         ----------
@@ -385,18 +385,18 @@ class RawBoostsClient:
             The UUID of the points system.
 
         id : str
-            The UUID of the points boost.
+            The UUID of the points level.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[AdminPointsBoost]
-            The points boost.
+        HttpResponse[AdminPointsLevel]
+            The points level.
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts/{jsonable_encoder(id)}",
+            f"points/{jsonable_encoder(system_id)}/levels/{jsonable_encoder(id)}",
             base_url=self._client_wrapper.get_environment().admin,
             method="GET",
             request_options=request_options,
@@ -404,9 +404,9 @@ class RawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AdminPointsBoost,
+                    AdminPointsLevel,
                     parse_obj_as(
-                        type_=AdminPointsBoost,  # type: ignore
+                        type_=AdminPointsLevel,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -450,7 +450,7 @@ class RawBoostsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
-class AsyncRawBoostsClient:
+class AsyncRawLevelsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
@@ -461,9 +461,9 @@ class AsyncRawBoostsClient:
         limit: typing.Optional[int] = None,
         skip: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[ListPointsBoostsResponse]:
+    ) -> AsyncHttpResponse[ListPointsLevelsResponse]:
         """
-        List points boosts for a system.
+        List points levels for a system.
 
         Parameters
         ----------
@@ -471,21 +471,21 @@ class AsyncRawBoostsClient:
             The UUID of the points system.
 
         limit : typing.Optional[int]
-            Maximum number of results to return (1-100, default 10).
+            Number of records to return.
 
         skip : typing.Optional[int]
-            Number of results to skip for pagination (default 0).
+            Number of records to skip from the start of the list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[ListPointsBoostsResponse]
-            A paginated list of points boosts.
+        AsyncHttpResponse[ListPointsLevelsResponse]
+            A paginated list of points levels.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            f"points/{jsonable_encoder(system_id)}/levels",
             base_url=self._client_wrapper.get_environment().admin,
             method="GET",
             params={
@@ -497,9 +497,9 @@ class AsyncRawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ListPointsBoostsResponse,
+                    ListPointsLevelsResponse,
                     parse_obj_as(
-                        type_=ListPointsBoostsResponse,  # type: ignore
+                        type_=ListPointsLevelsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -546,33 +546,33 @@ class AsyncRawBoostsClient:
         self,
         system_id: str,
         *,
-        request: CreatePointsBoostsRequest,
+        request: CreatePointsLevelsRequest,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[CreatePointsBoostsResponse]:
+    ) -> AsyncHttpResponse[CreatePointsLevelsResponse]:
         """
-        Create points boosts.
+        Create points levels. Maximum 100 levels per request.
 
         Parameters
         ----------
         system_id : str
             The UUID of the points system.
 
-        request : CreatePointsBoostsRequest
+        request : CreatePointsLevelsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[CreatePointsBoostsResponse]
-            Successful operation (no boosts created)
+        AsyncHttpResponse[CreatePointsLevelsResponse]
+            Successful operation (no levels created)
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            f"points/{jsonable_encoder(system_id)}/levels",
             base_url=self._client_wrapper.get_environment().admin,
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreatePointsBoostsRequest, direction="write"
+                object_=request, annotation=CreatePointsLevelsRequest, direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -583,9 +583,9 @@ class AsyncRawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    CreatePointsBoostsResponse,
+                    CreatePointsLevelsResponse,
                     parse_obj_as(
-                        type_=CreatePointsBoostsResponse,  # type: ignore
+                        type_=CreatePointsLevelsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -634,9 +634,9 @@ class AsyncRawBoostsClient:
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[DeletePointsBoostsResponse]:
+    ) -> AsyncHttpResponse[DeletePointsLevelsResponse]:
         """
-        Delete multiple points boosts by ID.
+        Delete multiple points levels by ID.
 
         Parameters
         ----------
@@ -644,18 +644,18 @@ class AsyncRawBoostsClient:
             The UUID of the points system.
 
         ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            A list of up to 100 boost IDs.
+            Comma-separated list of level UUIDs to delete.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[DeletePointsBoostsResponse]
+        AsyncHttpResponse[DeletePointsLevelsResponse]
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            f"points/{jsonable_encoder(system_id)}/levels",
             base_url=self._client_wrapper.get_environment().admin,
             method="DELETE",
             params={
@@ -666,9 +666,9 @@ class AsyncRawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    DeletePointsBoostsResponse,
+                    DeletePointsLevelsResponse,
                     parse_obj_as(
-                        type_=DeletePointsBoostsResponse,  # type: ignore
+                        type_=DeletePointsLevelsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -715,33 +715,33 @@ class AsyncRawBoostsClient:
         self,
         system_id: str,
         *,
-        request: PatchPointsBoostsRequest,
+        request: PatchPointsLevelsRequest,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PatchPointsBoostsResponse]:
+    ) -> AsyncHttpResponse[PatchPointsLevelsResponse]:
         """
-        Update multiple points boosts.
+        Update multiple points levels. Each item must include an ID. `key` cannot be changed.
 
         Parameters
         ----------
         system_id : str
             The UUID of the points system.
 
-        request : PatchPointsBoostsRequest
+        request : PatchPointsLevelsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[PatchPointsBoostsResponse]
+        AsyncHttpResponse[PatchPointsLevelsResponse]
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts",
+            f"points/{jsonable_encoder(system_id)}/levels",
             base_url=self._client_wrapper.get_environment().admin,
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=PatchPointsBoostsRequest, direction="write"
+                object_=request, annotation=PatchPointsLevelsRequest, direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -752,9 +752,9 @@ class AsyncRawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    PatchPointsBoostsResponse,
+                    PatchPointsLevelsResponse,
                     parse_obj_as(
-                        type_=PatchPointsBoostsResponse,  # type: ignore
+                        type_=PatchPointsLevelsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -799,9 +799,9 @@ class AsyncRawBoostsClient:
 
     async def get(
         self, system_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[AdminPointsBoost]:
+    ) -> AsyncHttpResponse[AdminPointsLevel]:
         """
-        Get a single points boost by ID.
+        Get a single points level by ID.
 
         Parameters
         ----------
@@ -809,18 +809,18 @@ class AsyncRawBoostsClient:
             The UUID of the points system.
 
         id : str
-            The UUID of the points boost.
+            The UUID of the points level.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[AdminPointsBoost]
-            The points boost.
+        AsyncHttpResponse[AdminPointsLevel]
+            The points level.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(system_id)}/boosts/{jsonable_encoder(id)}",
+            f"points/{jsonable_encoder(system_id)}/levels/{jsonable_encoder(id)}",
             base_url=self._client_wrapper.get_environment().admin,
             method="GET",
             request_options=request_options,
@@ -828,9 +828,9 @@ class AsyncRawBoostsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AdminPointsBoost,
+                    AdminPointsLevel,
                     parse_obj_as(
-                        type_=AdminPointsBoost,  # type: ignore
+                        type_=AdminPointsLevel,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -21,6 +21,21 @@ if typing.TYPE_CHECKING:
     from .admin_leaderboard_rank_by import AdminLeaderboardRankBy
     from .admin_leaderboard_run_unit import AdminLeaderboardRunUnit
     from .admin_leaderboard_status import AdminLeaderboardStatus
+    from .admin_points_boost import AdminPointsBoost
+    from .admin_points_boost_rounding import AdminPointsBoostRounding
+    from .admin_points_boost_status import AdminPointsBoostStatus
+    from .admin_points_boost_user_attributes_item import AdminPointsBoostUserAttributesItem
+    from .admin_points_level import AdminPointsLevel
+    from .admin_points_level_badge import AdminPointsLevelBadge
+    from .admin_points_system import AdminPointsSystem
+    from .admin_points_system_badge import AdminPointsSystemBadge
+    from .admin_points_system_status import AdminPointsSystemStatus
+    from .admin_points_trigger import AdminPointsTrigger
+    from .admin_points_trigger_event_attributes_item import AdminPointsTriggerEventAttributesItem
+    from .admin_points_trigger_status import AdminPointsTriggerStatus
+    from .admin_points_trigger_time_unit import AdminPointsTriggerTimeUnit
+    from .admin_points_trigger_type import AdminPointsTriggerType
+    from .admin_points_trigger_user_attributes_item import AdminPointsTriggerUserAttributesItem
     from .base_streak_response import BaseStreakResponse
     from .bulk_streak_response import BulkStreakResponse
     from .bulk_streak_response_item import BulkStreakResponseItem
@@ -38,17 +53,42 @@ if typing.TYPE_CHECKING:
     from .create_metric_request_item_unit_type import CreateMetricRequestItemUnitType
     from .create_metrics_request import CreateMetricsRequest
     from .create_metrics_response import CreateMetricsResponse
+    from .create_points_boost_request_item import CreatePointsBoostRequestItem
+    from .create_points_boost_request_item_rounding import CreatePointsBoostRequestItemRounding
+    from .create_points_boost_request_item_user_attributes_item import CreatePointsBoostRequestItemUserAttributesItem
+    from .create_points_boosts_request import CreatePointsBoostsRequest
     from .create_points_boosts_response import CreatePointsBoostsResponse
+    from .create_points_level_request_item import CreatePointsLevelRequestItem
+    from .create_points_level_request_item_badge import CreatePointsLevelRequestItemBadge
+    from .create_points_levels_request import CreatePointsLevelsRequest
+    from .create_points_levels_response import CreatePointsLevelsResponse
+    from .create_points_system_request_item import CreatePointsSystemRequestItem
+    from .create_points_system_request_item_badge import CreatePointsSystemRequestItemBadge
+    from .create_points_systems_request import CreatePointsSystemsRequest
+    from .create_points_systems_response import CreatePointsSystemsResponse
+    from .create_points_trigger_request_item import CreatePointsTriggerRequestItem
+    from .create_points_trigger_request_item_event_attributes_item import (
+        CreatePointsTriggerRequestItemEventAttributesItem,
+    )
+    from .create_points_trigger_request_item_status import CreatePointsTriggerRequestItemStatus
+    from .create_points_trigger_request_item_time_unit import CreatePointsTriggerRequestItemTimeUnit
+    from .create_points_trigger_request_item_type import CreatePointsTriggerRequestItemType
+    from .create_points_trigger_request_item_user_attributes_item import (
+        CreatePointsTriggerRequestItemUserAttributesItem,
+    )
+    from .create_points_triggers_request import CreatePointsTriggersRequest
+    from .create_points_triggers_response import CreatePointsTriggersResponse
     from .create_streak_freezes_response import CreateStreakFreezesResponse
+    from .created_admin_points_system import CreatedAdminPointsSystem
     from .created_metric import CreatedMetric
     from .created_metric_unit_type import CreatedMetricUnitType
-    from .created_points_boost import CreatedPointsBoost
-    from .created_points_boost_rounding import CreatedPointsBoostRounding
-    from .created_points_boost_status import CreatedPointsBoostStatus
     from .delete_attributes_response import DeleteAttributesResponse
     from .delete_leaderboards_response import DeleteLeaderboardsResponse
     from .delete_metrics_response import DeleteMetricsResponse
     from .delete_points_boosts_response import DeletePointsBoostsResponse
+    from .delete_points_levels_response import DeletePointsLevelsResponse
+    from .delete_points_systems_response import DeletePointsSystemsResponse
+    from .delete_points_triggers_response import DeletePointsTriggersResponse
     from .deleted_resource import DeletedResource
     from .error_body import ErrorBody
     from .event_response import EventResponse
@@ -63,6 +103,10 @@ if typing.TYPE_CHECKING:
     from .list_attributes_response import ListAttributesResponse
     from .list_leaderboards_response import ListLeaderboardsResponse
     from .list_metrics_response import ListMetricsResponse
+    from .list_points_boosts_response import ListPointsBoostsResponse
+    from .list_points_levels_response import ListPointsLevelsResponse
+    from .list_points_systems_response import ListPointsSystemsResponse
+    from .list_points_triggers_response import ListPointsTriggersResponse
     from .metric_event_leaderboard_response import MetricEventLeaderboardResponse
     from .metric_event_leaderboard_response_breakdown_attribute_values_item import (
         MetricEventLeaderboardResponseBreakdownAttributeValuesItem,
@@ -72,6 +116,27 @@ if typing.TYPE_CHECKING:
     from .metric_response import MetricResponse
     from .notification_channel import NotificationChannel
     from .notification_preferences import NotificationPreferences
+    from .patch_points_boosts_request import PatchPointsBoostsRequest
+    from .patch_points_boosts_request_item import PatchPointsBoostsRequestItem
+    from .patch_points_boosts_request_item_rounding import PatchPointsBoostsRequestItemRounding
+    from .patch_points_boosts_request_item_user_attributes_item import PatchPointsBoostsRequestItemUserAttributesItem
+    from .patch_points_boosts_response import PatchPointsBoostsResponse
+    from .patch_points_levels_request import PatchPointsLevelsRequest
+    from .patch_points_levels_request_item import PatchPointsLevelsRequestItem
+    from .patch_points_levels_request_item_badge import PatchPointsLevelsRequestItemBadge
+    from .patch_points_levels_response import PatchPointsLevelsResponse
+    from .patch_points_triggers_request import PatchPointsTriggersRequest
+    from .patch_points_triggers_request_item import PatchPointsTriggersRequestItem
+    from .patch_points_triggers_request_item_event_attributes_item import (
+        PatchPointsTriggersRequestItemEventAttributesItem,
+    )
+    from .patch_points_triggers_request_item_status import PatchPointsTriggersRequestItemStatus
+    from .patch_points_triggers_request_item_time_unit import PatchPointsTriggersRequestItemTimeUnit
+    from .patch_points_triggers_request_item_type import PatchPointsTriggersRequestItemType
+    from .patch_points_triggers_request_item_user_attributes_item import (
+        PatchPointsTriggersRequestItemUserAttributesItem,
+    )
+    from .patch_points_triggers_response import PatchPointsTriggersResponse
     from .points_award import PointsAward
     from .points_boost import PointsBoost
     from .points_boost_rounding import PointsBoostRounding
@@ -111,6 +176,10 @@ if typing.TYPE_CHECKING:
     from .update_metric_request_item_unit_type import UpdateMetricRequestItemUnitType
     from .update_metrics_request import UpdateMetricsRequest
     from .update_metrics_response import UpdateMetricsResponse
+    from .update_points_system_request_item import UpdatePointsSystemRequestItem
+    from .update_points_system_request_item_badge import UpdatePointsSystemRequestItemBadge
+    from .update_points_systems_request import UpdatePointsSystemsRequest
+    from .update_points_systems_response import UpdatePointsSystemsResponse
     from .updated_user import UpdatedUser
     from .upserted_user import UpsertedUser
     from .user import User
@@ -162,6 +231,21 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdminLeaderboardRankBy": ".admin_leaderboard_rank_by",
     "AdminLeaderboardRunUnit": ".admin_leaderboard_run_unit",
     "AdminLeaderboardStatus": ".admin_leaderboard_status",
+    "AdminPointsBoost": ".admin_points_boost",
+    "AdminPointsBoostRounding": ".admin_points_boost_rounding",
+    "AdminPointsBoostStatus": ".admin_points_boost_status",
+    "AdminPointsBoostUserAttributesItem": ".admin_points_boost_user_attributes_item",
+    "AdminPointsLevel": ".admin_points_level",
+    "AdminPointsLevelBadge": ".admin_points_level_badge",
+    "AdminPointsSystem": ".admin_points_system",
+    "AdminPointsSystemBadge": ".admin_points_system_badge",
+    "AdminPointsSystemStatus": ".admin_points_system_status",
+    "AdminPointsTrigger": ".admin_points_trigger",
+    "AdminPointsTriggerEventAttributesItem": ".admin_points_trigger_event_attributes_item",
+    "AdminPointsTriggerStatus": ".admin_points_trigger_status",
+    "AdminPointsTriggerTimeUnit": ".admin_points_trigger_time_unit",
+    "AdminPointsTriggerType": ".admin_points_trigger_type",
+    "AdminPointsTriggerUserAttributesItem": ".admin_points_trigger_user_attributes_item",
     "BaseStreakResponse": ".base_streak_response",
     "BulkStreakResponse": ".bulk_streak_response",
     "BulkStreakResponseItem": ".bulk_streak_response_item",
@@ -179,17 +263,38 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateMetricRequestItemUnitType": ".create_metric_request_item_unit_type",
     "CreateMetricsRequest": ".create_metrics_request",
     "CreateMetricsResponse": ".create_metrics_response",
+    "CreatePointsBoostRequestItem": ".create_points_boost_request_item",
+    "CreatePointsBoostRequestItemRounding": ".create_points_boost_request_item_rounding",
+    "CreatePointsBoostRequestItemUserAttributesItem": ".create_points_boost_request_item_user_attributes_item",
+    "CreatePointsBoostsRequest": ".create_points_boosts_request",
     "CreatePointsBoostsResponse": ".create_points_boosts_response",
+    "CreatePointsLevelRequestItem": ".create_points_level_request_item",
+    "CreatePointsLevelRequestItemBadge": ".create_points_level_request_item_badge",
+    "CreatePointsLevelsRequest": ".create_points_levels_request",
+    "CreatePointsLevelsResponse": ".create_points_levels_response",
+    "CreatePointsSystemRequestItem": ".create_points_system_request_item",
+    "CreatePointsSystemRequestItemBadge": ".create_points_system_request_item_badge",
+    "CreatePointsSystemsRequest": ".create_points_systems_request",
+    "CreatePointsSystemsResponse": ".create_points_systems_response",
+    "CreatePointsTriggerRequestItem": ".create_points_trigger_request_item",
+    "CreatePointsTriggerRequestItemEventAttributesItem": ".create_points_trigger_request_item_event_attributes_item",
+    "CreatePointsTriggerRequestItemStatus": ".create_points_trigger_request_item_status",
+    "CreatePointsTriggerRequestItemTimeUnit": ".create_points_trigger_request_item_time_unit",
+    "CreatePointsTriggerRequestItemType": ".create_points_trigger_request_item_type",
+    "CreatePointsTriggerRequestItemUserAttributesItem": ".create_points_trigger_request_item_user_attributes_item",
+    "CreatePointsTriggersRequest": ".create_points_triggers_request",
+    "CreatePointsTriggersResponse": ".create_points_triggers_response",
     "CreateStreakFreezesResponse": ".create_streak_freezes_response",
+    "CreatedAdminPointsSystem": ".created_admin_points_system",
     "CreatedMetric": ".created_metric",
     "CreatedMetricUnitType": ".created_metric_unit_type",
-    "CreatedPointsBoost": ".created_points_boost",
-    "CreatedPointsBoostRounding": ".created_points_boost_rounding",
-    "CreatedPointsBoostStatus": ".created_points_boost_status",
     "DeleteAttributesResponse": ".delete_attributes_response",
     "DeleteLeaderboardsResponse": ".delete_leaderboards_response",
     "DeleteMetricsResponse": ".delete_metrics_response",
     "DeletePointsBoostsResponse": ".delete_points_boosts_response",
+    "DeletePointsLevelsResponse": ".delete_points_levels_response",
+    "DeletePointsSystemsResponse": ".delete_points_systems_response",
+    "DeletePointsTriggersResponse": ".delete_points_triggers_response",
     "DeletedResource": ".deleted_resource",
     "ErrorBody": ".error_body",
     "EventResponse": ".event_response",
@@ -204,6 +309,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListAttributesResponse": ".list_attributes_response",
     "ListLeaderboardsResponse": ".list_leaderboards_response",
     "ListMetricsResponse": ".list_metrics_response",
+    "ListPointsBoostsResponse": ".list_points_boosts_response",
+    "ListPointsLevelsResponse": ".list_points_levels_response",
+    "ListPointsSystemsResponse": ".list_points_systems_response",
+    "ListPointsTriggersResponse": ".list_points_triggers_response",
     "MetricEventLeaderboardResponse": ".metric_event_leaderboard_response",
     "MetricEventLeaderboardResponseBreakdownAttributeValuesItem": ".metric_event_leaderboard_response_breakdown_attribute_values_item",
     "MetricEventPointsResponse": ".metric_event_points_response",
@@ -211,6 +320,23 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MetricResponse": ".metric_response",
     "NotificationChannel": ".notification_channel",
     "NotificationPreferences": ".notification_preferences",
+    "PatchPointsBoostsRequest": ".patch_points_boosts_request",
+    "PatchPointsBoostsRequestItem": ".patch_points_boosts_request_item",
+    "PatchPointsBoostsRequestItemRounding": ".patch_points_boosts_request_item_rounding",
+    "PatchPointsBoostsRequestItemUserAttributesItem": ".patch_points_boosts_request_item_user_attributes_item",
+    "PatchPointsBoostsResponse": ".patch_points_boosts_response",
+    "PatchPointsLevelsRequest": ".patch_points_levels_request",
+    "PatchPointsLevelsRequestItem": ".patch_points_levels_request_item",
+    "PatchPointsLevelsRequestItemBadge": ".patch_points_levels_request_item_badge",
+    "PatchPointsLevelsResponse": ".patch_points_levels_response",
+    "PatchPointsTriggersRequest": ".patch_points_triggers_request",
+    "PatchPointsTriggersRequestItem": ".patch_points_triggers_request_item",
+    "PatchPointsTriggersRequestItemEventAttributesItem": ".patch_points_triggers_request_item_event_attributes_item",
+    "PatchPointsTriggersRequestItemStatus": ".patch_points_triggers_request_item_status",
+    "PatchPointsTriggersRequestItemTimeUnit": ".patch_points_triggers_request_item_time_unit",
+    "PatchPointsTriggersRequestItemType": ".patch_points_triggers_request_item_type",
+    "PatchPointsTriggersRequestItemUserAttributesItem": ".patch_points_triggers_request_item_user_attributes_item",
+    "PatchPointsTriggersResponse": ".patch_points_triggers_response",
     "PointsAward": ".points_award",
     "PointsBoost": ".points_boost",
     "PointsBoostRounding": ".points_boost_rounding",
@@ -250,6 +376,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateMetricRequestItemUnitType": ".update_metric_request_item_unit_type",
     "UpdateMetricsRequest": ".update_metrics_request",
     "UpdateMetricsResponse": ".update_metrics_response",
+    "UpdatePointsSystemRequestItem": ".update_points_system_request_item",
+    "UpdatePointsSystemRequestItemBadge": ".update_points_system_request_item_badge",
+    "UpdatePointsSystemsRequest": ".update_points_systems_request",
+    "UpdatePointsSystemsResponse": ".update_points_systems_response",
     "UpdatedUser": ".updated_user",
     "UpsertedUser": ".upserted_user",
     "User": ".user",
@@ -325,6 +455,21 @@ __all__ = [
     "AdminLeaderboardRankBy",
     "AdminLeaderboardRunUnit",
     "AdminLeaderboardStatus",
+    "AdminPointsBoost",
+    "AdminPointsBoostRounding",
+    "AdminPointsBoostStatus",
+    "AdminPointsBoostUserAttributesItem",
+    "AdminPointsLevel",
+    "AdminPointsLevelBadge",
+    "AdminPointsSystem",
+    "AdminPointsSystemBadge",
+    "AdminPointsSystemStatus",
+    "AdminPointsTrigger",
+    "AdminPointsTriggerEventAttributesItem",
+    "AdminPointsTriggerStatus",
+    "AdminPointsTriggerTimeUnit",
+    "AdminPointsTriggerType",
+    "AdminPointsTriggerUserAttributesItem",
     "BaseStreakResponse",
     "BulkStreakResponse",
     "BulkStreakResponseItem",
@@ -342,17 +487,38 @@ __all__ = [
     "CreateMetricRequestItemUnitType",
     "CreateMetricsRequest",
     "CreateMetricsResponse",
+    "CreatePointsBoostRequestItem",
+    "CreatePointsBoostRequestItemRounding",
+    "CreatePointsBoostRequestItemUserAttributesItem",
+    "CreatePointsBoostsRequest",
     "CreatePointsBoostsResponse",
+    "CreatePointsLevelRequestItem",
+    "CreatePointsLevelRequestItemBadge",
+    "CreatePointsLevelsRequest",
+    "CreatePointsLevelsResponse",
+    "CreatePointsSystemRequestItem",
+    "CreatePointsSystemRequestItemBadge",
+    "CreatePointsSystemsRequest",
+    "CreatePointsSystemsResponse",
+    "CreatePointsTriggerRequestItem",
+    "CreatePointsTriggerRequestItemEventAttributesItem",
+    "CreatePointsTriggerRequestItemStatus",
+    "CreatePointsTriggerRequestItemTimeUnit",
+    "CreatePointsTriggerRequestItemType",
+    "CreatePointsTriggerRequestItemUserAttributesItem",
+    "CreatePointsTriggersRequest",
+    "CreatePointsTriggersResponse",
     "CreateStreakFreezesResponse",
+    "CreatedAdminPointsSystem",
     "CreatedMetric",
     "CreatedMetricUnitType",
-    "CreatedPointsBoost",
-    "CreatedPointsBoostRounding",
-    "CreatedPointsBoostStatus",
     "DeleteAttributesResponse",
     "DeleteLeaderboardsResponse",
     "DeleteMetricsResponse",
     "DeletePointsBoostsResponse",
+    "DeletePointsLevelsResponse",
+    "DeletePointsSystemsResponse",
+    "DeletePointsTriggersResponse",
     "DeletedResource",
     "ErrorBody",
     "EventResponse",
@@ -367,6 +533,10 @@ __all__ = [
     "ListAttributesResponse",
     "ListLeaderboardsResponse",
     "ListMetricsResponse",
+    "ListPointsBoostsResponse",
+    "ListPointsLevelsResponse",
+    "ListPointsSystemsResponse",
+    "ListPointsTriggersResponse",
     "MetricEventLeaderboardResponse",
     "MetricEventLeaderboardResponseBreakdownAttributeValuesItem",
     "MetricEventPointsResponse",
@@ -374,6 +544,23 @@ __all__ = [
     "MetricResponse",
     "NotificationChannel",
     "NotificationPreferences",
+    "PatchPointsBoostsRequest",
+    "PatchPointsBoostsRequestItem",
+    "PatchPointsBoostsRequestItemRounding",
+    "PatchPointsBoostsRequestItemUserAttributesItem",
+    "PatchPointsBoostsResponse",
+    "PatchPointsLevelsRequest",
+    "PatchPointsLevelsRequestItem",
+    "PatchPointsLevelsRequestItemBadge",
+    "PatchPointsLevelsResponse",
+    "PatchPointsTriggersRequest",
+    "PatchPointsTriggersRequestItem",
+    "PatchPointsTriggersRequestItemEventAttributesItem",
+    "PatchPointsTriggersRequestItemStatus",
+    "PatchPointsTriggersRequestItemTimeUnit",
+    "PatchPointsTriggersRequestItemType",
+    "PatchPointsTriggersRequestItemUserAttributesItem",
+    "PatchPointsTriggersResponse",
     "PointsAward",
     "PointsBoost",
     "PointsBoostRounding",
@@ -413,6 +600,10 @@ __all__ = [
     "UpdateMetricRequestItemUnitType",
     "UpdateMetricsRequest",
     "UpdateMetricsResponse",
+    "UpdatePointsSystemRequestItem",
+    "UpdatePointsSystemRequestItemBadge",
+    "UpdatePointsSystemsRequest",
+    "UpdatePointsSystemsResponse",
     "UpdatedUser",
     "UpsertedUser",
     "User",

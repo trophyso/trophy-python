@@ -55,7 +55,7 @@ class AdminPointsBoost(UniversalBaseModel):
         default=None
     )
     """
-    The customer ID of the user the boost was created for, or null for global/attribute-filtered boosts.
+    The ID of the user the boost was created for, or null for global/attribute-filtered boosts.
     """
 
     user_attributes: typing_extensions.Annotated[

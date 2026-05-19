@@ -52,6 +52,7 @@ class StreaksClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.streaks.list()
@@ -90,6 +91,7 @@ class StreaksClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.streaks.rankings(
@@ -145,6 +147,7 @@ class AsyncStreaksClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -191,6 +194,7 @@ class AsyncStreaksClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 

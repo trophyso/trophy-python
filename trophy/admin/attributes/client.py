@@ -63,6 +63,7 @@ class AttributesClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.attributes.list(
@@ -96,6 +97,7 @@ class AttributesClient:
         from trophy import CreateAttributeRequestItem, TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.attributes.create(
@@ -143,6 +145,7 @@ class AttributesClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.attributes.delete()
@@ -173,6 +176,7 @@ class AttributesClient:
         from trophy import TrophyApi, UpdateAttributeRequestItem
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.attributes.update(
@@ -209,6 +213,7 @@ class AttributesClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.attributes.get(
@@ -267,6 +272,7 @@ class AsyncAttributesClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -308,6 +314,7 @@ class AsyncAttributesClient:
         from trophy import AsyncTrophyApi, CreateAttributeRequestItem
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -363,6 +370,7 @@ class AsyncAttributesClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -401,6 +409,7 @@ class AsyncAttributesClient:
         from trophy import AsyncTrophyApi, UpdateAttributeRequestItem
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -445,6 +454,7 @@ class AsyncAttributesClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 

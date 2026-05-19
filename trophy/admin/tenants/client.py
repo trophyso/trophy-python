@@ -2,33 +2,33 @@
 
 import typing
 
-from ....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from ....core.request_options import RequestOptions
-from ....types.admin_points_system import AdminPointsSystem
-from ....types.create_points_systems_request import CreatePointsSystemsRequest
-from ....types.create_points_systems_response import CreatePointsSystemsResponse
-from ....types.delete_points_systems_response import DeletePointsSystemsResponse
-from ....types.list_points_systems_response import ListPointsSystemsResponse
-from ....types.update_points_systems_request import UpdatePointsSystemsRequest
-from ....types.update_points_systems_response import UpdatePointsSystemsResponse
-from .raw_client import AsyncRawSystemsClient, RawSystemsClient
+from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.request_options import RequestOptions
+from ...types.admin_tenant import AdminTenant
+from ...types.create_tenants_request import CreateTenantsRequest
+from ...types.create_tenants_response import CreateTenantsResponse
+from ...types.delete_tenants_response import DeleteTenantsResponse
+from ...types.list_tenants_response import ListTenantsResponse
+from ...types.update_tenants_request import UpdateTenantsRequest
+from ...types.update_tenants_response import UpdateTenantsResponse
+from .raw_client import AsyncRawTenantsClient, RawTenantsClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
-class SystemsClient:
+class TenantsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._raw_client = RawSystemsClient(client_wrapper=client_wrapper)
+        self._raw_client = RawTenantsClient(client_wrapper=client_wrapper)
 
     @property
-    def with_raw_response(self) -> RawSystemsClient:
+    def with_raw_response(self) -> RawTenantsClient:
         """
         Retrieves a raw implementation of this client that returns raw responses.
 
         Returns
         -------
-        RawSystemsClient
+        RawTenantsClient
         """
         return self._raw_client
 
@@ -38,9 +38,9 @@ class SystemsClient:
         limit: typing.Optional[int] = None,
         skip: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ListPointsSystemsResponse:
+    ) -> ListTenantsResponse:
         """
-        List points systems.
+        List tenants in the current environment.
 
         Parameters
         ----------
@@ -55,7 +55,7 @@ class SystemsClient:
 
         Returns
         -------
-        ListPointsSystemsResponse
+        ListTenantsResponse
             Successful operation
 
         Examples
@@ -66,7 +66,7 @@ class SystemsClient:
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.systems.list(
+        client.admin.tenants.list(
             limit=1,
             skip=1,
         )
@@ -75,54 +75,41 @@ class SystemsClient:
         return _response.data
 
     def create(
-        self, *, request: CreatePointsSystemsRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> CreatePointsSystemsResponse:
+        self, *, request: CreateTenantsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> CreateTenantsResponse:
         """
-        Create points systems. Optionally include sub-entities (levels, boosts, triggers) in each system payload to create them alongside the system.
+        Create tenants.
 
         Parameters
         ----------
-        request : CreatePointsSystemsRequest
+        request : CreateTenantsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        CreatePointsSystemsResponse
-            Successful operation (no systems created)
+        CreateTenantsResponse
+            Successful operation (no tenants created)
 
         Examples
         --------
-        from trophy import (
-            CreatePointsLevelRequestItem,
-            CreatePointsSystemRequestItem,
-            TrophyApi,
-        )
+        from trophy import CreateTenantRequestItem, TrophyApi
 
         client = TrophyApi(
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.systems.create(
+        client.admin.tenants.create(
             request=[
-                CreatePointsSystemRequestItem(
-                    name="XP",
-                    key="xp",
-                    description="Experience points",
-                    levels=[
-                        CreatePointsLevelRequestItem(
-                            name="Bronze",
-                            key="bronze",
-                            points=100,
-                        ),
-                        CreatePointsLevelRequestItem(
-                            name="Silver",
-                            key="silver",
-                            points=500,
-                        ),
-                    ],
-                )
+                CreateTenantRequestItem(
+                    customer_id="customer_12345",
+                    name="Acme Corp",
+                ),
+                CreateTenantRequestItem(
+                    customer_id="customer_67890",
+                    name="Globex Inc",
+                ),
             ],
         )
         """
@@ -134,21 +121,21 @@ class SystemsClient:
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> DeletePointsSystemsResponse:
+    ) -> DeleteTenantsResponse:
         """
-        Delete (archive) points systems by ID.
+        Delete tenants by ID.
 
         Parameters
         ----------
         ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            The IDs of the points systems to delete.
+            Tenant IDs to delete. Repeat the query param or provide a comma-separated list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        DeletePointsSystemsResponse
+        DeleteTenantsResponse
             Successful operation
 
         Examples
@@ -159,42 +146,42 @@ class SystemsClient:
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.systems.delete()
+        client.admin.tenants.delete()
         """
         _response = self._raw_client.delete(ids=ids, request_options=request_options)
         return _response.data
 
     def update(
-        self, *, request: UpdatePointsSystemsRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> UpdatePointsSystemsResponse:
+        self, *, request: UpdateTenantsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> UpdateTenantsResponse:
         """
-        Update points systems by ID.
+        Update tenants by ID.
 
         Parameters
         ----------
-        request : UpdatePointsSystemsRequest
+        request : UpdateTenantsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        UpdatePointsSystemsResponse
+        UpdateTenantsResponse
             Successful operation
 
         Examples
         --------
-        from trophy import TrophyApi, UpdatePointsSystemRequestItem
+        from trophy import TrophyApi, UpdateTenantRequestItem
 
         client = TrophyApi(
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.systems.update(
+        client.admin.tenants.update(
             request=[
-                UpdatePointsSystemRequestItem(
+                UpdateTenantRequestItem(
                     id="550e8400-e29b-41d4-a716-446655440000",
-                    name="New Name",
+                    name="Acme Corporation",
                 )
             ],
         )
@@ -202,21 +189,21 @@ class SystemsClient:
         _response = self._raw_client.update(request=request, request_options=request_options)
         return _response.data
 
-    def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdminPointsSystem:
+    def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdminTenant:
         """
-        Get a points system by ID.
+        Get a tenant by ID.
 
         Parameters
         ----------
         id : str
-            The ID of the points system.
+            The UUID of the tenant to retrieve.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AdminPointsSystem
+        AdminTenant
             Successful operation
 
         Examples
@@ -227,7 +214,7 @@ class SystemsClient:
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.systems.get(
+        client.admin.tenants.get(
             id="550e8400-e29b-41d4-a716-446655440000",
         )
         """
@@ -235,18 +222,18 @@ class SystemsClient:
         return _response.data
 
 
-class AsyncSystemsClient:
+class AsyncTenantsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._raw_client = AsyncRawSystemsClient(client_wrapper=client_wrapper)
+        self._raw_client = AsyncRawTenantsClient(client_wrapper=client_wrapper)
 
     @property
-    def with_raw_response(self) -> AsyncRawSystemsClient:
+    def with_raw_response(self) -> AsyncRawTenantsClient:
         """
         Retrieves a raw implementation of this client that returns raw responses.
 
         Returns
         -------
-        AsyncRawSystemsClient
+        AsyncRawTenantsClient
         """
         return self._raw_client
 
@@ -256,9 +243,9 @@ class AsyncSystemsClient:
         limit: typing.Optional[int] = None,
         skip: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ListPointsSystemsResponse:
+    ) -> ListTenantsResponse:
         """
-        List points systems.
+        List tenants in the current environment.
 
         Parameters
         ----------
@@ -273,7 +260,7 @@ class AsyncSystemsClient:
 
         Returns
         -------
-        ListPointsSystemsResponse
+        ListTenantsResponse
             Successful operation
 
         Examples
@@ -289,7 +276,7 @@ class AsyncSystemsClient:
 
 
         async def main() -> None:
-            await client.admin.points.systems.list(
+            await client.admin.tenants.list(
                 limit=1,
                 skip=1,
             )
@@ -301,32 +288,28 @@ class AsyncSystemsClient:
         return _response.data
 
     async def create(
-        self, *, request: CreatePointsSystemsRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> CreatePointsSystemsResponse:
+        self, *, request: CreateTenantsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> CreateTenantsResponse:
         """
-        Create points systems. Optionally include sub-entities (levels, boosts, triggers) in each system payload to create them alongside the system.
+        Create tenants.
 
         Parameters
         ----------
-        request : CreatePointsSystemsRequest
+        request : CreateTenantsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        CreatePointsSystemsResponse
-            Successful operation (no systems created)
+        CreateTenantsResponse
+            Successful operation (no tenants created)
 
         Examples
         --------
         import asyncio
 
-        from trophy import (
-            AsyncTrophyApi,
-            CreatePointsLevelRequestItem,
-            CreatePointsSystemRequestItem,
-        )
+        from trophy import AsyncTrophyApi, CreateTenantRequestItem
 
         client = AsyncTrophyApi(
             tenant_id="YOUR_TENANT_ID",
@@ -335,25 +318,16 @@ class AsyncSystemsClient:
 
 
         async def main() -> None:
-            await client.admin.points.systems.create(
+            await client.admin.tenants.create(
                 request=[
-                    CreatePointsSystemRequestItem(
-                        name="XP",
-                        key="xp",
-                        description="Experience points",
-                        levels=[
-                            CreatePointsLevelRequestItem(
-                                name="Bronze",
-                                key="bronze",
-                                points=100,
-                            ),
-                            CreatePointsLevelRequestItem(
-                                name="Silver",
-                                key="silver",
-                                points=500,
-                            ),
-                        ],
-                    )
+                    CreateTenantRequestItem(
+                        customer_id="customer_12345",
+                        name="Acme Corp",
+                    ),
+                    CreateTenantRequestItem(
+                        customer_id="customer_67890",
+                        name="Globex Inc",
+                    ),
                 ],
             )
 
@@ -368,21 +342,21 @@ class AsyncSystemsClient:
         *,
         ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> DeletePointsSystemsResponse:
+    ) -> DeleteTenantsResponse:
         """
-        Delete (archive) points systems by ID.
+        Delete tenants by ID.
 
         Parameters
         ----------
         ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            The IDs of the points systems to delete.
+            Tenant IDs to delete. Repeat the query param or provide a comma-separated list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        DeletePointsSystemsResponse
+        DeleteTenantsResponse
             Successful operation
 
         Examples
@@ -398,7 +372,7 @@ class AsyncSystemsClient:
 
 
         async def main() -> None:
-            await client.admin.points.systems.delete()
+            await client.admin.tenants.delete()
 
 
         asyncio.run(main())
@@ -407,28 +381,28 @@ class AsyncSystemsClient:
         return _response.data
 
     async def update(
-        self, *, request: UpdatePointsSystemsRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> UpdatePointsSystemsResponse:
+        self, *, request: UpdateTenantsRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> UpdateTenantsResponse:
         """
-        Update points systems by ID.
+        Update tenants by ID.
 
         Parameters
         ----------
-        request : UpdatePointsSystemsRequest
+        request : UpdateTenantsRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        UpdatePointsSystemsResponse
+        UpdateTenantsResponse
             Successful operation
 
         Examples
         --------
         import asyncio
 
-        from trophy import AsyncTrophyApi, UpdatePointsSystemRequestItem
+        from trophy import AsyncTrophyApi, UpdateTenantRequestItem
 
         client = AsyncTrophyApi(
             tenant_id="YOUR_TENANT_ID",
@@ -437,11 +411,11 @@ class AsyncSystemsClient:
 
 
         async def main() -> None:
-            await client.admin.points.systems.update(
+            await client.admin.tenants.update(
                 request=[
-                    UpdatePointsSystemRequestItem(
+                    UpdateTenantRequestItem(
                         id="550e8400-e29b-41d4-a716-446655440000",
-                        name="New Name",
+                        name="Acme Corporation",
                     )
                 ],
             )
@@ -452,21 +426,21 @@ class AsyncSystemsClient:
         _response = await self._raw_client.update(request=request, request_options=request_options)
         return _response.data
 
-    async def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdminPointsSystem:
+    async def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdminTenant:
         """
-        Get a points system by ID.
+        Get a tenant by ID.
 
         Parameters
         ----------
         id : str
-            The ID of the points system.
+            The UUID of the tenant to retrieve.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AdminPointsSystem
+        AdminTenant
             Successful operation
 
         Examples
@@ -482,7 +456,7 @@ class AsyncSystemsClient:
 
 
         async def main() -> None:
-            await client.admin.points.systems.get(
+            await client.admin.tenants.get(
                 id="550e8400-e29b-41d4-a716-446655440000",
             )
 

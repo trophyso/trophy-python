@@ -90,6 +90,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.create(
@@ -130,6 +131,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.get(
@@ -190,6 +192,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.identify(
@@ -262,6 +265,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.update(
@@ -307,6 +311,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.get_preferences(
@@ -346,6 +351,7 @@ class UsersClient:
         from trophy import NotificationPreferences, TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.update_preferences(
@@ -384,6 +390,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.all_metrics(
@@ -420,6 +427,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.single_metric(
@@ -473,6 +481,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.metric_event_summary(
@@ -519,6 +528,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.achievements(
@@ -561,6 +571,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.streak(
@@ -606,6 +617,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.points(
@@ -644,6 +656,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.points_boosts(
@@ -697,6 +710,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.points_event_summary(
@@ -751,6 +765,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.leaderboard(
@@ -792,6 +807,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.users.wrapped(
@@ -871,6 +887,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -919,6 +936,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -987,6 +1005,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -1067,6 +1086,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -1120,6 +1140,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -1167,6 +1188,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi, NotificationPreferences
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -1213,6 +1235,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -1257,6 +1280,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -1318,6 +1342,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -1372,6 +1397,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -1422,6 +1448,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -1475,6 +1502,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -1521,6 +1549,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -1582,6 +1611,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -1644,6 +1674,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -1693,6 +1724,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 

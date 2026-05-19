@@ -63,6 +63,7 @@ class LeaderboardsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.leaderboards.list(
@@ -96,6 +97,7 @@ class LeaderboardsClient:
         from trophy import CreateLeaderboardRequestItem, TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.leaderboards.create(
@@ -152,6 +154,7 @@ class LeaderboardsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.leaderboards.delete()
@@ -182,6 +185,7 @@ class LeaderboardsClient:
         from trophy import TrophyApi, UpdateLeaderboardRequestItem
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.leaderboards.update(
@@ -224,6 +228,7 @@ class LeaderboardsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.leaderboards.get(
@@ -282,6 +287,7 @@ class AsyncLeaderboardsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -323,6 +329,7 @@ class AsyncLeaderboardsClient:
         from trophy import AsyncTrophyApi, CreateLeaderboardRequestItem
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -387,6 +394,7 @@ class AsyncLeaderboardsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -425,6 +433,7 @@ class AsyncLeaderboardsClient:
         from trophy import AsyncTrophyApi, UpdateLeaderboardRequestItem
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -475,6 +484,7 @@ class AsyncLeaderboardsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 

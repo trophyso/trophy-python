@@ -13,6 +13,7 @@ if typing.TYPE_CHECKING:
     from .metrics.client import AsyncMetricsClient, MetricsClient
     from .points.client import AsyncPointsClient, PointsClient
     from .streaks.client import AsyncStreaksClient, StreaksClient
+    from .tenants.client import AsyncTenantsClient, TenantsClient
 
 
 class AdminClient:
@@ -23,6 +24,7 @@ class AdminClient:
         self._metrics: typing.Optional[MetricsClient] = None
         self._leaderboards: typing.Optional[LeaderboardsClient] = None
         self._streaks: typing.Optional[StreaksClient] = None
+        self._tenants: typing.Optional[TenantsClient] = None
         self._points: typing.Optional[PointsClient] = None
 
     @property
@@ -69,6 +71,14 @@ class AdminClient:
         return self._streaks
 
     @property
+    def tenants(self):
+        if self._tenants is None:
+            from .tenants.client import TenantsClient  # noqa: E402
+
+            self._tenants = TenantsClient(client_wrapper=self._client_wrapper)
+        return self._tenants
+
+    @property
     def points(self):
         if self._points is None:
             from .points.client import PointsClient  # noqa: E402
@@ -85,6 +95,7 @@ class AsyncAdminClient:
         self._metrics: typing.Optional[AsyncMetricsClient] = None
         self._leaderboards: typing.Optional[AsyncLeaderboardsClient] = None
         self._streaks: typing.Optional[AsyncStreaksClient] = None
+        self._tenants: typing.Optional[AsyncTenantsClient] = None
         self._points: typing.Optional[AsyncPointsClient] = None
 
     @property
@@ -129,6 +140,14 @@ class AsyncAdminClient:
 
             self._streaks = AsyncStreaksClient(client_wrapper=self._client_wrapper)
         return self._streaks
+
+    @property
+    def tenants(self):
+        if self._tenants is None:
+            from .tenants.client import AsyncTenantsClient  # noqa: E402
+
+            self._tenants = AsyncTenantsClient(client_wrapper=self._client_wrapper)
+        return self._tenants
 
     @property
     def points(self):

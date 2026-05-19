@@ -48,6 +48,7 @@ class LeaderboardsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.leaderboards.all_(
@@ -104,6 +105,7 @@ class LeaderboardsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.leaderboards.get(
@@ -168,6 +170,7 @@ class AsyncLeaderboardsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -232,6 +235,7 @@ class AsyncLeaderboardsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 

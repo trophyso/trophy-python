@@ -36,6 +36,8 @@ if typing.TYPE_CHECKING:
     from .admin_points_trigger_time_unit import AdminPointsTriggerTimeUnit
     from .admin_points_trigger_type import AdminPointsTriggerType
     from .admin_points_trigger_user_attributes_item import AdminPointsTriggerUserAttributesItem
+    from .admin_tenant import AdminTenant
+    from .admin_tenant_status import AdminTenantStatus
     from .base_streak_response import BaseStreakResponse
     from .bulk_streak_response import BulkStreakResponse
     from .bulk_streak_response_item import BulkStreakResponseItem
@@ -79,6 +81,9 @@ if typing.TYPE_CHECKING:
     from .create_points_triggers_request import CreatePointsTriggersRequest
     from .create_points_triggers_response import CreatePointsTriggersResponse
     from .create_streak_freezes_response import CreateStreakFreezesResponse
+    from .create_tenant_request_item import CreateTenantRequestItem
+    from .create_tenants_request import CreateTenantsRequest
+    from .create_tenants_response import CreateTenantsResponse
     from .created_admin_points_system import CreatedAdminPointsSystem
     from .created_metric import CreatedMetric
     from .created_metric_unit_type import CreatedMetricUnitType
@@ -89,6 +94,7 @@ if typing.TYPE_CHECKING:
     from .delete_points_levels_response import DeletePointsLevelsResponse
     from .delete_points_systems_response import DeletePointsSystemsResponse
     from .delete_points_triggers_response import DeletePointsTriggersResponse
+    from .delete_tenants_response import DeleteTenantsResponse
     from .deleted_resource import DeletedResource
     from .error_body import ErrorBody
     from .event_response import EventResponse
@@ -107,6 +113,7 @@ if typing.TYPE_CHECKING:
     from .list_points_levels_response import ListPointsLevelsResponse
     from .list_points_systems_response import ListPointsSystemsResponse
     from .list_points_triggers_response import ListPointsTriggersResponse
+    from .list_tenants_response import ListTenantsResponse
     from .metric_event_leaderboard_response import MetricEventLeaderboardResponse
     from .metric_event_leaderboard_response_breakdown_attribute_values_item import (
         MetricEventLeaderboardResponseBreakdownAttributeValuesItem,
@@ -180,6 +187,9 @@ if typing.TYPE_CHECKING:
     from .update_points_system_request_item_badge import UpdatePointsSystemRequestItemBadge
     from .update_points_systems_request import UpdatePointsSystemsRequest
     from .update_points_systems_response import UpdatePointsSystemsResponse
+    from .update_tenant_request_item import UpdateTenantRequestItem
+    from .update_tenants_request import UpdateTenantsRequest
+    from .update_tenants_response import UpdateTenantsResponse
     from .updated_user import UpdatedUser
     from .upserted_user import UpsertedUser
     from .user import User
@@ -246,6 +256,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdminPointsTriggerTimeUnit": ".admin_points_trigger_time_unit",
     "AdminPointsTriggerType": ".admin_points_trigger_type",
     "AdminPointsTriggerUserAttributesItem": ".admin_points_trigger_user_attributes_item",
+    "AdminTenant": ".admin_tenant",
+    "AdminTenantStatus": ".admin_tenant_status",
     "BaseStreakResponse": ".base_streak_response",
     "BulkStreakResponse": ".bulk_streak_response",
     "BulkStreakResponseItem": ".bulk_streak_response_item",
@@ -285,6 +297,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePointsTriggersRequest": ".create_points_triggers_request",
     "CreatePointsTriggersResponse": ".create_points_triggers_response",
     "CreateStreakFreezesResponse": ".create_streak_freezes_response",
+    "CreateTenantRequestItem": ".create_tenant_request_item",
+    "CreateTenantsRequest": ".create_tenants_request",
+    "CreateTenantsResponse": ".create_tenants_response",
     "CreatedAdminPointsSystem": ".created_admin_points_system",
     "CreatedMetric": ".created_metric",
     "CreatedMetricUnitType": ".created_metric_unit_type",
@@ -295,6 +310,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DeletePointsLevelsResponse": ".delete_points_levels_response",
     "DeletePointsSystemsResponse": ".delete_points_systems_response",
     "DeletePointsTriggersResponse": ".delete_points_triggers_response",
+    "DeleteTenantsResponse": ".delete_tenants_response",
     "DeletedResource": ".deleted_resource",
     "ErrorBody": ".error_body",
     "EventResponse": ".event_response",
@@ -313,6 +329,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListPointsLevelsResponse": ".list_points_levels_response",
     "ListPointsSystemsResponse": ".list_points_systems_response",
     "ListPointsTriggersResponse": ".list_points_triggers_response",
+    "ListTenantsResponse": ".list_tenants_response",
     "MetricEventLeaderboardResponse": ".metric_event_leaderboard_response",
     "MetricEventLeaderboardResponseBreakdownAttributeValuesItem": ".metric_event_leaderboard_response_breakdown_attribute_values_item",
     "MetricEventPointsResponse": ".metric_event_points_response",
@@ -380,6 +397,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePointsSystemRequestItemBadge": ".update_points_system_request_item_badge",
     "UpdatePointsSystemsRequest": ".update_points_systems_request",
     "UpdatePointsSystemsResponse": ".update_points_systems_response",
+    "UpdateTenantRequestItem": ".update_tenant_request_item",
+    "UpdateTenantsRequest": ".update_tenants_request",
+    "UpdateTenantsResponse": ".update_tenants_response",
     "UpdatedUser": ".updated_user",
     "UpsertedUser": ".upserted_user",
     "User": ".user",
@@ -470,6 +490,8 @@ __all__ = [
     "AdminPointsTriggerTimeUnit",
     "AdminPointsTriggerType",
     "AdminPointsTriggerUserAttributesItem",
+    "AdminTenant",
+    "AdminTenantStatus",
     "BaseStreakResponse",
     "BulkStreakResponse",
     "BulkStreakResponseItem",
@@ -509,6 +531,9 @@ __all__ = [
     "CreatePointsTriggersRequest",
     "CreatePointsTriggersResponse",
     "CreateStreakFreezesResponse",
+    "CreateTenantRequestItem",
+    "CreateTenantsRequest",
+    "CreateTenantsResponse",
     "CreatedAdminPointsSystem",
     "CreatedMetric",
     "CreatedMetricUnitType",
@@ -519,6 +544,7 @@ __all__ = [
     "DeletePointsLevelsResponse",
     "DeletePointsSystemsResponse",
     "DeletePointsTriggersResponse",
+    "DeleteTenantsResponse",
     "DeletedResource",
     "ErrorBody",
     "EventResponse",
@@ -537,6 +563,7 @@ __all__ = [
     "ListPointsLevelsResponse",
     "ListPointsSystemsResponse",
     "ListPointsTriggersResponse",
+    "ListTenantsResponse",
     "MetricEventLeaderboardResponse",
     "MetricEventLeaderboardResponseBreakdownAttributeValuesItem",
     "MetricEventPointsResponse",
@@ -604,6 +631,9 @@ __all__ = [
     "UpdatePointsSystemRequestItemBadge",
     "UpdatePointsSystemsRequest",
     "UpdatePointsSystemsResponse",
+    "UpdateTenantRequestItem",
+    "UpdateTenantsRequest",
+    "UpdateTenantsResponse",
     "UpdatedUser",
     "UpsertedUser",
     "User",

@@ -67,6 +67,7 @@ class LevelsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.points.levels.list(
@@ -108,6 +109,7 @@ class LevelsClient:
         from trophy import CreatePointsLevelRequestItem, TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.points.levels.create(
@@ -155,6 +157,7 @@ class LevelsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.points.levels.delete()
@@ -192,6 +195,7 @@ class LevelsClient:
         from trophy import PatchPointsLevelsRequestItem, TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.points.levels.update(
@@ -233,6 +237,7 @@ class LevelsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.points.levels.get(
@@ -296,6 +301,7 @@ class AsyncLevelsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -345,6 +351,7 @@ class AsyncLevelsClient:
         from trophy import AsyncTrophyApi, CreatePointsLevelRequestItem
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -400,6 +407,7 @@ class AsyncLevelsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -445,6 +453,7 @@ class AsyncLevelsClient:
         from trophy import AsyncTrophyApi, PatchPointsLevelsRequestItem
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -494,6 +503,7 @@ class AsyncLevelsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 

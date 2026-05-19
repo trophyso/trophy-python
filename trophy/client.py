@@ -33,6 +33,7 @@ class TrophyApi:
 
 
 
+    tenant_id : typing.Optional[str]
     api_key : str
     headers : typing.Optional[typing.Dict[str, str]]
         Additional headers to send with every request.
@@ -51,6 +52,7 @@ class TrophyApi:
     from trophy import TrophyApi
 
     client = TrophyApi(
+        tenant_id="YOUR_TENANT_ID",
         api_key="YOUR_API_KEY",
     )
     """
@@ -59,6 +61,7 @@ class TrophyApi:
         self,
         *,
         environment: TrophyApiEnvironment = TrophyApiEnvironment.PRODUCTION,
+        tenant_id: typing.Optional[str] = None,
         api_key: str,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         timeout: typing.Optional[float] = None,
@@ -70,6 +73,7 @@ class TrophyApi:
         )
         self._client_wrapper = SyncClientWrapper(
             environment=environment,
+            tenant_id=tenant_id,
             api_key=api_key,
             headers=headers,
             httpx_client=httpx_client
@@ -159,6 +163,7 @@ class AsyncTrophyApi:
 
 
 
+    tenant_id : typing.Optional[str]
     api_key : str
     headers : typing.Optional[typing.Dict[str, str]]
         Additional headers to send with every request.
@@ -177,6 +182,7 @@ class AsyncTrophyApi:
     from trophy import AsyncTrophyApi
 
     client = AsyncTrophyApi(
+        tenant_id="YOUR_TENANT_ID",
         api_key="YOUR_API_KEY",
     )
     """
@@ -185,6 +191,7 @@ class AsyncTrophyApi:
         self,
         *,
         environment: TrophyApiEnvironment = TrophyApiEnvironment.PRODUCTION,
+        tenant_id: typing.Optional[str] = None,
         api_key: str,
         headers: typing.Optional[typing.Dict[str, str]] = None,
         timeout: typing.Optional[float] = None,
@@ -196,6 +203,7 @@ class AsyncTrophyApi:
         )
         self._client_wrapper = AsyncClientWrapper(
             environment=environment,
+            tenant_id=tenant_id,
             api_key=api_key,
             headers=headers,
             httpx_client=httpx_client

@@ -67,6 +67,7 @@ class TriggersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.points.triggers.list(
@@ -108,6 +109,7 @@ class TriggersClient:
         from trophy import CreatePointsTriggerRequestItem, TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.points.triggers.create(
@@ -154,6 +156,7 @@ class TriggersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.points.triggers.delete()
@@ -191,6 +194,7 @@ class TriggersClient:
         from trophy import PatchPointsTriggersRequestItem, TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.points.triggers.update(
@@ -232,6 +236,7 @@ class TriggersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
         client.admin.points.triggers.get(
@@ -295,6 +300,7 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -344,6 +350,7 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi, CreatePointsTriggerRequestItem
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -398,6 +405,7 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -443,6 +451,7 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi, PatchPointsTriggersRequestItem
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
@@ -492,6 +501,7 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 

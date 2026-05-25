@@ -92,7 +92,9 @@ class LeaderboardResponse(UniversalBaseModel):
     The end date of the leaderboard in YYYY-MM-DD format, or null if it runs forever.
     """
 
-    max_participants: typing_extensions.Annotated[int, FieldMetadata(alias="maxParticipants")] = pydantic.Field()
+    max_participants: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="maxParticipants")] = (
+        pydantic.Field(default=None)
+    )
     """
     The maximum number of participants in the leaderboard.
     """

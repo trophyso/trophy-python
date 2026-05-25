@@ -123,7 +123,9 @@ class MetricEventLeaderboardResponse(UniversalBaseModel):
     The start date of the leaderboard in YYYY-MM-DD format.
     """
 
-    max_participants: typing_extensions.Annotated[int, FieldMetadata(alias="maxParticipants")] = pydantic.Field()
+    max_participants: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="maxParticipants")] = (
+        pydantic.Field(default=None)
+    )
     """
     The maximum number of participants in the leaderboard.
     """

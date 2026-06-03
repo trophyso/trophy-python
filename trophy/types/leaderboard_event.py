@@ -11,12 +11,17 @@ from ..core.serialization import FieldMetadata
 
 class LeaderboardEvent(UniversalBaseModel):
     """
-    A leaderboard event representing a change in a user's rank or value.
+    A daily leaderboard snapshot entry representing the user's rank/value state and the previous persisted state.
     """
 
-    timestamp: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    date: str = pydantic.Field()
     """
-    The timestamp when the event occurred.
+    The leaderboard snapshot date in YYYY-MM-DD format.
+    """
+
+    timestamp: dt.datetime = pydantic.Field()
+    """
+    Deprecated ISO timestamp for the snapshot day boundary. Use `date` instead.
     """
 
     previous_rank: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="previousRank")] = (

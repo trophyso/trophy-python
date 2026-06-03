@@ -15,7 +15,7 @@ class UserLeaderboardResponseWithHistory(UserLeaderboardResponse):
 
     history: typing.List[LeaderboardEvent] = pydantic.Field()
     """
-    An array of events showing the user's rank and value changes over time.
+    An array of daily change events showing the user's rank and value over time.
     """
 
     if IS_PYDANTIC_V2:

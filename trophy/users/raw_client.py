@@ -1300,7 +1300,7 @@ class RawUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UserLeaderboardResponseWithHistory]:
         """
-        Get a user's rank, value, and history for a specific leaderboard.
+        Get a user's rank, value, and daily ranking history for a specific leaderboard.
 
         Parameters
         ----------
@@ -1314,7 +1314,7 @@ class RawUsersClient:
             Specific run date in YYYY-MM-DD format. If not provided, returns the current run.
 
         num_events : typing.Optional[int]
-            The number of events to return in the history array.
+            The number of days to return in the leaderboard history for the user.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2728,7 +2728,7 @@ class AsyncRawUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UserLeaderboardResponseWithHistory]:
         """
-        Get a user's rank, value, and history for a specific leaderboard.
+        Get a user's rank, value, and daily ranking history for a specific leaderboard.
 
         Parameters
         ----------
@@ -2742,7 +2742,7 @@ class AsyncRawUsersClient:
             Specific run date in YYYY-MM-DD format. If not provided, returns the current run.
 
         num_events : typing.Optional[int]
-            The number of events to return in the history array.
+            The number of days to return in the leaderboard history for the user.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

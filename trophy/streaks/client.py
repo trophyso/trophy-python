@@ -5,9 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.bulk_streak_response import BulkStreakResponse
-from ..types.streak_ranking_user import StreakRankingUser
 from .raw_client import AsyncRawStreaksClient, RawStreaksClient
-from .types.streaks_rankings_request_type import StreaksRankingsRequestType
 
 
 class StreaksClient:
@@ -58,48 +56,6 @@ class StreaksClient:
         client.streaks.list()
         """
         _response = self._raw_client.list(user_ids=user_ids, request_options=request_options)
-        return _response.data
-
-    def rankings(
-        self,
-        *,
-        limit: typing.Optional[int] = None,
-        type: typing.Optional[StreaksRankingsRequestType] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[StreakRankingUser]:
-        """
-        Get the top users by streak length (active or longest).
-
-        Parameters
-        ----------
-        limit : typing.Optional[int]
-            Number of users to return. Must be between 1 and 100.
-
-        type : typing.Optional[StreaksRankingsRequestType]
-            Whether to rank users by active streaks or longest streaks ever achieved.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[StreakRankingUser]
-            Successful operation
-
-        Examples
-        --------
-        from trophy import TrophyApi
-
-        client = TrophyApi(
-            tenant_id="YOUR_TENANT_ID",
-            api_key="YOUR_API_KEY",
-        )
-        client.streaks.rankings(
-            limit=1,
-            type="active",
-        )
-        """
-        _response = self._raw_client.rankings(limit=limit, type=type, request_options=request_options)
         return _response.data
 
 
@@ -159,54 +115,4 @@ class AsyncStreaksClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list(user_ids=user_ids, request_options=request_options)
-        return _response.data
-
-    async def rankings(
-        self,
-        *,
-        limit: typing.Optional[int] = None,
-        type: typing.Optional[StreaksRankingsRequestType] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[StreakRankingUser]:
-        """
-        Get the top users by streak length (active or longest).
-
-        Parameters
-        ----------
-        limit : typing.Optional[int]
-            Number of users to return. Must be between 1 and 100.
-
-        type : typing.Optional[StreaksRankingsRequestType]
-            Whether to rank users by active streaks or longest streaks ever achieved.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[StreakRankingUser]
-            Successful operation
-
-        Examples
-        --------
-        import asyncio
-
-        from trophy import AsyncTrophyApi
-
-        client = AsyncTrophyApi(
-            tenant_id="YOUR_TENANT_ID",
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.streaks.rankings(
-                limit=1,
-                type="active",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.rankings(limit=limit, type=type, request_options=request_options)
         return _response.data

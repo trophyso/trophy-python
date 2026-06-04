@@ -12,8 +12,6 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.bulk_streak_response import BulkStreakResponse
 from ..types.error_body import ErrorBody
-from ..types.streak_ranking_user import StreakRankingUser
-from .types.streaks_rankings_request_type import StreaksRankingsRequestType
 
 
 class RawStreaksClient:
@@ -88,79 +86,6 @@ class RawStreaksClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def rankings(
-        self,
-        *,
-        limit: typing.Optional[int] = None,
-        type: typing.Optional[StreaksRankingsRequestType] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.List[StreakRankingUser]]:
-        """
-        Get the top users by streak length (active or longest).
-
-        Parameters
-        ----------
-        limit : typing.Optional[int]
-            Number of users to return. Must be between 1 and 100.
-
-        type : typing.Optional[StreaksRankingsRequestType]
-            Whether to rank users by active streaks or longest streaks ever achieved.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[typing.List[StreakRankingUser]]
-            Successful operation
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "streaks/rankings",
-            base_url=self._client_wrapper.get_environment().api,
-            method="GET",
-            params={
-                "limit": limit,
-                "type": type,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[StreakRankingUser],
-                    parse_obj_as(
-                        type_=typing.List[StreakRankingUser],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
 
 class AsyncRawStreaksClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -203,79 +128,6 @@ class AsyncRawStreaksClient:
                     BulkStreakResponse,
                     parse_obj_as(
                         type_=BulkStreakResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ErrorBody,
-                        parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def rankings(
-        self,
-        *,
-        limit: typing.Optional[int] = None,
-        type: typing.Optional[StreaksRankingsRequestType] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.List[StreakRankingUser]]:
-        """
-        Get the top users by streak length (active or longest).
-
-        Parameters
-        ----------
-        limit : typing.Optional[int]
-            Number of users to return. Must be between 1 and 100.
-
-        type : typing.Optional[StreaksRankingsRequestType]
-            Whether to rank users by active streaks or longest streaks ever achieved.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[typing.List[StreakRankingUser]]
-            Successful operation
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "streaks/rankings",
-            base_url=self._client_wrapper.get_environment().api,
-            method="GET",
-            params={
-                "limit": limit,
-                "type": type,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[StreakRankingUser],
-                    parse_obj_as(
-                        type_=typing.List[StreakRankingUser],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

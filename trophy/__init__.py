@@ -158,7 +158,6 @@ if typing.TYPE_CHECKING:
         PointsTriggerUserAttributesItem,
         RestoreStreaksResponse,
         StreakFrequency,
-        StreakRankingUser,
         StreakResponse,
         StreakResponseStreakHistoryItem,
         UpdateAttributeRequestItem,
@@ -222,7 +221,6 @@ if typing.TYPE_CHECKING:
     from .client import AsyncTrophyApi, TrophyApi
     from .environment import TrophyApiEnvironment
     from .leaderboards import LeaderboardsAllResponseItem, LeaderboardsAllResponseItemStatus
-    from .streaks import StreaksRankingsRequestType
     from .users import (
         UsersMetricEventSummaryRequestAggregation,
         UsersMetricEventSummaryResponseItem,
@@ -386,10 +384,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PointsTriggerUserAttributesItem": ".types",
     "RestoreStreaksResponse": ".types",
     "StreakFrequency": ".types",
-    "StreakRankingUser": ".types",
     "StreakResponse": ".types",
     "StreakResponseStreakHistoryItem": ".types",
-    "StreaksRankingsRequestType": ".streaks",
     "TrophyApi": ".client",
     "TrophyApiEnvironment": ".environment",
     "UnauthorizedError": ".errors",
@@ -641,10 +637,8 @@ __all__ = [
     "PointsTriggerUserAttributesItem",
     "RestoreStreaksResponse",
     "StreakFrequency",
-    "StreakRankingUser",
     "StreakResponse",
     "StreakResponseStreakHistoryItem",
-    "StreaksRankingsRequestType",
     "TrophyApi",
     "TrophyApiEnvironment",
     "UnauthorizedError",

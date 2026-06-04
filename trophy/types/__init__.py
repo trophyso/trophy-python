@@ -167,7 +167,6 @@ if typing.TYPE_CHECKING:
     from .points_trigger_user_attributes_item import PointsTriggerUserAttributesItem
     from .restore_streaks_response import RestoreStreaksResponse
     from .streak_frequency import StreakFrequency
-    from .streak_ranking_user import StreakRankingUser
     from .streak_response import StreakResponse
     from .streak_response_streak_history_item import StreakResponseStreakHistoryItem
     from .update_attribute_request_item import UpdateAttributeRequestItem
@@ -377,7 +376,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PointsTriggerUserAttributesItem": ".points_trigger_user_attributes_item",
     "RestoreStreaksResponse": ".restore_streaks_response",
     "StreakFrequency": ".streak_frequency",
-    "StreakRankingUser": ".streak_ranking_user",
     "StreakResponse": ".streak_response",
     "StreakResponseStreakHistoryItem": ".streak_response_streak_history_item",
     "UpdateAttributeRequestItem": ".update_attribute_request_item",
@@ -611,7 +609,6 @@ __all__ = [
     "PointsTriggerUserAttributesItem",
     "RestoreStreaksResponse",
     "StreakFrequency",
-    "StreakRankingUser",
     "StreakResponse",
     "StreakResponseStreakHistoryItem",
     "UpdateAttributeRequestItem",

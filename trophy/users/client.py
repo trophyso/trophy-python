@@ -8,6 +8,7 @@ from ..types.get_user_points_response import GetUserPointsResponse
 from ..types.metric_response import MetricResponse
 from ..types.notification_preferences import NotificationPreferences
 from ..types.points_boost import PointsBoost
+from ..types.streak_preferences import StreakPreferences
 from ..types.streak_response import StreakResponse
 from ..types.user import User
 from ..types.user_achievement_with_stats_response import UserAchievementWithStatsResponse
@@ -326,10 +327,11 @@ class UsersClient:
         id: str,
         *,
         notifications: typing.Optional[NotificationPreferences] = OMIT,
+        streak: typing.Optional[StreakPreferences] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UserPreferencesResponse:
         """
-        Update a user's notification preferences.
+        Update a user's notification and streak preferences. Streak preferences require streak customization to be enabled in your Trophy dashboard settings.
 
         Parameters
         ----------
@@ -337,6 +339,8 @@ class UsersClient:
             The user's ID in your database.
 
         notifications : typing.Optional[NotificationPreferences]
+
+        streak : typing.Optional[StreakPreferences]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -362,7 +366,7 @@ class UsersClient:
         )
         """
         _response = self._raw_client.update_preferences(
-            id, notifications=notifications, request_options=request_options
+            id, notifications=notifications, streak=streak, request_options=request_options
         )
         return _response.data
 
@@ -1161,10 +1165,11 @@ class AsyncUsersClient:
         id: str,
         *,
         notifications: typing.Optional[NotificationPreferences] = OMIT,
+        streak: typing.Optional[StreakPreferences] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UserPreferencesResponse:
         """
-        Update a user's notification preferences.
+        Update a user's notification and streak preferences. Streak preferences require streak customization to be enabled in your Trophy dashboard settings.
 
         Parameters
         ----------
@@ -1172,6 +1177,8 @@ class AsyncUsersClient:
             The user's ID in your database.
 
         notifications : typing.Optional[NotificationPreferences]
+
+        streak : typing.Optional[StreakPreferences]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1205,7 +1212,7 @@ class AsyncUsersClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update_preferences(
-            id, notifications=notifications, request_options=request_options
+            id, notifications=notifications, streak=streak, request_options=request_options
         )
         return _response.data
 

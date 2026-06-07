@@ -157,7 +157,10 @@ if typing.TYPE_CHECKING:
         PointsTriggerType,
         PointsTriggerUserAttributesItem,
         RestoreStreaksResponse,
+        StreakEvaluationModePreference,
         StreakFrequency,
+        StreakMetricPreference,
+        StreakPreferences,
         StreakResponse,
         StreakResponseStreakHistoryItem,
         UpdateAttributeRequestItem,
@@ -216,7 +219,7 @@ if typing.TYPE_CHECKING:
         WrappedResponse,
         WrappedStreak,
     )
-    from .errors import BadRequestError, NotFoundError, UnauthorizedError, UnprocessableEntityError
+    from .errors import BadRequestError, ForbiddenError, NotFoundError, UnauthorizedError, UnprocessableEntityError
     from . import achievements, admin, leaderboards, metrics, points, streaks, users
     from .client import AsyncTrophyApi, TrophyApi
     from .environment import TrophyApiEnvironment
@@ -318,6 +321,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DeletedResource": ".types",
     "ErrorBody": ".types",
     "EventResponse": ".types",
+    "ForbiddenError": ".errors",
     "GetUserPointsResponse": ".types",
     "LeaderboardEvent": ".types",
     "LeaderboardRanking": ".types",
@@ -383,7 +387,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PointsTriggerType": ".types",
     "PointsTriggerUserAttributesItem": ".types",
     "RestoreStreaksResponse": ".types",
+    "StreakEvaluationModePreference": ".types",
     "StreakFrequency": ".types",
+    "StreakMetricPreference": ".types",
+    "StreakPreferences": ".types",
     "StreakResponse": ".types",
     "StreakResponseStreakHistoryItem": ".types",
     "TrophyApi": ".client",
@@ -571,6 +578,7 @@ __all__ = [
     "DeletedResource",
     "ErrorBody",
     "EventResponse",
+    "ForbiddenError",
     "GetUserPointsResponse",
     "LeaderboardEvent",
     "LeaderboardRanking",
@@ -636,7 +644,10 @@ __all__ = [
     "PointsTriggerType",
     "PointsTriggerUserAttributesItem",
     "RestoreStreaksResponse",
+    "StreakEvaluationModePreference",
     "StreakFrequency",
+    "StreakMetricPreference",
+    "StreakPreferences",
     "StreakResponse",
     "StreakResponseStreakHistoryItem",
     "TrophyApi",

@@ -11,6 +11,7 @@ from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
+from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
@@ -19,6 +20,7 @@ from ..types.get_user_points_response import GetUserPointsResponse
 from ..types.metric_response import MetricResponse
 from ..types.notification_preferences import NotificationPreferences
 from ..types.points_boost import PointsBoost
+from ..types.streak_preferences import StreakPreferences
 from ..types.streak_response import StreakResponse
 from ..types.user import User
 from ..types.user_achievement_with_stats_response import UserAchievementWithStatsResponse
@@ -535,10 +537,11 @@ class RawUsersClient:
         id: str,
         *,
         notifications: typing.Optional[NotificationPreferences] = OMIT,
+        streak: typing.Optional[StreakPreferences] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UserPreferencesResponse]:
         """
-        Update a user's notification preferences.
+        Update a user's notification and streak preferences. Streak preferences require streak customization to be enabled in your Trophy dashboard settings.
 
         Parameters
         ----------
@@ -546,6 +549,8 @@ class RawUsersClient:
             The user's ID in your database.
 
         notifications : typing.Optional[NotificationPreferences]
+
+        streak : typing.Optional[StreakPreferences]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -562,6 +567,9 @@ class RawUsersClient:
             json={
                 "notifications": convert_and_respect_annotation_metadata(
                     object_=notifications, annotation=NotificationPreferences, direction="write"
+                ),
+                "streak": convert_and_respect_annotation_metadata(
+                    object_=streak, annotation=StreakPreferences, direction="write"
                 ),
             },
             headers={
@@ -582,6 +590,17 @@ class RawUsersClient:
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         ErrorBody,
@@ -1963,10 +1982,11 @@ class AsyncRawUsersClient:
         id: str,
         *,
         notifications: typing.Optional[NotificationPreferences] = OMIT,
+        streak: typing.Optional[StreakPreferences] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UserPreferencesResponse]:
         """
-        Update a user's notification preferences.
+        Update a user's notification and streak preferences. Streak preferences require streak customization to be enabled in your Trophy dashboard settings.
 
         Parameters
         ----------
@@ -1974,6 +1994,8 @@ class AsyncRawUsersClient:
             The user's ID in your database.
 
         notifications : typing.Optional[NotificationPreferences]
+
+        streak : typing.Optional[StreakPreferences]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1990,6 +2012,9 @@ class AsyncRawUsersClient:
             json={
                 "notifications": convert_and_respect_annotation_metadata(
                     object_=notifications, annotation=NotificationPreferences, direction="write"
+                ),
+                "streak": convert_and_respect_annotation_metadata(
+                    object_=streak, annotation=StreakPreferences, direction="write"
                 ),
             },
             headers={
@@ -2010,6 +2035,17 @@ class AsyncRawUsersClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        ErrorBody,
+                        parse_obj_as(
+                            type_=ErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         ErrorBody,

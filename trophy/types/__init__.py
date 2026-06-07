@@ -166,7 +166,10 @@ if typing.TYPE_CHECKING:
     from .points_trigger_type import PointsTriggerType
     from .points_trigger_user_attributes_item import PointsTriggerUserAttributesItem
     from .restore_streaks_response import RestoreStreaksResponse
+    from .streak_evaluation_mode_preference import StreakEvaluationModePreference
     from .streak_frequency import StreakFrequency
+    from .streak_metric_preference import StreakMetricPreference
+    from .streak_preferences import StreakPreferences
     from .streak_response import StreakResponse
     from .streak_response_streak_history_item import StreakResponseStreakHistoryItem
     from .update_attribute_request_item import UpdateAttributeRequestItem
@@ -375,7 +378,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PointsTriggerType": ".points_trigger_type",
     "PointsTriggerUserAttributesItem": ".points_trigger_user_attributes_item",
     "RestoreStreaksResponse": ".restore_streaks_response",
+    "StreakEvaluationModePreference": ".streak_evaluation_mode_preference",
     "StreakFrequency": ".streak_frequency",
+    "StreakMetricPreference": ".streak_metric_preference",
+    "StreakPreferences": ".streak_preferences",
     "StreakResponse": ".streak_response",
     "StreakResponseStreakHistoryItem": ".streak_response_streak_history_item",
     "UpdateAttributeRequestItem": ".update_attribute_request_item",
@@ -608,7 +614,10 @@ __all__ = [
     "PointsTriggerType",
     "PointsTriggerUserAttributesItem",
     "RestoreStreaksResponse",
+    "StreakEvaluationModePreference",
     "StreakFrequency",
+    "StreakMetricPreference",
+    "StreakPreferences",
     "StreakResponse",
     "StreakResponseStreakHistoryItem",
     "UpdateAttributeRequestItem",

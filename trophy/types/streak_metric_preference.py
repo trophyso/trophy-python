@@ -4,17 +4,22 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .notification_preferences import NotificationPreferences
-from .streak_preferences import StreakPreferences
 
 
-class UserPreferencesResponse(UniversalBaseModel):
+class StreakMetricPreference(UniversalBaseModel):
     """
-    A user's preferences.
+    Per-metric streak threshold override for a user.
     """
 
-    notifications: NotificationPreferences
-    streak: typing.Optional[StreakPreferences] = None
+    key: str = pydantic.Field()
+    """
+    The metric key.
+    """
+
+    threshold: float = pydantic.Field()
+    """
+    Minimum metric change in a streak period to count toward the streak.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

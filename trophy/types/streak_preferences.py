@@ -12,7 +12,12 @@ from .streak_metric_preference import StreakMetricPreference
 
 class StreakPreferences(UniversalBaseModel):
     """
-    Per-user streak configuration. Requires streak customization to be enabled in dashboard settings.
+    Per-user streak configuration. Metric and evaluation mode overrides require streak customization to be enabled in dashboard settings.
+    """
+
+    enabled: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether streaks are calculated for this user. When false, the user's streak is always 0 and streak webhooks and notifications are not sent.
     """
 
     evaluation_mode: typing_extensions.Annotated[

@@ -21,7 +21,9 @@ class StreakPreferences(UniversalBaseModel):
     """
 
     evaluation_mode: typing_extensions.Annotated[
-        typing.Optional[StreakEvaluationModePreference], FieldMetadata(alias="evaluationMode")
+        typing.Optional[StreakEvaluationModePreference],
+        FieldMetadata(alias="evaluationMode"),
+        pydantic.Field(alias="evaluationMode"),
     ] = None
     metrics: typing.Optional[typing.List[StreakMetricPreference]] = pydantic.Field(default=None)
     """

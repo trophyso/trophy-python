@@ -5,3 +5,6 @@ import typing
 from .created_metric import CreatedMetric
 
 ListMetricsResponse = typing.List[CreatedMetric]
+"""
+A paginated list of metrics.
+"""

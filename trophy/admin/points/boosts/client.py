@@ -67,6 +67,7 @@ class BoostsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -109,6 +110,7 @@ class BoostsClient:
         from trophy import CreatePointsBoostRequestItem, TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -159,10 +161,14 @@ class BoostsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.boosts.delete()
+        client.admin.points.boosts.delete(
+            system_id="550e8400-e29b-41d4-a716-446655440000",
+            ids=["ids"],
+        )
         """
         _response = self._raw_client.delete(system_id, ids=ids, request_options=request_options)
         return _response.data
@@ -197,6 +203,7 @@ class BoostsClient:
         from trophy import PatchPointsBoostsRequestItem, TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -241,6 +248,7 @@ class BoostsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -305,6 +313,7 @@ class AsyncBoostsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -355,6 +364,7 @@ class AsyncBoostsClient:
         from trophy import AsyncTrophyApi, CreatePointsBoostRequestItem
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -413,13 +423,17 @@ class AsyncBoostsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
 
         async def main() -> None:
-            await client.admin.points.boosts.delete()
+            await client.admin.points.boosts.delete(
+                system_id="550e8400-e29b-41d4-a716-446655440000",
+                ids=["ids"],
+            )
 
 
         asyncio.run(main())
@@ -459,6 +473,7 @@ class AsyncBoostsClient:
         from trophy import AsyncTrophyApi, PatchPointsBoostsRequestItem
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -511,6 +526,7 @@ class AsyncBoostsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

@@ -51,19 +51,22 @@ class AdminPointsBoost(UniversalBaseModel):
     How boosted points are rounded.
     """
 
-    user_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="userId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The ID of the user the boost was created for, or null for global/attribute-filtered boosts.
-    """
-
+    user_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="userId"),
+        pydantic.Field(
+            alias="userId",
+            description="The ID of the user the boost was created for, or null for global/attribute-filtered boosts.",
+        ),
+    ] = None
     user_attributes: typing_extensions.Annotated[
-        typing.Optional[typing.List[AdminPointsBoostUserAttributesItem]], FieldMetadata(alias="userAttributes")
-    ] = pydantic.Field(default=None)
-    """
-    User attribute filters applied to the boost. Only present for non-user-specific boosts (i.e. when `userId` is null). Empty array if no filters are set.
-    """
+        typing.Optional[typing.List[AdminPointsBoostUserAttributesItem]],
+        FieldMetadata(alias="userAttributes"),
+        pydantic.Field(
+            alias="userAttributes",
+            description="User attribute filters applied to the boost. Only present for non-user-specific boosts (i.e. when `userId` is null). Empty array if no filters are set.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

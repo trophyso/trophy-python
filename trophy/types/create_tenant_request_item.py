@@ -13,11 +13,13 @@ class CreateTenantRequestItem(UniversalBaseModel):
     A tenant to create.
     """
 
-    customer_id: typing_extensions.Annotated[str, FieldMetadata(alias="customerId")] = pydantic.Field()
-    """
-    The external customer ID. Must be unique within the environment.
-    """
-
+    customer_id: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="customerId"),
+        pydantic.Field(
+            alias="customerId", description="The external customer ID. Must be unique within the environment."
+        ),
+    ]
     name: str = pydantic.Field()
     """
     Human-readable name for the tenant.

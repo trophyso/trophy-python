@@ -36,67 +36,64 @@ class CreatePointsTriggerRequestItem(UniversalBaseModel):
     user_attributes: typing_extensions.Annotated[
         typing.Optional[typing.List[CreatePointsTriggerRequestItemUserAttributesItem]],
         FieldMetadata(alias="userAttributes"),
-    ] = pydantic.Field(default=None)
-    """
-    Optional user attribute filters for the trigger.
-    """
-
-    metric_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricId")] = pydantic.Field(
-        default=None
-    )
-    """
-    Required if type is `metric`. The UUID of the metric.
-    """
-
-    metric_threshold: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="metricThreshold")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Required if type is `metric`. The metric increment that triggers the points.
-    """
-
+        pydantic.Field(alias="userAttributes", description="Optional user attribute filters for the trigger."),
+    ] = None
+    metric_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="metricId"),
+        pydantic.Field(alias="metricId", description="Required if type is `metric`. The UUID of the metric."),
+    ] = None
+    metric_threshold: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="metricThreshold"),
+        pydantic.Field(
+            alias="metricThreshold",
+            description="Required if type is `metric`. The metric increment that triggers the points.",
+        ),
+    ] = None
     event_attributes: typing_extensions.Annotated[
         typing.Optional[typing.List[CreatePointsTriggerRequestItemEventAttributesItem]],
         FieldMetadata(alias="eventAttributes"),
-    ] = pydantic.Field(default=None)
-    """
-    Optional event attribute filters. Only permitted if type is `metric`.
-    """
-
-    achievement_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="achievementId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Required if type is `achievement`. The UUID of the achievement.
-    """
-
-    streak_length: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="streakLength")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Required if type is `streak`. The number of streak periods that triggers the points.
-    """
-
+        pydantic.Field(
+            alias="eventAttributes", description="Optional event attribute filters. Only permitted if type is `metric`."
+        ),
+    ] = None
+    achievement_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="achievementId"),
+        pydantic.Field(
+            alias="achievementId", description="Required if type is `achievement`. The UUID of the achievement."
+        ),
+    ] = None
+    streak_length: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="streakLength"),
+        pydantic.Field(
+            alias="streakLength",
+            description="Required if type is `streak`. The number of streak periods that triggers the points.",
+        ),
+    ] = None
     time_unit: typing_extensions.Annotated[
-        typing.Optional[CreatePointsTriggerRequestItemTimeUnit], FieldMetadata(alias="timeUnit")
-    ] = pydantic.Field(default=None)
-    """
-    Required if type is `time`. The unit for the time interval.
-    """
-
-    time_interval: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="timeInterval")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Required if type is `time`. The number of time units between recurring awards.
-    """
-
+        typing.Optional[CreatePointsTriggerRequestItemTimeUnit],
+        FieldMetadata(alias="timeUnit"),
+        pydantic.Field(alias="timeUnit", description="Required if type is `time`. The unit for the time interval."),
+    ] = None
+    time_interval: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="timeInterval"),
+        pydantic.Field(
+            alias="timeInterval",
+            description="Required if type is `time`. The number of time units between recurring awards.",
+        ),
+    ] = None
     block_if_out_of_points: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="blockIfOutOfPoints")
-    ] = pydantic.Field(default=None)
-    """
-    Whether to block metric events that would reduce the user's points below zero. Defaults to false.
-    """
+        typing.Optional[bool],
+        FieldMetadata(alias="blockIfOutOfPoints"),
+        pydantic.Field(
+            alias="blockIfOutOfPoints",
+            description="Whether to block metric events that would reduce the user's points below zero. Defaults to false.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

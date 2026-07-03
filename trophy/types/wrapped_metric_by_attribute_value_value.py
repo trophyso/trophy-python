@@ -19,33 +19,29 @@ class WrappedMetricByAttributeValueValue(UniversalBaseModel):
     The units of the metric.
     """
 
-    current_total: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="currentTotal")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The current total for this attribute value.
-    """
-
-    change_this_period: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="changeThisPeriod")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The change during the period for this attribute value.
-    """
-
-    percent_change: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="percentChange")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The percentage change for this attribute value.
-    """
-
+    current_total: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="currentTotal"),
+        pydantic.Field(alias="currentTotal", description="The current total for this attribute value."),
+    ] = None
+    change_this_period: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="changeThisPeriod"),
+        pydantic.Field(alias="changeThisPeriod", description="The change during the period for this attribute value."),
+    ] = None
+    percent_change: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="percentChange"),
+        pydantic.Field(alias="percentChange", description="The percentage change for this attribute value."),
+    ] = None
     percentile_this_period: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="percentileThisPeriod")
-    ] = pydantic.Field(default=None)
-    """
-    The user's percentile rank for this attribute value during the period.
-    """
+        typing.Optional[float],
+        FieldMetadata(alias="percentileThisPeriod"),
+        pydantic.Field(
+            alias="percentileThisPeriod",
+            description="The user's percentile rank for this attribute value during the period.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

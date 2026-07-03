@@ -13,27 +13,29 @@ class StreakResponseStreakHistoryItem(UniversalBaseModel):
     An object representing a past streak period.
     """
 
-    period_start: typing_extensions.Annotated[str, FieldMetadata(alias="periodStart")] = pydantic.Field()
-    """
-    The date this streak period started.
-    """
-
-    period_end: typing_extensions.Annotated[str, FieldMetadata(alias="periodEnd")] = pydantic.Field()
-    """
-    The date this streak period ended.
-    """
-
+    period_start: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="periodStart"),
+        pydantic.Field(alias="periodStart", description="The date this streak period started."),
+    ]
+    period_end: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="periodEnd"),
+        pydantic.Field(alias="periodEnd", description="The date this streak period ended."),
+    ]
     length: int = pydantic.Field()
     """
     The length of the user's streak during this period.
     """
 
-    used_freeze: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="usedFreeze")] = pydantic.Field(
-        default=None
-    )
-    """
-    Whether the user used a streak freeze during this period. Only present if the organization has enabled streak freezes.
-    """
+    used_freeze: typing_extensions.Annotated[
+        typing.Optional[bool],
+        FieldMetadata(alias="usedFreeze"),
+        pydantic.Field(
+            alias="usedFreeze",
+            description="Whether the user used a streak freeze during this period. Only present if the organization has enabled streak freezes.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

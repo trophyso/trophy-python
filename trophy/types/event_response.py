@@ -13,16 +13,14 @@ from .user_achievement_response import UserAchievementResponse
 
 
 class EventResponse(UniversalBaseModel):
-    event_id: typing_extensions.Annotated[str, FieldMetadata(alias="eventId")] = pydantic.Field()
-    """
-    The unique ID of the event.
-    """
-
-    metric_id: typing_extensions.Annotated[str, FieldMetadata(alias="metricId")] = pydantic.Field()
-    """
-    The unique ID of the metric that was updated.
-    """
-
+    event_id: typing_extensions.Annotated[
+        str, FieldMetadata(alias="eventId"), pydantic.Field(alias="eventId", description="The unique ID of the event.")
+    ]
+    metric_id: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="metricId"),
+        pydantic.Field(alias="metricId", description="The unique ID of the metric that was updated."),
+    ]
     total: float = pydantic.Field()
     """
     The user's new total progress against the metric.
@@ -33,13 +31,11 @@ class EventResponse(UniversalBaseModel):
     Achievements completed as a result of this event.
     """
 
-    current_streak: typing_extensions.Annotated[MetricEventStreakResponse, FieldMetadata(alias="currentStreak")] = (
-        pydantic.Field()
-    )
-    """
-    The user's current streak.
-    """
-
+    current_streak: typing_extensions.Annotated[
+        MetricEventStreakResponse,
+        FieldMetadata(alias="currentStreak"),
+        pydantic.Field(alias="currentStreak", description="The user's current streak."),
+    ]
     points: typing.Dict[str, MetricEventPointsResponse] = pydantic.Field()
     """
     A map of points systems by key. Only contains points systems that were affected by the event.
@@ -50,19 +46,18 @@ class EventResponse(UniversalBaseModel):
     A map of leaderboards by key. Only contains leaderboards that were affected by the event.
     """
 
-    idempotency_key: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="idempotencyKey")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The idempotency key used for the event, if one was provided.
-    """
-
+    idempotency_key: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="idempotencyKey"),
+        pydantic.Field(
+            alias="idempotencyKey", description="The idempotency key used for the event, if one was provided."
+        ),
+    ] = None
     idempotent_replayed: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="idempotentReplayed")
-    ] = pydantic.Field(default=None)
-    """
-    Whether the event was replayed due to idempotency.
-    """
+        typing.Optional[bool],
+        FieldMetadata(alias="idempotentReplayed"),
+        pydantic.Field(alias="idempotentReplayed", description="Whether the event was replayed due to idempotency."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

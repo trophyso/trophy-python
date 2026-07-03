@@ -11,11 +11,11 @@ from .user_achievement_response import UserAchievementResponse
 
 
 class AchievementCompletionResponse(UniversalBaseModel):
-    completion_id: typing_extensions.Annotated[str, FieldMetadata(alias="completionId")] = pydantic.Field()
-    """
-    The unique ID of the completion.
-    """
-
+    completion_id: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="completionId"),
+        pydantic.Field(alias="completionId", description="The unique ID of the completion."),
+    ]
     achievement: UserAchievementResponse
     points: typing.Dict[str, MetricEventPointsResponse] = pydantic.Field()
     """

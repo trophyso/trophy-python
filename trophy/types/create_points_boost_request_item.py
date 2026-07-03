@@ -15,13 +15,14 @@ class CreatePointsBoostRequestItem(UniversalBaseModel):
     A points boost to create. May optionally target a specific user via `userId` or filter by user attributes via `userAttributes`. These two fields are mutually exclusive.
     """
 
-    user_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="userId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The ID of the user to create a boost for. Mutually exclusive with `userAttributes` — providing `userAttributes` when `userId` is set will result in an error. Omit for a global boost.
-    """
-
+    user_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="userId"),
+        pydantic.Field(
+            alias="userId",
+            description="The ID of the user to create a boost for. Mutually exclusive with `userAttributes` — providing `userAttributes` when `userId` is set will result in an error. Omit for a global boost.",
+        ),
+    ] = None
     name: str = pydantic.Field()
     """
     The name of the boost.
@@ -50,10 +51,11 @@ class CreatePointsBoostRequestItem(UniversalBaseModel):
     user_attributes: typing_extensions.Annotated[
         typing.Optional[typing.List[CreatePointsBoostRequestItemUserAttributesItem]],
         FieldMetadata(alias="userAttributes"),
-    ] = pydantic.Field(default=None)
-    """
-    User attribute filters for the boost. Cannot be provided when `userId` is set.
-    """
+        pydantic.Field(
+            alias="userAttributes",
+            description="User attribute filters for the boost. Cannot be provided when `userId` is set.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

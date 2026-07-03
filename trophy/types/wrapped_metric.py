@@ -24,34 +24,36 @@ class WrappedMetric(UniversalBaseModel):
     The units of the metric.
     """
 
-    current_total: typing_extensions.Annotated[float, FieldMetadata(alias="currentTotal")] = pydantic.Field()
-    """
-    The user's current total for the metric.
-    """
-
-    change_this_period: typing_extensions.Annotated[float, FieldMetadata(alias="changeThisPeriod")] = pydantic.Field()
-    """
-    The change in the metric value during the period.
-    """
-
-    percent_change: typing_extensions.Annotated[float, FieldMetadata(alias="percentChange")] = pydantic.Field()
-    """
-    The percentage change in the metric value during the period.
-    """
-
+    current_total: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="currentTotal"),
+        pydantic.Field(alias="currentTotal", description="The user's current total for the metric."),
+    ]
+    change_this_period: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="changeThisPeriod"),
+        pydantic.Field(alias="changeThisPeriod", description="The change in the metric value during the period."),
+    ]
+    percent_change: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="percentChange"),
+        pydantic.Field(
+            alias="percentChange", description="The percentage change in the metric value during the period."
+        ),
+    ]
     percentile_this_period: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="percentileThisPeriod")
-    ] = pydantic.Field(default=None)
-    """
-    The user's percentile rank for this metric during the period. Only included for weekly, monthly, and yearly aggregation periods.
-    """
-
+        typing.Optional[float],
+        FieldMetadata(alias="percentileThisPeriod"),
+        pydantic.Field(
+            alias="percentileThisPeriod",
+            description="The user's percentile rank for this metric during the period. Only included for weekly, monthly, and yearly aggregation periods.",
+        ),
+    ] = None
     by_attribute: typing_extensions.Annotated[
-        typing.Dict[str, typing.Dict[str, WrappedMetricByAttributeValueValue]], FieldMetadata(alias="byAttribute")
-    ] = pydantic.Field()
-    """
-    Metric data broken down by attribute key and value.
-    """
+        typing.Dict[str, typing.Dict[str, WrappedMetricByAttributeValueValue]],
+        FieldMetadata(alias="byAttribute"),
+        pydantic.Field(alias="byAttribute", description="Metric data broken down by attribute key and value."),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

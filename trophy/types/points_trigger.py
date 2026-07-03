@@ -36,83 +36,89 @@ class PointsTrigger(UniversalBaseModel):
     The status of the trigger.
     """
 
-    achievement_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="achievementId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The unique ID of the achievement associated with this trigger, if the trigger is an achievement.
-    """
-
-    metric_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The unique ID of the metric associated with this trigger, if the trigger is a metric.
-    """
-
-    metric_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricName")] = pydantic.Field(
-        default=None
-    )
-    """
-    If the trigger has type 'metric', the name of the metric
-    """
-
-    metric_threshold: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="metricThreshold")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    If the trigger has type 'metric', the threshold of the metric that triggers the points
-    """
-
+    achievement_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="achievementId"),
+        pydantic.Field(
+            alias="achievementId",
+            description="The unique ID of the achievement associated with this trigger, if the trigger is an achievement.",
+        ),
+    ] = None
+    metric_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="metricId"),
+        pydantic.Field(
+            alias="metricId",
+            description="The unique ID of the metric associated with this trigger, if the trigger is a metric.",
+        ),
+    ] = None
+    metric_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="metricName"),
+        pydantic.Field(alias="metricName", description="If the trigger has type 'metric', the name of the metric"),
+    ] = None
+    metric_threshold: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="metricThreshold"),
+        pydantic.Field(
+            alias="metricThreshold",
+            description="If the trigger has type 'metric', the threshold of the metric that triggers the points",
+        ),
+    ] = None
     streak_length_threshold: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="streakLengthThreshold")
-    ] = pydantic.Field(default=None)
-    """
-    If the trigger has type 'streak', the threshold of the streak that triggers the points
-    """
-
-    achievement_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="achievementName")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    If the trigger has type 'achievement', the name of the achievement
-    """
-
-    time_unit: typing_extensions.Annotated[typing.Optional[PointsTriggerTimeUnit], FieldMetadata(alias="timeUnit")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    If the trigger has type 'time', the unit of time after which to award points
-    """
-
-    time_interval: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="timeInterval")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    If the trigger has type 'time', the numer of units of timeUnit after which to award points
-    """
-
+        typing.Optional[int],
+        FieldMetadata(alias="streakLengthThreshold"),
+        pydantic.Field(
+            alias="streakLengthThreshold",
+            description="If the trigger has type 'streak', the threshold of the streak that triggers the points",
+        ),
+    ] = None
+    achievement_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="achievementName"),
+        pydantic.Field(
+            alias="achievementName", description="If the trigger has type 'achievement', the name of the achievement"
+        ),
+    ] = None
+    time_unit: typing_extensions.Annotated[
+        typing.Optional[PointsTriggerTimeUnit],
+        FieldMetadata(alias="timeUnit"),
+        pydantic.Field(
+            alias="timeUnit", description="If the trigger has type 'time', the unit of time after which to award points"
+        ),
+    ] = None
+    time_interval: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="timeInterval"),
+        pydantic.Field(
+            alias="timeInterval",
+            description="If the trigger has type 'time', the numer of units of timeUnit after which to award points",
+        ),
+    ] = None
     user_attributes: typing_extensions.Annotated[
-        typing.List[PointsTriggerUserAttributesItem], FieldMetadata(alias="userAttributes")
-    ] = pydantic.Field()
-    """
-    User attribute filters that must be met for this trigger to award points. Empty when the trigger has no user attribute filters configured.
-    """
-
+        typing.List[PointsTriggerUserAttributesItem],
+        FieldMetadata(alias="userAttributes"),
+        pydantic.Field(
+            alias="userAttributes",
+            description="User attribute filters that must be met for this trigger to award points. Empty when the trigger has no user attribute filters configured.",
+        ),
+    ]
     event_attribute: typing_extensions.Annotated[
-        typing.Optional[PointsTriggerEventAttribute], FieldMetadata(alias="eventAttribute")
-    ] = pydantic.Field(default=None)
-    """
-    Deprecated. Event attribute filter that must be met for this trigger to award points. Only present if the trigger has an event filter configured.
-    """
-
+        typing.Optional[PointsTriggerEventAttribute],
+        FieldMetadata(alias="eventAttribute"),
+        pydantic.Field(
+            alias="eventAttribute",
+            description="Deprecated. Event attribute filter that must be met for this trigger to award points. Only present if the trigger has an event filter configured.",
+        ),
+    ] = None
     event_attributes: typing_extensions.Annotated[
-        typing.Optional[typing.List[PointsTriggerEventAttributesItem]], FieldMetadata(alias="eventAttributes")
-    ] = pydantic.Field(default=None)
-    """
-    If the trigger has type 'metric', the event attributes that must match for the trigger to award points. Empty when the trigger is metric-based and has no event attribute filters. Omitted for non-metric triggers.
-    """
-
+        typing.Optional[typing.List[PointsTriggerEventAttributesItem]],
+        FieldMetadata(alias="eventAttributes"),
+        pydantic.Field(
+            alias="eventAttributes",
+            description="If the trigger has type 'metric', the event attributes that must match for the trigger to award points. Empty when the trigger is metric-based and has no event attribute filters. Omitted for non-metric triggers.",
+        ),
+    ] = None
     created: dt.datetime = pydantic.Field()
     """
     The date and time the trigger was created, in ISO 8601 format.

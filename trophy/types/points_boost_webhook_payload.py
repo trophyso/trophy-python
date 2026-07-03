@@ -30,28 +30,29 @@ class PointsBoostWebhookPayload(UniversalBaseModel):
     The status of the points boost.
     """
 
-    user_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="userId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The customer-facing user ID that the boost is scoped to, or null for global boosts.
-    """
-
-    points_system_id: typing_extensions.Annotated[str, FieldMetadata(alias="pointsSystemId")] = pydantic.Field()
-    """
-    The ID of the points system this boost applies to.
-    """
-
-    points_system_key: typing_extensions.Annotated[str, FieldMetadata(alias="pointsSystemKey")] = pydantic.Field()
-    """
-    The key of the points system this boost applies to.
-    """
-
-    points_system_name: typing_extensions.Annotated[str, FieldMetadata(alias="pointsSystemName")] = pydantic.Field()
-    """
-    The name of the points system this boost applies to.
-    """
-
+    user_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="userId"),
+        pydantic.Field(
+            alias="userId",
+            description="The customer-facing user ID that the boost is scoped to, or null for global boosts.",
+        ),
+    ] = None
+    points_system_id: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="pointsSystemId"),
+        pydantic.Field(alias="pointsSystemId", description="The ID of the points system this boost applies to."),
+    ]
+    points_system_key: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="pointsSystemKey"),
+        pydantic.Field(alias="pointsSystemKey", description="The key of the points system this boost applies to."),
+    ]
+    points_system_name: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="pointsSystemName"),
+        pydantic.Field(alias="pointsSystemName", description="The name of the points system this boost applies to."),
+    ]
     start: str = pydantic.Field()
     """
     The start date of the points boost (YYYY-MM-DD).

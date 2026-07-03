@@ -16,6 +16,7 @@ if typing.TYPE_CHECKING:
         AchievementWithStatsResponse,
         AdminAttribute,
         AdminAttributeType,
+        AdminErrorBody,
         AdminIssue,
         AdminIssueSeverity,
         AdminLeaderboard,
@@ -221,6 +222,7 @@ if typing.TYPE_CHECKING:
     )
     from .errors import BadRequestError, ForbiddenError, NotFoundError, UnauthorizedError, UnprocessableEntityError
     from . import achievements, admin, leaderboards, metrics, points, streaks, users
+    from ._default_clients import DefaultAioHttpClient, DefaultAsyncHttpxClient
     from .client import AsyncTrophyApi, TrophyApi
     from .environment import TrophyApiEnvironment
     from .leaderboards import LeaderboardsAllResponseItem, LeaderboardsAllResponseItemStatus
@@ -240,6 +242,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AchievementWithStatsResponse": ".types",
     "AdminAttribute": ".types",
     "AdminAttributeType": ".types",
+    "AdminErrorBody": ".types",
     "AdminIssue": ".types",
     "AdminIssueSeverity": ".types",
     "AdminLeaderboard": ".types",
@@ -310,6 +313,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatedAdminPointsSystem": ".types",
     "CreatedMetric": ".types",
     "CreatedMetricUnitType": ".types",
+    "DefaultAioHttpClient": "._default_clients",
+    "DefaultAsyncHttpxClient": "._default_clients",
     "DeleteAttributesResponse": ".types",
     "DeleteLeaderboardsResponse": ".types",
     "DeleteMetricsResponse": ".types",
@@ -497,6 +502,7 @@ __all__ = [
     "AchievementWithStatsResponse",
     "AdminAttribute",
     "AdminAttributeType",
+    "AdminErrorBody",
     "AdminIssue",
     "AdminIssueSeverity",
     "AdminLeaderboard",
@@ -567,6 +573,8 @@ __all__ = [
     "CreatedAdminPointsSystem",
     "CreatedMetric",
     "CreatedMetricUnitType",
+    "DefaultAioHttpClient",
+    "DefaultAsyncHttpxClient",
     "DeleteAttributesResponse",
     "DeleteLeaderboardsResponse",
     "DeleteMetricsResponse",

@@ -63,6 +63,7 @@ class MetricsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -97,6 +98,7 @@ class MetricsClient:
         from trophy import CreateMetricRequestItem, TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -145,10 +147,16 @@ class MetricsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
-        client.admin.metrics.delete()
+        client.admin.metrics.delete(
+            ids=[
+                "550e8400-e29b-41d4-a716-446655440000",
+                "550e8400-e29b-41d4-a716-446655440001",
+            ],
+        )
         """
         _response = self._raw_client.delete(ids=ids, request_options=request_options)
         return _response.data
@@ -176,6 +184,7 @@ class MetricsClient:
         from trophy import TrophyApi, UpdateMetricRequestItem
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -219,6 +228,7 @@ class MetricsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -278,6 +288,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -320,6 +331,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi, CreateMetricRequestItem
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -376,13 +388,19 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
 
         async def main() -> None:
-            await client.admin.metrics.delete()
+            await client.admin.metrics.delete(
+                ids=[
+                    "550e8400-e29b-41d4-a716-446655440000",
+                    "550e8400-e29b-41d4-a716-446655440001",
+                ],
+            )
 
 
         asyncio.run(main())
@@ -415,6 +433,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi, UpdateMetricRequestItem
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -466,6 +485,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

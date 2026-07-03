@@ -5,3 +5,6 @@ import typing
 from .update_leaderboard_request_item import UpdateLeaderboardRequestItem
 
 UpdateLeaderboardsRequest = typing.List[UpdateLeaderboardRequestItem]
+"""
+Request body for updating leaderboards.
+"""

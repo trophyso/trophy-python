@@ -14,20 +14,18 @@ class AdminIssue(UniversalBaseModel):
     An issue encountered while processing an item in an admin API request.
     """
 
-    user_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="userId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The ID of the user the issue relates to, when applicable.
-    """
-
-    boost_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="boostId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The ID of the points boost the issue relates to, when applicable.
-    """
-
+    user_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="userId"),
+        pydantic.Field(alias="userId", description="The ID of the user the issue relates to, when applicable."),
+    ] = None
+    boost_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="boostId"),
+        pydantic.Field(
+            alias="boostId", description="The ID of the points boost the issue relates to, when applicable."
+        ),
+    ] = None
     index: typing.Optional[int] = pydantic.Field(default=None)
     """
     The zero-based index of the item the issue relates to, when no resource ID exists yet.

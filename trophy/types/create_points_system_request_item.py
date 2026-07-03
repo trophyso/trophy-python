@@ -37,13 +37,11 @@ class CreatePointsSystemRequestItem(UniversalBaseModel):
     An optional badge for the points system.
     """
 
-    max_points: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="maxPoints")] = pydantic.Field(
-        default=None
-    )
-    """
-    Optional maximum points a user can earn.
-    """
-
+    max_points: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="maxPoints"),
+        pydantic.Field(alias="maxPoints", description="Optional maximum points a user can earn."),
+    ] = None
     levels: typing.Optional[typing.List[CreatePointsLevelRequestItem]] = pydantic.Field(default=None)
     """
     Optional array of levels to create alongside the system.

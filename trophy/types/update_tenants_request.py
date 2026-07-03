@@ -5,3 +5,6 @@ import typing
 from .update_tenant_request_item import UpdateTenantRequestItem
 
 UpdateTenantsRequest = typing.List[UpdateTenantRequestItem]
+"""
+Request body for updating tenants.
+"""

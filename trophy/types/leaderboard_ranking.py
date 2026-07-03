@@ -13,18 +13,14 @@ class LeaderboardRanking(UniversalBaseModel):
     A user's ranking in a leaderboard.
     """
 
-    user_id: typing_extensions.Annotated[str, FieldMetadata(alias="userId")] = pydantic.Field()
-    """
-    The ID of the user.
-    """
-
-    user_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="userName")] = pydantic.Field(
-        default=None
-    )
-    """
-    The name of the user. May be null if no name is set.
-    """
-
+    user_id: typing_extensions.Annotated[
+        str, FieldMetadata(alias="userId"), pydantic.Field(alias="userId", description="The ID of the user.")
+    ]
+    user_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="userName"),
+        pydantic.Field(alias="userName", description="The name of the user. May be null if no name is set."),
+    ] = None
     rank: int = pydantic.Field()
     """
     The user's rank in the leaderboard.

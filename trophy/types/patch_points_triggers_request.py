@@ -5,3 +5,6 @@ import typing
 from .patch_points_triggers_request_item import PatchPointsTriggersRequestItem
 
 PatchPointsTriggersRequest = typing.List[PatchPointsTriggersRequestItem]
+"""
+Array of points trigger patches. Maximum 100 per request.
+"""

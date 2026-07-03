@@ -45,12 +45,11 @@ class AdminPointsSystem(UniversalBaseModel):
     The badge for the points system.
     """
 
-    max_points: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="maxPoints")] = pydantic.Field(
-        default=None
-    )
-    """
-    The maximum points a user can earn.
-    """
+    max_points: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="maxPoints"),
+        pydantic.Field(alias="maxPoints", description="The maximum points a user can earn."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

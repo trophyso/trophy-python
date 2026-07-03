@@ -25,12 +25,10 @@ class CreateMetricRequestItem(UniversalBaseModel):
     """
 
     unit_type: typing_extensions.Annotated[
-        typing.Optional[CreateMetricRequestItemUnitType], FieldMetadata(alias="unitType")
-    ] = pydantic.Field(default=None)
-    """
-    The metric unit type. Defaults to `number`.
-    """
-
+        typing.Optional[CreateMetricRequestItemUnitType],
+        FieldMetadata(alias="unitType"),
+        pydantic.Field(alias="unitType", description="The metric unit type. Defaults to `number`."),
+    ] = None
     units: typing.Optional[str] = pydantic.Field(default=None)
     """
     For `unitType: currency`, this must be a supported `MetricCurrency` code such as `USD`. For `number`, this is an optional freeform unit label.

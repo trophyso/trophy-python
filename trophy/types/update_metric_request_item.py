@@ -25,12 +25,10 @@ class UpdateMetricRequestItem(UniversalBaseModel):
     """
 
     unit_type: typing_extensions.Annotated[
-        typing.Optional[UpdateMetricRequestItemUnitType], FieldMetadata(alias="unitType")
-    ] = pydantic.Field(default=None)
-    """
-    The updated metric unit type.
-    """
-
+        typing.Optional[UpdateMetricRequestItemUnitType],
+        FieldMetadata(alias="unitType"),
+        pydantic.Field(alias="unitType", description="The updated metric unit type."),
+    ] = None
     units: typing.Optional[str] = pydantic.Field(default=None)
     """
     The updated units value. For `unitType: currency`, this must be a supported `MetricCurrency` code such as `USD`.

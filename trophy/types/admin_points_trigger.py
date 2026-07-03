@@ -39,67 +39,58 @@ class AdminPointsTrigger(UniversalBaseModel):
     """
 
     user_attributes: typing_extensions.Annotated[
-        typing.List[AdminPointsTriggerUserAttributesItem], FieldMetadata(alias="userAttributes")
-    ] = pydantic.Field()
-    """
-    User attribute filters applied to the trigger.
-    """
-
-    metric_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The UUID of the metric. Only present for metric triggers.
-    """
-
-    metric_threshold: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="metricThreshold")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The metric threshold. Only present for metric triggers.
-    """
-
+        typing.List[AdminPointsTriggerUserAttributesItem],
+        FieldMetadata(alias="userAttributes"),
+        pydantic.Field(alias="userAttributes", description="User attribute filters applied to the trigger."),
+    ]
+    metric_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="metricId"),
+        pydantic.Field(alias="metricId", description="The UUID of the metric. Only present for metric triggers."),
+    ] = None
+    metric_threshold: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="metricThreshold"),
+        pydantic.Field(alias="metricThreshold", description="The metric threshold. Only present for metric triggers."),
+    ] = None
     event_attributes: typing_extensions.Annotated[
-        typing.Optional[typing.List[AdminPointsTriggerEventAttributesItem]], FieldMetadata(alias="eventAttributes")
-    ] = pydantic.Field(default=None)
-    """
-    Event attribute filters applied to the trigger. Only present for metric triggers.
-    """
-
-    achievement_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="achievementId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The UUID of the achievement. Only present for achievement triggers.
-    """
-
-    streak_length: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="streakLength")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The streak length. Only present for streak triggers.
-    """
-
+        typing.Optional[typing.List[AdminPointsTriggerEventAttributesItem]],
+        FieldMetadata(alias="eventAttributes"),
+        pydantic.Field(
+            alias="eventAttributes",
+            description="Event attribute filters applied to the trigger. Only present for metric triggers.",
+        ),
+    ] = None
+    achievement_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="achievementId"),
+        pydantic.Field(
+            alias="achievementId", description="The UUID of the achievement. Only present for achievement triggers."
+        ),
+    ] = None
+    streak_length: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="streakLength"),
+        pydantic.Field(alias="streakLength", description="The streak length. Only present for streak triggers."),
+    ] = None
     time_unit: typing_extensions.Annotated[
-        typing.Optional[AdminPointsTriggerTimeUnit], FieldMetadata(alias="timeUnit")
-    ] = pydantic.Field(default=None)
-    """
-    The time unit. Only present for time triggers.
-    """
-
-    time_interval: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="timeInterval")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The time interval. Only present for time triggers.
-    """
-
-    block_if_out_of_points: typing_extensions.Annotated[bool, FieldMetadata(alias="blockIfOutOfPoints")] = (
-        pydantic.Field()
-    )
-    """
-    Whether metric events that would reduce the user's points below zero are blocked.
-    """
+        typing.Optional[AdminPointsTriggerTimeUnit],
+        FieldMetadata(alias="timeUnit"),
+        pydantic.Field(alias="timeUnit", description="The time unit. Only present for time triggers."),
+    ] = None
+    time_interval: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="timeInterval"),
+        pydantic.Field(alias="timeInterval", description="The time interval. Only present for time triggers."),
+    ] = None
+    block_if_out_of_points: typing_extensions.Annotated[
+        bool,
+        FieldMetadata(alias="blockIfOutOfPoints"),
+        pydantic.Field(
+            alias="blockIfOutOfPoints",
+            description="Whether metric events that would reduce the user's points below zero are blocked.",
+        ),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

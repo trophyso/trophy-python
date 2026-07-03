@@ -33,19 +33,18 @@ class PointsResponse(UniversalBaseModel):
     The description of the points system
     """
 
-    badge_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="badgeUrl")] = pydantic.Field(
-        default=None
-    )
-    """
-    The URL of the badge image for the points system
-    """
-
-    max_points: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="maxPoints")] = pydantic.Field(
-        default=None
-    )
-    """
-    The maximum number of points a user can be awarded in this points system
-    """
+    badge_url: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="badgeUrl"),
+        pydantic.Field(alias="badgeUrl", description="The URL of the badge image for the points system"),
+    ] = None
+    max_points: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="maxPoints"),
+        pydantic.Field(
+            alias="maxPoints", description="The maximum number of points a user can be awarded in this points system"
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

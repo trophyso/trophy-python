@@ -42,33 +42,28 @@ class UpdateLeaderboardRequestItem(UniversalBaseModel):
     """
 
     rank_by: typing_extensions.Annotated[
-        typing.Optional[UpdateLeaderboardRequestItemRankBy], FieldMetadata(alias="rankBy")
-    ] = pydantic.Field(default=None)
-    """
-    The updated ranking criterion. This can only be changed while the leaderboard is inactive.
-    """
-
-    metric_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The metric ID to use when `rankBy` is `metric`.
-    """
-
-    points_system_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="pointsSystemId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The points system ID to use when `rankBy` is `points`.
-    """
-
-    max_participants: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="maxParticipants")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The updated maximum number of participants.
-    """
-
+        typing.Optional[UpdateLeaderboardRequestItemRankBy],
+        FieldMetadata(alias="rankBy"),
+        pydantic.Field(
+            alias="rankBy",
+            description="The updated ranking criterion. This can only be changed while the leaderboard is inactive.",
+        ),
+    ] = None
+    metric_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="metricId"),
+        pydantic.Field(alias="metricId", description="The metric ID to use when `rankBy` is `metric`."),
+    ] = None
+    points_system_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="pointsSystemId"),
+        pydantic.Field(alias="pointsSystemId", description="The points system ID to use when `rankBy` is `points`."),
+    ] = None
+    max_participants: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="maxParticipants"),
+        pydantic.Field(alias="maxParticipants", description="The updated maximum number of participants."),
+    ] = None
     start: typing.Optional[str] = pydantic.Field(default=None)
     """
     The updated start date in YYYY-MM-DD format.
@@ -80,25 +75,20 @@ class UpdateLeaderboardRequestItem(UniversalBaseModel):
     """
 
     breakdown_attributes: typing_extensions.Annotated[
-        typing.Optional[typing.List[str]], FieldMetadata(alias="breakdownAttributes")
-    ] = pydantic.Field(default=None)
-    """
-    The updated breakdown attribute UUIDs.
-    """
-
+        typing.Optional[typing.List[str]],
+        FieldMetadata(alias="breakdownAttributes"),
+        pydantic.Field(alias="breakdownAttributes", description="The updated breakdown attribute UUIDs."),
+    ] = None
     run_unit: typing_extensions.Annotated[
-        typing.Optional[UpdateLeaderboardRequestItemRunUnit], FieldMetadata(alias="runUnit")
-    ] = pydantic.Field(default=None)
-    """
-    The updated recurrence unit.
-    """
-
-    run_interval: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="runInterval")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The updated recurrence interval.
-    """
+        typing.Optional[UpdateLeaderboardRequestItemRunUnit],
+        FieldMetadata(alias="runUnit"),
+        pydantic.Field(alias="runUnit", description="The updated recurrence unit."),
+    ] = None
+    run_interval: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="runInterval"),
+        pydantic.Field(alias="runInterval", description="The updated recurrence interval."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

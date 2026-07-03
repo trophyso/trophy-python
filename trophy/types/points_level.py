@@ -33,13 +33,11 @@ class PointsLevel(UniversalBaseModel):
     The description of the level
     """
 
-    badge_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="badgeUrl")] = pydantic.Field(
-        default=None
-    )
-    """
-    The URL of the badge image for the level
-    """
-
+    badge_url: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="badgeUrl"),
+        pydantic.Field(alias="badgeUrl", description="The URL of the badge image for the level"),
+    ] = None
     points: int = pydantic.Field()
     """
     The points threshold required to reach this level

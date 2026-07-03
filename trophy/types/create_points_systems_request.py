@@ -5,3 +5,6 @@ import typing
 from .create_points_system_request_item import CreatePointsSystemRequestItem
 
 CreatePointsSystemsRequest = typing.List[CreatePointsSystemRequestItem]
+"""
+Request body for creating points systems.
+"""

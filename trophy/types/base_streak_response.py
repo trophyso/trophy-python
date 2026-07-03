@@ -25,20 +25,16 @@ class BaseStreakResponse(UniversalBaseModel):
     The date the streak started.
     """
 
-    period_start: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="periodStart")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The start date of the current streak period.
-    """
-
-    period_end: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="periodEnd")] = pydantic.Field(
-        default=None
-    )
-    """
-    The end date of the current streak period.
-    """
-
+    period_start: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="periodStart"),
+        pydantic.Field(alias="periodStart", description="The start date of the current streak period."),
+    ] = None
+    period_end: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="periodEnd"),
+        pydantic.Field(alias="periodEnd", description="The end date of the current streak period."),
+    ] = None
     expires: typing.Optional[str] = pydantic.Field(default=None)
     """
     The date the streak will expire if the user does not increment a metric.
@@ -49,26 +45,30 @@ class BaseStreakResponse(UniversalBaseModel):
     The number of available streak freezes. Only present if the organization has enabled streak freezes.
     """
 
-    max_freezes: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="maxFreezes")] = pydantic.Field(
-        default=None
-    )
-    """
-    The maximum number of streak freezes a user can have. Only present if the organization has enabled streak freezes.
-    """
-
+    max_freezes: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="maxFreezes"),
+        pydantic.Field(
+            alias="maxFreezes",
+            description="The maximum number of streak freezes a user can have. Only present if the organization has enabled streak freezes.",
+        ),
+    ] = None
     freeze_auto_earn_interval: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="freezeAutoEarnInterval")
-    ] = pydantic.Field(default=None)
-    """
-    The interval at which the user will earn streak freezes, in days. Only present if the organization has enabled streak freeze auto-earn.
-    """
-
+        typing.Optional[int],
+        FieldMetadata(alias="freezeAutoEarnInterval"),
+        pydantic.Field(
+            alias="freezeAutoEarnInterval",
+            description="The interval at which the user will earn streak freezes, in days. Only present if the organization has enabled streak freeze auto-earn.",
+        ),
+    ] = None
     freeze_auto_earn_amount: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="freezeAutoEarnAmount")
-    ] = pydantic.Field(default=None)
-    """
-    The amount of streak freezes the user will earn per interval. Only present if the organization has enabled streak freeze auto-earn.
-    """
+        typing.Optional[int],
+        FieldMetadata(alias="freezeAutoEarnAmount"),
+        pydantic.Field(
+            alias="freezeAutoEarnAmount",
+            description="The amount of streak freezes the user will earn per interval. Only present if the organization has enabled streak freeze auto-earn.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

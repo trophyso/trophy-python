@@ -37,67 +37,55 @@ class PatchPointsTriggersRequestItem(UniversalBaseModel):
     user_attributes: typing_extensions.Annotated[
         typing.Optional[typing.List[PatchPointsTriggersRequestItemUserAttributesItem]],
         FieldMetadata(alias="userAttributes"),
-    ] = pydantic.Field(default=None)
-    """
-    Updated user attribute filters. Set to null to clear.
-    """
-
-    metric_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricId")] = pydantic.Field(
-        default=None
-    )
-    """
-    Updated metric ID. Only permitted for metric triggers.
-    """
-
-    metric_threshold: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="metricThreshold")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Updated metric threshold. Only permitted for metric triggers.
-    """
-
+        pydantic.Field(alias="userAttributes", description="Updated user attribute filters. Set to null to clear."),
+    ] = None
+    metric_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="metricId"),
+        pydantic.Field(alias="metricId", description="Updated metric ID. Only permitted for metric triggers."),
+    ] = None
+    metric_threshold: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="metricThreshold"),
+        pydantic.Field(
+            alias="metricThreshold", description="Updated metric threshold. Only permitted for metric triggers."
+        ),
+    ] = None
     event_attributes: typing_extensions.Annotated[
         typing.Optional[typing.List[PatchPointsTriggersRequestItemEventAttributesItem]],
         FieldMetadata(alias="eventAttributes"),
-    ] = pydantic.Field(default=None)
-    """
-    Updated event attribute filters. Only permitted for metric triggers. Set to null to clear.
-    """
-
-    achievement_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="achievementId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Updated achievement ID. Only permitted for achievement triggers.
-    """
-
-    streak_length: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="streakLength")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Updated streak length. Only permitted for streak triggers.
-    """
-
+        pydantic.Field(
+            alias="eventAttributes",
+            description="Updated event attribute filters. Only permitted for metric triggers. Set to null to clear.",
+        ),
+    ] = None
+    achievement_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="achievementId"),
+        pydantic.Field(
+            alias="achievementId", description="Updated achievement ID. Only permitted for achievement triggers."
+        ),
+    ] = None
+    streak_length: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="streakLength"),
+        pydantic.Field(alias="streakLength", description="Updated streak length. Only permitted for streak triggers."),
+    ] = None
     time_unit: typing_extensions.Annotated[
-        typing.Optional[PatchPointsTriggersRequestItemTimeUnit], FieldMetadata(alias="timeUnit")
-    ] = pydantic.Field(default=None)
-    """
-    Updated time unit. Only permitted for time triggers.
-    """
-
-    time_interval: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="timeInterval")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Updated time interval. Only permitted for time triggers.
-    """
-
+        typing.Optional[PatchPointsTriggersRequestItemTimeUnit],
+        FieldMetadata(alias="timeUnit"),
+        pydantic.Field(alias="timeUnit", description="Updated time unit. Only permitted for time triggers."),
+    ] = None
+    time_interval: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="timeInterval"),
+        pydantic.Field(alias="timeInterval", description="Updated time interval. Only permitted for time triggers."),
+    ] = None
     block_if_out_of_points: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="blockIfOutOfPoints")
-    ] = pydantic.Field(default=None)
-    """
-    Updated block-if-out-of-points setting.
-    """
+        typing.Optional[bool],
+        FieldMetadata(alias="blockIfOutOfPoints"),
+        pydantic.Field(alias="blockIfOutOfPoints", description="Updated block-if-out-of-points setting."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

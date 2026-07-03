@@ -5,3 +5,6 @@ import typing
 from .create_attribute_request_item import CreateAttributeRequestItem
 
 CreateAttributesRequest = typing.List[CreateAttributeRequestItem]
+"""
+Request body for creating attributes.
+"""

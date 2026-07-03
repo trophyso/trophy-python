@@ -5,3 +5,6 @@ import typing
 from .points_range import PointsRange
 
 PointsSummaryResponse = typing.List[PointsRange]
+"""
+A list of eleven points ranges, with the first starting and ending at 0, and the remaining 10 being calculated as 10 equally sized ranges from 1 to the greatest number of points a user has, rounded up to the nearest power of 10.
+"""

@@ -24,33 +24,35 @@ class MetricEventLeaderboardResponse(UniversalBaseModel):
     The user's rank in the leaderboard, or null if the user is not on the leaderboard.
     """
 
-    previous_rank: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="previousRank")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The user's rank in the leaderboard before the event, or null if the user was not on the leaderboard before the event.
-    """
-
+    previous_rank: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="previousRank"),
+        pydantic.Field(
+            alias="previousRank",
+            description="The user's rank in the leaderboard before the event, or null if the user was not on the leaderboard before the event.",
+        ),
+    ] = None
     threshold: int = pydantic.Field()
     """
     The minimum value required to enter the leaderboard according to its current rankings.
     """
 
     breakdown_attribute_value: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="breakdownAttributeValue")
-    ] = pydantic.Field(default=None)
-    """
-    Deprecated. For leaderboards with a single breakdown attribute, the value of that attribute for the user.
-    """
-
+        typing.Optional[str],
+        FieldMetadata(alias="breakdownAttributeValue"),
+        pydantic.Field(
+            alias="breakdownAttributeValue",
+            description="Deprecated. For leaderboards with a single breakdown attribute, the value of that attribute for the user.",
+        ),
+    ] = None
     breakdown_attribute_values: typing_extensions.Annotated[
         typing.Optional[typing.List[MetricEventLeaderboardResponseBreakdownAttributeValuesItem]],
         FieldMetadata(alias="breakdownAttributeValues"),
-    ] = pydantic.Field(default=None)
-    """
-    For leaderboards with breakdown attributes, the user's values for each breakdown attribute.
-    """
-
+        pydantic.Field(
+            alias="breakdownAttributeValues",
+            description="For leaderboards with breakdown attributes, the user's values for each breakdown attribute.",
+        ),
+    ] = None
     id: str = pydantic.Field()
     """
     The unique ID of the leaderboard.
@@ -66,53 +68,50 @@ class MetricEventLeaderboardResponse(UniversalBaseModel):
     The unique key used to reference the leaderboard in APIs.
     """
 
-    rank_by: typing_extensions.Annotated[LeaderboardResponseRankBy, FieldMetadata(alias="rankBy")] = pydantic.Field()
-    """
-    What the leaderboard ranks by.
-    """
-
+    rank_by: typing_extensions.Annotated[
+        LeaderboardResponseRankBy,
+        FieldMetadata(alias="rankBy"),
+        pydantic.Field(alias="rankBy", description="What the leaderboard ranks by."),
+    ]
     breakdown_attribute: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="breakdownAttribute")
-    ] = pydantic.Field(default=None)
-    """
-    Deprecated. The key of the attribute to break down this leaderboard by.
-    """
-
-    breakdown_attributes: typing_extensions.Annotated[typing.List[str], FieldMetadata(alias="breakdownAttributes")] = (
-        pydantic.Field()
-    )
-    """
-    The user attribute keys that this leaderboard is broken down by.
-    """
-
-    metric_key: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricKey")] = pydantic.Field(
-        default=None
-    )
-    """
-    The key of the metric to rank by, if rankBy is 'metric'.
-    """
-
-    metric_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricName")] = pydantic.Field(
-        default=None
-    )
-    """
-    The name of the metric to rank by, if rankBy is 'metric'.
-    """
-
-    points_system_key: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="pointsSystemKey")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The key of the points system to rank by, if rankBy is 'points'.
-    """
-
-    points_system_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="pointsSystemName")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The name of the points system to rank by, if rankBy is 'points'.
-    """
-
+        typing.Optional[str],
+        FieldMetadata(alias="breakdownAttribute"),
+        pydantic.Field(
+            alias="breakdownAttribute",
+            description="Deprecated. The key of the attribute to break down this leaderboard by.",
+        ),
+    ] = None
+    breakdown_attributes: typing_extensions.Annotated[
+        typing.List[str],
+        FieldMetadata(alias="breakdownAttributes"),
+        pydantic.Field(
+            alias="breakdownAttributes", description="The user attribute keys that this leaderboard is broken down by."
+        ),
+    ]
+    metric_key: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="metricKey"),
+        pydantic.Field(alias="metricKey", description="The key of the metric to rank by, if rankBy is 'metric'."),
+    ] = None
+    metric_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="metricName"),
+        pydantic.Field(alias="metricName", description="The name of the metric to rank by, if rankBy is 'metric'."),
+    ] = None
+    points_system_key: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="pointsSystemKey"),
+        pydantic.Field(
+            alias="pointsSystemKey", description="The key of the points system to rank by, if rankBy is 'points'."
+        ),
+    ] = None
+    points_system_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="pointsSystemName"),
+        pydantic.Field(
+            alias="pointsSystemName", description="The name of the points system to rank by, if rankBy is 'points'."
+        ),
+    ] = None
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The user-facing description of the leaderboard.
@@ -123,26 +122,27 @@ class MetricEventLeaderboardResponse(UniversalBaseModel):
     The start date of the leaderboard in YYYY-MM-DD format.
     """
 
-    max_participants: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="maxParticipants")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The maximum number of participants in the leaderboard.
-    """
-
+    max_participants: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="maxParticipants"),
+        pydantic.Field(alias="maxParticipants", description="The maximum number of participants in the leaderboard."),
+    ] = None
     run_unit: typing_extensions.Annotated[
-        typing.Optional[LeaderboardResponseRunUnit], FieldMetadata(alias="runUnit")
-    ] = pydantic.Field(default=None)
-    """
-    The repetition type for recurring leaderboards, or null for one-time leaderboards.
-    """
-
-    run_interval: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="runInterval")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The interval between repetitions, relative to the start date and repetition type. Null for one-time leaderboards.
-    """
+        typing.Optional[LeaderboardResponseRunUnit],
+        FieldMetadata(alias="runUnit"),
+        pydantic.Field(
+            alias="runUnit",
+            description="The repetition type for recurring leaderboards, or null for one-time leaderboards.",
+        ),
+    ] = None
+    run_interval: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="runInterval"),
+        pydantic.Field(
+            alias="runInterval",
+            description="The interval between repetitions, relative to the start date and repetition type. Null for one-time leaderboards.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

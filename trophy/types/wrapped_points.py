@@ -23,27 +23,29 @@ class WrappedPoints(UniversalBaseModel):
     The description of the points system.
     """
 
-    current_total: typing_extensions.Annotated[float, FieldMetadata(alias="currentTotal")] = pydantic.Field()
-    """
-    The user's current total points.
-    """
-
-    change_this_period: typing_extensions.Annotated[float, FieldMetadata(alias="changeThisPeriod")] = pydantic.Field()
-    """
-    The change in points during the period.
-    """
-
-    percent_change: typing_extensions.Annotated[float, FieldMetadata(alias="percentChange")] = pydantic.Field()
-    """
-    The percentage change in points during the period.
-    """
-
+    current_total: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="currentTotal"),
+        pydantic.Field(alias="currentTotal", description="The user's current total points."),
+    ]
+    change_this_period: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="changeThisPeriod"),
+        pydantic.Field(alias="changeThisPeriod", description="The change in points during the period."),
+    ]
+    percent_change: typing_extensions.Annotated[
+        float,
+        FieldMetadata(alias="percentChange"),
+        pydantic.Field(alias="percentChange", description="The percentage change in points during the period."),
+    ]
     percentile_this_period: typing_extensions.Annotated[
-        typing.Optional[float], FieldMetadata(alias="percentileThisPeriod")
-    ] = pydantic.Field(default=None)
-    """
-    The user's percentile rank for this points system during the period. Only included for weekly, monthly, and yearly aggregation periods.
-    """
+        typing.Optional[float],
+        FieldMetadata(alias="percentileThisPeriod"),
+        pydantic.Field(
+            alias="percentileThisPeriod",
+            description="The user's percentile rank for this points system during the period. Only included for weekly, monthly, and yearly aggregation periods.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

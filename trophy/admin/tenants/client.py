@@ -63,6 +63,7 @@ class TenantsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -97,6 +98,7 @@ class TenantsClient:
         from trophy import CreateTenantRequestItem, TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -143,10 +145,16 @@ class TenantsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
-        client.admin.tenants.delete()
+        client.admin.tenants.delete(
+            ids=[
+                "550e8400-e29b-41d4-a716-446655440000",
+                "550e8400-e29b-41d4-a716-446655440001",
+            ],
+        )
         """
         _response = self._raw_client.delete(ids=ids, request_options=request_options)
         return _response.data
@@ -174,6 +182,7 @@ class TenantsClient:
         from trophy import TrophyApi, UpdateTenantRequestItem
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -211,6 +220,7 @@ class TenantsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -270,6 +280,7 @@ class AsyncTenantsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -312,6 +323,7 @@ class AsyncTenantsClient:
         from trophy import AsyncTrophyApi, CreateTenantRequestItem
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -366,13 +378,19 @@ class AsyncTenantsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
 
         async def main() -> None:
-            await client.admin.tenants.delete()
+            await client.admin.tenants.delete(
+                ids=[
+                    "550e8400-e29b-41d4-a716-446655440000",
+                    "550e8400-e29b-41d4-a716-446655440001",
+                ],
+            )
 
 
         asyncio.run(main())
@@ -405,6 +423,7 @@ class AsyncTenantsClient:
         from trophy import AsyncTrophyApi, UpdateTenantRequestItem
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -450,6 +469,7 @@ class AsyncTenantsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

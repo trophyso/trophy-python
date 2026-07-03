@@ -63,6 +63,7 @@ class SystemsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -101,6 +102,7 @@ class SystemsClient:
         )
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -156,10 +158,13 @@ class SystemsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.systems.delete()
+        client.admin.points.systems.delete(
+            ids=["550e8400-e29b-41d4-a716-446655440000"],
+        )
         """
         _response = self._raw_client.delete(ids=ids, request_options=request_options)
         return _response.data
@@ -187,6 +192,7 @@ class SystemsClient:
         from trophy import TrophyApi, UpdatePointsSystemRequestItem
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -224,6 +230,7 @@ class SystemsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -283,6 +290,7 @@ class AsyncSystemsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -329,6 +337,7 @@ class AsyncSystemsClient:
         )
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -392,13 +401,16 @@ class AsyncSystemsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
 
         async def main() -> None:
-            await client.admin.points.systems.delete()
+            await client.admin.points.systems.delete(
+                ids=["550e8400-e29b-41d4-a716-446655440000"],
+            )
 
 
         asyncio.run(main())
@@ -431,6 +443,7 @@ class AsyncSystemsClient:
         from trophy import AsyncTrophyApi, UpdatePointsSystemRequestItem
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -476,6 +489,7 @@ class AsyncSystemsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

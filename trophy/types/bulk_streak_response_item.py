@@ -9,16 +9,14 @@ from ..core.serialization import FieldMetadata
 
 
 class BulkStreakResponseItem(UniversalBaseModel):
-    user_id: typing_extensions.Annotated[str, FieldMetadata(alias="userId")] = pydantic.Field()
-    """
-    The ID of the user.
-    """
-
-    streak_length: typing_extensions.Annotated[int, FieldMetadata(alias="streakLength")] = pydantic.Field()
-    """
-    The length of the user's streak.
-    """
-
+    user_id: typing_extensions.Annotated[
+        str, FieldMetadata(alias="userId"), pydantic.Field(alias="userId", description="The ID of the user.")
+    ]
+    streak_length: typing_extensions.Annotated[
+        int,
+        FieldMetadata(alias="streakLength"),
+        pydantic.Field(alias="streakLength", description="The length of the user's streak."),
+    ]
     extended: typing.Optional[str] = pydantic.Field(default=None)
     """
     The timestamp the streak was extended, as a string. Null if the streak is not active.

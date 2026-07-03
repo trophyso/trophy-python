@@ -11,12 +11,14 @@ from .achievement_response import AchievementResponse
 
 
 class UserAchievementResponse(AchievementResponse):
-    achieved_at: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="achievedAt")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The date and time the achievement was completed, in ISO 8601 format. Null if the achievement has not been completed.
-    """
+    achieved_at: typing_extensions.Annotated[
+        typing.Optional[dt.datetime],
+        FieldMetadata(alias="achievedAt"),
+        pydantic.Field(
+            alias="achievedAt",
+            description="The date and time the achievement was completed, in ISO 8601 format. Null if the achievement has not been completed.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

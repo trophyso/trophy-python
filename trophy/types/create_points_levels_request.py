@@ -5,3 +5,6 @@ import typing
 from .create_points_level_request_item import CreatePointsLevelRequestItem
 
 CreatePointsLevelsRequest = typing.List[CreatePointsLevelRequestItem]
+"""
+Array of points levels to create. Maximum 100 levels per request.
+"""

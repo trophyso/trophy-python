@@ -50,10 +50,13 @@ class StreaksClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
-        client.streaks.list()
+        client.streaks.list(
+            user_ids=["userIds"],
+        )
         """
         _response = self._raw_client.list(user_ids=user_ids, request_options=request_options)
         return _response.data
@@ -103,13 +106,16 @@ class AsyncStreaksClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
 
         async def main() -> None:
-            await client.streaks.list()
+            await client.streaks.list(
+                user_ids=["userIds"],
+            )
 
 
         asyncio.run(main())

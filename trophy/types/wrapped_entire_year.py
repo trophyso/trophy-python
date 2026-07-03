@@ -15,10 +15,11 @@ class WrappedEntireYear(WrappedActivityPeriod):
     The user's activity data for the entire year.
     """
 
-    longest_streak: typing_extensions.Annotated[WrappedStreak, FieldMetadata(alias="longestStreak")] = pydantic.Field()
-    """
-    The user's longest streak during the year.
-    """
+    longest_streak: typing_extensions.Annotated[
+        WrappedStreak,
+        FieldMetadata(alias="longestStreak"),
+        pydantic.Field(alias="longestStreak", description="The user's longest streak during the year."),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

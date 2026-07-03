@@ -17,46 +17,41 @@ class WrappedActivity(UniversalBaseModel):
     The user's activity summary for the wrapped year.
     """
 
-    days_active: typing_extensions.Annotated[int, FieldMetadata(alias="daysActive")] = pydantic.Field()
-    """
-    The number of days the user was active during the year.
-    """
-
-    weeks_active: typing_extensions.Annotated[int, FieldMetadata(alias="weeksActive")] = pydantic.Field()
-    """
-    The number of weeks the user was active during the year.
-    """
-
-    months_active: typing_extensions.Annotated[int, FieldMetadata(alias="monthsActive")] = pydantic.Field()
-    """
-    The number of months the user was active during the year.
-    """
-
-    most_active_day: typing_extensions.Annotated[WrappedMostActiveDay, FieldMetadata(alias="mostActiveDay")] = (
-        pydantic.Field()
-    )
-    """
-    Data about the user's most active day.
-    """
-
-    most_active_week: typing_extensions.Annotated[WrappedMostActiveWeek, FieldMetadata(alias="mostActiveWeek")] = (
-        pydantic.Field()
-    )
-    """
-    Data about the user's most active week.
-    """
-
-    most_active_month: typing_extensions.Annotated[WrappedMostActiveMonth, FieldMetadata(alias="mostActiveMonth")] = (
-        pydantic.Field()
-    )
-    """
-    Data about the user's most active month.
-    """
-
-    entire_year: typing_extensions.Annotated[WrappedEntireYear, FieldMetadata(alias="entireYear")] = pydantic.Field()
-    """
-    Data about the user's activity for the entire year.
-    """
+    days_active: typing_extensions.Annotated[
+        int,
+        FieldMetadata(alias="daysActive"),
+        pydantic.Field(alias="daysActive", description="The number of days the user was active during the year."),
+    ]
+    weeks_active: typing_extensions.Annotated[
+        int,
+        FieldMetadata(alias="weeksActive"),
+        pydantic.Field(alias="weeksActive", description="The number of weeks the user was active during the year."),
+    ]
+    months_active: typing_extensions.Annotated[
+        int,
+        FieldMetadata(alias="monthsActive"),
+        pydantic.Field(alias="monthsActive", description="The number of months the user was active during the year."),
+    ]
+    most_active_day: typing_extensions.Annotated[
+        WrappedMostActiveDay,
+        FieldMetadata(alias="mostActiveDay"),
+        pydantic.Field(alias="mostActiveDay", description="Data about the user's most active day."),
+    ]
+    most_active_week: typing_extensions.Annotated[
+        WrappedMostActiveWeek,
+        FieldMetadata(alias="mostActiveWeek"),
+        pydantic.Field(alias="mostActiveWeek", description="Data about the user's most active week."),
+    ]
+    most_active_month: typing_extensions.Annotated[
+        WrappedMostActiveMonth,
+        FieldMetadata(alias="mostActiveMonth"),
+        pydantic.Field(alias="mostActiveMonth", description="Data about the user's most active month."),
+    ]
+    entire_year: typing_extensions.Annotated[
+        WrappedEntireYear,
+        FieldMetadata(alias="entireYear"),
+        pydantic.Field(alias="entireYear", description="Data about the user's activity for the entire year."),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -6,7 +6,8 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
+from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
@@ -31,6 +32,7 @@ from .types.users_metric_event_summary_request_aggregation import UsersMetricEve
 from .types.users_metric_event_summary_response_item import UsersMetricEventSummaryResponseItem
 from .types.users_points_event_summary_request_aggregation import UsersPointsEventSummaryRequestAggregation
 from .types.users_points_event_summary_response_item import UsersPointsEventSummaryResponseItem
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -119,9 +121,9 @@ class RawUsersClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -130,9 +132,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -141,9 +143,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -151,6 +153,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[User]:
@@ -171,7 +177,7 @@ class RawUsersClient:
             Found user
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}",
+            f"users/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -190,9 +196,9 @@ class RawUsersClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -201,9 +207,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -212,9 +218,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -222,6 +228,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def identify(
@@ -271,7 +281,7 @@ class RawUsersClient:
             Upserted user
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}",
+            f"users/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="PUT",
             json={
@@ -302,9 +312,9 @@ class RawUsersClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -313,9 +323,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -324,9 +334,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -334,6 +344,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
@@ -383,7 +397,7 @@ class RawUsersClient:
             Updated user
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}",
+            f"users/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
@@ -414,9 +428,9 @@ class RawUsersClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -425,9 +439,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -436,9 +450,9 @@ class RawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -447,9 +461,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -457,6 +471,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_preferences(
@@ -479,7 +497,7 @@ class RawUsersClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/preferences",
+            f"users/{encode_path_param(id)}/preferences",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -498,9 +516,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -509,9 +527,9 @@ class RawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -520,9 +538,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -530,6 +548,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update_preferences(
@@ -561,7 +583,7 @@ class RawUsersClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/preferences",
+            f"users/{encode_path_param(id)}/preferences",
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
@@ -592,9 +614,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -614,9 +636,9 @@ class RawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -625,9 +647,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -635,6 +657,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def all_metrics(
@@ -657,7 +683,7 @@ class RawUsersClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/metrics",
+            f"users/{encode_path_param(id)}/metrics",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -676,9 +702,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -687,9 +713,9 @@ class RawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -698,9 +724,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -708,6 +734,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def single_metric(
@@ -733,7 +763,7 @@ class RawUsersClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/metrics/{jsonable_encoder(key)}",
+            f"users/{encode_path_param(id)}/metrics/{encode_path_param(key)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -752,9 +782,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -763,9 +793,9 @@ class RawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -774,9 +804,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -784,6 +814,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def metric_event_summary(
@@ -825,7 +859,7 @@ class RawUsersClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/metrics/{jsonable_encoder(key)}/event-summary",
+            f"users/{encode_path_param(id)}/metrics/{encode_path_param(key)}/event-summary",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -849,9 +883,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -860,9 +894,9 @@ class RawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -871,9 +905,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -881,6 +915,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def achievements(
@@ -910,7 +948,7 @@ class RawUsersClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/achievements",
+            f"users/{encode_path_param(id)}/achievements",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -932,9 +970,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -943,9 +981,9 @@ class RawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -954,9 +992,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -964,6 +1002,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def streak(
@@ -993,7 +1035,7 @@ class RawUsersClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/streak",
+            f"users/{encode_path_param(id)}/streak",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -1015,9 +1057,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1026,9 +1068,9 @@ class RawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1037,9 +1079,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1047,6 +1089,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def points(
@@ -1080,7 +1126,7 @@ class RawUsersClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}",
+            f"users/{encode_path_param(id)}/points/{encode_path_param(key)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -1102,9 +1148,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1113,9 +1159,9 @@ class RawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1124,9 +1170,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1134,6 +1180,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def points_boosts(
@@ -1159,7 +1209,7 @@ class RawUsersClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}/boosts",
+            f"users/{encode_path_param(id)}/points/{encode_path_param(key)}/boosts",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -1178,9 +1228,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1189,9 +1239,9 @@ class RawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1200,9 +1250,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1210,6 +1260,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def points_event_summary(
@@ -1251,7 +1305,7 @@ class RawUsersClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}/event-summary",
+            f"users/{encode_path_param(id)}/points/{encode_path_param(key)}/event-summary",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -1275,9 +1329,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1286,9 +1340,9 @@ class RawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1297,9 +1351,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1307,6 +1361,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def leaderboard(
@@ -1344,7 +1402,7 @@ class RawUsersClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/leaderboards/{jsonable_encoder(key)}",
+            f"users/{encode_path_param(id)}/leaderboards/{encode_path_param(key)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -1367,9 +1425,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1378,9 +1436,9 @@ class RawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1389,9 +1447,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1399,6 +1457,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def wrapped(
@@ -1424,7 +1486,7 @@ class RawUsersClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/wrapped",
+            f"users/{encode_path_param(id)}/wrapped",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -1446,9 +1508,9 @@ class RawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1457,9 +1519,9 @@ class RawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1468,9 +1530,9 @@ class RawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1478,6 +1540,10 @@ class RawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -1564,9 +1630,9 @@ class AsyncRawUsersClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1575,9 +1641,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1586,9 +1652,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1596,6 +1662,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AsyncHttpResponse[User]:
@@ -1616,7 +1686,7 @@ class AsyncRawUsersClient:
             Found user
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}",
+            f"users/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -1635,9 +1705,9 @@ class AsyncRawUsersClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1646,9 +1716,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1657,9 +1727,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1667,6 +1737,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def identify(
@@ -1716,7 +1790,7 @@ class AsyncRawUsersClient:
             Upserted user
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}",
+            f"users/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="PUT",
             json={
@@ -1747,9 +1821,9 @@ class AsyncRawUsersClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1758,9 +1832,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1769,9 +1843,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1779,6 +1853,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
@@ -1828,7 +1906,7 @@ class AsyncRawUsersClient:
             Updated user
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}",
+            f"users/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
@@ -1859,9 +1937,9 @@ class AsyncRawUsersClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1870,9 +1948,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1881,9 +1959,9 @@ class AsyncRawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1892,9 +1970,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1902,6 +1980,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_preferences(
@@ -1924,7 +2006,7 @@ class AsyncRawUsersClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/preferences",
+            f"users/{encode_path_param(id)}/preferences",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -1943,9 +2025,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1954,9 +2036,9 @@ class AsyncRawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1965,9 +2047,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1975,6 +2057,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update_preferences(
@@ -2006,7 +2092,7 @@ class AsyncRawUsersClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/preferences",
+            f"users/{encode_path_param(id)}/preferences",
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
@@ -2037,9 +2123,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2059,9 +2145,9 @@ class AsyncRawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2070,9 +2156,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2080,6 +2166,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def all_metrics(
@@ -2102,7 +2192,7 @@ class AsyncRawUsersClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/metrics",
+            f"users/{encode_path_param(id)}/metrics",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -2121,9 +2211,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2132,9 +2222,9 @@ class AsyncRawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2143,9 +2233,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2153,6 +2243,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def single_metric(
@@ -2178,7 +2272,7 @@ class AsyncRawUsersClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/metrics/{jsonable_encoder(key)}",
+            f"users/{encode_path_param(id)}/metrics/{encode_path_param(key)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -2197,9 +2291,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2208,9 +2302,9 @@ class AsyncRawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2219,9 +2313,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2229,6 +2323,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def metric_event_summary(
@@ -2270,7 +2368,7 @@ class AsyncRawUsersClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/metrics/{jsonable_encoder(key)}/event-summary",
+            f"users/{encode_path_param(id)}/metrics/{encode_path_param(key)}/event-summary",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -2294,9 +2392,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2305,9 +2403,9 @@ class AsyncRawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2316,9 +2414,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2326,6 +2424,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def achievements(
@@ -2355,7 +2457,7 @@ class AsyncRawUsersClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/achievements",
+            f"users/{encode_path_param(id)}/achievements",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -2377,9 +2479,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2388,9 +2490,9 @@ class AsyncRawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2399,9 +2501,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2409,6 +2511,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def streak(
@@ -2438,7 +2544,7 @@ class AsyncRawUsersClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/streak",
+            f"users/{encode_path_param(id)}/streak",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -2460,9 +2566,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2471,9 +2577,9 @@ class AsyncRawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2482,9 +2588,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2492,6 +2598,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def points(
@@ -2525,7 +2635,7 @@ class AsyncRawUsersClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}",
+            f"users/{encode_path_param(id)}/points/{encode_path_param(key)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -2547,9 +2657,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2558,9 +2668,9 @@ class AsyncRawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2569,9 +2679,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2579,6 +2689,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def points_boosts(
@@ -2604,7 +2718,7 @@ class AsyncRawUsersClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}/boosts",
+            f"users/{encode_path_param(id)}/points/{encode_path_param(key)}/boosts",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -2623,9 +2737,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2634,9 +2748,9 @@ class AsyncRawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2645,9 +2759,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2655,6 +2769,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def points_event_summary(
@@ -2696,7 +2814,7 @@ class AsyncRawUsersClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/points/{jsonable_encoder(key)}/event-summary",
+            f"users/{encode_path_param(id)}/points/{encode_path_param(key)}/event-summary",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -2720,9 +2838,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2731,9 +2849,9 @@ class AsyncRawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2742,9 +2860,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2752,6 +2870,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def leaderboard(
@@ -2789,7 +2911,7 @@ class AsyncRawUsersClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/leaderboards/{jsonable_encoder(key)}",
+            f"users/{encode_path_param(id)}/leaderboards/{encode_path_param(key)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -2812,9 +2934,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2823,9 +2945,9 @@ class AsyncRawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2834,9 +2956,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2844,6 +2966,10 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def wrapped(
@@ -2869,7 +2995,7 @@ class AsyncRawUsersClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"users/{jsonable_encoder(id)}/wrapped",
+            f"users/{encode_path_param(id)}/wrapped",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -2891,9 +3017,9 @@ class AsyncRawUsersClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2902,9 +3028,9 @@ class AsyncRawUsersClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2913,9 +3039,9 @@ class AsyncRawUsersClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2923,4 +3049,8 @@ class AsyncRawUsersClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

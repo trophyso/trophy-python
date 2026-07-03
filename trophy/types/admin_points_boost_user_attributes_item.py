@@ -9,15 +9,16 @@ from ..core.serialization import FieldMetadata
 
 
 class AdminPointsBoostUserAttributesItem(UniversalBaseModel):
-    attribute_id: typing_extensions.Annotated[str, FieldMetadata(alias="attributeId")] = pydantic.Field()
-    """
-    The UUID of the user attribute.
-    """
-
-    attribute_value: typing_extensions.Annotated[str, FieldMetadata(alias="attributeValue")] = pydantic.Field()
-    """
-    The matched attribute value.
-    """
+    attribute_id: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="attributeId"),
+        pydantic.Field(alias="attributeId", description="The UUID of the user attribute."),
+    ]
+    attribute_value: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="attributeValue"),
+        pydantic.Field(alias="attributeValue", description="The matched attribute value."),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

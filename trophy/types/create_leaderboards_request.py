@@ -5,3 +5,6 @@ import typing
 from .create_leaderboard_request_item import CreateLeaderboardRequestItem
 
 CreateLeaderboardsRequest = typing.List[CreateLeaderboardRequestItem]
+"""
+Request body for creating leaderboards.
+"""

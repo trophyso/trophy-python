@@ -18,13 +18,11 @@ class UpdateTenantRequestItem(UniversalBaseModel):
     The UUID of the tenant to update.
     """
 
-    customer_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="customerId")] = pydantic.Field(
-        default=None
-    )
-    """
-    New external customer ID.
-    """
-
+    customer_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="customerId"),
+        pydantic.Field(alias="customerId", description="New external customer ID."),
+    ] = None
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
     New display name for the tenant.

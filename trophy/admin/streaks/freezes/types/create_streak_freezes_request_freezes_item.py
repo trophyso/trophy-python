@@ -9,10 +9,11 @@ from .....core.serialization import FieldMetadata
 
 
 class CreateStreakFreezesRequestFreezesItem(UniversalBaseModel):
-    user_id: typing_extensions.Annotated[str, FieldMetadata(alias="userId")] = pydantic.Field()
-    """
-    The ID of the user to create a freeze for.
-    """
+    user_id: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="userId"),
+        pydantic.Field(alias="userId", description="The ID of the user to create a freeze for."),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

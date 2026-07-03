@@ -5,3 +5,6 @@ import typing
 from .create_metric_request_item import CreateMetricRequestItem
 
 CreateMetricsRequest = typing.List[CreateMetricRequestItem]
+"""
+Request body for creating metrics.
+"""

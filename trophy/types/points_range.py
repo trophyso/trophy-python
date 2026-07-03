@@ -9,11 +9,11 @@ from ..core.serialization import FieldMetadata
 
 
 class PointsRange(UniversalBaseModel):
-    from_: typing_extensions.Annotated[int, FieldMetadata(alias="from")] = pydantic.Field()
-    """
-    The start of the points range. Inclusive.
-    """
-
+    from_: typing_extensions.Annotated[
+        int,
+        FieldMetadata(alias="from"),
+        pydantic.Field(alias="from", description="The start of the points range. Inclusive."),
+    ]
     to: int = pydantic.Field()
     """
     The end of the points range. Inclusive.

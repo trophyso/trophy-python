@@ -5,3 +5,6 @@ import typing
 from .update_points_system_request_item import UpdatePointsSystemRequestItem
 
 UpdatePointsSystemsRequest = typing.List[UpdatePointsSystemRequestItem]
+"""
+Request body for updating points systems.
+"""

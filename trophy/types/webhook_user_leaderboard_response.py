@@ -14,19 +14,22 @@ class WebhookUserLeaderboardResponse(UserLeaderboardResponse):
     A user's data for a specific leaderboard including rank, value, and history.
     """
 
-    previous_rank: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="previousRank")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The user's rank before this event, or null if they were not on the leaderboard.
-    """
-
-    previous_value: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="previousValue")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The user's value before this event, or null if they were not on the leaderboard.
-    """
+    previous_rank: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="previousRank"),
+        pydantic.Field(
+            alias="previousRank",
+            description="The user's rank before this event, or null if they were not on the leaderboard.",
+        ),
+    ] = None
+    previous_value: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="previousValue"),
+        pydantic.Field(
+            alias="previousValue",
+            description="The user's value before this event, or null if they were not on the leaderboard.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

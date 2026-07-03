@@ -5,3 +5,6 @@ import typing
 from .update_metric_request_item import UpdateMetricRequestItem
 
 UpdateMetricsRequest = typing.List[UpdateMetricRequestItem]
+"""
+Request body for updating metrics.
+"""

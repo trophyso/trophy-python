@@ -5,3 +5,6 @@ import typing
 from .admin_leaderboard import AdminLeaderboard
 
 ListLeaderboardsResponse = typing.List[AdminLeaderboard]
+"""
+A paginated list of leaderboards.
+"""

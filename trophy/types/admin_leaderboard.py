@@ -41,32 +41,26 @@ class AdminLeaderboard(UniversalBaseModel):
     The current user-facing status of the leaderboard.
     """
 
-    rank_by: typing_extensions.Annotated[AdminLeaderboardRankBy, FieldMetadata(alias="rankBy")] = pydantic.Field()
-    """
-    What the leaderboard ranks by.
-    """
-
-    metric_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The metric ID used when `rankBy` is `metric`.
-    """
-
-    points_system_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="pointsSystemId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The points system ID used when `rankBy` is `points`.
-    """
-
-    max_participants: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="maxParticipants")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The maximum number of participants.
-    """
-
+    rank_by: typing_extensions.Annotated[
+        AdminLeaderboardRankBy,
+        FieldMetadata(alias="rankBy"),
+        pydantic.Field(alias="rankBy", description="What the leaderboard ranks by."),
+    ]
+    metric_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="metricId"),
+        pydantic.Field(alias="metricId", description="The metric ID used when `rankBy` is `metric`."),
+    ] = None
+    points_system_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="pointsSystemId"),
+        pydantic.Field(alias="pointsSystemId", description="The points system ID used when `rankBy` is `points`."),
+    ] = None
+    max_participants: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="maxParticipants"),
+        pydantic.Field(alias="maxParticipants", description="The maximum number of participants."),
+    ] = None
     start: str = pydantic.Field()
     """
     The leaderboard start date in YYYY-MM-DD format.
@@ -77,26 +71,23 @@ class AdminLeaderboard(UniversalBaseModel):
     The optional leaderboard end date in YYYY-MM-DD format.
     """
 
-    breakdown_attributes: typing_extensions.Annotated[typing.List[str], FieldMetadata(alias="breakdownAttributes")] = (
-        pydantic.Field()
-    )
-    """
-    The UUIDs of the user attributes used for ranking breakdowns.
-    """
-
-    run_unit: typing_extensions.Annotated[typing.Optional[AdminLeaderboardRunUnit], FieldMetadata(alias="runUnit")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The recurrence unit when the leaderboard repeats.
-    """
-
-    run_interval: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="runInterval")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The number of recurrence units between leaderboard runs.
-    """
+    breakdown_attributes: typing_extensions.Annotated[
+        typing.List[str],
+        FieldMetadata(alias="breakdownAttributes"),
+        pydantic.Field(
+            alias="breakdownAttributes", description="The UUIDs of the user attributes used for ranking breakdowns."
+        ),
+    ]
+    run_unit: typing_extensions.Annotated[
+        typing.Optional[AdminLeaderboardRunUnit],
+        FieldMetadata(alias="runUnit"),
+        pydantic.Field(alias="runUnit", description="The recurrence unit when the leaderboard repeats."),
+    ] = None
+    run_interval: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="runInterval"),
+        pydantic.Field(alias="runInterval", description="The number of recurrence units between leaderboard runs."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

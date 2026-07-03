@@ -5,3 +5,6 @@ import typing
 from .admin_points_system import AdminPointsSystem
 
 ListPointsSystemsResponse = typing.List[AdminPointsSystem]
+"""
+Response containing a list of points systems.
+"""

@@ -5,3 +5,6 @@ import typing
 from .admin_points_level import AdminPointsLevel
 
 ListPointsLevelsResponse = typing.List[AdminPointsLevel]
+"""
+A paginated list of points levels.
+"""

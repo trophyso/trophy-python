@@ -27,19 +27,20 @@ class WebhooksPointsLevelChangedPayload(UniversalBaseModel):
     The points system in which the level changed.
     """
 
-    previous_level: typing_extensions.Annotated[typing.Optional[PointsLevel], FieldMetadata(alias="previousLevel")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The user's previous level, or null if the user had no level.
-    """
-
-    new_level: typing_extensions.Annotated[typing.Optional[PointsLevel], FieldMetadata(alias="newLevel")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The user's new level, or null if the user no longer has a level.
-    """
+    previous_level: typing_extensions.Annotated[
+        typing.Optional[PointsLevel],
+        FieldMetadata(alias="previousLevel"),
+        pydantic.Field(
+            alias="previousLevel", description="The user's previous level, or null if the user had no level."
+        ),
+    ] = None
+    new_level: typing_extensions.Annotated[
+        typing.Optional[PointsLevel],
+        FieldMetadata(alias="newLevel"),
+        pydantic.Field(
+            alias="newLevel", description="The user's new level, or null if the user no longer has a level."
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

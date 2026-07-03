@@ -14,13 +14,13 @@ class RestoreStreaksResponse(UniversalBaseModel):
     Response containing restored users and any issues encountered.
     """
 
-    restored_users: typing_extensions.Annotated[typing.List[str], FieldMetadata(alias="restoredUsers")] = (
-        pydantic.Field()
-    )
-    """
-    Array of user IDs whose streaks were successfully restored.
-    """
-
+    restored_users: typing_extensions.Annotated[
+        typing.List[str],
+        FieldMetadata(alias="restoredUsers"),
+        pydantic.Field(
+            alias="restoredUsers", description="Array of user IDs whose streaks were successfully restored."
+        ),
+    ]
     issues: typing.List[AdminIssue] = pydantic.Field()
     """
     Array of issues encountered during streak restoration.

@@ -6,18 +6,19 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
+from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
-from ..types.error_body import ErrorBody
 from ..types.points_boost import PointsBoost
 from ..types.points_level import PointsLevel
 from ..types.points_level_summary_response import PointsLevelSummaryResponse
 from ..types.points_summary_response import PointsSummaryResponse
 from ..types.points_system_response import PointsSystemResponse
+from pydantic import ValidationError
 
 
 class RawPointsClient:
@@ -51,7 +52,7 @@ class RawPointsClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}/summary",
+            f"points/{encode_path_param(key)}/summary",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -73,9 +74,9 @@ class RawPointsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -84,9 +85,9 @@ class RawPointsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -95,9 +96,9 @@ class RawPointsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -105,6 +106,10 @@ class RawPointsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def system(
@@ -127,7 +132,7 @@ class RawPointsClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}",
+            f"points/{encode_path_param(key)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -146,9 +151,9 @@ class RawPointsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -157,9 +162,9 @@ class RawPointsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -167,6 +172,10 @@ class RawPointsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def boosts(
@@ -196,7 +205,7 @@ class RawPointsClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}/boosts",
+            f"points/{encode_path_param(key)}/boosts",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -218,9 +227,9 @@ class RawPointsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -229,9 +238,9 @@ class RawPointsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -239,6 +248,10 @@ class RawPointsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def levels(
@@ -261,7 +274,7 @@ class RawPointsClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}/levels",
+            f"points/{encode_path_param(key)}/levels",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -280,9 +293,9 @@ class RawPointsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -291,9 +304,9 @@ class RawPointsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -301,6 +314,10 @@ class RawPointsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def level_summary(
@@ -323,7 +340,7 @@ class RawPointsClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}/level-summary",
+            f"points/{encode_path_param(key)}/level-summary",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -342,9 +359,9 @@ class RawPointsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -353,9 +370,9 @@ class RawPointsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -364,9 +381,9 @@ class RawPointsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -374,6 +391,10 @@ class RawPointsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -408,7 +429,7 @@ class AsyncRawPointsClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}/summary",
+            f"points/{encode_path_param(key)}/summary",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -430,9 +451,9 @@ class AsyncRawPointsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -441,9 +462,9 @@ class AsyncRawPointsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -452,9 +473,9 @@ class AsyncRawPointsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -462,6 +483,10 @@ class AsyncRawPointsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def system(
@@ -484,7 +509,7 @@ class AsyncRawPointsClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}",
+            f"points/{encode_path_param(key)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -503,9 +528,9 @@ class AsyncRawPointsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -514,9 +539,9 @@ class AsyncRawPointsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -524,6 +549,10 @@ class AsyncRawPointsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def boosts(
@@ -553,7 +582,7 @@ class AsyncRawPointsClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}/boosts",
+            f"points/{encode_path_param(key)}/boosts",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -575,9 +604,9 @@ class AsyncRawPointsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -586,9 +615,9 @@ class AsyncRawPointsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -596,6 +625,10 @@ class AsyncRawPointsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def levels(
@@ -618,7 +651,7 @@ class AsyncRawPointsClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}/levels",
+            f"points/{encode_path_param(key)}/levels",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -637,9 +670,9 @@ class AsyncRawPointsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -648,9 +681,9 @@ class AsyncRawPointsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -658,6 +691,10 @@ class AsyncRawPointsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def level_summary(
@@ -680,7 +717,7 @@ class AsyncRawPointsClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"points/{jsonable_encoder(key)}/level-summary",
+            f"points/{encode_path_param(key)}/level-summary",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -699,9 +736,9 @@ class AsyncRawPointsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -710,9 +747,9 @@ class AsyncRawPointsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -721,9 +758,9 @@ class AsyncRawPointsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -731,4 +768,8 @@ class AsyncRawPointsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

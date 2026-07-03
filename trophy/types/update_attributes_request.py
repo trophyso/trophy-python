@@ -5,3 +5,6 @@ import typing
 from .update_attribute_request_item import UpdateAttributeRequestItem
 
 UpdateAttributesRequest = typing.List[UpdateAttributeRequestItem]
+"""
+Request body for updating attributes.
+"""

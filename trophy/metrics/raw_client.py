@@ -6,16 +6,17 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
+from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
-from ..types.error_body import ErrorBody
 from ..types.event_response import EventResponse
 from ..types.upserted_user import UpsertedUser
+from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -64,7 +65,7 @@ class RawMetricsClient:
             Created event
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"metrics/{jsonable_encoder(key)}/event",
+            f"metrics/{encode_path_param(key)}/event",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
@@ -95,9 +96,9 @@ class RawMetricsClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -106,9 +107,9 @@ class RawMetricsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -117,9 +118,9 @@ class RawMetricsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -127,6 +128,10 @@ class RawMetricsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -173,7 +178,7 @@ class AsyncRawMetricsClient:
             Created event
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"metrics/{jsonable_encoder(key)}/event",
+            f"metrics/{encode_path_param(key)}/event",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
@@ -204,9 +209,9 @@ class AsyncRawMetricsClient:
                 raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -215,9 +220,9 @@ class AsyncRawMetricsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -226,9 +231,9 @@ class AsyncRawMetricsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -236,4 +241,8 @@ class AsyncRawMetricsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

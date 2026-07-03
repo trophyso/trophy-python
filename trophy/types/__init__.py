@@ -15,6 +15,7 @@ if typing.TYPE_CHECKING:
     from .achievement_with_stats_response import AchievementWithStatsResponse
     from .admin_attribute import AdminAttribute
     from .admin_attribute_type import AdminAttributeType
+    from .admin_error_body import AdminErrorBody
     from .admin_issue import AdminIssue
     from .admin_issue_severity import AdminIssueSeverity
     from .admin_leaderboard import AdminLeaderboard
@@ -237,6 +238,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AchievementWithStatsResponse": ".achievement_with_stats_response",
     "AdminAttribute": ".admin_attribute",
     "AdminAttributeType": ".admin_attribute_type",
+    "AdminErrorBody": ".admin_error_body",
     "AdminIssue": ".admin_issue",
     "AdminIssueSeverity": ".admin_issue_severity",
     "AdminLeaderboard": ".admin_leaderboard",
@@ -473,6 +475,7 @@ __all__ = [
     "AchievementWithStatsResponse",
     "AdminAttribute",
     "AdminAttributeType",
+    "AdminErrorBody",
     "AdminIssue",
     "AdminIssueSeverity",
     "AdminLeaderboard",

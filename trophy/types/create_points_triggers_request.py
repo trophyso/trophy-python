@@ -5,3 +5,6 @@ import typing
 from .create_points_trigger_request_item import CreatePointsTriggerRequestItem
 
 CreatePointsTriggersRequest = typing.List[CreatePointsTriggerRequestItem]
+"""
+Array of points triggers to create. Maximum 100 triggers per request.
+"""

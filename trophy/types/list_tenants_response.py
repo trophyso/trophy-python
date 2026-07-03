@@ -5,3 +5,6 @@ import typing
 from .admin_tenant import AdminTenant
 
 ListTenantsResponse = typing.List[AdminTenant]
+"""
+Array of tenants.
+"""

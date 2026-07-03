@@ -22,11 +22,13 @@ class StreakResponse(BaseStreakResponse):
     """
 
     streak_history: typing_extensions.Annotated[
-        typing.List[StreakResponseStreakHistoryItem], FieldMetadata(alias="streakHistory")
-    ] = pydantic.Field()
-    """
-    A list of the user's past streak periods up through the current period. Each period includes the start and end dates and the length of the streak.
-    """
+        typing.List[StreakResponseStreakHistoryItem],
+        FieldMetadata(alias="streakHistory"),
+        pydantic.Field(
+            alias="streakHistory",
+            description="A list of the user's past streak periods up through the current period. Each period includes the start and end dates and the length of the streak.",
+        ),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

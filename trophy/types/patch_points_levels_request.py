@@ -5,3 +5,6 @@ import typing
 from .patch_points_levels_request_item import PatchPointsLevelsRequestItem
 
 PatchPointsLevelsRequest = typing.List[PatchPointsLevelsRequestItem]
+"""
+Array of points level patches. Maximum 100 per request.
+"""

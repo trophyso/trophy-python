@@ -5,3 +5,6 @@ import typing
 from .admin_points_boost import AdminPointsBoost
 
 ListPointsBoostsResponse = typing.List[AdminPointsBoost]
+"""
+A paginated list of points boosts.
+"""

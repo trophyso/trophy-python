@@ -67,6 +67,7 @@ class TriggersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -109,6 +110,7 @@ class TriggersClient:
         from trophy import CreatePointsTriggerRequestItem, TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -156,10 +158,14 @@ class TriggersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.triggers.delete()
+        client.admin.points.triggers.delete(
+            system_id="550e8400-e29b-41d4-a716-446655440000",
+            ids=["550e8400-e29b-41d4-a716-446655440000"],
+        )
         """
         _response = self._raw_client.delete(system_id, ids=ids, request_options=request_options)
         return _response.data
@@ -194,6 +200,7 @@ class TriggersClient:
         from trophy import PatchPointsTriggersRequestItem, TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -236,6 +243,7 @@ class TriggersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -300,6 +308,7 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -350,6 +359,7 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi, CreatePointsTriggerRequestItem
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -405,13 +415,17 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
 
         async def main() -> None:
-            await client.admin.points.triggers.delete()
+            await client.admin.points.triggers.delete(
+                system_id="550e8400-e29b-41d4-a716-446655440000",
+                ids=["550e8400-e29b-41d4-a716-446655440000"],
+            )
 
 
         asyncio.run(main())
@@ -451,6 +465,7 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi, PatchPointsTriggersRequestItem
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -501,6 +516,7 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

@@ -5,3 +5,6 @@ import typing
 from .points_level_summary_response_item import PointsLevelSummaryResponseItem
 
 PointsLevelSummaryResponse = typing.List[PointsLevelSummaryResponseItem]
+"""
+A breakdown of users by level in a points system.
+"""

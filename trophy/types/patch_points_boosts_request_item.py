@@ -44,10 +44,11 @@ class PatchPointsBoostsRequestItem(UniversalBaseModel):
     user_attributes: typing_extensions.Annotated[
         typing.Optional[typing.List[PatchPointsBoostsRequestItemUserAttributesItem]],
         FieldMetadata(alias="userAttributes"),
-    ] = pydantic.Field(default=None)
-    """
-    Updated user attribute filters. Cannot be set on user-specific boosts. Set to null to clear.
-    """
+        pydantic.Field(
+            alias="userAttributes",
+            description="Updated user attribute filters. Cannot be set on user-specific boosts. Set to null to clear.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -67,6 +67,7 @@ class LevelsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -109,6 +110,7 @@ class LevelsClient:
         from trophy import CreatePointsLevelRequestItem, TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -157,10 +159,14 @@ class LevelsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
-        client.admin.points.levels.delete()
+        client.admin.points.levels.delete(
+            system_id="550e8400-e29b-41d4-a716-446655440000",
+            ids=["ids"],
+        )
         """
         _response = self._raw_client.delete(system_id, ids=ids, request_options=request_options)
         return _response.data
@@ -195,6 +201,7 @@ class LevelsClient:
         from trophy import PatchPointsLevelsRequestItem, TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -237,6 +244,7 @@ class LevelsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -301,6 +309,7 @@ class AsyncLevelsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -351,6 +360,7 @@ class AsyncLevelsClient:
         from trophy import AsyncTrophyApi, CreatePointsLevelRequestItem
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -407,13 +417,17 @@ class AsyncLevelsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
 
 
         async def main() -> None:
-            await client.admin.points.levels.delete()
+            await client.admin.points.levels.delete(
+                system_id="550e8400-e29b-41d4-a716-446655440000",
+                ids=["ids"],
+            )
 
 
         asyncio.run(main())
@@ -453,6 +467,7 @@ class AsyncLevelsClient:
         from trophy import AsyncTrophyApi, PatchPointsLevelsRequestItem
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -503,6 +518,7 @@ class AsyncLevelsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
+            "1.15.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

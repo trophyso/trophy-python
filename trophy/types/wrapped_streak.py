@@ -24,20 +24,16 @@ class WrappedStreak(UniversalBaseModel):
     The frequency of the streak.
     """
 
-    period_start: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="periodStart")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The start date of the streak period.
-    """
-
-    period_end: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="periodEnd")] = pydantic.Field(
-        default=None
-    )
-    """
-    The end date of the streak period.
-    """
-
+    period_start: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="periodStart"),
+        pydantic.Field(alias="periodStart", description="The start date of the streak period."),
+    ] = None
+    period_end: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="periodEnd"),
+        pydantic.Field(alias="periodEnd", description="The end date of the streak period."),
+    ] = None
     started: typing.Optional[str] = pydantic.Field(default=None)
     """
     The date the streak started.

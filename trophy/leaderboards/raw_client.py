@@ -6,15 +6,16 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from ..core.jsonable_encoder import encode_path_param
+from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
-from ..types.error_body import ErrorBody
 from ..types.leaderboard_response_with_rankings import LeaderboardResponseWithRankings
 from .types.leaderboards_all_response_item import LeaderboardsAllResponseItem
+from pydantic import ValidationError
 
 
 class RawLeaderboardsClient:
@@ -63,9 +64,9 @@ class RawLeaderboardsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -74,9 +75,9 @@ class RawLeaderboardsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -84,6 +85,10 @@ class RawLeaderboardsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
@@ -129,7 +134,7 @@ class RawLeaderboardsClient:
             Successful operation
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"leaderboards/{jsonable_encoder(key)}",
+            f"leaderboards/{encode_path_param(key)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -155,9 +160,9 @@ class RawLeaderboardsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -166,9 +171,9 @@ class RawLeaderboardsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -177,9 +182,9 @@ class RawLeaderboardsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -187,6 +192,10 @@ class RawLeaderboardsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -236,9 +245,9 @@ class AsyncRawLeaderboardsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -247,9 +256,9 @@ class AsyncRawLeaderboardsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -257,6 +266,10 @@ class AsyncRawLeaderboardsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
@@ -302,7 +315,7 @@ class AsyncRawLeaderboardsClient:
             Successful operation
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"leaderboards/{jsonable_encoder(key)}",
+            f"leaderboards/{encode_path_param(key)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
@@ -328,9 +341,9 @@ class AsyncRawLeaderboardsClient:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -339,9 +352,9 @@ class AsyncRawLeaderboardsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -350,9 +363,9 @@ class AsyncRawLeaderboardsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        ErrorBody,
+                        typing.Any,
                         parse_obj_as(
-                            type_=ErrorBody,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -360,4 +373,8 @@ class AsyncRawLeaderboardsClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

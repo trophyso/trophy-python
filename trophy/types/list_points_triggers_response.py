@@ -5,3 +5,6 @@ import typing
 from .admin_points_trigger import AdminPointsTrigger
 
 ListPointsTriggersResponse = typing.List[AdminPointsTrigger]
+"""
+A paginated list of points triggers.
+"""

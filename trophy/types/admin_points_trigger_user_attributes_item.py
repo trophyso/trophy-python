@@ -9,8 +9,12 @@ from ..core.serialization import FieldMetadata
 
 
 class AdminPointsTriggerUserAttributesItem(UniversalBaseModel):
-    attribute_id: typing_extensions.Annotated[str, FieldMetadata(alias="attributeId")]
-    attribute_value: typing_extensions.Annotated[str, FieldMetadata(alias="attributeValue")]
+    attribute_id: typing_extensions.Annotated[
+        str, FieldMetadata(alias="attributeId"), pydantic.Field(alias="attributeId")
+    ]
+    attribute_value: typing_extensions.Annotated[
+        str, FieldMetadata(alias="attributeValue"), pydantic.Field(alias="attributeValue")
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -33,73 +33,82 @@ class AchievementResponse(UniversalBaseModel):
     The description of this achievement.
     """
 
-    badge_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="badgeUrl")] = pydantic.Field(
-        default=None
-    )
-    """
-    The URL of the badge image for the achievement, if one has been uploaded.
-    """
-
+    badge_url: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="badgeUrl"),
+        pydantic.Field(
+            alias="badgeUrl", description="The URL of the badge image for the achievement, if one has been uploaded."
+        ),
+    ] = None
     key: typing.Optional[str] = pydantic.Field(default=None)
     """
     The key used to reference this achievement in the API (only applicable if trigger = 'api')
     """
 
-    streak_length: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="streakLength")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The length of the streak required to complete the achievement (only applicable if trigger = 'streak')
-    """
-
+    streak_length: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="streakLength"),
+        pydantic.Field(
+            alias="streakLength",
+            description="The length of the streak required to complete the achievement (only applicable if trigger = 'streak')",
+        ),
+    ] = None
     achievement_ids: typing_extensions.Annotated[
-        typing.Optional[typing.List[str]], FieldMetadata(alias="achievementIds")
-    ] = pydantic.Field(default=None)
-    """
-    The IDs of the prerequisite achievements that must be completed to earn this achievement (only applicable if trigger = 'achievement')
-    """
-
-    metric_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The ID of the metric associated with this achievement (only applicable if trigger = 'metric')
-    """
-
-    metric_value: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="metricValue")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The value of the metric required to complete the achievement (only applicable if trigger = 'metric')
-    """
-
-    metric_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricName")] = pydantic.Field(
-        default=None
-    )
-    """
-    The name of the metric associated with this achievement (only applicable if trigger = 'metric')
-    """
-
+        typing.Optional[typing.List[str]],
+        FieldMetadata(alias="achievementIds"),
+        pydantic.Field(
+            alias="achievementIds",
+            description="The IDs of the prerequisite achievements that must be completed to earn this achievement (only applicable if trigger = 'achievement')",
+        ),
+    ] = None
+    metric_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="metricId"),
+        pydantic.Field(
+            alias="metricId",
+            description="The ID of the metric associated with this achievement (only applicable if trigger = 'metric')",
+        ),
+    ] = None
+    metric_value: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="metricValue"),
+        pydantic.Field(
+            alias="metricValue",
+            description="The value of the metric required to complete the achievement (only applicable if trigger = 'metric')",
+        ),
+    ] = None
+    metric_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="metricName"),
+        pydantic.Field(
+            alias="metricName",
+            description="The name of the metric associated with this achievement (only applicable if trigger = 'metric')",
+        ),
+    ] = None
     user_attributes: typing_extensions.Annotated[
-        typing.List[AchievementResponseUserAttributesItem], FieldMetadata(alias="userAttributes")
-    ] = pydantic.Field()
-    """
-    User attribute filters that must be met for this achievement to be completed.
-    """
-
+        typing.List[AchievementResponseUserAttributesItem],
+        FieldMetadata(alias="userAttributes"),
+        pydantic.Field(
+            alias="userAttributes",
+            description="User attribute filters that must be met for this achievement to be completed.",
+        ),
+    ]
     event_attribute: typing_extensions.Annotated[
-        typing.Optional[AchievementResponseEventAttribute], FieldMetadata(alias="eventAttribute")
-    ] = pydantic.Field(default=None)
-    """
-    Deprecated. Event attribute filter that must be met for this achievement to be completed. Only present if the achievement has an event filter configured.
-    """
-
+        typing.Optional[AchievementResponseEventAttribute],
+        FieldMetadata(alias="eventAttribute"),
+        pydantic.Field(
+            alias="eventAttribute",
+            description="Deprecated. Event attribute filter that must be met for this achievement to be completed. Only present if the achievement has an event filter configured.",
+        ),
+    ] = None
     event_attributes: typing_extensions.Annotated[
-        typing.Optional[typing.List[AchievementResponseEventAttributesItem]], FieldMetadata(alias="eventAttributes")
-    ] = pydantic.Field(default=None)
-    """
-    Event attribute filters that must be met for this achievement to be completed. Omitted for non-metric achievements.
-    """
+        typing.Optional[typing.List[AchievementResponseEventAttributesItem]],
+        FieldMetadata(alias="eventAttributes"),
+        pydantic.Field(
+            alias="eventAttributes",
+            description="Event attribute filters that must be met for this achievement to be completed. Omitted for non-metric achievements.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

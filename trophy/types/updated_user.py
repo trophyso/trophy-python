@@ -29,19 +29,18 @@ class UpdatedUser(UniversalBaseModel):
     """
 
     device_tokens: typing_extensions.Annotated[
-        typing.Optional[typing.List[str]], FieldMetadata(alias="deviceTokens")
-    ] = pydantic.Field(default=None)
-    """
-    The user's device tokens, used for push notifications.
-    """
-
+        typing.Optional[typing.List[str]],
+        FieldMetadata(alias="deviceTokens"),
+        pydantic.Field(alias="deviceTokens", description="The user's device tokens, used for push notifications."),
+    ] = None
     subscribe_to_emails: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="subscribeToEmails")
-    ] = pydantic.Field(default=None)
-    """
-    Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.
-    """
-
+        typing.Optional[bool],
+        FieldMetadata(alias="subscribeToEmails"),
+        pydantic.Field(
+            alias="subscribeToEmails",
+            description="Whether the user should receive Trophy-powered emails. If false, Trophy will not store the user's email address.",
+        ),
+    ] = None
     attributes: typing.Optional[typing.Dict[str, str]] = pydantic.Field(default=None)
     """
     User attributes as key-value pairs. Keys must match existing user attributes set up in the Trophy dashboard.

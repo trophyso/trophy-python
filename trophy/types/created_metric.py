@@ -29,11 +29,11 @@ class CreatedMetric(UniversalBaseModel):
     The metric key.
     """
 
-    unit_type: typing_extensions.Annotated[CreatedMetricUnitType, FieldMetadata(alias="unitType")] = pydantic.Field()
-    """
-    The metric unit type.
-    """
-
+    unit_type: typing_extensions.Annotated[
+        CreatedMetricUnitType,
+        FieldMetadata(alias="unitType"),
+        pydantic.Field(alias="unitType", description="The metric unit type."),
+    ]
     units: str = pydantic.Field()
     """
     The stored units value for the metric.

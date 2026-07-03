@@ -5,3 +5,6 @@ import typing
 from .patch_points_boosts_request_item import PatchPointsBoostsRequestItem
 
 PatchPointsBoostsRequest = typing.List[PatchPointsBoostsRequestItem]
+"""
+Array of points boost patches. Maximum 100 per request.
+"""

@@ -5,3 +5,6 @@ import typing
 from .create_points_boost_request_item import CreatePointsBoostRequestItem
 
 CreatePointsBoostsRequest = typing.List[CreatePointsBoostRequestItem]
+"""
+Array of points boosts to create. Maximum 100 boosts per request. Each boost may optionally target a specific user via `userId` or filter by user attributes via `userAttributes`. These two fields are mutually exclusive — providing `userAttributes` when `userId` is set will result in an error. Omitting both creates a global boost.
+"""

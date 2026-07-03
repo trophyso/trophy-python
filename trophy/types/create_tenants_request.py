@@ -5,3 +5,6 @@ import typing
 from .create_tenant_request_item import CreateTenantRequestItem
 
 CreateTenantsRequest = typing.List[CreateTenantRequestItem]
+"""
+Request body for creating tenants.
+"""

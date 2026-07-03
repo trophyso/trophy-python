@@ -34,12 +34,11 @@ class UpdatePointsSystemRequestItem(UniversalBaseModel):
     Updated badge. Set to null to remove.
     """
 
-    max_points: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="maxPoints")] = pydantic.Field(
-        default=None
-    )
-    """
-    Updated max points. Set to null to remove.
-    """
+    max_points: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="maxPoints"),
+        pydantic.Field(alias="maxPoints", description="Updated max points. Set to null to remove."),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

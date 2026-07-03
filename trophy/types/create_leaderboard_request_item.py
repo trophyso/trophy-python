@@ -36,34 +36,28 @@ class CreateLeaderboardRequestItem(UniversalBaseModel):
     The initial user-facing status. Defaults to `inactive`. Use `scheduled` for leaderboards that should be active in the future and `finished` only when creating a leaderboard with an end date in the past.
     """
 
-    rank_by: typing_extensions.Annotated[CreateLeaderboardRequestItemRankBy, FieldMetadata(alias="rankBy")] = (
-        pydantic.Field()
-    )
-    """
-    What the leaderboard ranks by.
-    """
-
-    metric_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="metricId")] = pydantic.Field(
-        default=None
-    )
-    """
-    The metric ID to rank by when `rankBy` is `metric`.
-    """
-
-    points_system_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="pointsSystemId")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The points system ID to rank by when `rankBy` is `points`.
-    """
-
-    max_participants: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="maxParticipants")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The maximum number of participants. Defaults to `1000`.
-    """
-
+    rank_by: typing_extensions.Annotated[
+        CreateLeaderboardRequestItemRankBy,
+        FieldMetadata(alias="rankBy"),
+        pydantic.Field(alias="rankBy", description="What the leaderboard ranks by."),
+    ]
+    metric_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="metricId"),
+        pydantic.Field(alias="metricId", description="The metric ID to rank by when `rankBy` is `metric`."),
+    ] = None
+    points_system_id: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="pointsSystemId"),
+        pydantic.Field(
+            alias="pointsSystemId", description="The points system ID to rank by when `rankBy` is `points`."
+        ),
+    ] = None
+    max_participants: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="maxParticipants"),
+        pydantic.Field(alias="maxParticipants", description="The maximum number of participants. Defaults to `1000`."),
+    ] = None
     start: typing.Optional[str] = pydantic.Field(default=None)
     """
     The leaderboard start date in YYYY-MM-DD format. Defaults to today when omitted.
@@ -75,25 +69,28 @@ class CreateLeaderboardRequestItem(UniversalBaseModel):
     """
 
     breakdown_attributes: typing_extensions.Annotated[
-        typing.Optional[typing.List[str]], FieldMetadata(alias="breakdownAttributes")
-    ] = pydantic.Field(default=None)
-    """
-    The UUIDs of the active user attributes to break rankings down by.
-    """
-
+        typing.Optional[typing.List[str]],
+        FieldMetadata(alias="breakdownAttributes"),
+        pydantic.Field(
+            alias="breakdownAttributes",
+            description="The UUIDs of the active user attributes to break rankings down by.",
+        ),
+    ] = None
     run_unit: typing_extensions.Annotated[
-        typing.Optional[CreateLeaderboardRequestItemRunUnit], FieldMetadata(alias="runUnit")
-    ] = pydantic.Field(default=None)
-    """
-    How often the leaderboard repeats. Omit for a non-recurring leaderboard. Streak leaderboards cannot repeat.
-    """
-
-    run_interval: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="runInterval")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The number of `runUnit`s between repeats. Required when `runUnit` is set.
-    """
+        typing.Optional[CreateLeaderboardRequestItemRunUnit],
+        FieldMetadata(alias="runUnit"),
+        pydantic.Field(
+            alias="runUnit",
+            description="How often the leaderboard repeats. Omit for a non-recurring leaderboard. Streak leaderboards cannot repeat.",
+        ),
+    ] = None
+    run_interval: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="runInterval"),
+        pydantic.Field(
+            alias="runInterval", description="The number of `runUnit`s between repeats. Required when `runUnit` is set."
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

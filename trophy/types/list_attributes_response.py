@@ -5,3 +5,6 @@ import typing
 from .admin_attribute import AdminAttribute
 
 ListAttributesResponse = typing.List[AdminAttribute]
+"""
+A paginated list of attributes.
+"""

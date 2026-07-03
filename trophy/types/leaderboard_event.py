@@ -24,25 +24,27 @@ class LeaderboardEvent(UniversalBaseModel):
     Deprecated ISO timestamp for the snapshot day boundary. Use `date` instead.
     """
 
-    previous_rank: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="previousRank")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The user's rank before this event, or null if they were not on the leaderboard.
-    """
-
+    previous_rank: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="previousRank"),
+        pydantic.Field(
+            alias="previousRank",
+            description="The user's rank before this event, or null if they were not on the leaderboard.",
+        ),
+    ] = None
     rank: typing.Optional[int] = pydantic.Field(default=None)
     """
     The user's rank after this event, or null if they are no longer on the leaderboard.
     """
 
-    previous_value: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="previousValue")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The user's value before this event, or null if they were not on the leaderboard.
-    """
-
+    previous_value: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="previousValue"),
+        pydantic.Field(
+            alias="previousValue",
+            description="The user's value before this event, or null if they were not on the leaderboard.",
+        ),
+    ] = None
     value: typing.Optional[int] = pydantic.Field(default=None)
     """
     The user's value after this event, or null if they are no longer on the leaderboard.

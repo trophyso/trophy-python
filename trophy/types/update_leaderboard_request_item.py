@@ -74,6 +74,22 @@ class UpdateLeaderboardRequestItem(UniversalBaseModel):
     The updated end date in YYYY-MM-DD format, or `null` to clear it.
     """
 
+    start_time: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="startTime"),
+        pydantic.Field(
+            alias="startTime",
+            description="The updated start of the daily ranking time window in HH:mm format, or `null` to clear it.",
+        ),
+    ] = None
+    end_time: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="endTime"),
+        pydantic.Field(
+            alias="endTime",
+            description="The updated end of the daily ranking time window in HH:mm format, or `null` to clear it.",
+        ),
+    ] = None
     breakdown_attributes: typing_extensions.Annotated[
         typing.Optional[typing.List[str]],
         FieldMetadata(alias="breakdownAttributes"),

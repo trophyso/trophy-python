@@ -68,6 +68,22 @@ class CreateLeaderboardRequestItem(UniversalBaseModel):
     The optional leaderboard end date in YYYY-MM-DD format.
     """
 
+    start_time: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="startTime"),
+        pydantic.Field(
+            alias="startTime",
+            description="When set, ranking only counts activity at or after this time of day in the user's timezone (HH:mm format).",
+        ),
+    ] = None
+    end_time: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="endTime"),
+        pydantic.Field(
+            alias="endTime",
+            description="When set, ranking only counts activity before this time of day in the user's timezone (HH:mm format).",
+        ),
+    ] = None
     breakdown_attributes: typing_extensions.Annotated[
         typing.Optional[typing.List[str]],
         FieldMetadata(alias="breakdownAttributes"),

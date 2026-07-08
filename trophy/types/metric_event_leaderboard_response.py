@@ -122,6 +122,22 @@ class MetricEventLeaderboardResponse(UniversalBaseModel):
     The start date of the leaderboard in YYYY-MM-DD format.
     """
 
+    start_time: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="startTime"),
+        pydantic.Field(
+            alias="startTime",
+            description="When set, ranking only counts activity at or after this time of day in the user's timezone (HH:mm format).",
+        ),
+    ] = None
+    end_time: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="endTime"),
+        pydantic.Field(
+            alias="endTime",
+            description="When set, ranking only counts activity before this time of day in the user's timezone (HH:mm format).",
+        ),
+    ] = None
     max_participants: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="maxParticipants"),

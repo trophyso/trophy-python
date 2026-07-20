@@ -63,7 +63,7 @@ class SystemsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -102,7 +102,7 @@ class SystemsClient:
         )
 
         client = TrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -158,7 +158,7 @@ class SystemsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -192,7 +192,7 @@ class SystemsClient:
         from trophy import TrophyApi, UpdatePointsSystemRequestItem
 
         client = TrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -230,7 +230,7 @@ class SystemsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -290,7 +290,7 @@ class AsyncSystemsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -337,7 +337,7 @@ class AsyncSystemsClient:
         )
 
         client = AsyncTrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -401,7 +401,7 @@ class AsyncSystemsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -443,7 +443,7 @@ class AsyncSystemsClient:
         from trophy import AsyncTrophyApi, UpdatePointsSystemRequestItem
 
         client = AsyncTrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -489,7 +489,7 @@ class AsyncSystemsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

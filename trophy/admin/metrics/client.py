@@ -63,7 +63,7 @@ class MetricsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -98,7 +98,7 @@ class MetricsClient:
         from trophy import CreateMetricRequestItem, TrophyApi
 
         client = TrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -147,7 +147,7 @@ class MetricsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -184,7 +184,7 @@ class MetricsClient:
         from trophy import TrophyApi, UpdateMetricRequestItem
 
         client = TrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -228,7 +228,7 @@ class MetricsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -288,7 +288,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -331,7 +331,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi, CreateMetricRequestItem
 
         client = AsyncTrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -388,7 +388,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -433,7 +433,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi, UpdateMetricRequestItem
 
         client = AsyncTrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -485,7 +485,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

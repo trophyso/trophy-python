@@ -203,6 +203,12 @@ if typing.TYPE_CHECKING:
     from .user_preferences_response import UserPreferencesResponse
     from .webhook_user_leaderboard_response import WebhookUserLeaderboardResponse
     from .webhooks_achievement_completed_payload import WebhooksAchievementCompletedPayload
+    from .webhooks_emails_achievement_due_payload import WebhooksEmailsAchievementDuePayload
+    from .webhooks_emails_reactivation_due_payload import WebhooksEmailsReactivationDuePayload
+    from .webhooks_emails_reactivation_due_payload_reactivation import WebhooksEmailsReactivationDuePayloadReactivation
+    from .webhooks_emails_recap_due_payload import WebhooksEmailsRecapDuePayload
+    from .webhooks_emails_recap_due_payload_recap import WebhooksEmailsRecapDuePayloadRecap
+    from .webhooks_emails_streak_reminder_due_payload import WebhooksEmailsStreakReminderDuePayload
     from .webhooks_leaderboard_changed_payload import WebhooksLeaderboardChangedPayload
     from .webhooks_leaderboard_finished_payload import WebhooksLeaderboardFinishedPayload
     from .webhooks_leaderboard_rank_changed_payload import WebhooksLeaderboardRankChangedPayload
@@ -416,6 +422,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UserPreferencesResponse": ".user_preferences_response",
     "WebhookUserLeaderboardResponse": ".webhook_user_leaderboard_response",
     "WebhooksAchievementCompletedPayload": ".webhooks_achievement_completed_payload",
+    "WebhooksEmailsAchievementDuePayload": ".webhooks_emails_achievement_due_payload",
+    "WebhooksEmailsReactivationDuePayload": ".webhooks_emails_reactivation_due_payload",
+    "WebhooksEmailsReactivationDuePayloadReactivation": ".webhooks_emails_reactivation_due_payload_reactivation",
+    "WebhooksEmailsRecapDuePayload": ".webhooks_emails_recap_due_payload",
+    "WebhooksEmailsRecapDuePayloadRecap": ".webhooks_emails_recap_due_payload_recap",
+    "WebhooksEmailsStreakReminderDuePayload": ".webhooks_emails_streak_reminder_due_payload",
     "WebhooksLeaderboardChangedPayload": ".webhooks_leaderboard_changed_payload",
     "WebhooksLeaderboardFinishedPayload": ".webhooks_leaderboard_finished_payload",
     "WebhooksLeaderboardRankChangedPayload": ".webhooks_leaderboard_rank_changed_payload",
@@ -653,6 +665,12 @@ __all__ = [
     "UserPreferencesResponse",
     "WebhookUserLeaderboardResponse",
     "WebhooksAchievementCompletedPayload",
+    "WebhooksEmailsAchievementDuePayload",
+    "WebhooksEmailsReactivationDuePayload",
+    "WebhooksEmailsReactivationDuePayloadReactivation",
+    "WebhooksEmailsRecapDuePayload",
+    "WebhooksEmailsRecapDuePayloadRecap",
+    "WebhooksEmailsStreakReminderDuePayload",
     "WebhooksLeaderboardChangedPayload",
     "WebhooksLeaderboardFinishedPayload",
     "WebhooksLeaderboardRankChangedPayload",

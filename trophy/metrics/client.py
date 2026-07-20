@@ -70,7 +70,7 @@ class MetricsClient:
         from trophy import TrophyApi, UpsertedUser
 
         client = TrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -158,7 +158,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi, UpsertedUser
 
         client = AsyncTrophyApi(
-            "1.16.0",
+            "1.17.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

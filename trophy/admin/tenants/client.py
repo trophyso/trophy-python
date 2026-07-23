@@ -63,7 +63,7 @@ class TenantsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -98,7 +98,7 @@ class TenantsClient:
         from trophy import CreateTenantRequestItem, TrophyApi
 
         client = TrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -145,7 +145,7 @@ class TenantsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -182,7 +182,7 @@ class TenantsClient:
         from trophy import TrophyApi, UpdateTenantRequestItem
 
         client = TrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -220,7 +220,7 @@ class TenantsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -280,7 +280,7 @@ class AsyncTenantsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -323,7 +323,7 @@ class AsyncTenantsClient:
         from trophy import AsyncTrophyApi, CreateTenantRequestItem
 
         client = AsyncTrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -378,7 +378,7 @@ class AsyncTenantsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -423,7 +423,7 @@ class AsyncTenantsClient:
         from trophy import AsyncTrophyApi, UpdateTenantRequestItem
 
         client = AsyncTrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -469,7 +469,7 @@ class AsyncTenantsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

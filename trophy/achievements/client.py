@@ -52,7 +52,7 @@ class AchievementsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -90,7 +90,7 @@ class AchievementsClient:
         from trophy import TrophyApi, UpsertedUser
 
         client = TrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -148,7 +148,7 @@ class AsyncAchievementsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -194,7 +194,7 @@ class AsyncAchievementsClient:
         from trophy import AsyncTrophyApi, UpsertedUser
 
         client = AsyncTrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

@@ -67,7 +67,7 @@ class BoostsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -110,7 +110,7 @@ class BoostsClient:
         from trophy import CreatePointsBoostRequestItem, TrophyApi
 
         client = TrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -161,7 +161,7 @@ class BoostsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -203,7 +203,7 @@ class BoostsClient:
         from trophy import PatchPointsBoostsRequestItem, TrophyApi
 
         client = TrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -248,7 +248,7 @@ class BoostsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -313,7 +313,7 @@ class AsyncBoostsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -364,7 +364,7 @@ class AsyncBoostsClient:
         from trophy import AsyncTrophyApi, CreatePointsBoostRequestItem
 
         client = AsyncTrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -423,7 +423,7 @@ class AsyncBoostsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -473,7 +473,7 @@ class AsyncBoostsClient:
         from trophy import AsyncTrophyApi, PatchPointsBoostsRequestItem
 
         client = AsyncTrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -526,7 +526,7 @@ class AsyncBoostsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.17.0",
+            "1.18.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

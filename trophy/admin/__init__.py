@@ -6,10 +6,11 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from . import attributes, leaderboards, metrics, points, streaks, tenants
+    from . import application_api_keys, attributes, leaderboards, metrics, points, streaks, tenants
     from .streaks import RestoreStreaksRequestUsersItem
 _dynamic_imports: typing.Dict[str, str] = {
     "RestoreStreaksRequestUsersItem": ".streaks",
+    "application_api_keys": ".application_api_keys",
     "attributes": ".attributes",
     "leaderboards": ".leaderboards",
     "metrics": ".metrics",
@@ -40,4 +41,13 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["RestoreStreaksRequestUsersItem", "attributes", "leaderboards", "metrics", "points", "streaks", "tenants"]
+__all__ = [
+    "RestoreStreaksRequestUsersItem",
+    "application_api_keys",
+    "attributes",
+    "leaderboards",
+    "metrics",
+    "points",
+    "streaks",
+    "tenants",
+]

@@ -66,7 +66,7 @@ class TrophyApi:
     from trophy import TrophyApi
 
     client = TrophyApi(
-        "1.17.0",
+        "1.18.0",
         tenant_id="YOUR_TENANT_ID",
         api_key="YOUR_API_KEY",
     )
@@ -76,7 +76,7 @@ class TrophyApi:
         self,
         *,
         environment: TrophyApiEnvironment = TrophyApiEnvironment.PRODUCTION,
-        sdk_version: str = "1.17.0",
+        sdk_version: str = "1.18.0",
         tenant_id: typing.Optional[str] = None,
         api_key: str,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -239,7 +239,7 @@ class AsyncTrophyApi:
     from trophy import AsyncTrophyApi
 
     client = AsyncTrophyApi(
-        "1.17.0",
+        "1.18.0",
         tenant_id="YOUR_TENANT_ID",
         api_key="YOUR_API_KEY",
     )
@@ -249,7 +249,7 @@ class AsyncTrophyApi:
         self,
         *,
         environment: TrophyApiEnvironment = TrophyApiEnvironment.PRODUCTION,
-        sdk_version: str = "1.17.0",
+        sdk_version: str = "1.18.0",
         tenant_id: typing.Optional[str] = None,
         api_key: str,
         headers: typing.Optional[typing.Dict[str, str]] = None,

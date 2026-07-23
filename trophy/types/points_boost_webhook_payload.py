@@ -33,10 +33,7 @@ class PointsBoostWebhookPayload(UniversalBaseModel):
     user_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="userId"),
-        pydantic.Field(
-            alias="userId",
-            description="The customer-facing user ID that the boost is scoped to, or null for global boosts.",
-        ),
+        pydantic.Field(alias="userId", description="The user ID the boost is scoped to, or null for global boosts."),
     ] = None
     points_system_id: typing_extensions.Annotated[
         str,

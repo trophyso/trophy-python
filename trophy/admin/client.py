@@ -8,6 +8,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .raw_client import AsyncRawAdminClient, RawAdminClient
 
 if typing.TYPE_CHECKING:
+    from .application_api_keys.client import ApplicationApiKeysClient, AsyncApplicationApiKeysClient
     from .attributes.client import AsyncAttributesClient, AttributesClient
     from .leaderboards.client import AsyncLeaderboardsClient, LeaderboardsClient
     from .metrics.client import AsyncMetricsClient, MetricsClient
@@ -24,6 +25,7 @@ class AdminClient:
         self._metrics: typing.Optional[MetricsClient] = None
         self._leaderboards: typing.Optional[LeaderboardsClient] = None
         self._streaks: typing.Optional[StreaksClient] = None
+        self._application_api_keys: typing.Optional[ApplicationApiKeysClient] = None
         self._tenants: typing.Optional[TenantsClient] = None
         self._points: typing.Optional[PointsClient] = None
 
@@ -71,6 +73,14 @@ class AdminClient:
         return self._streaks
 
     @property
+    def application_api_keys(self):
+        if self._application_api_keys is None:
+            from .application_api_keys.client import ApplicationApiKeysClient  # noqa: E402
+
+            self._application_api_keys = ApplicationApiKeysClient(client_wrapper=self._client_wrapper)
+        return self._application_api_keys
+
+    @property
     def tenants(self):
         if self._tenants is None:
             from .tenants.client import TenantsClient  # noqa: E402
@@ -95,6 +105,7 @@ class AsyncAdminClient:
         self._metrics: typing.Optional[AsyncMetricsClient] = None
         self._leaderboards: typing.Optional[AsyncLeaderboardsClient] = None
         self._streaks: typing.Optional[AsyncStreaksClient] = None
+        self._application_api_keys: typing.Optional[AsyncApplicationApiKeysClient] = None
         self._tenants: typing.Optional[AsyncTenantsClient] = None
         self._points: typing.Optional[AsyncPointsClient] = None
 
@@ -140,6 +151,14 @@ class AsyncAdminClient:
 
             self._streaks = AsyncStreaksClient(client_wrapper=self._client_wrapper)
         return self._streaks
+
+    @property
+    def application_api_keys(self):
+        if self._application_api_keys is None:
+            from .application_api_keys.client import AsyncApplicationApiKeysClient  # noqa: E402
+
+            self._application_api_keys = AsyncApplicationApiKeysClient(client_wrapper=self._client_wrapper)
+        return self._application_api_keys
 
     @property
     def tenants(self):

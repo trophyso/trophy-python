@@ -14,6 +14,11 @@ class AdminIssue(UniversalBaseModel):
     An issue encountered while processing an item in an admin API request.
     """
 
+    id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The ID of the resource the issue relates to, when applicable.
+    """
+
     user_id: typing_extensions.Annotated[
         typing.Optional[str],
         FieldMetadata(alias="userId"),

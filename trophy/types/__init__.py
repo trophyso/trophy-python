@@ -42,6 +42,9 @@ if typing.TYPE_CHECKING:
     from .base_streak_response import BaseStreakResponse
     from .bulk_streak_response import BulkStreakResponse
     from .bulk_streak_response_item import BulkStreakResponseItem
+    from .create_application_key_request_item import CreateApplicationKeyRequestItem
+    from .create_application_keys_request import CreateApplicationKeysRequest
+    from .create_application_keys_response import CreateApplicationKeysResponse
     from .create_attribute_request_item import CreateAttributeRequestItem
     from .create_attribute_request_item_type import CreateAttributeRequestItemType
     from .create_attributes_request import CreateAttributesRequest
@@ -86,8 +89,10 @@ if typing.TYPE_CHECKING:
     from .create_tenants_request import CreateTenantsRequest
     from .create_tenants_response import CreateTenantsResponse
     from .created_admin_points_system import CreatedAdminPointsSystem
+    from .created_application_key import CreatedApplicationKey
     from .created_metric import CreatedMetric
     from .created_metric_unit_type import CreatedMetricUnitType
+    from .delete_application_keys_response import DeleteApplicationKeysResponse
     from .delete_attributes_response import DeleteAttributesResponse
     from .delete_leaderboards_response import DeleteLeaderboardsResponse
     from .delete_metrics_response import DeleteMetricsResponse
@@ -271,6 +276,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BaseStreakResponse": ".base_streak_response",
     "BulkStreakResponse": ".bulk_streak_response",
     "BulkStreakResponseItem": ".bulk_streak_response_item",
+    "CreateApplicationKeyRequestItem": ".create_application_key_request_item",
+    "CreateApplicationKeysRequest": ".create_application_keys_request",
+    "CreateApplicationKeysResponse": ".create_application_keys_response",
     "CreateAttributeRequestItem": ".create_attribute_request_item",
     "CreateAttributeRequestItemType": ".create_attribute_request_item_type",
     "CreateAttributesRequest": ".create_attributes_request",
@@ -311,8 +319,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateTenantsRequest": ".create_tenants_request",
     "CreateTenantsResponse": ".create_tenants_response",
     "CreatedAdminPointsSystem": ".created_admin_points_system",
+    "CreatedApplicationKey": ".created_application_key",
     "CreatedMetric": ".created_metric",
     "CreatedMetricUnitType": ".created_metric_unit_type",
+    "DeleteApplicationKeysResponse": ".delete_application_keys_response",
     "DeleteAttributesResponse": ".delete_attributes_response",
     "DeleteLeaderboardsResponse": ".delete_leaderboards_response",
     "DeleteMetricsResponse": ".delete_metrics_response",
@@ -514,6 +524,9 @@ __all__ = [
     "BaseStreakResponse",
     "BulkStreakResponse",
     "BulkStreakResponseItem",
+    "CreateApplicationKeyRequestItem",
+    "CreateApplicationKeysRequest",
+    "CreateApplicationKeysResponse",
     "CreateAttributeRequestItem",
     "CreateAttributeRequestItemType",
     "CreateAttributesRequest",
@@ -554,8 +567,10 @@ __all__ = [
     "CreateTenantsRequest",
     "CreateTenantsResponse",
     "CreatedAdminPointsSystem",
+    "CreatedApplicationKey",
     "CreatedMetric",
     "CreatedMetricUnitType",
+    "DeleteApplicationKeysResponse",
     "DeleteAttributesResponse",
     "DeleteLeaderboardsResponse",
     "DeleteMetricsResponse",

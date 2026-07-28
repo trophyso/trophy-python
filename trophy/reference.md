@@ -3143,6 +3143,99 @@ client.admin.metrics.get(
 </dl>
 </details>
 
+<details><summary><code>client.admin.metrics.<a href="src/trophy/admin/metrics/client.py">batch_events</a>(...) -> BatchEventsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submit up to 1,000 metric events for asynchronous processing.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi, BatchMetricEvent, BatchMetricEventUser
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.metrics.batch_events(
+    request=[
+        BatchMetricEvent(
+            key="words-written",
+            user=BatchMetricEventUser(
+                id="18",
+                email="user@example.com",
+                tz="Europe/London",
+                attributes={
+                    "department": "engineering",
+                    "role": "developer"
+                },
+            ),
+            value=750,
+            attributes={
+                "category": "writing",
+                "source": "mobile-app"
+            },
+            idempotency_key="e4296e4b-8493-4bd1-9c30-5a1a9ac4d78f",
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `typing.List[BatchMetricEvent]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Admin Leaderboards
 <details><summary><code>client.admin.leaderboards.<a href="src/trophy/admin/leaderboards/client.py">list</a>(...) -> ListLeaderboardsResponse</code></summary>
 <dl>

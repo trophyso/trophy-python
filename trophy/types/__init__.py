@@ -40,6 +40,9 @@ if typing.TYPE_CHECKING:
     from .admin_tenant import AdminTenant
     from .admin_tenant_status import AdminTenantStatus
     from .base_streak_response import BaseStreakResponse
+    from .batch_events_response import BatchEventsResponse
+    from .batch_metric_event import BatchMetricEvent
+    from .batch_metric_event_user import BatchMetricEventUser
     from .bulk_streak_response import BulkStreakResponse
     from .bulk_streak_response_item import BulkStreakResponseItem
     from .create_application_key_request_item import CreateApplicationKeyRequestItem
@@ -274,6 +277,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdminTenant": ".admin_tenant",
     "AdminTenantStatus": ".admin_tenant_status",
     "BaseStreakResponse": ".base_streak_response",
+    "BatchEventsResponse": ".batch_events_response",
+    "BatchMetricEvent": ".batch_metric_event",
+    "BatchMetricEventUser": ".batch_metric_event_user",
     "BulkStreakResponse": ".bulk_streak_response",
     "BulkStreakResponseItem": ".bulk_streak_response_item",
     "CreateApplicationKeyRequestItem": ".create_application_key_request_item",
@@ -522,6 +528,9 @@ __all__ = [
     "AdminTenant",
     "AdminTenantStatus",
     "BaseStreakResponse",
+    "BatchEventsResponse",
+    "BatchMetricEvent",
+    "BatchMetricEventUser",
     "BulkStreakResponse",
     "BulkStreakResponseItem",
     "CreateApplicationKeyRequestItem",

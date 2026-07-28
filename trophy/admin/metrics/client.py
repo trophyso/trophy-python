@@ -4,6 +4,8 @@ import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
+from ...types.batch_events_response import BatchEventsResponse
+from ...types.batch_metric_event import BatchMetricEvent
 from ...types.create_metrics_request import CreateMetricsRequest
 from ...types.create_metrics_response import CreateMetricsResponse
 from ...types.created_metric import CreatedMetric
@@ -63,7 +65,7 @@ class MetricsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.18.0",
+            "1.19.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -98,7 +100,7 @@ class MetricsClient:
         from trophy import CreateMetricRequestItem, TrophyApi
 
         client = TrophyApi(
-            "1.18.0",
+            "1.19.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -147,7 +149,7 @@ class MetricsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.18.0",
+            "1.19.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -184,7 +186,7 @@ class MetricsClient:
         from trophy import TrophyApi, UpdateMetricRequestItem
 
         client = TrophyApi(
-            "1.18.0",
+            "1.19.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -228,7 +230,7 @@ class MetricsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.18.0",
+            "1.19.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -237,6 +239,53 @@ class MetricsClient:
         )
         """
         _response = self._raw_client.get(id, request_options=request_options)
+        return _response.data
+
+    def batch_events(
+        self, *, request: typing.Sequence[BatchMetricEvent], request_options: typing.Optional[RequestOptions] = None
+    ) -> BatchEventsResponse:
+        """
+        Submit up to 1,000 metric events for asynchronous processing.
+
+        Parameters
+        ----------
+        request : typing.Sequence[BatchMetricEvent]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BatchEventsResponse
+            Events accepted into the processing queue
+
+        Examples
+        --------
+        from trophy import BatchMetricEvent, BatchMetricEventUser, TrophyApi
+
+        client = TrophyApi(
+            "1.19.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+        client.admin.metrics.batch_events(
+            request=[
+                BatchMetricEvent(
+                    key="words-written",
+                    user=BatchMetricEventUser(
+                        id="18",
+                        email="user@example.com",
+                        tz="Europe/London",
+                        attributes={"department": "engineering", "role": "developer"},
+                    ),
+                    value=750.0,
+                    attributes={"category": "writing", "source": "mobile-app"},
+                    idempotency_key="e4296e4b-8493-4bd1-9c30-5a1a9ac4d78f",
+                )
+            ],
+        )
+        """
+        _response = self._raw_client.batch_events(request=request, request_options=request_options)
         return _response.data
 
 
@@ -288,7 +337,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.18.0",
+            "1.19.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -331,7 +380,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi, CreateMetricRequestItem
 
         client = AsyncTrophyApi(
-            "1.18.0",
+            "1.19.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -388,7 +437,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.18.0",
+            "1.19.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -433,7 +482,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi, UpdateMetricRequestItem
 
         client = AsyncTrophyApi(
-            "1.18.0",
+            "1.19.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -485,7 +534,7 @@ class AsyncMetricsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.18.0",
+            "1.19.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -500,4 +549,62 @@ class AsyncMetricsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get(id, request_options=request_options)
+        return _response.data
+
+    async def batch_events(
+        self, *, request: typing.Sequence[BatchMetricEvent], request_options: typing.Optional[RequestOptions] = None
+    ) -> BatchEventsResponse:
+        """
+        Submit up to 1,000 metric events for asynchronous processing.
+
+        Parameters
+        ----------
+        request : typing.Sequence[BatchMetricEvent]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BatchEventsResponse
+            Events accepted into the processing queue
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi, BatchMetricEvent, BatchMetricEventUser
+
+        client = AsyncTrophyApi(
+            "1.19.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.admin.metrics.batch_events(
+                request=[
+                    BatchMetricEvent(
+                        key="words-written",
+                        user=BatchMetricEventUser(
+                            id="18",
+                            email="user@example.com",
+                            tz="Europe/London",
+                            attributes={
+                                "department": "engineering",
+                                "role": "developer",
+                            },
+                        ),
+                        value=750.0,
+                        attributes={"category": "writing", "source": "mobile-app"},
+                        idempotency_key="e4296e4b-8493-4bd1-9c30-5a1a9ac4d78f",
+                    )
+                ],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.batch_events(request=request, request_options=request_options)
         return _response.data

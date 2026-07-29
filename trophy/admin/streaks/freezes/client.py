@@ -55,7 +55,7 @@ class FreezesClient:
         from trophy.admin.streaks.freezes import CreateStreakFreezesRequestFreezesItem
 
         client = TrophyApi(
-            "1.19.0",
+            "1.20.1",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -122,7 +122,7 @@ class AsyncFreezesClient:
         from trophy.admin.streaks.freezes import CreateStreakFreezesRequestFreezesItem
 
         client = AsyncTrophyApi(
-            "1.19.0",
+            "1.20.1",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

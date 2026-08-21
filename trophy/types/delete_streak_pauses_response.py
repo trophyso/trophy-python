@@ -10,17 +10,17 @@ from .deleted_resource import DeletedResource
 
 class DeleteStreakPausesResponse(UniversalBaseModel):
     """
-    Response containing archived streak pauses and any issues encountered.
+    Response containing deleted streak pauses and any issues encountered.
     """
 
     deleted: typing.List[DeletedResource] = pydantic.Field()
     """
-    Array of archived streak pause IDs.
+    Array of deleted streak pause IDs.
     """
 
     issues: typing.List[AdminIssue] = pydantic.Field()
     """
-    Array of issues encountered during pause archival.
+    Array of issues encountered during pause deletion.
     """
 
     if IS_PYDANTIC_V2:

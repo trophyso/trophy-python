@@ -51,7 +51,7 @@ class ApplicationApiKeysClient:
         from trophy import CreateApplicationKeyRequestItem, TrophyApi
 
         client = TrophyApi(
-            "1.21.0",
+            "1.21.1",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -96,7 +96,7 @@ class ApplicationApiKeysClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.21.0",
+            "1.21.1",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -148,7 +148,7 @@ class AsyncApplicationApiKeysClient:
         from trophy import AsyncTrophyApi, CreateApplicationKeyRequestItem
 
         client = AsyncTrophyApi(
-            "1.21.0",
+            "1.21.1",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -201,7 +201,7 @@ class AsyncApplicationApiKeysClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.21.0",
+            "1.21.1",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

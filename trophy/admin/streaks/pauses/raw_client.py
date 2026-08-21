@@ -110,12 +110,12 @@ class RawPausesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[DeleteStreakPausesResponse]:
         """
-        Archive streak pauses by ID. Pause records are not deleted; their status is set to archived so they no longer apply to streak logic.
+        Delete streak pauses by ID.
 
         Parameters
         ----------
         ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Streak pause IDs to archive. Repeat the query param or provide a comma-separated list.
+            Streak pause IDs to delete. Repeat the query param or provide a comma-separated list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -265,12 +265,12 @@ class AsyncRawPausesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[DeleteStreakPausesResponse]:
         """
-        Archive streak pauses by ID. Pause records are not deleted; their status is set to archived so they no longer apply to streak logic.
+        Delete streak pauses by ID.
 
         Parameters
         ----------
         ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Streak pause IDs to archive. Repeat the query param or provide a comma-separated list.
+            Streak pause IDs to delete. Repeat the query param or provide a comma-separated list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

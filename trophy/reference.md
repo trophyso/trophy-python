@@ -4477,7 +4477,7 @@ client.admin.points.systems.create(
 <dl>
 <dd>
 
-Delete (archive) points systems by ID.
+Delete points systems by ID.
 </dd>
 </dl>
 </dd>
@@ -5765,7 +5765,7 @@ client.admin.points.triggers.create(
 <dl>
 <dd>
 
-Delete (archive) points triggers by ID. Maximum 100 trigger IDs per request.
+Delete points triggers by ID. Maximum 100 trigger IDs per request.
 </dd>
 </dl>
 </dd>
@@ -6193,7 +6193,7 @@ client.admin.streaks.pauses.create(
 <dl>
 <dd>
 
-Archive streak pauses by ID. Pause records are not deleted; their status is set to archived so they no longer apply to streak logic.
+Delete streak pauses by ID.
 </dd>
 </dl>
 </dd>
@@ -6238,7 +6238,7 @@ client.admin.streaks.pauses.delete(
 <dl>
 <dd>
 
-**ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Streak pause IDs to archive. Repeat the query param or provide a comma-separated list.
+**ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Streak pause IDs to delete. Repeat the query param or provide a comma-separated list.
     
 </dd>
 </dl>

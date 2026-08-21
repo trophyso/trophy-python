@@ -221,7 +221,7 @@ class RawTriggersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[DeletePointsTriggersResponse]:
         """
-        Delete (archive) points triggers by ID. Maximum 100 trigger IDs per request.
+        Delete points triggers by ID. Maximum 100 trigger IDs per request.
 
         Parameters
         ----------
@@ -665,7 +665,7 @@ class AsyncRawTriggersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[DeletePointsTriggersResponse]:
         """
-        Delete (archive) points triggers by ID. Maximum 100 trigger IDs per request.
+        Delete points triggers by ID. Maximum 100 trigger IDs per request.
 
         Parameters
         ----------

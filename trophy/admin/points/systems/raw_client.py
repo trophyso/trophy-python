@@ -187,7 +187,7 @@ class RawSystemsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[DeletePointsSystemsResponse]:
         """
-        Delete (archive) points systems by ID.
+        Delete points systems by ID.
 
         Parameters
         ----------
@@ -562,7 +562,7 @@ class AsyncRawSystemsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[DeletePointsSystemsResponse]:
         """
-        Delete (archive) points systems by ID.
+        Delete points systems by ID.
 
         Parameters
         ----------

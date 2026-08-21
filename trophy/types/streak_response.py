@@ -32,7 +32,7 @@ class StreakResponse(BaseStreakResponse):
     ]
     pauses: typing.List[StreakResponsePausesItem] = pydantic.Field()
     """
-    Upcoming and currently active streak pauses for the user. Past and archived pauses are omitted.
+    Upcoming and currently active streak pauses for the user.
     """
 
     if IS_PYDANTIC_V2:

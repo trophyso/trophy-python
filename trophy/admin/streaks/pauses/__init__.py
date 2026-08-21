@@ -6,17 +6,8 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import RestoreStreaksRequestUsersItem
-    from . import freezes, pauses
-    from .freezes import CreateStreakFreezesRequestFreezesItem
-    from .pauses import CreateStreakPausesRequestPausesItem
-_dynamic_imports: typing.Dict[str, str] = {
-    "CreateStreakFreezesRequestFreezesItem": ".freezes",
-    "CreateStreakPausesRequestPausesItem": ".pauses",
-    "RestoreStreaksRequestUsersItem": ".types",
-    "freezes": ".freezes",
-    "pauses": ".pauses",
-}
+    from .types import CreateStreakPausesRequestPausesItem
+_dynamic_imports: typing.Dict[str, str] = {"CreateStreakPausesRequestPausesItem": ".types"}
 
 
 def __getattr__(attr_name: str) -> typing.Any:
@@ -40,10 +31,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = [
-    "CreateStreakFreezesRequestFreezesItem",
-    "CreateStreakPausesRequestPausesItem",
-    "RestoreStreaksRequestUsersItem",
-    "freezes",
-    "pauses",
-]
+__all__ = ["CreateStreakPausesRequestPausesItem"]

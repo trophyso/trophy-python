@@ -37,6 +37,8 @@ if typing.TYPE_CHECKING:
     from .admin_points_trigger_time_unit import AdminPointsTriggerTimeUnit
     from .admin_points_trigger_type import AdminPointsTriggerType
     from .admin_points_trigger_user_attributes_item import AdminPointsTriggerUserAttributesItem
+    from .admin_streak_pause import AdminStreakPause
+    from .admin_streak_pause_status import AdminStreakPauseStatus
     from .admin_tenant import AdminTenant
     from .admin_tenant_status import AdminTenantStatus
     from .base_streak_response import BaseStreakResponse
@@ -88,6 +90,7 @@ if typing.TYPE_CHECKING:
     from .create_points_triggers_request import CreatePointsTriggersRequest
     from .create_points_triggers_response import CreatePointsTriggersResponse
     from .create_streak_freezes_response import CreateStreakFreezesResponse
+    from .create_streak_pauses_response import CreateStreakPausesResponse
     from .create_tenant_request_item import CreateTenantRequestItem
     from .create_tenants_request import CreateTenantsRequest
     from .create_tenants_response import CreateTenantsResponse
@@ -103,6 +106,7 @@ if typing.TYPE_CHECKING:
     from .delete_points_levels_response import DeletePointsLevelsResponse
     from .delete_points_systems_response import DeletePointsSystemsResponse
     from .delete_points_triggers_response import DeletePointsTriggersResponse
+    from .delete_streak_pauses_response import DeleteStreakPausesResponse
     from .delete_tenants_response import DeleteTenantsResponse
     from .deleted_resource import DeletedResource
     from .error_body import ErrorBody
@@ -180,6 +184,7 @@ if typing.TYPE_CHECKING:
     from .streak_metric_preference import StreakMetricPreference
     from .streak_preferences import StreakPreferences
     from .streak_response import StreakResponse
+    from .streak_response_pauses_item import StreakResponsePausesItem
     from .streak_response_streak_history_item import StreakResponseStreakHistoryItem
     from .update_attribute_request_item import UpdateAttributeRequestItem
     from .update_attributes_request import UpdateAttributesRequest
@@ -274,6 +279,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdminPointsTriggerTimeUnit": ".admin_points_trigger_time_unit",
     "AdminPointsTriggerType": ".admin_points_trigger_type",
     "AdminPointsTriggerUserAttributesItem": ".admin_points_trigger_user_attributes_item",
+    "AdminStreakPause": ".admin_streak_pause",
+    "AdminStreakPauseStatus": ".admin_streak_pause_status",
     "AdminTenant": ".admin_tenant",
     "AdminTenantStatus": ".admin_tenant_status",
     "BaseStreakResponse": ".base_streak_response",
@@ -321,6 +328,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePointsTriggersRequest": ".create_points_triggers_request",
     "CreatePointsTriggersResponse": ".create_points_triggers_response",
     "CreateStreakFreezesResponse": ".create_streak_freezes_response",
+    "CreateStreakPausesResponse": ".create_streak_pauses_response",
     "CreateTenantRequestItem": ".create_tenant_request_item",
     "CreateTenantsRequest": ".create_tenants_request",
     "CreateTenantsResponse": ".create_tenants_response",
@@ -336,6 +344,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DeletePointsLevelsResponse": ".delete_points_levels_response",
     "DeletePointsSystemsResponse": ".delete_points_systems_response",
     "DeletePointsTriggersResponse": ".delete_points_triggers_response",
+    "DeleteStreakPausesResponse": ".delete_streak_pauses_response",
     "DeleteTenantsResponse": ".delete_tenants_response",
     "DeletedResource": ".deleted_resource",
     "ErrorBody": ".error_body",
@@ -407,6 +416,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "StreakMetricPreference": ".streak_metric_preference",
     "StreakPreferences": ".streak_preferences",
     "StreakResponse": ".streak_response",
+    "StreakResponsePausesItem": ".streak_response_pauses_item",
     "StreakResponseStreakHistoryItem": ".streak_response_streak_history_item",
     "UpdateAttributeRequestItem": ".update_attribute_request_item",
     "UpdateAttributesRequest": ".update_attributes_request",
@@ -525,6 +535,8 @@ __all__ = [
     "AdminPointsTriggerTimeUnit",
     "AdminPointsTriggerType",
     "AdminPointsTriggerUserAttributesItem",
+    "AdminStreakPause",
+    "AdminStreakPauseStatus",
     "AdminTenant",
     "AdminTenantStatus",
     "BaseStreakResponse",
@@ -572,6 +584,7 @@ __all__ = [
     "CreatePointsTriggersRequest",
     "CreatePointsTriggersResponse",
     "CreateStreakFreezesResponse",
+    "CreateStreakPausesResponse",
     "CreateTenantRequestItem",
     "CreateTenantsRequest",
     "CreateTenantsResponse",
@@ -587,6 +600,7 @@ __all__ = [
     "DeletePointsLevelsResponse",
     "DeletePointsSystemsResponse",
     "DeletePointsTriggersResponse",
+    "DeleteStreakPausesResponse",
     "DeleteTenantsResponse",
     "DeletedResource",
     "ErrorBody",
@@ -658,6 +672,7 @@ __all__ = [
     "StreakMetricPreference",
     "StreakPreferences",
     "StreakResponse",
+    "StreakResponsePausesItem",
     "StreakResponseStreakHistoryItem",
     "UpdateAttributeRequestItem",
     "UpdateAttributesRequest",

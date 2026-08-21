@@ -36,6 +36,11 @@ class StreakResponseStreakHistoryItem(UniversalBaseModel):
             description="Whether the user used a streak freeze during this period. Only present if the organization has enabled streak freezes.",
         ),
     ] = None
+    used_pause: typing_extensions.Annotated[
+        bool,
+        FieldMetadata(alias="usedPause"),
+        pydantic.Field(alias="usedPause", description="Whether the user's streak was paused during this period."),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

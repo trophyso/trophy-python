@@ -8,6 +8,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
 from .base_streak_response import BaseStreakResponse
+from .streak_response_pauses_item import StreakResponsePausesItem
 from .streak_response_streak_history_item import StreakResponseStreakHistoryItem
 
 
@@ -29,6 +30,10 @@ class StreakResponse(BaseStreakResponse):
             description="A list of the user's past streak periods up through the current period. Each period includes the start and end dates and the length of the streak.",
         ),
     ]
+    pauses: typing.List[StreakResponsePausesItem] = pydantic.Field()
+    """
+    Upcoming and currently active streak pauses for the user. Past and archived pauses are omitted.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

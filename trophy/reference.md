@@ -6094,3 +6094,167 @@ client.admin.streaks.freezes.create(
 </dl>
 </details>
 
+## Admin Streaks Pauses
+<details><summary><code>client.admin.streaks.pauses.<a href="src/trophy/admin/streaks/pauses/client.py">create</a>(...) -> CreateStreakPausesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create streak pauses for multiple users. A pause covers a specific date range and maintains the user's streak length during that range instead of ending the streak. Start dates in the past are rejected.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+from trophy.admin.streaks.pauses import CreateStreakPausesRequestPausesItem
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.streaks.pauses.create(
+    pauses=[
+        CreateStreakPausesRequestPausesItem(
+            user_id="user-123",
+            start="2026-08-20",
+            end="2026-08-27",
+        ),
+        CreateStreakPausesRequestPausesItem(
+            user_id="user-456",
+            start="2026-09-01",
+            end="2026-09-07",
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**pauses:** `typing.List[CreateStreakPausesRequestPausesItem]` — Array of pauses to create. Maximum 100 pauses per request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.streaks.pauses.<a href="src/trophy/admin/streaks/pauses/client.py">delete</a>(...) -> DeleteStreakPausesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Archive streak pauses by ID. Pause records are not deleted; their status is set to archived so they no longer apply to streak logic.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.streaks.pauses.delete(
+    ids=[
+        "550e8400-e29b-41d4-a716-446655440000",
+        "550e8400-e29b-41d4-a716-446655440001"
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Streak pause IDs to archive. Repeat the query param or provide a comma-separated list.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+

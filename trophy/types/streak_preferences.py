@@ -12,7 +12,7 @@ from .streak_metric_preference import StreakMetricPreference
 
 class StreakPreferences(UniversalBaseModel):
     """
-    Per-user streak configuration. Metric and evaluation mode overrides require streak customization to be enabled in dashboard settings.
+    Per-user streak configuration. Metric, evaluation mode, and days off overrides require streak customization to be enabled in dashboard settings.
     """
 
     enabled: typing.Optional[bool] = pydantic.Field(default=None)
@@ -29,6 +29,15 @@ class StreakPreferences(UniversalBaseModel):
     """
     Metrics and thresholds that count toward this user's streak.
     """
+
+    days_off: typing_extensions.Annotated[
+        typing.Optional[typing.List[int]],
+        FieldMetadata(alias="daysOff"),
+        pydantic.Field(
+            alias="daysOff",
+            description="Days of the week that do not count toward the user's daily streak. Represented as zero-based integers matching JavaScript `Date.getDay()` (0 = Sunday, 6 = Saturday). For example, `[0, 6]` means Sunday and Saturday are days off. Only applied when streak frequency is daily. Users can still increase their streak on these days; if they do not, the streak stays paused at its current length instead of being lost.",
+        ),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

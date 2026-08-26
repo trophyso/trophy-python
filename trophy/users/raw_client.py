@@ -562,7 +562,7 @@ class RawUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UserPreferencesResponse]:
         """
-        Update a user's notification and streak preferences. Streak preferences require streak customization to be enabled in your Trophy dashboard settings.
+        Update a user's notification and streak preferences. Streak preferences other than `streak.enabled` require streak customization to be enabled in your Trophy dashboard settings.
 
         Parameters
         ----------
@@ -2071,7 +2071,7 @@ class AsyncRawUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UserPreferencesResponse]:
         """
-        Update a user's notification and streak preferences. Streak preferences require streak customization to be enabled in your Trophy dashboard settings.
+        Update a user's notification and streak preferences. Streak preferences other than `streak.enabled` require streak customization to be enabled in your Trophy dashboard settings.
 
         Parameters
         ----------

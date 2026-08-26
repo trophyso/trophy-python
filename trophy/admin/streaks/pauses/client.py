@@ -56,7 +56,7 @@ class PausesClient:
         from trophy.admin.streaks.pauses import CreateStreakPausesRequestPausesItem
 
         client = TrophyApi(
-            "1.21.1",
+            "1.22.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -105,7 +105,7 @@ class PausesClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.21.1",
+            "1.22.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -165,7 +165,7 @@ class AsyncPausesClient:
         from trophy.admin.streaks.pauses import CreateStreakPausesRequestPausesItem
 
         client = AsyncTrophyApi(
-            "1.21.1",
+            "1.22.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -222,7 +222,7 @@ class AsyncPausesClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.21.1",
+            "1.22.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

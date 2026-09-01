@@ -34,6 +34,14 @@ class User(UniversalBaseModel):
     The user's timezone.
     """
 
+    sign_up_date: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="signUpDate"),
+        pydantic.Field(
+            alias="signUpDate",
+            description="The date the user signed up on your platform, as YYYY-MM-DD. Required for anniversary achievements. Null if not set, in which case the user is not eligible for anniversary achievements.",
+        ),
+    ] = None
     device_tokens: typing_extensions.Annotated[
         typing.Optional[typing.List[str]],
         FieldMetadata(alias="deviceTokens"),

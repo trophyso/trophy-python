@@ -47,6 +47,7 @@ class UsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        sign_up_date: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -68,6 +69,9 @@ class UsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        sign_up_date : typing.Optional[str]
+            The date the user signed up on your platform, as YYYY-MM-DD. ISO 8601 date-times are accepted and stored as their UTC calendar day. Must not be after today in the user's timezone. Required for anniversary achievements. Users without a signUpDate are not eligible.
 
         device_tokens : typing.Optional[typing.Sequence[str]]
             The user's device tokens, used for push notifications.
@@ -91,7 +95,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -104,6 +108,7 @@ class UsersClient:
             email=email,
             name=name,
             tz=tz,
+            sign_up_date=sign_up_date,
             device_tokens=device_tokens,
             subscribe_to_emails=subscribe_to_emails,
             attributes=attributes,
@@ -133,7 +138,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -151,6 +156,7 @@ class UsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        sign_up_date: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -172,6 +178,9 @@ class UsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        sign_up_date : typing.Optional[str]
+            The date the user signed up on your platform, as YYYY-MM-DD. ISO 8601 date-times are accepted and stored as their UTC calendar day. Must not be after today in the user's timezone. Required for anniversary achievements. Users without a signUpDate are not eligible.
 
         device_tokens : typing.Optional[typing.Sequence[str]]
             The user's device tokens, used for push notifications.
@@ -195,7 +204,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -203,6 +212,7 @@ class UsersClient:
             id="id",
             email="user@example.com",
             tz="Europe/London",
+            sign_up_date="2020-08-20",
             attributes={"department": "engineering", "role": "developer"},
         )
         """
@@ -211,6 +221,7 @@ class UsersClient:
             email=email,
             name=name,
             tz=tz,
+            sign_up_date=sign_up_date,
             device_tokens=device_tokens,
             subscribe_to_emails=subscribe_to_emails,
             attributes=attributes,
@@ -225,6 +236,7 @@ class UsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        sign_up_date: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -246,6 +258,9 @@ class UsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        sign_up_date : typing.Optional[str]
+            The date the user signed up on your platform, as YYYY-MM-DD. ISO 8601 date-times are accepted and stored as their UTC calendar day. Must not be after today in the user's timezone. Required for anniversary achievements. Users without a signUpDate are not eligible.
 
         device_tokens : typing.Optional[typing.Sequence[str]]
             The user's device tokens, used for push notifications.
@@ -269,7 +284,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -285,6 +300,7 @@ class UsersClient:
             email=email,
             name=name,
             tz=tz,
+            sign_up_date=sign_up_date,
             device_tokens=device_tokens,
             subscribe_to_emails=subscribe_to_emails,
             attributes=attributes,
@@ -316,7 +332,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -360,7 +376,7 @@ class UsersClient:
         from trophy import NotificationPreferences, TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -400,7 +416,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -438,7 +454,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -493,7 +509,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -541,7 +557,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -585,7 +601,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -632,7 +648,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -672,7 +688,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -727,7 +743,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -783,7 +799,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -826,7 +842,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -861,6 +877,7 @@ class AsyncUsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        sign_up_date: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -882,6 +899,9 @@ class AsyncUsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        sign_up_date : typing.Optional[str]
+            The date the user signed up on your platform, as YYYY-MM-DD. ISO 8601 date-times are accepted and stored as their UTC calendar day. Must not be after today in the user's timezone. Required for anniversary achievements. Users without a signUpDate are not eligible.
 
         device_tokens : typing.Optional[typing.Sequence[str]]
             The user's device tokens, used for push notifications.
@@ -907,7 +927,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -926,6 +946,7 @@ class AsyncUsersClient:
             email=email,
             name=name,
             tz=tz,
+            sign_up_date=sign_up_date,
             device_tokens=device_tokens,
             subscribe_to_emails=subscribe_to_emails,
             attributes=attributes,
@@ -957,7 +978,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -981,6 +1002,7 @@ class AsyncUsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        sign_up_date: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -1002,6 +1024,9 @@ class AsyncUsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        sign_up_date : typing.Optional[str]
+            The date the user signed up on your platform, as YYYY-MM-DD. ISO 8601 date-times are accepted and stored as their UTC calendar day. Must not be after today in the user's timezone. Required for anniversary achievements. Users without a signUpDate are not eligible.
 
         device_tokens : typing.Optional[typing.Sequence[str]]
             The user's device tokens, used for push notifications.
@@ -1027,7 +1052,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1038,6 +1063,7 @@ class AsyncUsersClient:
                 id="id",
                 email="user@example.com",
                 tz="Europe/London",
+                sign_up_date="2020-08-20",
                 attributes={"department": "engineering", "role": "developer"},
             )
 
@@ -1049,6 +1075,7 @@ class AsyncUsersClient:
             email=email,
             name=name,
             tz=tz,
+            sign_up_date=sign_up_date,
             device_tokens=device_tokens,
             subscribe_to_emails=subscribe_to_emails,
             attributes=attributes,
@@ -1063,6 +1090,7 @@ class AsyncUsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        sign_up_date: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -1084,6 +1112,9 @@ class AsyncUsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        sign_up_date : typing.Optional[str]
+            The date the user signed up on your platform, as YYYY-MM-DD. ISO 8601 date-times are accepted and stored as their UTC calendar day. Must not be after today in the user's timezone. Required for anniversary achievements. Users without a signUpDate are not eligible.
 
         device_tokens : typing.Optional[typing.Sequence[str]]
             The user's device tokens, used for push notifications.
@@ -1109,7 +1140,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1131,6 +1162,7 @@ class AsyncUsersClient:
             email=email,
             name=name,
             tz=tz,
+            sign_up_date=sign_up_date,
             device_tokens=device_tokens,
             subscribe_to_emails=subscribe_to_emails,
             attributes=attributes,
@@ -1164,7 +1196,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1216,7 +1248,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi, NotificationPreferences
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1264,7 +1296,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1310,7 +1342,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1373,7 +1405,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1429,7 +1461,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1481,7 +1513,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1536,7 +1568,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1584,7 +1616,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1647,7 +1679,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1711,7 +1743,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1762,7 +1794,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.22.0",
+            "1.23.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

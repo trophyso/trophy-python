@@ -53,6 +53,14 @@ class AchievementResponse(UniversalBaseModel):
             description="The length of the streak required to complete the achievement (only applicable if trigger = 'streak')",
         ),
     ] = None
+    anniversary_years: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="anniversaryYears"),
+        pydantic.Field(
+            alias="anniversaryYears",
+            description="The number of years after sign-up required to complete the achievement (only applicable if trigger = 'anniversary')",
+        ),
+    ] = None
     achievement_ids: typing_extensions.Annotated[
         typing.Optional[typing.List[str]],
         FieldMetadata(alias="achievementIds"),

@@ -48,6 +48,7 @@ class RawUsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        sign_up_date: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -69,6 +70,9 @@ class RawUsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        sign_up_date : typing.Optional[str]
+            The date the user signed up on your platform, as YYYY-MM-DD. ISO 8601 date-times are accepted and stored as their UTC calendar day. Must not be after today in the user's timezone. Required for anniversary achievements. Users without a signUpDate are not eligible.
 
         device_tokens : typing.Optional[typing.Sequence[str]]
             The user's device tokens, used for push notifications.
@@ -96,6 +100,7 @@ class RawUsersClient:
                 "email": email,
                 "name": name,
                 "tz": tz,
+                "signUpDate": sign_up_date,
                 "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
                 "attributes": attributes,
@@ -240,6 +245,7 @@ class RawUsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        sign_up_date: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -261,6 +267,9 @@ class RawUsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        sign_up_date : typing.Optional[str]
+            The date the user signed up on your platform, as YYYY-MM-DD. ISO 8601 date-times are accepted and stored as their UTC calendar day. Must not be after today in the user's timezone. Required for anniversary achievements. Users without a signUpDate are not eligible.
 
         device_tokens : typing.Optional[typing.Sequence[str]]
             The user's device tokens, used for push notifications.
@@ -287,6 +296,7 @@ class RawUsersClient:
                 "email": email,
                 "name": name,
                 "tz": tz,
+                "signUpDate": sign_up_date,
                 "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
                 "attributes": attributes,
@@ -356,6 +366,7 @@ class RawUsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        sign_up_date: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -377,6 +388,9 @@ class RawUsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        sign_up_date : typing.Optional[str]
+            The date the user signed up on your platform, as YYYY-MM-DD. ISO 8601 date-times are accepted and stored as their UTC calendar day. Must not be after today in the user's timezone. Required for anniversary achievements. Users without a signUpDate are not eligible.
 
         device_tokens : typing.Optional[typing.Sequence[str]]
             The user's device tokens, used for push notifications.
@@ -403,6 +417,7 @@ class RawUsersClient:
                 "email": email,
                 "name": name,
                 "tz": tz,
+                "signUpDate": sign_up_date,
                 "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
                 "attributes": attributes,
@@ -1557,6 +1572,7 @@ class AsyncRawUsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        sign_up_date: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -1578,6 +1594,9 @@ class AsyncRawUsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        sign_up_date : typing.Optional[str]
+            The date the user signed up on your platform, as YYYY-MM-DD. ISO 8601 date-times are accepted and stored as their UTC calendar day. Must not be after today in the user's timezone. Required for anniversary achievements. Users without a signUpDate are not eligible.
 
         device_tokens : typing.Optional[typing.Sequence[str]]
             The user's device tokens, used for push notifications.
@@ -1605,6 +1624,7 @@ class AsyncRawUsersClient:
                 "email": email,
                 "name": name,
                 "tz": tz,
+                "signUpDate": sign_up_date,
                 "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
                 "attributes": attributes,
@@ -1749,6 +1769,7 @@ class AsyncRawUsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        sign_up_date: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -1770,6 +1791,9 @@ class AsyncRawUsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        sign_up_date : typing.Optional[str]
+            The date the user signed up on your platform, as YYYY-MM-DD. ISO 8601 date-times are accepted and stored as their UTC calendar day. Must not be after today in the user's timezone. Required for anniversary achievements. Users without a signUpDate are not eligible.
 
         device_tokens : typing.Optional[typing.Sequence[str]]
             The user's device tokens, used for push notifications.
@@ -1796,6 +1820,7 @@ class AsyncRawUsersClient:
                 "email": email,
                 "name": name,
                 "tz": tz,
+                "signUpDate": sign_up_date,
                 "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
                 "attributes": attributes,
@@ -1865,6 +1890,7 @@ class AsyncRawUsersClient:
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tz: typing.Optional[str] = OMIT,
+        sign_up_date: typing.Optional[str] = OMIT,
         device_tokens: typing.Optional[typing.Sequence[str]] = OMIT,
         subscribe_to_emails: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -1886,6 +1912,9 @@ class AsyncRawUsersClient:
 
         tz : typing.Optional[str]
             The user's timezone (used for email scheduling).
+
+        sign_up_date : typing.Optional[str]
+            The date the user signed up on your platform, as YYYY-MM-DD. ISO 8601 date-times are accepted and stored as their UTC calendar day. Must not be after today in the user's timezone. Required for anniversary achievements. Users without a signUpDate are not eligible.
 
         device_tokens : typing.Optional[typing.Sequence[str]]
             The user's device tokens, used for push notifications.
@@ -1912,6 +1941,7 @@ class AsyncRawUsersClient:
                 "email": email,
                 "name": name,
                 "tz": tz,
+                "signUpDate": sign_up_date,
                 "deviceTokens": device_tokens,
                 "subscribeToEmails": subscribe_to_emails,
                 "attributes": attributes,

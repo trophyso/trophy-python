@@ -11,6 +11,7 @@ if typing.TYPE_CHECKING:
     from .achievements.client import AchievementsClient, AsyncAchievementsClient
     from .application_api_keys.client import ApplicationApiKeysClient, AsyncApplicationApiKeysClient
     from .attributes.client import AsyncAttributesClient, AttributesClient
+    from .environments.client import AsyncEnvironmentsClient, EnvironmentsClient
     from .leaderboards.client import AsyncLeaderboardsClient, LeaderboardsClient
     from .metrics.client import AsyncMetricsClient, MetricsClient
     from .points.client import AsyncPointsClient, PointsClient
@@ -30,6 +31,7 @@ class AdminClient:
         self._streaks: typing.Optional[StreaksClient] = None
         self._settings: typing.Optional[SettingsClient] = None
         self._application_api_keys: typing.Optional[ApplicationApiKeysClient] = None
+        self._environments: typing.Optional[EnvironmentsClient] = None
         self._tenants: typing.Optional[TenantsClient] = None
         self._points: typing.Optional[PointsClient] = None
 
@@ -101,6 +103,14 @@ class AdminClient:
         return self._application_api_keys
 
     @property
+    def environments(self):
+        if self._environments is None:
+            from .environments.client import EnvironmentsClient  # noqa: E402
+
+            self._environments = EnvironmentsClient(client_wrapper=self._client_wrapper)
+        return self._environments
+
+    @property
     def tenants(self):
         if self._tenants is None:
             from .tenants.client import TenantsClient  # noqa: E402
@@ -128,6 +138,7 @@ class AsyncAdminClient:
         self._streaks: typing.Optional[AsyncStreaksClient] = None
         self._settings: typing.Optional[AsyncSettingsClient] = None
         self._application_api_keys: typing.Optional[AsyncApplicationApiKeysClient] = None
+        self._environments: typing.Optional[AsyncEnvironmentsClient] = None
         self._tenants: typing.Optional[AsyncTenantsClient] = None
         self._points: typing.Optional[AsyncPointsClient] = None
 
@@ -197,6 +208,14 @@ class AsyncAdminClient:
 
             self._application_api_keys = AsyncApplicationApiKeysClient(client_wrapper=self._client_wrapper)
         return self._application_api_keys
+
+    @property
+    def environments(self):
+        if self._environments is None:
+            from .environments.client import AsyncEnvironmentsClient  # noqa: E402
+
+            self._environments = AsyncEnvironmentsClient(client_wrapper=self._client_wrapper)
+        return self._environments
 
     @property
     def tenants(self):

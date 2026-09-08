@@ -4461,6 +4461,71 @@ client.admin.application_api_keys.delete(
 </dl>
 </details>
 
+## Admin Environments
+<details><summary><code>client.admin.environments.<a href="src/trophy/admin/environments/client.py">list</a>() -> ListEnvironmentsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List active environments.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.environments.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Admin Tenants
 <details><summary><code>client.admin.tenants.<a href="src/trophy/admin/tenants/client.py">list</a>(...) -> ListTenantsResponse</code></summary>
 <dl>

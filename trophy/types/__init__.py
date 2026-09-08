@@ -22,6 +22,7 @@ if typing.TYPE_CHECKING:
     from .admin_aggregation_period import AdminAggregationPeriod
     from .admin_attribute import AdminAttribute
     from .admin_attribute_type import AdminAttributeType
+    from .admin_environment import AdminEnvironment
     from .admin_error_body import AdminErrorBody
     from .admin_font_family import AdminFontFamily
     from .admin_issue import AdminIssue
@@ -145,6 +146,7 @@ if typing.TYPE_CHECKING:
     from .leaderboard_response_with_rankings_status import LeaderboardResponseWithRankingsStatus
     from .list_achievements_response import ListAchievementsResponse
     from .list_attributes_response import ListAttributesResponse
+    from .list_environments_response import ListEnvironmentsResponse
     from .list_leaderboards_response import ListLeaderboardsResponse
     from .list_metrics_response import ListMetricsResponse
     from .list_points_boosts_response import ListPointsBoostsResponse
@@ -305,6 +307,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdminAggregationPeriod": ".admin_aggregation_period",
     "AdminAttribute": ".admin_attribute",
     "AdminAttributeType": ".admin_attribute_type",
+    "AdminEnvironment": ".admin_environment",
     "AdminErrorBody": ".admin_error_body",
     "AdminFontFamily": ".admin_font_family",
     "AdminIssue": ".admin_issue",
@@ -424,6 +427,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LeaderboardResponseWithRankingsStatus": ".leaderboard_response_with_rankings_status",
     "ListAchievementsResponse": ".list_achievements_response",
     "ListAttributesResponse": ".list_attributes_response",
+    "ListEnvironmentsResponse": ".list_environments_response",
     "ListLeaderboardsResponse": ".list_leaderboards_response",
     "ListMetricsResponse": ".list_metrics_response",
     "ListPointsBoostsResponse": ".list_points_boosts_response",
@@ -602,6 +606,7 @@ __all__ = [
     "AdminAggregationPeriod",
     "AdminAttribute",
     "AdminAttributeType",
+    "AdminEnvironment",
     "AdminErrorBody",
     "AdminFontFamily",
     "AdminIssue",
@@ -721,6 +726,7 @@ __all__ = [
     "LeaderboardResponseWithRankingsStatus",
     "ListAchievementsResponse",
     "ListAttributesResponse",
+    "ListEnvironmentsResponse",
     "ListLeaderboardsResponse",
     "ListMetricsResponse",
     "ListPointsBoostsResponse",

@@ -49,7 +49,7 @@ class SettingsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.24.0",
+            "1.25.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -103,7 +103,7 @@ class SettingsClient:
         from trophy import StreakSettingsMetric, TrophyApi, UpdateStreakSettingsFreezes
 
         client = TrophyApi(
-            "1.24.0",
+            "1.25.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -174,7 +174,7 @@ class AsyncSettingsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.24.0",
+            "1.25.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -240,7 +240,7 @@ class AsyncSettingsClient:
         )
 
         client = AsyncTrophyApi(
-            "1.24.0",
+            "1.25.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

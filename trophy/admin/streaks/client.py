@@ -65,7 +65,7 @@ class StreaksClient:
         from trophy.admin.streaks import RestoreStreaksRequestUsersItem
 
         client = TrophyApi(
-            "1.24.0",
+            "1.25.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -157,7 +157,7 @@ class AsyncStreaksClient:
         from trophy.admin.streaks import RestoreStreaksRequestUsersItem
 
         client = AsyncTrophyApi(
-            "1.24.0",
+            "1.25.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

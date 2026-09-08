@@ -7,7 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import RestoreStreaksRequestUsersItem
-    from . import freezes, pauses
+    from . import freezes, pauses, settings
     from .freezes import CreateStreakFreezesRequestFreezesItem
     from .pauses import CreateStreakPausesRequestPausesItem
 _dynamic_imports: typing.Dict[str, str] = {
@@ -16,6 +16,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RestoreStreaksRequestUsersItem": ".types",
     "freezes": ".freezes",
     "pauses": ".pauses",
+    "settings": ".settings",
 }
 
 
@@ -46,4 +47,5 @@ __all__ = [
     "RestoreStreaksRequestUsersItem",
     "freezes",
     "pauses",
+    "settings",
 ]

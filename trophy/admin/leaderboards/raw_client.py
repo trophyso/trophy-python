@@ -112,7 +112,7 @@ class RawLeaderboardsClient:
         self, *, request: CreateLeaderboardsRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[CreateLeaderboardsResponse]:
         """
-        Create leaderboards. Maximum 100 leaderboards per request.
+        Create leaderboards.
 
         Parameters
         ----------
@@ -487,7 +487,7 @@ class AsyncRawLeaderboardsClient:
         self, *, request: CreateLeaderboardsRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[CreateLeaderboardsResponse]:
         """
-        Create leaderboards. Maximum 100 leaderboards per request.
+        Create leaderboards.
 
         Parameters
         ----------

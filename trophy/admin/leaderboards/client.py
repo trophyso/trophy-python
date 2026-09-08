@@ -63,7 +63,7 @@ class LeaderboardsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.23.0",
+            "1.24.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -79,7 +79,7 @@ class LeaderboardsClient:
         self, *, request: CreateLeaderboardsRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> CreateLeaderboardsResponse:
         """
-        Create leaderboards. Maximum 100 leaderboards per request.
+        Create leaderboards.
 
         Parameters
         ----------
@@ -98,7 +98,7 @@ class LeaderboardsClient:
         from trophy import CreateLeaderboardRequestItem, TrophyApi
 
         client = TrophyApi(
-            "1.23.0",
+            "1.24.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -156,7 +156,7 @@ class LeaderboardsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.23.0",
+            "1.24.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -190,7 +190,7 @@ class LeaderboardsClient:
         from trophy import TrophyApi, UpdateLeaderboardRequestItem
 
         client = TrophyApi(
-            "1.23.0",
+            "1.24.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -234,7 +234,7 @@ class LeaderboardsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.23.0",
+            "1.24.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -294,7 +294,7 @@ class AsyncLeaderboardsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.23.0",
+            "1.24.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -316,7 +316,7 @@ class AsyncLeaderboardsClient:
         self, *, request: CreateLeaderboardsRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> CreateLeaderboardsResponse:
         """
-        Create leaderboards. Maximum 100 leaderboards per request.
+        Create leaderboards.
 
         Parameters
         ----------
@@ -337,7 +337,7 @@ class AsyncLeaderboardsClient:
         from trophy import AsyncTrophyApi, CreateLeaderboardRequestItem
 
         client = AsyncTrophyApi(
-            "1.23.0",
+            "1.24.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -403,7 +403,7 @@ class AsyncLeaderboardsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.23.0",
+            "1.24.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -445,7 +445,7 @@ class AsyncLeaderboardsClient:
         from trophy import AsyncTrophyApi, UpdateLeaderboardRequestItem
 
         client = AsyncTrophyApi(
-            "1.23.0",
+            "1.24.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -497,7 +497,7 @@ class AsyncLeaderboardsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.23.0",
+            "1.24.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

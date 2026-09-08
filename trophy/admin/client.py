@@ -8,11 +8,13 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .raw_client import AsyncRawAdminClient, RawAdminClient
 
 if typing.TYPE_CHECKING:
+    from .achievements.client import AchievementsClient, AsyncAchievementsClient
     from .application_api_keys.client import ApplicationApiKeysClient, AsyncApplicationApiKeysClient
     from .attributes.client import AsyncAttributesClient, AttributesClient
     from .leaderboards.client import AsyncLeaderboardsClient, LeaderboardsClient
     from .metrics.client import AsyncMetricsClient, MetricsClient
     from .points.client import AsyncPointsClient, PointsClient
+    from .settings.client import AsyncSettingsClient, SettingsClient
     from .streaks.client import AsyncStreaksClient, StreaksClient
     from .tenants.client import AsyncTenantsClient, TenantsClient
 
@@ -22,9 +24,11 @@ class AdminClient:
         self._raw_client = RawAdminClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._attributes: typing.Optional[AttributesClient] = None
+        self._achievements: typing.Optional[AchievementsClient] = None
         self._metrics: typing.Optional[MetricsClient] = None
         self._leaderboards: typing.Optional[LeaderboardsClient] = None
         self._streaks: typing.Optional[StreaksClient] = None
+        self._settings: typing.Optional[SettingsClient] = None
         self._application_api_keys: typing.Optional[ApplicationApiKeysClient] = None
         self._tenants: typing.Optional[TenantsClient] = None
         self._points: typing.Optional[PointsClient] = None
@@ -49,6 +53,14 @@ class AdminClient:
         return self._attributes
 
     @property
+    def achievements(self):
+        if self._achievements is None:
+            from .achievements.client import AchievementsClient  # noqa: E402
+
+            self._achievements = AchievementsClient(client_wrapper=self._client_wrapper)
+        return self._achievements
+
+    @property
     def metrics(self):
         if self._metrics is None:
             from .metrics.client import MetricsClient  # noqa: E402
@@ -71,6 +83,14 @@ class AdminClient:
 
             self._streaks = StreaksClient(client_wrapper=self._client_wrapper)
         return self._streaks
+
+    @property
+    def settings(self):
+        if self._settings is None:
+            from .settings.client import SettingsClient  # noqa: E402
+
+            self._settings = SettingsClient(client_wrapper=self._client_wrapper)
+        return self._settings
 
     @property
     def application_api_keys(self):
@@ -102,9 +122,11 @@ class AsyncAdminClient:
         self._raw_client = AsyncRawAdminClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._attributes: typing.Optional[AsyncAttributesClient] = None
+        self._achievements: typing.Optional[AsyncAchievementsClient] = None
         self._metrics: typing.Optional[AsyncMetricsClient] = None
         self._leaderboards: typing.Optional[AsyncLeaderboardsClient] = None
         self._streaks: typing.Optional[AsyncStreaksClient] = None
+        self._settings: typing.Optional[AsyncSettingsClient] = None
         self._application_api_keys: typing.Optional[AsyncApplicationApiKeysClient] = None
         self._tenants: typing.Optional[AsyncTenantsClient] = None
         self._points: typing.Optional[AsyncPointsClient] = None
@@ -129,6 +151,14 @@ class AsyncAdminClient:
         return self._attributes
 
     @property
+    def achievements(self):
+        if self._achievements is None:
+            from .achievements.client import AsyncAchievementsClient  # noqa: E402
+
+            self._achievements = AsyncAchievementsClient(client_wrapper=self._client_wrapper)
+        return self._achievements
+
+    @property
     def metrics(self):
         if self._metrics is None:
             from .metrics.client import AsyncMetricsClient  # noqa: E402
@@ -151,6 +181,14 @@ class AsyncAdminClient:
 
             self._streaks = AsyncStreaksClient(client_wrapper=self._client_wrapper)
         return self._streaks
+
+    @property
+    def settings(self):
+        if self._settings is None:
+            from .settings.client import AsyncSettingsClient  # noqa: E402
+
+            self._settings = AsyncSettingsClient(client_wrapper=self._client_wrapper)
+        return self._settings
 
     @property
     def application_api_keys(self):

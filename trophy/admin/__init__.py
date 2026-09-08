@@ -6,15 +6,27 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from . import application_api_keys, attributes, leaderboards, metrics, points, streaks, tenants
+    from . import (
+        achievements,
+        application_api_keys,
+        attributes,
+        leaderboards,
+        metrics,
+        points,
+        settings,
+        streaks,
+        tenants,
+    )
     from .streaks import RestoreStreaksRequestUsersItem
 _dynamic_imports: typing.Dict[str, str] = {
     "RestoreStreaksRequestUsersItem": ".streaks",
+    "achievements": ".achievements",
     "application_api_keys": ".application_api_keys",
     "attributes": ".attributes",
     "leaderboards": ".leaderboards",
     "metrics": ".metrics",
     "points": ".points",
+    "settings": ".settings",
     "streaks": ".streaks",
     "tenants": ".tenants",
 }
@@ -43,11 +55,13 @@ def __dir__():
 
 __all__ = [
     "RestoreStreaksRequestUsersItem",
+    "achievements",
     "application_api_keys",
     "attributes",
     "leaderboards",
     "metrics",
     "points",
+    "settings",
     "streaks",
     "tenants",
 ]

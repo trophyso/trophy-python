@@ -13,6 +13,7 @@ from .types.restore_streaks_request_users_item import RestoreStreaksRequestUsers
 if typing.TYPE_CHECKING:
     from .freezes.client import AsyncFreezesClient, FreezesClient
     from .pauses.client import AsyncPausesClient, PausesClient
+    from .settings.client import AsyncSettingsClient, SettingsClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
@@ -23,6 +24,7 @@ class StreaksClient:
         self._client_wrapper = client_wrapper
         self._freezes: typing.Optional[FreezesClient] = None
         self._pauses: typing.Optional[PausesClient] = None
+        self._settings: typing.Optional[SettingsClient] = None
 
     @property
     def with_raw_response(self) -> RawStreaksClient:
@@ -63,7 +65,7 @@ class StreaksClient:
         from trophy.admin.streaks import RestoreStreaksRequestUsersItem
 
         client = TrophyApi(
-            "1.23.0",
+            "1.24.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -97,6 +99,14 @@ class StreaksClient:
             self._pauses = PausesClient(client_wrapper=self._client_wrapper)
         return self._pauses
 
+    @property
+    def settings(self):
+        if self._settings is None:
+            from .settings.client import SettingsClient  # noqa: E402
+
+            self._settings = SettingsClient(client_wrapper=self._client_wrapper)
+        return self._settings
+
 
 class AsyncStreaksClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -104,6 +114,7 @@ class AsyncStreaksClient:
         self._client_wrapper = client_wrapper
         self._freezes: typing.Optional[AsyncFreezesClient] = None
         self._pauses: typing.Optional[AsyncPausesClient] = None
+        self._settings: typing.Optional[AsyncSettingsClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawStreaksClient:
@@ -146,7 +157,7 @@ class AsyncStreaksClient:
         from trophy.admin.streaks import RestoreStreaksRequestUsersItem
 
         client = AsyncTrophyApi(
-            "1.23.0",
+            "1.24.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -185,3 +196,11 @@ class AsyncStreaksClient:
 
             self._pauses = AsyncPausesClient(client_wrapper=self._client_wrapper)
         return self._pauses
+
+    @property
+    def settings(self):
+        if self._settings is None:
+            from .settings.client import AsyncSettingsClient  # noqa: E402
+
+            self._settings = AsyncSettingsClient(client_wrapper=self._client_wrapper)
+        return self._settings

@@ -13,9 +13,17 @@ if typing.TYPE_CHECKING:
     from .achievement_response_trigger import AchievementResponseTrigger
     from .achievement_response_user_attributes_item import AchievementResponseUserAttributesItem
     from .achievement_with_stats_response import AchievementWithStatsResponse
+    from .admin_achievement import AdminAchievement
+    from .admin_achievement_badge import AdminAchievementBadge
+    from .admin_achievement_event_attributes_item import AdminAchievementEventAttributesItem
+    from .admin_achievement_status import AdminAchievementStatus
+    from .admin_achievement_trigger import AdminAchievementTrigger
+    from .admin_achievement_user_attributes_item import AdminAchievementUserAttributesItem
+    from .admin_aggregation_period import AdminAggregationPeriod
     from .admin_attribute import AdminAttribute
     from .admin_attribute_type import AdminAttributeType
     from .admin_error_body import AdminErrorBody
+    from .admin_font_family import AdminFontFamily
     from .admin_issue import AdminIssue
     from .admin_issue_severity import AdminIssueSeverity
     from .admin_leaderboard import AdminLeaderboard
@@ -37,6 +45,13 @@ if typing.TYPE_CHECKING:
     from .admin_points_trigger_time_unit import AdminPointsTriggerTimeUnit
     from .admin_points_trigger_type import AdminPointsTriggerType
     from .admin_points_trigger_user_attributes_item import AdminPointsTriggerUserAttributesItem
+    from .admin_settings import AdminSettings
+    from .admin_settings_branding import AdminSettingsBranding
+    from .admin_settings_branding_app_icon import AdminSettingsBrandingAppIcon
+    from .admin_settings_branding_logo import AdminSettingsBrandingLogo
+    from .admin_settings_experimentation import AdminSettingsExperimentation
+    from .admin_streak_evaluation_mode import AdminStreakEvaluationMode
+    from .admin_streak_frequency import AdminStreakFrequency
     from .admin_streak_pause import AdminStreakPause
     from .admin_streak_pause_status import AdminStreakPauseStatus
     from .admin_tenant import AdminTenant
@@ -47,6 +62,14 @@ if typing.TYPE_CHECKING:
     from .batch_metric_event_user import BatchMetricEventUser
     from .bulk_streak_response import BulkStreakResponse
     from .bulk_streak_response_item import BulkStreakResponseItem
+    from .create_achievement_request_item import CreateAchievementRequestItem
+    from .create_achievement_request_item_badge import CreateAchievementRequestItemBadge
+    from .create_achievement_request_item_event_attributes_item import CreateAchievementRequestItemEventAttributesItem
+    from .create_achievement_request_item_status import CreateAchievementRequestItemStatus
+    from .create_achievement_request_item_trigger import CreateAchievementRequestItemTrigger
+    from .create_achievement_request_item_user_attributes_item import CreateAchievementRequestItemUserAttributesItem
+    from .create_achievements_request import CreateAchievementsRequest
+    from .create_achievements_response import CreateAchievementsResponse
     from .create_application_key_request_item import CreateApplicationKeyRequestItem
     from .create_application_keys_request import CreateApplicationKeysRequest
     from .create_application_keys_response import CreateApplicationKeysResponse
@@ -98,6 +121,7 @@ if typing.TYPE_CHECKING:
     from .created_application_key import CreatedApplicationKey
     from .created_metric import CreatedMetric
     from .created_metric_unit_type import CreatedMetricUnitType
+    from .delete_achievements_response import DeleteAchievementsResponse
     from .delete_application_keys_response import DeleteApplicationKeysResponse
     from .delete_attributes_response import DeleteAttributesResponse
     from .delete_leaderboards_response import DeleteLeaderboardsResponse
@@ -119,6 +143,7 @@ if typing.TYPE_CHECKING:
     from .leaderboard_response_run_unit import LeaderboardResponseRunUnit
     from .leaderboard_response_with_rankings import LeaderboardResponseWithRankings
     from .leaderboard_response_with_rankings_status import LeaderboardResponseWithRankingsStatus
+    from .list_achievements_response import ListAchievementsResponse
     from .list_attributes_response import ListAttributesResponse
     from .list_leaderboards_response import ListLeaderboardsResponse
     from .list_metrics_response import ListMetricsResponse
@@ -186,6 +211,21 @@ if typing.TYPE_CHECKING:
     from .streak_response import StreakResponse
     from .streak_response_pauses_item import StreakResponsePausesItem
     from .streak_response_streak_history_item import StreakResponseStreakHistoryItem
+    from .streak_settings import StreakSettings
+    from .streak_settings_freezes import StreakSettingsFreezes
+    from .streak_settings_metric import StreakSettingsMetric
+    from .update_achievement_request_item import UpdateAchievementRequestItem
+    from .update_achievement_request_item_badge import UpdateAchievementRequestItemBadge
+    from .update_achievement_request_item_event_attributes_item import UpdateAchievementRequestItemEventAttributesItem
+    from .update_achievement_request_item_status import UpdateAchievementRequestItemStatus
+    from .update_achievement_request_item_trigger import UpdateAchievementRequestItemTrigger
+    from .update_achievement_request_item_user_attributes_item import UpdateAchievementRequestItemUserAttributesItem
+    from .update_achievements_request import UpdateAchievementsRequest
+    from .update_achievements_response import UpdateAchievementsResponse
+    from .update_admin_settings_branding import UpdateAdminSettingsBranding
+    from .update_admin_settings_branding_app_icon import UpdateAdminSettingsBrandingAppIcon
+    from .update_admin_settings_branding_logo import UpdateAdminSettingsBrandingLogo
+    from .update_admin_settings_experimentation import UpdateAdminSettingsExperimentation
     from .update_attribute_request_item import UpdateAttributeRequestItem
     from .update_attributes_request import UpdateAttributesRequest
     from .update_attributes_response import UpdateAttributesResponse
@@ -203,6 +243,7 @@ if typing.TYPE_CHECKING:
     from .update_points_system_request_item_badge import UpdatePointsSystemRequestItemBadge
     from .update_points_systems_request import UpdatePointsSystemsRequest
     from .update_points_systems_response import UpdatePointsSystemsResponse
+    from .update_streak_settings_freezes import UpdateStreakSettingsFreezes
     from .update_tenant_request_item import UpdateTenantRequestItem
     from .update_tenants_request import UpdateTenantsRequest
     from .update_tenants_response import UpdateTenantsResponse
@@ -255,9 +296,17 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AchievementResponseTrigger": ".achievement_response_trigger",
     "AchievementResponseUserAttributesItem": ".achievement_response_user_attributes_item",
     "AchievementWithStatsResponse": ".achievement_with_stats_response",
+    "AdminAchievement": ".admin_achievement",
+    "AdminAchievementBadge": ".admin_achievement_badge",
+    "AdminAchievementEventAttributesItem": ".admin_achievement_event_attributes_item",
+    "AdminAchievementStatus": ".admin_achievement_status",
+    "AdminAchievementTrigger": ".admin_achievement_trigger",
+    "AdminAchievementUserAttributesItem": ".admin_achievement_user_attributes_item",
+    "AdminAggregationPeriod": ".admin_aggregation_period",
     "AdminAttribute": ".admin_attribute",
     "AdminAttributeType": ".admin_attribute_type",
     "AdminErrorBody": ".admin_error_body",
+    "AdminFontFamily": ".admin_font_family",
     "AdminIssue": ".admin_issue",
     "AdminIssueSeverity": ".admin_issue_severity",
     "AdminLeaderboard": ".admin_leaderboard",
@@ -279,6 +328,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdminPointsTriggerTimeUnit": ".admin_points_trigger_time_unit",
     "AdminPointsTriggerType": ".admin_points_trigger_type",
     "AdminPointsTriggerUserAttributesItem": ".admin_points_trigger_user_attributes_item",
+    "AdminSettings": ".admin_settings",
+    "AdminSettingsBranding": ".admin_settings_branding",
+    "AdminSettingsBrandingAppIcon": ".admin_settings_branding_app_icon",
+    "AdminSettingsBrandingLogo": ".admin_settings_branding_logo",
+    "AdminSettingsExperimentation": ".admin_settings_experimentation",
+    "AdminStreakEvaluationMode": ".admin_streak_evaluation_mode",
+    "AdminStreakFrequency": ".admin_streak_frequency",
     "AdminStreakPause": ".admin_streak_pause",
     "AdminStreakPauseStatus": ".admin_streak_pause_status",
     "AdminTenant": ".admin_tenant",
@@ -289,6 +345,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BatchMetricEventUser": ".batch_metric_event_user",
     "BulkStreakResponse": ".bulk_streak_response",
     "BulkStreakResponseItem": ".bulk_streak_response_item",
+    "CreateAchievementRequestItem": ".create_achievement_request_item",
+    "CreateAchievementRequestItemBadge": ".create_achievement_request_item_badge",
+    "CreateAchievementRequestItemEventAttributesItem": ".create_achievement_request_item_event_attributes_item",
+    "CreateAchievementRequestItemStatus": ".create_achievement_request_item_status",
+    "CreateAchievementRequestItemTrigger": ".create_achievement_request_item_trigger",
+    "CreateAchievementRequestItemUserAttributesItem": ".create_achievement_request_item_user_attributes_item",
+    "CreateAchievementsRequest": ".create_achievements_request",
+    "CreateAchievementsResponse": ".create_achievements_response",
     "CreateApplicationKeyRequestItem": ".create_application_key_request_item",
     "CreateApplicationKeysRequest": ".create_application_keys_request",
     "CreateApplicationKeysResponse": ".create_application_keys_response",
@@ -336,6 +400,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatedApplicationKey": ".created_application_key",
     "CreatedMetric": ".created_metric",
     "CreatedMetricUnitType": ".created_metric_unit_type",
+    "DeleteAchievementsResponse": ".delete_achievements_response",
     "DeleteApplicationKeysResponse": ".delete_application_keys_response",
     "DeleteAttributesResponse": ".delete_attributes_response",
     "DeleteLeaderboardsResponse": ".delete_leaderboards_response",
@@ -357,6 +422,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LeaderboardResponseRunUnit": ".leaderboard_response_run_unit",
     "LeaderboardResponseWithRankings": ".leaderboard_response_with_rankings",
     "LeaderboardResponseWithRankingsStatus": ".leaderboard_response_with_rankings_status",
+    "ListAchievementsResponse": ".list_achievements_response",
     "ListAttributesResponse": ".list_attributes_response",
     "ListLeaderboardsResponse": ".list_leaderboards_response",
     "ListMetricsResponse": ".list_metrics_response",
@@ -418,6 +484,21 @@ _dynamic_imports: typing.Dict[str, str] = {
     "StreakResponse": ".streak_response",
     "StreakResponsePausesItem": ".streak_response_pauses_item",
     "StreakResponseStreakHistoryItem": ".streak_response_streak_history_item",
+    "StreakSettings": ".streak_settings",
+    "StreakSettingsFreezes": ".streak_settings_freezes",
+    "StreakSettingsMetric": ".streak_settings_metric",
+    "UpdateAchievementRequestItem": ".update_achievement_request_item",
+    "UpdateAchievementRequestItemBadge": ".update_achievement_request_item_badge",
+    "UpdateAchievementRequestItemEventAttributesItem": ".update_achievement_request_item_event_attributes_item",
+    "UpdateAchievementRequestItemStatus": ".update_achievement_request_item_status",
+    "UpdateAchievementRequestItemTrigger": ".update_achievement_request_item_trigger",
+    "UpdateAchievementRequestItemUserAttributesItem": ".update_achievement_request_item_user_attributes_item",
+    "UpdateAchievementsRequest": ".update_achievements_request",
+    "UpdateAchievementsResponse": ".update_achievements_response",
+    "UpdateAdminSettingsBranding": ".update_admin_settings_branding",
+    "UpdateAdminSettingsBrandingAppIcon": ".update_admin_settings_branding_app_icon",
+    "UpdateAdminSettingsBrandingLogo": ".update_admin_settings_branding_logo",
+    "UpdateAdminSettingsExperimentation": ".update_admin_settings_experimentation",
     "UpdateAttributeRequestItem": ".update_attribute_request_item",
     "UpdateAttributesRequest": ".update_attributes_request",
     "UpdateAttributesResponse": ".update_attributes_response",
@@ -435,6 +516,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePointsSystemRequestItemBadge": ".update_points_system_request_item_badge",
     "UpdatePointsSystemsRequest": ".update_points_systems_request",
     "UpdatePointsSystemsResponse": ".update_points_systems_response",
+    "UpdateStreakSettingsFreezes": ".update_streak_settings_freezes",
     "UpdateTenantRequestItem": ".update_tenant_request_item",
     "UpdateTenantsRequest": ".update_tenants_request",
     "UpdateTenantsResponse": ".update_tenants_response",
@@ -511,9 +593,17 @@ __all__ = [
     "AchievementResponseTrigger",
     "AchievementResponseUserAttributesItem",
     "AchievementWithStatsResponse",
+    "AdminAchievement",
+    "AdminAchievementBadge",
+    "AdminAchievementEventAttributesItem",
+    "AdminAchievementStatus",
+    "AdminAchievementTrigger",
+    "AdminAchievementUserAttributesItem",
+    "AdminAggregationPeriod",
     "AdminAttribute",
     "AdminAttributeType",
     "AdminErrorBody",
+    "AdminFontFamily",
     "AdminIssue",
     "AdminIssueSeverity",
     "AdminLeaderboard",
@@ -535,6 +625,13 @@ __all__ = [
     "AdminPointsTriggerTimeUnit",
     "AdminPointsTriggerType",
     "AdminPointsTriggerUserAttributesItem",
+    "AdminSettings",
+    "AdminSettingsBranding",
+    "AdminSettingsBrandingAppIcon",
+    "AdminSettingsBrandingLogo",
+    "AdminSettingsExperimentation",
+    "AdminStreakEvaluationMode",
+    "AdminStreakFrequency",
     "AdminStreakPause",
     "AdminStreakPauseStatus",
     "AdminTenant",
@@ -545,6 +642,14 @@ __all__ = [
     "BatchMetricEventUser",
     "BulkStreakResponse",
     "BulkStreakResponseItem",
+    "CreateAchievementRequestItem",
+    "CreateAchievementRequestItemBadge",
+    "CreateAchievementRequestItemEventAttributesItem",
+    "CreateAchievementRequestItemStatus",
+    "CreateAchievementRequestItemTrigger",
+    "CreateAchievementRequestItemUserAttributesItem",
+    "CreateAchievementsRequest",
+    "CreateAchievementsResponse",
     "CreateApplicationKeyRequestItem",
     "CreateApplicationKeysRequest",
     "CreateApplicationKeysResponse",
@@ -592,6 +697,7 @@ __all__ = [
     "CreatedApplicationKey",
     "CreatedMetric",
     "CreatedMetricUnitType",
+    "DeleteAchievementsResponse",
     "DeleteApplicationKeysResponse",
     "DeleteAttributesResponse",
     "DeleteLeaderboardsResponse",
@@ -613,6 +719,7 @@ __all__ = [
     "LeaderboardResponseRunUnit",
     "LeaderboardResponseWithRankings",
     "LeaderboardResponseWithRankingsStatus",
+    "ListAchievementsResponse",
     "ListAttributesResponse",
     "ListLeaderboardsResponse",
     "ListMetricsResponse",
@@ -674,6 +781,21 @@ __all__ = [
     "StreakResponse",
     "StreakResponsePausesItem",
     "StreakResponseStreakHistoryItem",
+    "StreakSettings",
+    "StreakSettingsFreezes",
+    "StreakSettingsMetric",
+    "UpdateAchievementRequestItem",
+    "UpdateAchievementRequestItemBadge",
+    "UpdateAchievementRequestItemEventAttributesItem",
+    "UpdateAchievementRequestItemStatus",
+    "UpdateAchievementRequestItemTrigger",
+    "UpdateAchievementRequestItemUserAttributesItem",
+    "UpdateAchievementsRequest",
+    "UpdateAchievementsResponse",
+    "UpdateAdminSettingsBranding",
+    "UpdateAdminSettingsBrandingAppIcon",
+    "UpdateAdminSettingsBrandingLogo",
+    "UpdateAdminSettingsExperimentation",
     "UpdateAttributeRequestItem",
     "UpdateAttributesRequest",
     "UpdateAttributesResponse",
@@ -691,6 +813,7 @@ __all__ = [
     "UpdatePointsSystemRequestItemBadge",
     "UpdatePointsSystemsRequest",
     "UpdatePointsSystemsResponse",
+    "UpdateStreakSettingsFreezes",
     "UpdateTenantRequestItem",
     "UpdateTenantsRequest",
     "UpdateTenantsResponse",

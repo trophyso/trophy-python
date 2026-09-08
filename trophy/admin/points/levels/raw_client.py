@@ -131,7 +131,7 @@ class RawLevelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreatePointsLevelsResponse]:
         """
-        Create points levels. Maximum 100 levels per request.
+        Create points levels.
 
         Parameters
         ----------
@@ -575,7 +575,7 @@ class AsyncRawLevelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreatePointsLevelsResponse]:
         """
-        Create points levels. Maximum 100 levels per request.
+        Create points levels.
 
         Parameters
         ----------

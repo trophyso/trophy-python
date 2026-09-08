@@ -131,7 +131,7 @@ class RawTriggersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreatePointsTriggersResponse]:
         """
-        Create points triggers in bulk. Maximum 100 triggers per request.
+        Create points triggers in bulk.
 
         Parameters
         ----------
@@ -575,7 +575,7 @@ class AsyncRawTriggersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreatePointsTriggersResponse]:
         """
-        Create points triggers in bulk. Maximum 100 triggers per request.
+        Create points triggers in bulk.
 
         Parameters
         ----------

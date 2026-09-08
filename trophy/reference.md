@@ -2739,6 +2739,407 @@ client.admin.attributes.get(
 </dl>
 </details>
 
+## Admin Achievements
+<details><summary><code>client.admin.achievements.<a href="src/trophy/admin/achievements/client.py">list</a>(...) -> ListAchievementsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List achievements.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.achievements.list(
+    limit=1,
+    skip=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Number of records to return.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skip:** `typing.Optional[int]` — Number of records to skip from the start of the list.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.achievements.<a href="src/trophy/admin/achievements/client.py">create</a>(...) -> CreateAchievementsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create achievements. Trigger-specific fields are required based on `trigger`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi, CreateAchievementRequestItem
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.achievements.create(
+    request=[
+        CreateAchievementRequestItem(
+            name="First Workout",
+            trigger="metric",
+            metric_id="660f9500-f30c-42e5-b827-557766550001",
+            metric_value=1,
+        ),
+        CreateAchievementRequestItem(
+            name="Custom Unlock",
+            trigger="api",
+            key="custom-unlock",
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CreateAchievementsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.achievements.<a href="src/trophy/admin/achievements/client.py">delete</a>(...) -> DeleteAchievementsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete achievements by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.achievements.delete(
+    ids=[
+        "550e8400-e29b-41d4-a716-446655440000",
+        "550e8400-e29b-41d4-a716-446655440001"
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Achievement IDs to delete. Repeat the query param or provide a comma-separated list.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.achievements.<a href="src/trophy/admin/achievements/client.py">update</a>(...) -> UpdateAchievementsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update achievements by ID. Maximum 100 achievements per request. Only provided fields are updated; omitted fields are preserved.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi, UpdateAchievementRequestItem
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.achievements.update(
+    request=[
+        UpdateAchievementRequestItem(
+            id="550e8400-e29b-41d4-a716-446655440000",
+            name="First Workout Completed",
+            status="active",
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `UpdateAchievementsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.achievements.<a href="src/trophy/admin/achievements/client.py">get</a>(...) -> AdminAchievement</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get an achievement by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.achievements.get(
+    id="550e8400-e29b-41d4-a716-446655440000",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The UUID of the achievement to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Admin Metrics
 <details><summary><code>client.admin.metrics.<a href="src/trophy/admin/metrics/client.py">list</a>(...) -> ListMetricsResponse</code></summary>
 <dl>
@@ -3333,7 +3734,7 @@ client.admin.leaderboards.list(
 <dl>
 <dd>
 
-Create leaderboards. Maximum 100 leaderboards per request.
+Create leaderboards.
 </dd>
 </dl>
 </dd>
@@ -3716,6 +4117,173 @@ client.admin.streaks.restore(
 <dd>
 
 **users:** `typing.List[RestoreStreaksRequestUsersItem]` — Array of users to restore streaks for. Maximum 100 users per request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Admin Settings
+<details><summary><code>client.admin.settings.<a href="src/trophy/admin/settings/client.py">get</a>() -> AdminSettings</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get branding, experimentation, and aggregation settings.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.settings.get()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.settings.<a href="src/trophy/admin/settings/client.py">update</a>(...) -> AdminSettings</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update branding, experimentation, and aggregation settings.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi, UpdateAdminSettingsBranding, UpdateAdminSettingsBrandingLogo, UpdateAdminSettingsExperimentation
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.settings.update(
+    branding=UpdateAdminSettingsBranding(
+        app_name="Trophy",
+        app_url="https://app.example.com",
+        brand_color="#1a2b3c",
+        logo=UpdateAdminSettingsBrandingLogo(
+            url="https://cdn.example.com/logo.png",
+        ),
+    ),
+    experimentation=UpdateAdminSettingsExperimentation(
+        control_ratio=10,
+        user_activation_window=14,
+    ),
+    aggregation_period="weekly",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**branding:** `typing.Optional[UpdateAdminSettingsBranding]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**experimentation:** `typing.Optional[UpdateAdminSettingsExperimentation]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**aggregation_period:** `typing.Optional[AdminAggregationPeriod]` 
     
 </dd>
 </dl>
@@ -5241,7 +5809,7 @@ client.admin.points.levels.list(
 <dl>
 <dd>
 
-Create points levels. Maximum 100 levels per request.
+Create points levels.
 </dd>
 </dl>
 </dd>
@@ -5678,7 +6246,7 @@ client.admin.points.triggers.list(
 <dl>
 <dd>
 
-Create points triggers in bulk. Maximum 100 triggers per request.
+Create points triggers in bulk.
 </dd>
 </dl>
 </dd>
@@ -6240,6 +6808,203 @@ client.admin.streaks.pauses.delete(
 <dd>
 
 **ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Streak pause IDs to delete. Repeat the query param or provide a comma-separated list.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Admin Streaks Settings
+<details><summary><code>client.admin.streaks.settings.<a href="src/trophy/admin/streaks/settings/client.py">get</a>() -> StreakSettings</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the organization's streak configuration.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.streaks.settings.get()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.streaks.settings.<a href="src/trophy/admin/streaks/settings/client.py">update</a>(...) -> StreakSettings</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the organization's streak configuration.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi, StreakSettingsMetric, UpdateStreakSettingsFreezes
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.streaks.settings.update(
+    frequency="daily",
+    evaluation_mode="OR",
+    customization_enabled=True,
+    days_off=[
+        0,
+        6
+    ],
+    metrics=[
+        StreakSettingsMetric(
+            key="words-written",
+            threshold=500,
+        )
+    ],
+    freezes=UpdateStreakSettingsFreezes(
+        start_count=1,
+        max_count=2,
+        auto_earn_interval=7,
+        auto_earn_amount=1,
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**frequency:** `typing.Optional[AdminStreakFrequency]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**evaluation_mode:** `typing.Optional[AdminStreakEvaluationMode]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customization_enabled:** `typing.Optional[bool]` — Whether users can override streak evaluation mode, metric thresholds, and days off via preferences.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**days_off:** `typing.Optional[typing.List[int]]` — Days of the week that do not count toward the daily streak. A non-empty array is only allowed when the resulting frequency is `daily`. Changing frequency away from `daily` clears stored days off even when this field is omitted.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metrics:** `typing.Optional[typing.List[StreakSettingsMetric]]` — Replacement list of streak metrics. Keys must be unique and must exist on the organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**freezes:** `typing.Optional[UpdateStreakSettingsFreezes]` — Replacement freeze configuration, or `null` to disable freezes.
     
 </dd>
 </dl>

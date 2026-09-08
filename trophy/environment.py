@@ -12,5 +12,5 @@ class TrophyApiEnvironment:
 
 
 TrophyApiEnvironment.PRODUCTION = TrophyApiEnvironment(
-    api="https://api.trophy.so/v1", admin="https://admin.trophy.so/v1"
+    api="https://staging-api.trophy.so/v1", admin="https://staging-admin.trophy.so/v1"
 )

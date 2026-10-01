@@ -4136,6 +4136,88 @@ client.admin.streaks.restore(
 </dl>
 </details>
 
+<details><summary><code>client.admin.streaks.<a href="src/trophy/admin/streaks/client.py">reset</a>(...) -> ResetStreaksResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Reset the current streak to zero for multiple users.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+from trophy.admin.streaks import ResetStreaksRequestUsersItem
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.streaks.reset(
+    users=[
+        ResetStreaksRequestUsersItem(
+            id="user-123",
+        ),
+        ResetStreaksRequestUsersItem(
+            id="user-456",
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**users:** `typing.List[ResetStreaksRequestUsersItem]` — Array of users to reset streaks for. Maximum 100 users per request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Admin Settings
 <details><summary><code>client.admin.settings.<a href="src/trophy/admin/settings/client.py">get</a>() -> AdminSettings</code></summary>
 <dl>

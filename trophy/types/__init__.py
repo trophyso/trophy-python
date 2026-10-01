@@ -205,6 +205,7 @@ if typing.TYPE_CHECKING:
     from .points_trigger_time_unit import PointsTriggerTimeUnit
     from .points_trigger_type import PointsTriggerType
     from .points_trigger_user_attributes_item import PointsTriggerUserAttributesItem
+    from .reset_streaks_response import ResetStreaksResponse
     from .restore_streaks_response import RestoreStreaksResponse
     from .streak_evaluation_mode_preference import StreakEvaluationModePreference
     from .streak_frequency import StreakFrequency
@@ -480,6 +481,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PointsTriggerTimeUnit": ".points_trigger_time_unit",
     "PointsTriggerType": ".points_trigger_type",
     "PointsTriggerUserAttributesItem": ".points_trigger_user_attributes_item",
+    "ResetStreaksResponse": ".reset_streaks_response",
     "RestoreStreaksResponse": ".restore_streaks_response",
     "StreakEvaluationModePreference": ".streak_evaluation_mode_preference",
     "StreakFrequency": ".streak_frequency",
@@ -779,6 +781,7 @@ __all__ = [
     "PointsTriggerTimeUnit",
     "PointsTriggerType",
     "PointsTriggerUserAttributesItem",
+    "ResetStreaksResponse",
     "RestoreStreaksResponse",
     "StreakEvaluationModePreference",
     "StreakFrequency",

@@ -18,8 +18,9 @@ if typing.TYPE_CHECKING:
         streaks,
         tenants,
     )
-    from .streaks import RestoreStreaksRequestUsersItem
+    from .streaks import ResetStreaksRequestUsersItem, RestoreStreaksRequestUsersItem
 _dynamic_imports: typing.Dict[str, str] = {
+    "ResetStreaksRequestUsersItem": ".streaks",
     "RestoreStreaksRequestUsersItem": ".streaks",
     "achievements": ".achievements",
     "application_api_keys": ".application_api_keys",
@@ -56,6 +57,7 @@ def __dir__():
 
 
 __all__ = [
+    "ResetStreaksRequestUsersItem",
     "RestoreStreaksRequestUsersItem",
     "achievements",
     "application_api_keys",

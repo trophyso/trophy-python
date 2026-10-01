@@ -13,7 +13,9 @@ from ...core.serialization import convert_and_respect_annotation_metadata
 from ...errors.bad_request_error import BadRequestError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
+from ...types.reset_streaks_response import ResetStreaksResponse
 from ...types.restore_streaks_response import RestoreStreaksResponse
+from .types.reset_streaks_request_users_item import ResetStreaksRequestUsersItem
 from .types.restore_streaks_request_users_item import RestoreStreaksRequestUsersItem
 from pydantic import ValidationError
 
@@ -114,6 +116,95 @@ class RawStreaksClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def reset(
+        self,
+        *,
+        users: typing.Sequence[ResetStreaksRequestUsersItem],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ResetStreaksResponse]:
+        """
+        Reset the current streak to zero for multiple users.
+
+        Parameters
+        ----------
+        users : typing.Sequence[ResetStreaksRequestUsersItem]
+            Array of users to reset streaks for. Maximum 100 users per request.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ResetStreaksResponse]
+            Successful operation
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "streaks/reset",
+            base_url=self._client_wrapper.get_environment().admin,
+            method="POST",
+            json={
+                "users": convert_and_respect_annotation_metadata(
+                    object_=users, annotation=typing.Sequence[ResetStreaksRequestUsersItem], direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ResetStreaksResponse,
+                    parse_obj_as(
+                        type_=ResetStreaksResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawStreaksClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -162,6 +253,95 @@ class AsyncRawStreaksClient:
                     RestoreStreaksResponse,
                     parse_obj_as(
                         type_=RestoreStreaksResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def reset(
+        self,
+        *,
+        users: typing.Sequence[ResetStreaksRequestUsersItem],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ResetStreaksResponse]:
+        """
+        Reset the current streak to zero for multiple users.
+
+        Parameters
+        ----------
+        users : typing.Sequence[ResetStreaksRequestUsersItem]
+            Array of users to reset streaks for. Maximum 100 users per request.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ResetStreaksResponse]
+            Successful operation
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "streaks/reset",
+            base_url=self._client_wrapper.get_environment().admin,
+            method="POST",
+            json={
+                "users": convert_and_respect_annotation_metadata(
+                    object_=users, annotation=typing.Sequence[ResetStreaksRequestUsersItem], direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ResetStreaksResponse,
+                    parse_obj_as(
+                        type_=ResetStreaksResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

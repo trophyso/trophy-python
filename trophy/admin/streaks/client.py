@@ -6,8 +6,10 @@ import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
+from ...types.reset_streaks_response import ResetStreaksResponse
 from ...types.restore_streaks_response import RestoreStreaksResponse
 from .raw_client import AsyncRawStreaksClient, RawStreaksClient
+from .types.reset_streaks_request_users_item import ResetStreaksRequestUsersItem
 from .types.restore_streaks_request_users_item import RestoreStreaksRequestUsersItem
 
 if typing.TYPE_CHECKING:
@@ -65,7 +67,7 @@ class StreaksClient:
         from trophy.admin.streaks import RestoreStreaksRequestUsersItem
 
         client = TrophyApi(
-            "1.25.0",
+            "1.26.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -81,6 +83,52 @@ class StreaksClient:
         )
         """
         _response = self._raw_client.restore(users=users, request_options=request_options)
+        return _response.data
+
+    def reset(
+        self,
+        *,
+        users: typing.Sequence[ResetStreaksRequestUsersItem],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ResetStreaksResponse:
+        """
+        Reset the current streak to zero for multiple users.
+
+        Parameters
+        ----------
+        users : typing.Sequence[ResetStreaksRequestUsersItem]
+            Array of users to reset streaks for. Maximum 100 users per request.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResetStreaksResponse
+            Successful operation
+
+        Examples
+        --------
+        from trophy import TrophyApi
+        from trophy.admin.streaks import ResetStreaksRequestUsersItem
+
+        client = TrophyApi(
+            "1.26.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+        client.admin.streaks.reset(
+            users=[
+                ResetStreaksRequestUsersItem(
+                    id="user-123",
+                ),
+                ResetStreaksRequestUsersItem(
+                    id="user-456",
+                ),
+            ],
+        )
+        """
+        _response = self._raw_client.reset(users=users, request_options=request_options)
         return _response.data
 
     @property
@@ -157,7 +205,7 @@ class AsyncStreaksClient:
         from trophy.admin.streaks import RestoreStreaksRequestUsersItem
 
         client = AsyncTrophyApi(
-            "1.25.0",
+            "1.26.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -179,6 +227,60 @@ class AsyncStreaksClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.restore(users=users, request_options=request_options)
+        return _response.data
+
+    async def reset(
+        self,
+        *,
+        users: typing.Sequence[ResetStreaksRequestUsersItem],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ResetStreaksResponse:
+        """
+        Reset the current streak to zero for multiple users.
+
+        Parameters
+        ----------
+        users : typing.Sequence[ResetStreaksRequestUsersItem]
+            Array of users to reset streaks for. Maximum 100 users per request.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResetStreaksResponse
+            Successful operation
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+        from trophy.admin.streaks import ResetStreaksRequestUsersItem
+
+        client = AsyncTrophyApi(
+            "1.26.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.admin.streaks.reset(
+                users=[
+                    ResetStreaksRequestUsersItem(
+                        id="user-123",
+                    ),
+                    ResetStreaksRequestUsersItem(
+                        id="user-456",
+                    ),
+                ],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.reset(users=users, request_options=request_options)
         return _response.data
 
     @property

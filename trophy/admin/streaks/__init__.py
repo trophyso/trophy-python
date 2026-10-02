@@ -6,13 +6,14 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import RestoreStreaksRequestUsersItem
+    from .types import ResetStreaksRequestUsersItem, RestoreStreaksRequestUsersItem
     from . import freezes, pauses, settings
     from .freezes import CreateStreakFreezesRequestFreezesItem
     from .pauses import CreateStreakPausesRequestPausesItem
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateStreakFreezesRequestFreezesItem": ".freezes",
     "CreateStreakPausesRequestPausesItem": ".pauses",
+    "ResetStreaksRequestUsersItem": ".types",
     "RestoreStreaksRequestUsersItem": ".types",
     "freezes": ".freezes",
     "pauses": ".pauses",
@@ -44,6 +45,7 @@ def __dir__():
 __all__ = [
     "CreateStreakFreezesRequestFreezesItem",
     "CreateStreakPausesRequestPausesItem",
+    "ResetStreaksRequestUsersItem",
     "RestoreStreaksRequestUsersItem",
     "freezes",
     "pauses",

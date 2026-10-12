@@ -99,6 +99,7 @@ class AchievementsClient:
             user=UpsertedUser(
                 email="user@example.com",
                 tz="Europe/London",
+                subscribe_to_emails=True,
                 id="user-id",
             ),
         )
@@ -206,6 +207,7 @@ class AsyncAchievementsClient:
                 user=UpsertedUser(
                     email="user@example.com",
                     tz="Europe/London",
+                    subscribe_to_emails=True,
                     id="user-id",
                 ),
             )

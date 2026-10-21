@@ -46,10 +46,7 @@ class CreateAchievementRequestItem(UniversalBaseModel):
     user_attributes: typing_extensions.Annotated[
         typing.Optional[typing.List[CreateAchievementRequestItemUserAttributesItem]],
         FieldMetadata(alias="userAttributes"),
-        pydantic.Field(
-            alias="userAttributes",
-            description="User attribute filters applied to the achievement. Each `attributeId` must be an active user attribute.",
-        ),
+        pydantic.Field(alias="userAttributes", description="User attribute filters applied to the achievement."),
     ] = None
     key: typing.Optional[str] = pydantic.Field(default=None)
     """

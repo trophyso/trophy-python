@@ -4,13 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "trophy"
-version = "1.26.0"
+version = "1.26.1"
 description = "A Python library for the Trophy API"
 license = {text = "MIT"}
 readme = "README.md"
 dependencies = [
     "requests",
     "httpx",
+    "httpcore>=1.0.9",
     "pydantic",
     "typing",
     "dataclasses",

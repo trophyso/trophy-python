@@ -115,6 +115,7 @@ client.achievements.complete(
     user=UpsertedUser(
         email="user@example.com",
         tz="Europe/London",
+        subscribe_to_emails=True,
         id="user-id",
     ),
 )

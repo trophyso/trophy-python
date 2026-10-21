@@ -9,6 +9,7 @@ from ..core.serialization import FieldMetadata
 from .update_leaderboard_request_item_rank_by import UpdateLeaderboardRequestItemRankBy
 from .update_leaderboard_request_item_run_unit import UpdateLeaderboardRequestItemRunUnit
 from .update_leaderboard_request_item_status import UpdateLeaderboardRequestItemStatus
+from .update_leaderboard_request_item_user_attributes_item import UpdateLeaderboardRequestItemUserAttributesItem
 
 
 class UpdateLeaderboardRequestItem(UniversalBaseModel):
@@ -104,6 +105,14 @@ class UpdateLeaderboardRequestItem(UniversalBaseModel):
         typing.Optional[int],
         FieldMetadata(alias="runInterval"),
         pydantic.Field(alias="runInterval", description="The updated recurrence interval."),
+    ] = None
+    user_attributes: typing_extensions.Annotated[
+        typing.Optional[typing.List[UpdateLeaderboardRequestItemUserAttributesItem]],
+        FieldMetadata(alias="userAttributes"),
+        pydantic.Field(
+            alias="userAttributes",
+            description="Replacement user attribute filters, or `null` to clear them. Omit to leave the current filters unchanged. This can only be changed while the leaderboard is inactive.",
+        ),
     ] = None
 
     if IS_PYDANTIC_V2:

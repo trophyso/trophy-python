@@ -9,6 +9,7 @@ from ..core.serialization import FieldMetadata
 from .create_leaderboard_request_item_rank_by import CreateLeaderboardRequestItemRankBy
 from .create_leaderboard_request_item_run_unit import CreateLeaderboardRequestItemRunUnit
 from .create_leaderboard_request_item_status import CreateLeaderboardRequestItemStatus
+from .create_leaderboard_request_item_user_attributes_item import CreateLeaderboardRequestItemUserAttributesItem
 
 
 class CreateLeaderboardRequestItem(UniversalBaseModel):
@@ -106,6 +107,11 @@ class CreateLeaderboardRequestItem(UniversalBaseModel):
         pydantic.Field(
             alias="runInterval", description="The number of `runUnit`s between repeats. Required when `runUnit` is set."
         ),
+    ] = None
+    user_attributes: typing_extensions.Annotated[
+        typing.Optional[typing.List[CreateLeaderboardRequestItemUserAttributesItem]],
+        FieldMetadata(alias="userAttributes"),
+        pydantic.Field(alias="userAttributes", description="User attribute filters. Omit to allow every user."),
     ] = None
 
     if IS_PYDANTIC_V2:

@@ -8,6 +8,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .leaderboard_response_rank_by import LeaderboardResponseRankBy
 from .leaderboard_response_run_unit import LeaderboardResponseRunUnit
+from .leaderboard_response_user_attributes_item import LeaderboardResponseUserAttributesItem
 
 
 class LeaderboardResponse(UniversalBaseModel):
@@ -126,6 +127,14 @@ class LeaderboardResponse(UniversalBaseModel):
             description="The interval between repetitions, relative to the start date and repetition type. Null for one-time leaderboards.",
         ),
     ] = None
+    user_attributes: typing_extensions.Annotated[
+        typing.List[LeaderboardResponseUserAttributesItem],
+        FieldMetadata(alias="userAttributes"),
+        pydantic.Field(
+            alias="userAttributes",
+            description="User attribute filters that a user must match to participate in this leaderboard and appear in its rankings.",
+        ),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

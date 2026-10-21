@@ -51,10 +51,7 @@ class UpdateAchievementRequestItem(UniversalBaseModel):
     user_attributes: typing_extensions.Annotated[
         typing.Optional[typing.List[UpdateAchievementRequestItemUserAttributesItem]],
         FieldMetadata(alias="userAttributes"),
-        pydantic.Field(
-            alias="userAttributes",
-            description="Updated user attribute filters. Send `null` to clear. Each `attributeId` must be an active user attribute.",
-        ),
+        pydantic.Field(alias="userAttributes", description="Updated user attribute filters. Send `null` to clear."),
     ] = None
     key: typing.Optional[str] = pydantic.Field(default=None)
     """

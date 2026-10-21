@@ -31,6 +31,7 @@ if typing.TYPE_CHECKING:
     from .admin_leaderboard_rank_by import AdminLeaderboardRankBy
     from .admin_leaderboard_run_unit import AdminLeaderboardRunUnit
     from .admin_leaderboard_status import AdminLeaderboardStatus
+    from .admin_leaderboard_user_attributes_item import AdminLeaderboardUserAttributesItem
     from .admin_points_boost import AdminPointsBoost
     from .admin_points_boost_rounding import AdminPointsBoostRounding
     from .admin_points_boost_status import AdminPointsBoostStatus
@@ -82,6 +83,7 @@ if typing.TYPE_CHECKING:
     from .create_leaderboard_request_item_rank_by import CreateLeaderboardRequestItemRankBy
     from .create_leaderboard_request_item_run_unit import CreateLeaderboardRequestItemRunUnit
     from .create_leaderboard_request_item_status import CreateLeaderboardRequestItemStatus
+    from .create_leaderboard_request_item_user_attributes_item import CreateLeaderboardRequestItemUserAttributesItem
     from .create_leaderboards_request import CreateLeaderboardsRequest
     from .create_leaderboards_response import CreateLeaderboardsResponse
     from .create_metric_request_item import CreateMetricRequestItem
@@ -142,6 +144,7 @@ if typing.TYPE_CHECKING:
     from .leaderboard_response import LeaderboardResponse
     from .leaderboard_response_rank_by import LeaderboardResponseRankBy
     from .leaderboard_response_run_unit import LeaderboardResponseRunUnit
+    from .leaderboard_response_user_attributes_item import LeaderboardResponseUserAttributesItem
     from .leaderboard_response_with_rankings import LeaderboardResponseWithRankings
     from .leaderboard_response_with_rankings_status import LeaderboardResponseWithRankingsStatus
     from .list_achievements_response import ListAchievementsResponse
@@ -236,6 +239,7 @@ if typing.TYPE_CHECKING:
     from .update_leaderboard_request_item_rank_by import UpdateLeaderboardRequestItemRankBy
     from .update_leaderboard_request_item_run_unit import UpdateLeaderboardRequestItemRunUnit
     from .update_leaderboard_request_item_status import UpdateLeaderboardRequestItemStatus
+    from .update_leaderboard_request_item_user_attributes_item import UpdateLeaderboardRequestItemUserAttributesItem
     from .update_leaderboards_request import UpdateLeaderboardsRequest
     from .update_leaderboards_response import UpdateLeaderboardsResponse
     from .update_metric_request_item import UpdateMetricRequestItem
@@ -317,6 +321,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdminLeaderboardRankBy": ".admin_leaderboard_rank_by",
     "AdminLeaderboardRunUnit": ".admin_leaderboard_run_unit",
     "AdminLeaderboardStatus": ".admin_leaderboard_status",
+    "AdminLeaderboardUserAttributesItem": ".admin_leaderboard_user_attributes_item",
     "AdminPointsBoost": ".admin_points_boost",
     "AdminPointsBoostRounding": ".admin_points_boost_rounding",
     "AdminPointsBoostStatus": ".admin_points_boost_status",
@@ -368,6 +373,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateLeaderboardRequestItemRankBy": ".create_leaderboard_request_item_rank_by",
     "CreateLeaderboardRequestItemRunUnit": ".create_leaderboard_request_item_run_unit",
     "CreateLeaderboardRequestItemStatus": ".create_leaderboard_request_item_status",
+    "CreateLeaderboardRequestItemUserAttributesItem": ".create_leaderboard_request_item_user_attributes_item",
     "CreateLeaderboardsRequest": ".create_leaderboards_request",
     "CreateLeaderboardsResponse": ".create_leaderboards_response",
     "CreateMetricRequestItem": ".create_metric_request_item",
@@ -424,6 +430,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LeaderboardResponse": ".leaderboard_response",
     "LeaderboardResponseRankBy": ".leaderboard_response_rank_by",
     "LeaderboardResponseRunUnit": ".leaderboard_response_run_unit",
+    "LeaderboardResponseUserAttributesItem": ".leaderboard_response_user_attributes_item",
     "LeaderboardResponseWithRankings": ".leaderboard_response_with_rankings",
     "LeaderboardResponseWithRankingsStatus": ".leaderboard_response_with_rankings_status",
     "ListAchievementsResponse": ".list_achievements_response",
@@ -512,6 +519,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateLeaderboardRequestItemRankBy": ".update_leaderboard_request_item_rank_by",
     "UpdateLeaderboardRequestItemRunUnit": ".update_leaderboard_request_item_run_unit",
     "UpdateLeaderboardRequestItemStatus": ".update_leaderboard_request_item_status",
+    "UpdateLeaderboardRequestItemUserAttributesItem": ".update_leaderboard_request_item_user_attributes_item",
     "UpdateLeaderboardsRequest": ".update_leaderboards_request",
     "UpdateLeaderboardsResponse": ".update_leaderboards_response",
     "UpdateMetricRequestItem": ".update_metric_request_item",
@@ -617,6 +625,7 @@ __all__ = [
     "AdminLeaderboardRankBy",
     "AdminLeaderboardRunUnit",
     "AdminLeaderboardStatus",
+    "AdminLeaderboardUserAttributesItem",
     "AdminPointsBoost",
     "AdminPointsBoostRounding",
     "AdminPointsBoostStatus",
@@ -668,6 +677,7 @@ __all__ = [
     "CreateLeaderboardRequestItemRankBy",
     "CreateLeaderboardRequestItemRunUnit",
     "CreateLeaderboardRequestItemStatus",
+    "CreateLeaderboardRequestItemUserAttributesItem",
     "CreateLeaderboardsRequest",
     "CreateLeaderboardsResponse",
     "CreateMetricRequestItem",
@@ -724,6 +734,7 @@ __all__ = [
     "LeaderboardResponse",
     "LeaderboardResponseRankBy",
     "LeaderboardResponseRunUnit",
+    "LeaderboardResponseUserAttributesItem",
     "LeaderboardResponseWithRankings",
     "LeaderboardResponseWithRankingsStatus",
     "ListAchievementsResponse",
@@ -812,6 +823,7 @@ __all__ = [
     "UpdateLeaderboardRequestItemRankBy",
     "UpdateLeaderboardRequestItemRunUnit",
     "UpdateLeaderboardRequestItemStatus",
+    "UpdateLeaderboardRequestItemUserAttributesItem",
     "UpdateLeaderboardsRequest",
     "UpdateLeaderboardsResponse",
     "UpdateMetricRequestItem",

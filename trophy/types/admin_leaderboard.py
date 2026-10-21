@@ -9,6 +9,7 @@ from ..core.serialization import FieldMetadata
 from .admin_leaderboard_rank_by import AdminLeaderboardRankBy
 from .admin_leaderboard_run_unit import AdminLeaderboardRunUnit
 from .admin_leaderboard_status import AdminLeaderboardStatus
+from .admin_leaderboard_user_attributes_item import AdminLeaderboardUserAttributesItem
 
 
 class AdminLeaderboard(UniversalBaseModel):
@@ -104,6 +105,11 @@ class AdminLeaderboard(UniversalBaseModel):
         FieldMetadata(alias="runInterval"),
         pydantic.Field(alias="runInterval", description="The number of recurrence units between leaderboard runs."),
     ] = None
+    user_attributes: typing_extensions.Annotated[
+        typing.List[AdminLeaderboardUserAttributesItem],
+        FieldMetadata(alias="userAttributes"),
+        pydantic.Field(alias="userAttributes", description="User attribute filters."),
+    ]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

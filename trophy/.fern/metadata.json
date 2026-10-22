@@ -3,7 +3,7 @@
   "generatorName": "fernapi/fern-python-sdk",
   "generatorVersion": "5.15.1",
   "generatorConfig": {},
-  "originGitCommit": "5906aed214fb6bb360b82708ea88b5d09400fc74",
+  "originGitCommit": "88f39689a812bad68240708976f28b2aea273c74",
   "originGitCommitIsDirty": true,
   "invokedBy": "ci",
   "ciProvider": "github"

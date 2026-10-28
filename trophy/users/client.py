@@ -14,6 +14,7 @@ from ..types.user import User
 from ..types.user_achievement_with_stats_response import UserAchievementWithStatsResponse
 from ..types.user_leaderboard_response_with_history import UserLeaderboardResponseWithHistory
 from ..types.user_preferences_response import UserPreferencesResponse
+from ..types.user_reward_response import UserRewardResponse
 from ..types.wrapped_response import WrappedResponse
 from .raw_client import AsyncRawUsersClient, RawUsersClient
 from .types.users_metric_event_summary_request_aggregation import UsersMetricEventSummaryRequestAggregation
@@ -95,7 +96,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -138,7 +139,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -204,7 +205,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -284,7 +285,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -332,7 +333,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -376,7 +377,7 @@ class UsersClient:
         from trophy import NotificationPreferences, TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -416,7 +417,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -454,7 +455,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -509,7 +510,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -557,7 +558,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -567,6 +568,77 @@ class UsersClient:
         """
         _response = self._raw_client.achievements(
             id, include_incomplete=include_incomplete, request_options=request_options
+        )
+        return _response.data
+
+    def rewards(
+        self,
+        id: str,
+        *,
+        redeemed: typing.Optional[bool] = None,
+        start_date: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        skip: typing.Optional[int] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[UserRewardResponse]:
+        """
+        Get rewards awarded to a user. Filter by redeemed state and the date the reward was awarded.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the user in your database.
+
+        redeemed : typing.Optional[bool]
+            When set, only return rewards that have or have not been redeemed.
+
+        start_date : typing.Optional[str]
+            Inclusive start of the awarded-at range, as YYYY-MM-DD in UTC.
+
+        end_date : typing.Optional[str]
+            Inclusive end of the awarded-at range, as YYYY-MM-DD in UTC.
+
+        skip : typing.Optional[int]
+            Number of rewards to skip. Defaults to 0.
+
+        limit : typing.Optional[int]
+            Maximum number of rewards to return. Defaults to 100 and cannot exceed 100.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[UserRewardResponse]
+            The user's rewards, newest award first.
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            "1.28.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+        client.users.rewards(
+            id="id",
+            redeemed=True,
+            start_date="startDate",
+            end_date="endDate",
+            skip=1,
+            limit=1,
+        )
+        """
+        _response = self._raw_client.rewards(
+            id,
+            redeemed=redeemed,
+            start_date=start_date,
+            end_date=end_date,
+            skip=skip,
+            limit=limit,
+            request_options=request_options,
         )
         return _response.data
 
@@ -601,7 +673,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -648,7 +720,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -688,7 +760,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -743,7 +815,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -799,7 +871,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -842,7 +914,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -927,7 +999,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -978,7 +1050,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1052,7 +1124,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1140,7 +1212,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1196,7 +1268,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1248,7 +1320,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi, NotificationPreferences
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1296,7 +1368,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1342,7 +1414,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1405,7 +1477,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1461,7 +1533,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1477,6 +1549,85 @@ class AsyncUsersClient:
         """
         _response = await self._raw_client.achievements(
             id, include_incomplete=include_incomplete, request_options=request_options
+        )
+        return _response.data
+
+    async def rewards(
+        self,
+        id: str,
+        *,
+        redeemed: typing.Optional[bool] = None,
+        start_date: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        skip: typing.Optional[int] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[UserRewardResponse]:
+        """
+        Get rewards awarded to a user. Filter by redeemed state and the date the reward was awarded.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the user in your database.
+
+        redeemed : typing.Optional[bool]
+            When set, only return rewards that have or have not been redeemed.
+
+        start_date : typing.Optional[str]
+            Inclusive start of the awarded-at range, as YYYY-MM-DD in UTC.
+
+        end_date : typing.Optional[str]
+            Inclusive end of the awarded-at range, as YYYY-MM-DD in UTC.
+
+        skip : typing.Optional[int]
+            Number of rewards to skip. Defaults to 0.
+
+        limit : typing.Optional[int]
+            Maximum number of rewards to return. Defaults to 100 and cannot exceed 100.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[UserRewardResponse]
+            The user's rewards, newest award first.
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            "1.28.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.rewards(
+                id="id",
+                redeemed=True,
+                start_date="startDate",
+                end_date="endDate",
+                skip=1,
+                limit=1,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.rewards(
+            id,
+            redeemed=redeemed,
+            start_date=start_date,
+            end_date=end_date,
+            skip=skip,
+            limit=limit,
+            request_options=request_options,
         )
         return _response.data
 
@@ -1513,7 +1664,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1568,7 +1719,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1616,7 +1767,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1679,7 +1830,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1743,7 +1894,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1794,7 +1945,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.27.0",
+            "1.28.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

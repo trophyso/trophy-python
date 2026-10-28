@@ -10,6 +10,7 @@ from .metric_event_leaderboard_response import MetricEventLeaderboardResponse
 from .metric_event_points_response import MetricEventPointsResponse
 from .metric_event_streak_response import MetricEventStreakResponse
 from .user_achievement_response import UserAchievementResponse
+from .user_reward_response import UserRewardResponse
 
 
 class EventResponse(UniversalBaseModel):
@@ -44,6 +45,11 @@ class EventResponse(UniversalBaseModel):
     leaderboards: typing.Dict[str, MetricEventLeaderboardResponse] = pydantic.Field()
     """
     A map of leaderboards by key. Only contains leaderboards that were affected by the event.
+    """
+
+    rewards: typing.List[UserRewardResponse] = pydantic.Field()
+    """
+    Rewards awarded as a result of this event.
     """
 
     idempotency_key: typing_extensions.Annotated[

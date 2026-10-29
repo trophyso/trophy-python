@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .metric_event_leaderboard_response import MetricEventLeaderboardResponse
 from .metric_event_points_response import MetricEventPointsResponse
 from .redeemed_reward import RedeemedReward
 from .reward_summary import RewardSummary
@@ -19,6 +20,11 @@ class RedeemRewardResponse(UniversalBaseModel):
     points: typing.Optional[typing.Dict[str, MetricEventPointsResponse]] = pydantic.Field(default=None)
     """
     Points granted by a points reward, keyed by points system key. Includes one award per redemption.
+    """
+
+    leaderboards: typing.Dict[str, MetricEventLeaderboardResponse] = pydantic.Field()
+    """
+    A map of leaderboards by key. Only contains leaderboards that were affected by the points this request granted.
     """
 
     if IS_PYDANTIC_V2:

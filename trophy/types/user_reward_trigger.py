@@ -10,22 +10,47 @@ from .user_reward_trigger_type import UserRewardTriggerType
 
 
 class UserRewardTrigger(UniversalBaseModel):
+    """
+    The trigger that awarded the reward, as it is configured now. Only the fields for the trigger's current type are included.
+    """
+
     id: str
     type: UserRewardTriggerType
     metric_id: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="metricId"), pydantic.Field(alias="metricId")
+        typing.Optional[str],
+        FieldMetadata(alias="metricId"),
+        pydantic.Field(alias="metricId", description="For metric triggers, the ID of the metric."),
     ] = None
-    threshold: typing.Optional[int] = None
+    metric_threshold: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="metricThreshold"),
+        pydantic.Field(
+            alias="metricThreshold",
+            description="For metric triggers, the reward is awarded each time the user's total for the metric increases by this amount.",
+        ),
+    ] = None
     achievement_id: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="achievementId"), pydantic.Field(alias="achievementId")
+        typing.Optional[str],
+        FieldMetadata(alias="achievementId"),
+        pydantic.Field(alias="achievementId", description="For achievement triggers, the ID of the achievement."),
     ] = None
-    streak_length: typing_extensions.Annotated[
-        typing.Optional[int], FieldMetadata(alias="streakLength"), pydantic.Field(alias="streakLength")
+    streak_length_threshold: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="streakLengthThreshold"),
+        pydantic.Field(
+            alias="streakLengthThreshold",
+            description="For streak triggers, the reward is awarded every this many periods of the user's streak.",
+        ),
     ] = None
     leaderboard_id: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="leaderboardId"), pydantic.Field(alias="leaderboardId")
+        typing.Optional[str],
+        FieldMetadata(alias="leaderboardId"),
+        pydantic.Field(alias="leaderboardId", description="For leaderboard triggers, the ID of the leaderboard."),
     ] = None
-    rank: typing.Optional[int] = None
+    rank: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    For leaderboard triggers, the rank a user must finish a leaderboard run at.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

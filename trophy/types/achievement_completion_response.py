@@ -6,8 +6,10 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .metric_event_leaderboard_response import MetricEventLeaderboardResponse
 from .metric_event_points_response import MetricEventPointsResponse
 from .user_achievement_response import UserAchievementResponse
+from .user_reward_response import UserRewardResponse
 
 
 class AchievementCompletionResponse(UniversalBaseModel):
@@ -20,6 +22,16 @@ class AchievementCompletionResponse(UniversalBaseModel):
     points: typing.Dict[str, MetricEventPointsResponse] = pydantic.Field()
     """
     A map of points systems by key that were affected by this achievement completion.
+    """
+
+    leaderboards: typing.Dict[str, MetricEventLeaderboardResponse] = pydantic.Field()
+    """
+    A map of leaderboards by key. Only contains leaderboards that were affected by this achievement completion.
+    """
+
+    rewards: typing.List[UserRewardResponse] = pydantic.Field()
+    """
+    Rewards awarded as a result of this achievement completion.
     """
 
     if IS_PYDANTIC_V2:

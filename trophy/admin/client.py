@@ -15,6 +15,7 @@ if typing.TYPE_CHECKING:
     from .leaderboards.client import AsyncLeaderboardsClient, LeaderboardsClient
     from .metrics.client import AsyncMetricsClient, MetricsClient
     from .points.client import AsyncPointsClient, PointsClient
+    from .rewards.client import AsyncRewardsClient, RewardsClient
     from .settings.client import AsyncSettingsClient, SettingsClient
     from .streaks.client import AsyncStreaksClient, StreaksClient
     from .tenants.client import AsyncTenantsClient, TenantsClient
@@ -26,6 +27,7 @@ class AdminClient:
         self._client_wrapper = client_wrapper
         self._attributes: typing.Optional[AttributesClient] = None
         self._achievements: typing.Optional[AchievementsClient] = None
+        self._rewards: typing.Optional[RewardsClient] = None
         self._metrics: typing.Optional[MetricsClient] = None
         self._leaderboards: typing.Optional[LeaderboardsClient] = None
         self._streaks: typing.Optional[StreaksClient] = None
@@ -61,6 +63,14 @@ class AdminClient:
 
             self._achievements = AchievementsClient(client_wrapper=self._client_wrapper)
         return self._achievements
+
+    @property
+    def rewards(self):
+        if self._rewards is None:
+            from .rewards.client import RewardsClient  # noqa: E402
+
+            self._rewards = RewardsClient(client_wrapper=self._client_wrapper)
+        return self._rewards
 
     @property
     def metrics(self):
@@ -133,6 +143,7 @@ class AsyncAdminClient:
         self._client_wrapper = client_wrapper
         self._attributes: typing.Optional[AsyncAttributesClient] = None
         self._achievements: typing.Optional[AsyncAchievementsClient] = None
+        self._rewards: typing.Optional[AsyncRewardsClient] = None
         self._metrics: typing.Optional[AsyncMetricsClient] = None
         self._leaderboards: typing.Optional[AsyncLeaderboardsClient] = None
         self._streaks: typing.Optional[AsyncStreaksClient] = None
@@ -168,6 +179,14 @@ class AsyncAdminClient:
 
             self._achievements = AsyncAchievementsClient(client_wrapper=self._client_wrapper)
         return self._achievements
+
+    @property
+    def rewards(self):
+        if self._rewards is None:
+            from .rewards.client import AsyncRewardsClient  # noqa: E402
+
+            self._rewards = AsyncRewardsClient(client_wrapper=self._client_wrapper)
+        return self._rewards
 
     @property
     def metrics(self):

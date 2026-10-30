@@ -15,6 +15,7 @@ if typing.TYPE_CHECKING:
     from .leaderboards.client import AsyncLeaderboardsClient, LeaderboardsClient
     from .metrics.client import AsyncMetricsClient, MetricsClient
     from .points.client import AsyncPointsClient, PointsClient
+    from .rewards.client import AsyncRewardsClient, RewardsClient
     from .streaks.client import AsyncStreaksClient, StreaksClient
     from .users.client import AsyncUsersClient, UsersClient
 
@@ -66,7 +67,7 @@ class TrophyApi:
     from trophy import TrophyApi
 
     client = TrophyApi(
-        "1.27.0",
+        "1.28.0",
         tenant_id="YOUR_TENANT_ID",
         api_key="YOUR_API_KEY",
     )
@@ -76,7 +77,7 @@ class TrophyApi:
         self,
         *,
         environment: TrophyApiEnvironment = TrophyApiEnvironment.PRODUCTION,
-        sdk_version: str = "1.27.0",
+        sdk_version: str = "1.28.0",
         tenant_id: typing.Optional[str] = None,
         api_key: str,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -110,6 +111,7 @@ class TrophyApi:
             logging=logging,
         )
         self._achievements: typing.Optional[AchievementsClient] = None
+        self._rewards: typing.Optional[RewardsClient] = None
         self._metrics: typing.Optional[MetricsClient] = None
         self._users: typing.Optional[UsersClient] = None
         self._streaks: typing.Optional[StreaksClient] = None
@@ -124,6 +126,14 @@ class TrophyApi:
 
             self._achievements = AchievementsClient(client_wrapper=self._client_wrapper)
         return self._achievements
+
+    @property
+    def rewards(self):
+        if self._rewards is None:
+            from .rewards.client import RewardsClient  # noqa: E402
+
+            self._rewards = RewardsClient(client_wrapper=self._client_wrapper)
+        return self._rewards
 
     @property
     def metrics(self):
@@ -239,7 +249,7 @@ class AsyncTrophyApi:
     from trophy import AsyncTrophyApi
 
     client = AsyncTrophyApi(
-        "1.27.0",
+        "1.28.0",
         tenant_id="YOUR_TENANT_ID",
         api_key="YOUR_API_KEY",
     )
@@ -249,7 +259,7 @@ class AsyncTrophyApi:
         self,
         *,
         environment: TrophyApiEnvironment = TrophyApiEnvironment.PRODUCTION,
-        sdk_version: str = "1.27.0",
+        sdk_version: str = "1.28.0",
         tenant_id: typing.Optional[str] = None,
         api_key: str,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -281,6 +291,7 @@ class AsyncTrophyApi:
             logging=logging,
         )
         self._achievements: typing.Optional[AsyncAchievementsClient] = None
+        self._rewards: typing.Optional[AsyncRewardsClient] = None
         self._metrics: typing.Optional[AsyncMetricsClient] = None
         self._users: typing.Optional[AsyncUsersClient] = None
         self._streaks: typing.Optional[AsyncStreaksClient] = None
@@ -295,6 +306,14 @@ class AsyncTrophyApi:
 
             self._achievements = AsyncAchievementsClient(client_wrapper=self._client_wrapper)
         return self._achievements
+
+    @property
+    def rewards(self):
+        if self._rewards is None:
+            from .rewards.client import AsyncRewardsClient  # noqa: E402
+
+            self._rewards = AsyncRewardsClient(client_wrapper=self._client_wrapper)
+        return self._rewards
 
     @property
     def metrics(self):

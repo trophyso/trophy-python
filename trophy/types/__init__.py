@@ -47,6 +47,15 @@ if typing.TYPE_CHECKING:
     from .admin_points_trigger_time_unit import AdminPointsTriggerTimeUnit
     from .admin_points_trigger_type import AdminPointsTriggerType
     from .admin_points_trigger_user_attributes_item import AdminPointsTriggerUserAttributesItem
+    from .admin_reward import AdminReward
+    from .admin_reward_status import AdminRewardStatus
+    from .admin_reward_trigger import AdminRewardTrigger
+    from .admin_reward_trigger_event_attributes_item import AdminRewardTriggerEventAttributesItem
+    from .admin_reward_trigger_status import AdminRewardTriggerStatus
+    from .admin_reward_trigger_type import AdminRewardTriggerType
+    from .admin_reward_trigger_user_attributes_item import AdminRewardTriggerUserAttributesItem
+    from .admin_reward_type import AdminRewardType
+    from .admin_reward_user_attributes_item import AdminRewardUserAttributesItem
     from .admin_settings import AdminSettings
     from .admin_settings_branding import AdminSettingsBranding
     from .admin_settings_branding_app_icon import AdminSettingsBrandingAppIcon
@@ -115,12 +124,30 @@ if typing.TYPE_CHECKING:
     )
     from .create_points_triggers_request import CreatePointsTriggersRequest
     from .create_points_triggers_response import CreatePointsTriggersResponse
+    from .create_reward_request_item import CreateRewardRequestItem
+    from .create_reward_request_item_status import CreateRewardRequestItemStatus
+    from .create_reward_request_item_type import CreateRewardRequestItemType
+    from .create_reward_request_item_user_attributes_item import CreateRewardRequestItemUserAttributesItem
+    from .create_reward_trigger_request_item import CreateRewardTriggerRequestItem
+    from .create_reward_trigger_request_item_event_attributes_item import (
+        CreateRewardTriggerRequestItemEventAttributesItem,
+    )
+    from .create_reward_trigger_request_item_status import CreateRewardTriggerRequestItemStatus
+    from .create_reward_trigger_request_item_type import CreateRewardTriggerRequestItemType
+    from .create_reward_trigger_request_item_user_attributes_item import (
+        CreateRewardTriggerRequestItemUserAttributesItem,
+    )
+    from .create_reward_triggers_request import CreateRewardTriggersRequest
+    from .create_reward_triggers_response import CreateRewardTriggersResponse
+    from .create_rewards_request import CreateRewardsRequest
+    from .create_rewards_response import CreateRewardsResponse
     from .create_streak_freezes_response import CreateStreakFreezesResponse
     from .create_streak_pauses_response import CreateStreakPausesResponse
     from .create_tenant_request_item import CreateTenantRequestItem
     from .create_tenants_request import CreateTenantsRequest
     from .create_tenants_response import CreateTenantsResponse
     from .created_admin_points_system import CreatedAdminPointsSystem
+    from .created_admin_reward import CreatedAdminReward
     from .created_application_key import CreatedApplicationKey
     from .created_metric import CreatedMetric
     from .created_metric_unit_type import CreatedMetricUnitType
@@ -133,6 +160,8 @@ if typing.TYPE_CHECKING:
     from .delete_points_levels_response import DeletePointsLevelsResponse
     from .delete_points_systems_response import DeletePointsSystemsResponse
     from .delete_points_triggers_response import DeletePointsTriggersResponse
+    from .delete_reward_triggers_response import DeleteRewardTriggersResponse
+    from .delete_rewards_response import DeleteRewardsResponse
     from .delete_streak_pauses_response import DeleteStreakPausesResponse
     from .delete_tenants_response import DeleteTenantsResponse
     from .deleted_resource import DeletedResource
@@ -156,6 +185,8 @@ if typing.TYPE_CHECKING:
     from .list_points_levels_response import ListPointsLevelsResponse
     from .list_points_systems_response import ListPointsSystemsResponse
     from .list_points_triggers_response import ListPointsTriggersResponse
+    from .list_reward_triggers_response import ListRewardTriggersResponse
+    from .list_rewards_response import ListRewardsResponse
     from .list_tenants_response import ListTenantsResponse
     from .metric_event_leaderboard_response import MetricEventLeaderboardResponse
     from .metric_event_leaderboard_response_breakdown_attribute_values_item import (
@@ -208,8 +239,15 @@ if typing.TYPE_CHECKING:
     from .points_trigger_time_unit import PointsTriggerTimeUnit
     from .points_trigger_type import PointsTriggerType
     from .points_trigger_user_attributes_item import PointsTriggerUserAttributesItem
+    from .redeem_reward_response import RedeemRewardResponse
+    from .redeemed_reward import RedeemedReward
     from .reset_streaks_response import ResetStreaksResponse
     from .restore_streaks_response import RestoreStreaksResponse
+    from .reward_summary import RewardSummary
+    from .reward_summary_type import RewardSummaryType
+    from .reward_webhook_event import RewardWebhookEvent
+    from .reward_webhook_event_redemption import RewardWebhookEventRedemption
+    from .reward_webhook_event_type import RewardWebhookEventType
     from .streak_evaluation_mode_preference import StreakEvaluationModePreference
     from .streak_frequency import StreakFrequency
     from .streak_metric_preference import StreakMetricPreference
@@ -250,6 +288,23 @@ if typing.TYPE_CHECKING:
     from .update_points_system_request_item_badge import UpdatePointsSystemRequestItemBadge
     from .update_points_systems_request import UpdatePointsSystemsRequest
     from .update_points_systems_response import UpdatePointsSystemsResponse
+    from .update_reward_request_item import UpdateRewardRequestItem
+    from .update_reward_request_item_status import UpdateRewardRequestItemStatus
+    from .update_reward_request_item_type import UpdateRewardRequestItemType
+    from .update_reward_request_item_user_attributes_item import UpdateRewardRequestItemUserAttributesItem
+    from .update_reward_triggers_request import UpdateRewardTriggersRequest
+    from .update_reward_triggers_request_item import UpdateRewardTriggersRequestItem
+    from .update_reward_triggers_request_item_event_attributes_item import (
+        UpdateRewardTriggersRequestItemEventAttributesItem,
+    )
+    from .update_reward_triggers_request_item_status import UpdateRewardTriggersRequestItemStatus
+    from .update_reward_triggers_request_item_type import UpdateRewardTriggersRequestItemType
+    from .update_reward_triggers_request_item_user_attributes_item import (
+        UpdateRewardTriggersRequestItemUserAttributesItem,
+    )
+    from .update_reward_triggers_response import UpdateRewardTriggersResponse
+    from .update_rewards_request import UpdateRewardsRequest
+    from .update_rewards_response import UpdateRewardsResponse
     from .update_streak_settings_freezes import UpdateStreakSettingsFreezes
     from .update_tenant_request_item import UpdateTenantRequestItem
     from .update_tenants_request import UpdateTenantsRequest
@@ -262,6 +317,9 @@ if typing.TYPE_CHECKING:
     from .user_leaderboard_response import UserLeaderboardResponse
     from .user_leaderboard_response_with_history import UserLeaderboardResponseWithHistory
     from .user_preferences_response import UserPreferencesResponse
+    from .user_reward_response import UserRewardResponse
+    from .user_reward_trigger import UserRewardTrigger
+    from .user_reward_trigger_type import UserRewardTriggerType
     from .webhook_user_leaderboard_response import WebhookUserLeaderboardResponse
     from .webhooks_achievement_completed_payload import WebhooksAchievementCompletedPayload
     from .webhooks_emails_achievement_due_payload import WebhooksEmailsAchievementDuePayload
@@ -337,6 +395,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdminPointsTriggerTimeUnit": ".admin_points_trigger_time_unit",
     "AdminPointsTriggerType": ".admin_points_trigger_type",
     "AdminPointsTriggerUserAttributesItem": ".admin_points_trigger_user_attributes_item",
+    "AdminReward": ".admin_reward",
+    "AdminRewardStatus": ".admin_reward_status",
+    "AdminRewardTrigger": ".admin_reward_trigger",
+    "AdminRewardTriggerEventAttributesItem": ".admin_reward_trigger_event_attributes_item",
+    "AdminRewardTriggerStatus": ".admin_reward_trigger_status",
+    "AdminRewardTriggerType": ".admin_reward_trigger_type",
+    "AdminRewardTriggerUserAttributesItem": ".admin_reward_trigger_user_attributes_item",
+    "AdminRewardType": ".admin_reward_type",
+    "AdminRewardUserAttributesItem": ".admin_reward_user_attributes_item",
     "AdminSettings": ".admin_settings",
     "AdminSettingsBranding": ".admin_settings_branding",
     "AdminSettingsBrandingAppIcon": ".admin_settings_branding_app_icon",
@@ -401,12 +468,26 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePointsTriggerRequestItemUserAttributesItem": ".create_points_trigger_request_item_user_attributes_item",
     "CreatePointsTriggersRequest": ".create_points_triggers_request",
     "CreatePointsTriggersResponse": ".create_points_triggers_response",
+    "CreateRewardRequestItem": ".create_reward_request_item",
+    "CreateRewardRequestItemStatus": ".create_reward_request_item_status",
+    "CreateRewardRequestItemType": ".create_reward_request_item_type",
+    "CreateRewardRequestItemUserAttributesItem": ".create_reward_request_item_user_attributes_item",
+    "CreateRewardTriggerRequestItem": ".create_reward_trigger_request_item",
+    "CreateRewardTriggerRequestItemEventAttributesItem": ".create_reward_trigger_request_item_event_attributes_item",
+    "CreateRewardTriggerRequestItemStatus": ".create_reward_trigger_request_item_status",
+    "CreateRewardTriggerRequestItemType": ".create_reward_trigger_request_item_type",
+    "CreateRewardTriggerRequestItemUserAttributesItem": ".create_reward_trigger_request_item_user_attributes_item",
+    "CreateRewardTriggersRequest": ".create_reward_triggers_request",
+    "CreateRewardTriggersResponse": ".create_reward_triggers_response",
+    "CreateRewardsRequest": ".create_rewards_request",
+    "CreateRewardsResponse": ".create_rewards_response",
     "CreateStreakFreezesResponse": ".create_streak_freezes_response",
     "CreateStreakPausesResponse": ".create_streak_pauses_response",
     "CreateTenantRequestItem": ".create_tenant_request_item",
     "CreateTenantsRequest": ".create_tenants_request",
     "CreateTenantsResponse": ".create_tenants_response",
     "CreatedAdminPointsSystem": ".created_admin_points_system",
+    "CreatedAdminReward": ".created_admin_reward",
     "CreatedApplicationKey": ".created_application_key",
     "CreatedMetric": ".created_metric",
     "CreatedMetricUnitType": ".created_metric_unit_type",
@@ -419,6 +500,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DeletePointsLevelsResponse": ".delete_points_levels_response",
     "DeletePointsSystemsResponse": ".delete_points_systems_response",
     "DeletePointsTriggersResponse": ".delete_points_triggers_response",
+    "DeleteRewardTriggersResponse": ".delete_reward_triggers_response",
+    "DeleteRewardsResponse": ".delete_rewards_response",
     "DeleteStreakPausesResponse": ".delete_streak_pauses_response",
     "DeleteTenantsResponse": ".delete_tenants_response",
     "DeletedResource": ".deleted_resource",
@@ -442,6 +525,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListPointsLevelsResponse": ".list_points_levels_response",
     "ListPointsSystemsResponse": ".list_points_systems_response",
     "ListPointsTriggersResponse": ".list_points_triggers_response",
+    "ListRewardTriggersResponse": ".list_reward_triggers_response",
+    "ListRewardsResponse": ".list_rewards_response",
     "ListTenantsResponse": ".list_tenants_response",
     "MetricEventLeaderboardResponse": ".metric_event_leaderboard_response",
     "MetricEventLeaderboardResponseBreakdownAttributeValuesItem": ".metric_event_leaderboard_response_breakdown_attribute_values_item",
@@ -488,8 +573,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PointsTriggerTimeUnit": ".points_trigger_time_unit",
     "PointsTriggerType": ".points_trigger_type",
     "PointsTriggerUserAttributesItem": ".points_trigger_user_attributes_item",
+    "RedeemRewardResponse": ".redeem_reward_response",
+    "RedeemedReward": ".redeemed_reward",
     "ResetStreaksResponse": ".reset_streaks_response",
     "RestoreStreaksResponse": ".restore_streaks_response",
+    "RewardSummary": ".reward_summary",
+    "RewardSummaryType": ".reward_summary_type",
+    "RewardWebhookEvent": ".reward_webhook_event",
+    "RewardWebhookEventRedemption": ".reward_webhook_event_redemption",
+    "RewardWebhookEventType": ".reward_webhook_event_type",
     "StreakEvaluationModePreference": ".streak_evaluation_mode_preference",
     "StreakFrequency": ".streak_frequency",
     "StreakMetricPreference": ".streak_metric_preference",
@@ -530,6 +622,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePointsSystemRequestItemBadge": ".update_points_system_request_item_badge",
     "UpdatePointsSystemsRequest": ".update_points_systems_request",
     "UpdatePointsSystemsResponse": ".update_points_systems_response",
+    "UpdateRewardRequestItem": ".update_reward_request_item",
+    "UpdateRewardRequestItemStatus": ".update_reward_request_item_status",
+    "UpdateRewardRequestItemType": ".update_reward_request_item_type",
+    "UpdateRewardRequestItemUserAttributesItem": ".update_reward_request_item_user_attributes_item",
+    "UpdateRewardTriggersRequest": ".update_reward_triggers_request",
+    "UpdateRewardTriggersRequestItem": ".update_reward_triggers_request_item",
+    "UpdateRewardTriggersRequestItemEventAttributesItem": ".update_reward_triggers_request_item_event_attributes_item",
+    "UpdateRewardTriggersRequestItemStatus": ".update_reward_triggers_request_item_status",
+    "UpdateRewardTriggersRequestItemType": ".update_reward_triggers_request_item_type",
+    "UpdateRewardTriggersRequestItemUserAttributesItem": ".update_reward_triggers_request_item_user_attributes_item",
+    "UpdateRewardTriggersResponse": ".update_reward_triggers_response",
+    "UpdateRewardsRequest": ".update_rewards_request",
+    "UpdateRewardsResponse": ".update_rewards_response",
     "UpdateStreakSettingsFreezes": ".update_streak_settings_freezes",
     "UpdateTenantRequestItem": ".update_tenant_request_item",
     "UpdateTenantsRequest": ".update_tenants_request",
@@ -542,6 +647,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UserLeaderboardResponse": ".user_leaderboard_response",
     "UserLeaderboardResponseWithHistory": ".user_leaderboard_response_with_history",
     "UserPreferencesResponse": ".user_preferences_response",
+    "UserRewardResponse": ".user_reward_response",
+    "UserRewardTrigger": ".user_reward_trigger",
+    "UserRewardTriggerType": ".user_reward_trigger_type",
     "WebhookUserLeaderboardResponse": ".webhook_user_leaderboard_response",
     "WebhooksAchievementCompletedPayload": ".webhooks_achievement_completed_payload",
     "WebhooksEmailsAchievementDuePayload": ".webhooks_emails_achievement_due_payload",
@@ -641,6 +749,15 @@ __all__ = [
     "AdminPointsTriggerTimeUnit",
     "AdminPointsTriggerType",
     "AdminPointsTriggerUserAttributesItem",
+    "AdminReward",
+    "AdminRewardStatus",
+    "AdminRewardTrigger",
+    "AdminRewardTriggerEventAttributesItem",
+    "AdminRewardTriggerStatus",
+    "AdminRewardTriggerType",
+    "AdminRewardTriggerUserAttributesItem",
+    "AdminRewardType",
+    "AdminRewardUserAttributesItem",
     "AdminSettings",
     "AdminSettingsBranding",
     "AdminSettingsBrandingAppIcon",
@@ -705,12 +822,26 @@ __all__ = [
     "CreatePointsTriggerRequestItemUserAttributesItem",
     "CreatePointsTriggersRequest",
     "CreatePointsTriggersResponse",
+    "CreateRewardRequestItem",
+    "CreateRewardRequestItemStatus",
+    "CreateRewardRequestItemType",
+    "CreateRewardRequestItemUserAttributesItem",
+    "CreateRewardTriggerRequestItem",
+    "CreateRewardTriggerRequestItemEventAttributesItem",
+    "CreateRewardTriggerRequestItemStatus",
+    "CreateRewardTriggerRequestItemType",
+    "CreateRewardTriggerRequestItemUserAttributesItem",
+    "CreateRewardTriggersRequest",
+    "CreateRewardTriggersResponse",
+    "CreateRewardsRequest",
+    "CreateRewardsResponse",
     "CreateStreakFreezesResponse",
     "CreateStreakPausesResponse",
     "CreateTenantRequestItem",
     "CreateTenantsRequest",
     "CreateTenantsResponse",
     "CreatedAdminPointsSystem",
+    "CreatedAdminReward",
     "CreatedApplicationKey",
     "CreatedMetric",
     "CreatedMetricUnitType",
@@ -723,6 +854,8 @@ __all__ = [
     "DeletePointsLevelsResponse",
     "DeletePointsSystemsResponse",
     "DeletePointsTriggersResponse",
+    "DeleteRewardTriggersResponse",
+    "DeleteRewardsResponse",
     "DeleteStreakPausesResponse",
     "DeleteTenantsResponse",
     "DeletedResource",
@@ -746,6 +879,8 @@ __all__ = [
     "ListPointsLevelsResponse",
     "ListPointsSystemsResponse",
     "ListPointsTriggersResponse",
+    "ListRewardTriggersResponse",
+    "ListRewardsResponse",
     "ListTenantsResponse",
     "MetricEventLeaderboardResponse",
     "MetricEventLeaderboardResponseBreakdownAttributeValuesItem",
@@ -792,8 +927,15 @@ __all__ = [
     "PointsTriggerTimeUnit",
     "PointsTriggerType",
     "PointsTriggerUserAttributesItem",
+    "RedeemRewardResponse",
+    "RedeemedReward",
     "ResetStreaksResponse",
     "RestoreStreaksResponse",
+    "RewardSummary",
+    "RewardSummaryType",
+    "RewardWebhookEvent",
+    "RewardWebhookEventRedemption",
+    "RewardWebhookEventType",
     "StreakEvaluationModePreference",
     "StreakFrequency",
     "StreakMetricPreference",
@@ -834,6 +976,19 @@ __all__ = [
     "UpdatePointsSystemRequestItemBadge",
     "UpdatePointsSystemsRequest",
     "UpdatePointsSystemsResponse",
+    "UpdateRewardRequestItem",
+    "UpdateRewardRequestItemStatus",
+    "UpdateRewardRequestItemType",
+    "UpdateRewardRequestItemUserAttributesItem",
+    "UpdateRewardTriggersRequest",
+    "UpdateRewardTriggersRequestItem",
+    "UpdateRewardTriggersRequestItemEventAttributesItem",
+    "UpdateRewardTriggersRequestItemStatus",
+    "UpdateRewardTriggersRequestItemType",
+    "UpdateRewardTriggersRequestItemUserAttributesItem",
+    "UpdateRewardTriggersResponse",
+    "UpdateRewardsRequest",
+    "UpdateRewardsResponse",
     "UpdateStreakSettingsFreezes",
     "UpdateTenantRequestItem",
     "UpdateTenantsRequest",
@@ -846,6 +1001,9 @@ __all__ = [
     "UserLeaderboardResponse",
     "UserLeaderboardResponseWithHistory",
     "UserPreferencesResponse",
+    "UserRewardResponse",
+    "UserRewardTrigger",
+    "UserRewardTriggerType",
     "WebhookUserLeaderboardResponse",
     "WebhooksAchievementCompletedPayload",
     "WebhooksEmailsAchievementDuePayload",

@@ -80,6 +80,22 @@ class PointsTrigger(UniversalBaseModel):
             alias="achievementName", description="If the trigger has type 'achievement', the name of the achievement"
         ),
     ] = None
+    reward_key: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="rewardKey"),
+        pydantic.Field(
+            alias="rewardKey",
+            description="If the trigger has type 'reward', the key of the reward that granted these points.",
+        ),
+    ] = None
+    reward_name: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="rewardName"),
+        pydantic.Field(
+            alias="rewardName",
+            description="If the trigger has type 'reward', the name of the reward that granted these points.",
+        ),
+    ] = None
     time_unit: typing_extensions.Annotated[
         typing.Optional[PointsTriggerTimeUnit],
         FieldMetadata(alias="timeUnit"),

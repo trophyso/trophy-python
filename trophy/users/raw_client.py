@@ -26,6 +26,7 @@ from ..types.user import User
 from ..types.user_achievement_with_stats_response import UserAchievementWithStatsResponse
 from ..types.user_leaderboard_response_with_history import UserLeaderboardResponseWithHistory
 from ..types.user_preferences_response import UserPreferencesResponse
+from ..types.user_reward_response import UserRewardResponse
 from ..types.wrapped_response import WrappedResponse
 from .types.users_metric_event_summary_request_aggregation import UsersMetricEventSummaryRequestAggregation
 from .types.users_metric_event_summary_response_item import UsersMetricEventSummaryResponseItem
@@ -991,6 +992,102 @@ class RawUsersClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def rewards(
+        self,
+        id: str,
+        *,
+        redeemed: typing.Optional[bool] = None,
+        start_date: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        skip: typing.Optional[int] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[typing.List[UserRewardResponse]]:
+        """
+        Get rewards awarded to a user. Filter by redeemed state and the date the reward was awarded.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the user in your database.
+
+        redeemed : typing.Optional[bool]
+            When set, only return rewards that have or have not been redeemed.
+
+        start_date : typing.Optional[str]
+            Inclusive start of the awarded-at range, as YYYY-MM-DD in UTC.
+
+        end_date : typing.Optional[str]
+            Inclusive end of the awarded-at range, as YYYY-MM-DD in UTC.
+
+        skip : typing.Optional[int]
+            Number of rewards to skip. Defaults to 0.
+
+        limit : typing.Optional[int]
+            Maximum number of rewards to return. Defaults to 100 and cannot exceed 100.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[typing.List[UserRewardResponse]]
+            The user's rewards, newest award first.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"users/{encode_path_param(id)}/rewards",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            params={
+                "redeemed": redeemed,
+                "startDate": start_date,
+                "endDate": end_date,
+                "skip": skip,
+                "limit": limit,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.List[UserRewardResponse],
+                    parse_obj_as(
+                        type_=typing.List[UserRewardResponse],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
             if _response.status_code == 404:
                 raise NotFoundError(
                     headers=dict(_response.headers),
@@ -2515,6 +2612,102 @@ class AsyncRawUsersClient:
                         ),
                     ),
                 )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def rewards(
+        self,
+        id: str,
+        *,
+        redeemed: typing.Optional[bool] = None,
+        start_date: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        skip: typing.Optional[int] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[typing.List[UserRewardResponse]]:
+        """
+        Get rewards awarded to a user. Filter by redeemed state and the date the reward was awarded.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the user in your database.
+
+        redeemed : typing.Optional[bool]
+            When set, only return rewards that have or have not been redeemed.
+
+        start_date : typing.Optional[str]
+            Inclusive start of the awarded-at range, as YYYY-MM-DD in UTC.
+
+        end_date : typing.Optional[str]
+            Inclusive end of the awarded-at range, as YYYY-MM-DD in UTC.
+
+        skip : typing.Optional[int]
+            Number of rewards to skip. Defaults to 0.
+
+        limit : typing.Optional[int]
+            Maximum number of rewards to return. Defaults to 100 and cannot exceed 100.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[typing.List[UserRewardResponse]]
+            The user's rewards, newest award first.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"users/{encode_path_param(id)}/rewards",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            params={
+                "redeemed": redeemed,
+                "startDate": start_date,
+                "endDate": end_date,
+                "skip": skip,
+                "limit": limit,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.List[UserRewardResponse],
+                    parse_obj_as(
+                        type_=typing.List[UserRewardResponse],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 404:
                 raise NotFoundError(
                     headers=dict(_response.headers),

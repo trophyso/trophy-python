@@ -162,6 +162,92 @@ client.achievements.complete(
 </dl>
 </details>
 
+## Rewards
+<details><summary><code>client.rewards.<a href="src/trophy/rewards/client.py">redeem</a>(...) -> RedeemRewardResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Redeem a reward for a user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi, UpsertedUser
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.rewards.redeem(
+    key="key",
+    user=UpsertedUser(
+        id="user-id",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `str` — The key of the reward to redeem.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user:** `UpsertedUser` — The user redeeming the reward. The user must already exist.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Metrics
 <details><summary><code>client.metrics.<a href="src/trophy/metrics/client.py">event</a>(...) -> EventResponse</code></summary>
 <dl>
@@ -1110,6 +1196,125 @@ client.users.achievements(
 <dd>
 
 **include_incomplete:** `typing.Optional[typing.Literal]` — When set to 'true', returns both completed and incomplete achievements for the user. When omitted or set to any other value, returns only completed achievements.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.users.<a href="src/trophy/users/client.py">rewards</a>(...) -> typing.List[UserRewardResponse]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get rewards awarded to a user. Filter by redeemed state and the date the reward was awarded.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.users.rewards(
+    id="id",
+    redeemed=True,
+    start_date="startDate",
+    end_date="endDate",
+    skip=1,
+    limit=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the user in your database.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**redeemed:** `typing.Optional[bool]` — When set, only return rewards that have or have not been redeemed.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `typing.Optional[str]` — Inclusive start of the awarded-at range, as YYYY-MM-DD in UTC.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Inclusive end of the awarded-at range, as YYYY-MM-DD in UTC.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skip:** `typing.Optional[int]` — Number of rewards to skip. Defaults to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of rewards to return. Defaults to 100 and cannot exceed 100.
     
 </dd>
 </dl>
@@ -3122,6 +3327,411 @@ client.admin.achievements.get(
 <dd>
 
 **id:** `str` — The UUID of the achievement to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Admin Rewards
+<details><summary><code>client.admin.rewards.<a href="src/trophy/admin/rewards/client.py">list</a>(...) -> ListRewardsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List rewards.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.rewards.list(
+    limit=1,
+    skip=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Number of records to return.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skip:** `typing.Optional[int]` — Number of records to skip from the start of the list.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.<a href="src/trophy/admin/rewards/client.py">create</a>(...) -> CreateRewardsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create rewards. Optionally include triggers in each reward payload to create them alongside the reward. A reward with any invalid trigger is not created.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi, CreateRewardRequestItem, CreateRewardTriggerRequestItem
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.rewards.create(
+    request=[
+        CreateRewardRequestItem(
+            name="Welcome bonus",
+            key="welcome-bonus",
+            description="Points for finishing onboarding",
+            type="points",
+            points_system_id="660f9500-f30c-42e5-b827-557766550001",
+            points=100,
+            max_redemptions=1,
+            triggers=[
+                CreateRewardTriggerRequestItem(
+                    type="achievement",
+                    status="active",
+                    achievement_id="770a0600-a41d-43f6-c938-668877660002",
+                )
+            ],
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CreateRewardsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.<a href="src/trophy/admin/rewards/client.py">delete</a>(...) -> DeleteRewardsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete rewards by ID. Maximum 100 reward IDs per request. A deleted reward's triggers are deleted too.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.rewards.delete(
+    ids=[
+        "550e8400-e29b-41d4-a716-446655440000"
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Reward IDs to delete. Can be repeated or comma-separated.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.<a href="src/trophy/admin/rewards/client.py">update</a>(...) -> UpdateRewardsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update rewards by ID. Maximum 100 rewards per request. Only provided fields are updated; omitted fields are preserved. Use the reward triggers endpoints to change a reward's triggers.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi, UpdateRewardRequestItem
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.rewards.update(
+    request=[
+        UpdateRewardRequestItem(
+            id="550e8400-e29b-41d4-a716-446655440000",
+            status="active",
+            points=150,
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `UpdateRewardsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.<a href="src/trophy/admin/rewards/client.py">get</a>(...) -> AdminReward</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a reward by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.rewards.get(
+    id="550e8400-e29b-41d4-a716-446655440000",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the reward.
     
 </dd>
 </dl>
@@ -6706,6 +7316,444 @@ client.admin.points.triggers.get(
 <dd>
 
 **id:** `str` — The UUID of the points trigger.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Admin Rewards Triggers
+<details><summary><code>client.admin.rewards.triggers.<a href="src/trophy/admin/rewards/triggers/client.py">list</a>(...) -> ListRewardTriggersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List triggers for a reward. Active triggers are listed first.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.rewards.triggers.list(
+    reward_id="550e8400-e29b-41d4-a716-446655440000",
+    limit=1,
+    skip=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**reward_id:** `str` — The UUID of the reward.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of results to return (1-100, default 10).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skip:** `typing.Optional[int]` — Number of results to skip for pagination (default 0).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.triggers.<a href="src/trophy/admin/rewards/triggers/client.py">create</a>(...) -> CreateRewardTriggersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create reward triggers in bulk. Maximum 100 triggers per request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi, CreateRewardTriggerRequestItem
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.rewards.triggers.create(
+    reward_id="550e8400-e29b-41d4-a716-446655440000",
+    request=[
+        CreateRewardTriggerRequestItem(
+            type="metric",
+            metric_id="990c2800-c63f-45b8-e15a-88aa99880004",
+            metric_threshold=10,
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**reward_id:** `str` — The UUID of the reward.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `CreateRewardTriggersRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.triggers.<a href="src/trophy/admin/rewards/triggers/client.py">delete</a>(...) -> DeleteRewardTriggersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete reward triggers by ID. Maximum 100 trigger IDs per request. A reward with no triggers is not awarded until a trigger is added.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.rewards.triggers.delete(
+    reward_id="550e8400-e29b-41d4-a716-446655440000",
+    ids=[
+        "880b1700-b52e-44a7-d049-779988770003"
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**reward_id:** `str` — The UUID of the reward.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Trigger IDs to delete. Can be repeated or comma-separated.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.triggers.<a href="src/trophy/admin/rewards/triggers/client.py">update</a>(...) -> UpdateRewardTriggersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update reward triggers in bulk. Maximum 100 triggers per request. Only provided fields are updated; omitted fields are preserved. A trigger keeps its ID when its criteria change.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi, UpdateRewardTriggersRequestItem
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.rewards.triggers.update(
+    reward_id="550e8400-e29b-41d4-a716-446655440000",
+    request=[
+        UpdateRewardTriggersRequestItem(
+            id="880b1700-b52e-44a7-d049-779988770003",
+            status="active",
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**reward_id:** `str` — The UUID of the reward.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `UpdateRewardTriggersRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.triggers.<a href="src/trophy/admin/rewards/triggers/client.py">get</a>(...) -> AdminRewardTrigger</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a single reward trigger by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.admin.rewards.triggers.get(
+    reward_id="550e8400-e29b-41d4-a716-446655440000",
+    id="880b1700-b52e-44a7-d049-779988770003",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**reward_id:** `str` — The UUID of the reward.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `str` — The UUID of the reward trigger.
     
 </dd>
 </dl>

@@ -2,4 +2,6 @@
 
 import typing
 
-PointsTriggerType = typing.Union[typing.Literal["metric", "achievement", "streak", "time", "user_creation"], typing.Any]
+PointsTriggerType = typing.Union[
+    typing.Literal["metric", "achievement", "streak", "time", "user_creation", "reward"], typing.Any
+]

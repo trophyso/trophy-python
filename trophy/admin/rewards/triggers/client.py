@@ -67,7 +67,7 @@ class TriggersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -110,7 +110,7 @@ class TriggersClient:
         from trophy import CreateRewardTriggerRequestItem, TrophyApi
 
         client = TrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -159,7 +159,7 @@ class TriggersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -201,7 +201,7 @@ class TriggersClient:
         from trophy import TrophyApi, UpdateRewardTriggersRequestItem
 
         client = TrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -245,7 +245,7 @@ class TriggersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -310,7 +310,7 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -361,7 +361,7 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi, CreateRewardTriggerRequestItem
 
         client = AsyncTrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -418,7 +418,7 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -468,7 +468,7 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi, UpdateRewardTriggersRequestItem
 
         client = AsyncTrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -520,7 +520,7 @@ class AsyncTriggersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

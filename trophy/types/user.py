@@ -64,6 +64,13 @@ class User(UniversalBaseModel):
     Whether the user is in the control group, meaning they do not receive emails or other communications from Trophy.
     """
 
+    agentic_messaging_enabled: typing_extensions.Annotated[
+        bool,
+        FieldMetadata(alias="agenticMessagingEnabled"),
+        pydantic.Field(
+            alias="agenticMessagingEnabled", description="Whether the user is opted into Trophy's agentic messaging."
+        ),
+    ]
     created: dt.datetime = pydantic.Field()
     """
     The date and time the user was created, in ISO 8601 format.

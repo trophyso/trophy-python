@@ -54,7 +54,7 @@ class RewardsClient:
         from trophy import TrophyApi, UpsertedUser
 
         client = TrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -113,7 +113,7 @@ class AsyncRewardsClient:
         from trophy import AsyncTrophyApi, UpsertedUser
 
         client = AsyncTrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

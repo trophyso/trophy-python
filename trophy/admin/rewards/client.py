@@ -69,7 +69,7 @@ class RewardsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -108,7 +108,7 @@ class RewardsClient:
         )
 
         client = TrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -163,7 +163,7 @@ class RewardsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -197,7 +197,7 @@ class RewardsClient:
         from trophy import TrophyApi, UpdateRewardRequestItem
 
         client = TrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -236,7 +236,7 @@ class RewardsClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -306,7 +306,7 @@ class AsyncRewardsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -353,7 +353,7 @@ class AsyncRewardsClient:
         )
 
         client = AsyncTrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -416,7 +416,7 @@ class AsyncRewardsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -458,7 +458,7 @@ class AsyncRewardsClient:
         from trophy import AsyncTrophyApi, UpdateRewardRequestItem
 
         client = AsyncTrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -505,7 +505,7 @@ class AsyncRewardsClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.28.0",
+            "1.29.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

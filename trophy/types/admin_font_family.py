@@ -10,6 +10,7 @@ AdminFontFamily = typing.Union[
         "GEOMETRIC_SANS",
         "HEAVY_SANS",
         "ROUNDED_SANS",
+        "SYSTEM_SANS",
         "MODERN_SERIF",
         "BOOK_SERIF",
         "MONOSPACE",

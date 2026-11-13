@@ -5,6 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.get_user_points_response import GetUserPointsResponse
+from ..types.messaging_preferences import MessagingPreferences
 from ..types.metric_response import MetricResponse
 from ..types.notification_preferences import NotificationPreferences
 from ..types.points_boost import PointsBoost
@@ -313,7 +314,7 @@ class UsersClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> UserPreferencesResponse:
         """
-        Get a user's notification preferences.
+        Get a user's notification, streak and agentic messaging preferences.
 
         Parameters
         ----------
@@ -350,10 +351,11 @@ class UsersClient:
         *,
         notifications: typing.Optional[NotificationPreferences] = OMIT,
         streak: typing.Optional[StreakPreferences] = OMIT,
+        messaging: typing.Optional[MessagingPreferences] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UserPreferencesResponse:
         """
-        Update a user's notification and streak preferences. Streak preferences other than `streak.enabled` require streak customization to be enabled in your Trophy dashboard settings.
+        Update a user's notification, streak and agentic messaging preferences. Streak preferences other than `streak.enabled` require streak customization to be enabled in your Trophy dashboard settings.
 
         Parameters
         ----------
@@ -363,6 +365,8 @@ class UsersClient:
         notifications : typing.Optional[NotificationPreferences]
 
         streak : typing.Optional[StreakPreferences]
+
+        messaging : typing.Optional[MessagingPreferences]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -389,7 +393,7 @@ class UsersClient:
         )
         """
         _response = self._raw_client.update_preferences(
-            id, notifications=notifications, streak=streak, request_options=request_options
+            id, notifications=notifications, streak=streak, messaging=messaging, request_options=request_options
         )
         return _response.data
 
@@ -1246,7 +1250,7 @@ class AsyncUsersClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> UserPreferencesResponse:
         """
-        Get a user's notification preferences.
+        Get a user's notification, streak and agentic messaging preferences.
 
         Parameters
         ----------
@@ -1291,10 +1295,11 @@ class AsyncUsersClient:
         *,
         notifications: typing.Optional[NotificationPreferences] = OMIT,
         streak: typing.Optional[StreakPreferences] = OMIT,
+        messaging: typing.Optional[MessagingPreferences] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UserPreferencesResponse:
         """
-        Update a user's notification and streak preferences. Streak preferences other than `streak.enabled` require streak customization to be enabled in your Trophy dashboard settings.
+        Update a user's notification, streak and agentic messaging preferences. Streak preferences other than `streak.enabled` require streak customization to be enabled in your Trophy dashboard settings.
 
         Parameters
         ----------
@@ -1304,6 +1309,8 @@ class AsyncUsersClient:
         notifications : typing.Optional[NotificationPreferences]
 
         streak : typing.Optional[StreakPreferences]
+
+        messaging : typing.Optional[MessagingPreferences]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1338,7 +1345,7 @@ class AsyncUsersClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update_preferences(
-            id, notifications=notifications, streak=streak, request_options=request_options
+            id, notifications=notifications, streak=streak, messaging=messaging, request_options=request_options
         )
         return _response.data
 

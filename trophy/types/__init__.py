@@ -188,6 +188,7 @@ if typing.TYPE_CHECKING:
     from .list_reward_triggers_response import ListRewardTriggersResponse
     from .list_rewards_response import ListRewardsResponse
     from .list_tenants_response import ListTenantsResponse
+    from .messaging_preferences import MessagingPreferences
     from .metric_event_leaderboard_response import MetricEventLeaderboardResponse
     from .metric_event_leaderboard_response_breakdown_attribute_values_item import (
         MetricEventLeaderboardResponseBreakdownAttributeValuesItem,
@@ -528,6 +529,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListRewardTriggersResponse": ".list_reward_triggers_response",
     "ListRewardsResponse": ".list_rewards_response",
     "ListTenantsResponse": ".list_tenants_response",
+    "MessagingPreferences": ".messaging_preferences",
     "MetricEventLeaderboardResponse": ".metric_event_leaderboard_response",
     "MetricEventLeaderboardResponseBreakdownAttributeValuesItem": ".metric_event_leaderboard_response_breakdown_attribute_values_item",
     "MetricEventPointsResponse": ".metric_event_points_response",
@@ -882,6 +884,7 @@ __all__ = [
     "ListRewardTriggersResponse",
     "ListRewardsResponse",
     "ListTenantsResponse",
+    "MessagingPreferences",
     "MetricEventLeaderboardResponse",
     "MetricEventLeaderboardResponseBreakdownAttributeValuesItem",
     "MetricEventPointsResponse",

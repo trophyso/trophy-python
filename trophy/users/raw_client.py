@@ -17,6 +17,7 @@ from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.get_user_points_response import GetUserPointsResponse
+from ..types.messaging_preferences import MessagingPreferences
 from ..types.metric_response import MetricResponse
 from ..types.notification_preferences import NotificationPreferences
 from ..types.points_boost import PointsBoost
@@ -496,7 +497,7 @@ class RawUsersClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[UserPreferencesResponse]:
         """
-        Get a user's notification preferences.
+        Get a user's notification, streak and agentic messaging preferences.
 
         Parameters
         ----------
@@ -575,10 +576,11 @@ class RawUsersClient:
         *,
         notifications: typing.Optional[NotificationPreferences] = OMIT,
         streak: typing.Optional[StreakPreferences] = OMIT,
+        messaging: typing.Optional[MessagingPreferences] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UserPreferencesResponse]:
         """
-        Update a user's notification and streak preferences. Streak preferences other than `streak.enabled` require streak customization to be enabled in your Trophy dashboard settings.
+        Update a user's notification, streak and agentic messaging preferences. Streak preferences other than `streak.enabled` require streak customization to be enabled in your Trophy dashboard settings.
 
         Parameters
         ----------
@@ -588,6 +590,8 @@ class RawUsersClient:
         notifications : typing.Optional[NotificationPreferences]
 
         streak : typing.Optional[StreakPreferences]
+
+        messaging : typing.Optional[MessagingPreferences]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -607,6 +611,9 @@ class RawUsersClient:
                 ),
                 "streak": convert_and_respect_annotation_metadata(
                     object_=streak, annotation=StreakPreferences, direction="write"
+                ),
+                "messaging": convert_and_respect_annotation_metadata(
+                    object_=messaging, annotation=MessagingPreferences, direction="write"
                 ),
             },
             headers={
@@ -2116,7 +2123,7 @@ class AsyncRawUsersClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[UserPreferencesResponse]:
         """
-        Get a user's notification preferences.
+        Get a user's notification, streak and agentic messaging preferences.
 
         Parameters
         ----------
@@ -2195,10 +2202,11 @@ class AsyncRawUsersClient:
         *,
         notifications: typing.Optional[NotificationPreferences] = OMIT,
         streak: typing.Optional[StreakPreferences] = OMIT,
+        messaging: typing.Optional[MessagingPreferences] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UserPreferencesResponse]:
         """
-        Update a user's notification and streak preferences. Streak preferences other than `streak.enabled` require streak customization to be enabled in your Trophy dashboard settings.
+        Update a user's notification, streak and agentic messaging preferences. Streak preferences other than `streak.enabled` require streak customization to be enabled in your Trophy dashboard settings.
 
         Parameters
         ----------
@@ -2208,6 +2216,8 @@ class AsyncRawUsersClient:
         notifications : typing.Optional[NotificationPreferences]
 
         streak : typing.Optional[StreakPreferences]
+
+        messaging : typing.Optional[MessagingPreferences]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2227,6 +2237,9 @@ class AsyncRawUsersClient:
                 ),
                 "streak": convert_and_respect_annotation_metadata(
                     object_=streak, annotation=StreakPreferences, direction="write"
+                ),
+                "messaging": convert_and_respect_annotation_metadata(
+                    object_=messaging, annotation=MessagingPreferences, direction="write"
                 ),
             },
             headers={

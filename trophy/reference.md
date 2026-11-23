@@ -1342,6 +1342,470 @@ client.users.rewards(
 </dl>
 </details>
 
+<details><summary><code>client.users.<a href="src/trophy/users/client.py">goals</a>(...) -> typing.List[GoalResponse]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get all of a user's goals.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.users.goals(
+    id="user-123",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The user's ID in your database.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.users.<a href="src/trophy/users/client.py">create_goal</a>(...) -> GoalResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a goal for a user, or with `parent` a step at the end of that goal's steps.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+import datetime
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.users.create_goal(
+    id="user-123",
+    key="spanish-exam",
+    label="Spanish B1 exam",
+    completion="none",
+    due_at=datetime.datetime.fromisoformat("2026-11-20T09:00:00+00:00"),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The user's ID in your database.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `str` — The goal's key, unique per user. 1–100 letters, numbers, hyphens or underscores, and not `plural` or `singular`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parent:** `typing.Optional[str]` — The key of a goal to add this to as a step, after its last. The parent can't be a step, can't have more than 100 steps, and the request can't have `steps`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**label:** `typing.Optional[str]` — What the goal is, as messages name it, e.g. "Spanish B1 exam".
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**completion:** `typing.Optional[GoalCompletion]` — How the goal is completed. Defaults to `manual`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**due_at:** `typing.Optional[datetime.datetime]` — When the goal is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone. Required with `completion: none`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**completed:** `typing.Optional[bool]` — Whether the user has already completed the goal. Defaults to `false`, the only value allowed with `completion: none`. Not with `completion: metric`, which completes when its metric reaches the target.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metric:** `typing.Optional[str]` — The metric's key, required with `completion: metric`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**target:** `typing.Optional[float]` — The metric total that completes it, required with `completion: metric`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start:** `typing.Optional[str]` — With `completion: metric`, the date, in the user's timezone, the metric total counts from. Defaults to today.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**steps:** `typing.Optional[typing.List[GoalStepRequest]]` — The goal's steps, in order, each with its own key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.users.<a href="src/trophy/users/client.py">delete_goal</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a user's goal.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.users.delete_goal(
+    id="user-123",
+    key="spanish-exam",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The user's ID in your database.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `str` — The goal's key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.users.<a href="src/trophy/users/client.py">update_goal</a>(...) -> GoalResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a goal for a user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.users.update_goal(
+    id="user-123",
+    key="first-essay",
+    completed=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The user's ID in your database.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `str` — The goal's key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**label:** `typing.Optional[str]` — What the goal is, as messages name it. Null clears it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**completion:** `typing.Optional[GoalCompletion]` — How the goal is completed. Changing it to `none` uncompletes the goal, and needs it to have a `dueAt`; changing it to `metric` needs a `metric` and `target`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**due_at:** `typing.Optional[datetime.datetime]` — When the goal is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone. Null clears it, except with `completion: none`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**completed:** `typing.Optional[bool]` — Whether the user has completed the goal. `true` on a completed goal keeps when it was completed. Only `false` with `completion: none`, and not with `completion: metric`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metric:** `typing.Optional[str]` — The metric's key, with `completion: metric`. Changing the metric, target or start checks the goal against its target again.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**target:** `typing.Optional[float]` — The metric total that completes it, with `completion: metric`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start:** `typing.Optional[str]` — With `completion: metric`, the date, in the user's timezone, the metric total counts from.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**steps:** `typing.Optional[typing.List[GoalStepRequest]]` — Replaces the goal's steps, in order: a step whose key the goal has is updated, the others are added, and steps left out are deleted. Not for a step, since steps are one level deep.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.users.<a href="src/trophy/users/client.py">streak</a>(...) -> StreakResponse</code></summary>
 <dl>
 <dd>

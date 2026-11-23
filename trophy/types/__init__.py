@@ -168,6 +168,10 @@ if typing.TYPE_CHECKING:
     from .error_body import ErrorBody
     from .event_response import EventResponse
     from .get_user_points_response import GetUserPointsResponse
+    from .goal_completion import GoalCompletion
+    from .goal_response import GoalResponse
+    from .goal_response_status import GoalResponseStatus
+    from .goal_step_request import GoalStepRequest
     from .leaderboard_event import LeaderboardEvent
     from .leaderboard_ranking import LeaderboardRanking
     from .leaderboard_response import LeaderboardResponse
@@ -509,6 +513,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ErrorBody": ".error_body",
     "EventResponse": ".event_response",
     "GetUserPointsResponse": ".get_user_points_response",
+    "GoalCompletion": ".goal_completion",
+    "GoalResponse": ".goal_response",
+    "GoalResponseStatus": ".goal_response_status",
+    "GoalStepRequest": ".goal_step_request",
     "LeaderboardEvent": ".leaderboard_event",
     "LeaderboardRanking": ".leaderboard_ranking",
     "LeaderboardResponse": ".leaderboard_response",
@@ -864,6 +872,10 @@ __all__ = [
     "ErrorBody",
     "EventResponse",
     "GetUserPointsResponse",
+    "GoalCompletion",
+    "GoalResponse",
+    "GoalResponseStatus",
+    "GoalStepRequest",
     "LeaderboardEvent",
     "LeaderboardRanking",
     "LeaderboardResponse",

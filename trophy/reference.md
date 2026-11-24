@@ -1445,7 +1445,6 @@ Create a goal for a user, or with `parent` a step at the end of that goal's step
 ```python
 from trophy import TrophyApi
 from trophy.environment import TrophyApiEnvironment
-import datetime
 
 client = TrophyApi(
     api_key="<value>",
@@ -1458,7 +1457,7 @@ client.users.create_goal(
     key="spanish-exam",
     label="Spanish B1 exam",
     completion="none",
-    due_at=datetime.datetime.fromisoformat("2026-11-20T09:00:00+00:00"),
+    due_at="2026-11-20T09:00:00Z",
 )
 
 ```
@@ -1515,7 +1514,7 @@ client.users.create_goal(
 <dl>
 <dd>
 
-**due_at:** `typing.Optional[datetime.datetime]` — When the goal is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone. Required with `completion: none`.
+**due_at:** `typing.Optional[str]` — When the goal is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone. Required with `completion: none`.
     
 </dd>
 </dl>
@@ -1746,7 +1745,7 @@ client.users.update_goal(
 <dl>
 <dd>
 
-**due_at:** `typing.Optional[datetime.datetime]` — When the goal is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone. Null clears it, except with `completion: none`.
+**due_at:** `typing.Optional[str]` — When the goal is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone. Null clears it, except with `completion: none`.
     
 </dd>
 </dl>

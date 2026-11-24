@@ -5,6 +5,10 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.get_user_points_response import GetUserPointsResponse
+from ..types.goal_completion import GoalCompletion
+from ..types.goal_response import GoalResponse
+from ..types.goal_status import GoalStatus
+from ..types.goal_step_request import GoalStepRequest
 from ..types.messaging_preferences import MessagingPreferences
 from ..types.metric_response import MetricResponse
 from ..types.notification_preferences import NotificationPreferences
@@ -97,7 +101,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -140,7 +144,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -206,7 +210,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -286,7 +290,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -334,7 +338,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -381,7 +385,7 @@ class UsersClient:
         from trophy import NotificationPreferences, TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -421,7 +425,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -459,7 +463,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -514,7 +518,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -562,7 +566,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -622,7 +626,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -642,6 +646,315 @@ class UsersClient:
             end_date=end_date,
             skip=skip,
             limit=limit,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def goals(
+        self,
+        id: str,
+        *,
+        status: typing.Optional[GoalStatus] = None,
+        skip: typing.Optional[int] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[GoalResponse]:
+        """
+        Get a user's goals, each with its steps. Filter by status, and page through them with `skip` and `limit`.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        status : typing.Optional[GoalStatus]
+            When set, only return goals with this status. A goal's steps come with it, whatever their own status.
+
+        skip : typing.Optional[int]
+            Number of goals to skip. Defaults to 0.
+
+        limit : typing.Optional[int]
+            Maximum number of goals to return. Defaults to 100 and cannot exceed 100.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[GoalResponse]
+            The user's goals, soonest due first and then those with no due time.
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            "1.32.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+        client.users.goals(
+            id="user-123",
+            status="active",
+            skip=1,
+            limit=1,
+        )
+        """
+        _response = self._raw_client.goals(id, status=status, skip=skip, limit=limit, request_options=request_options)
+        return _response.data
+
+    def create_goal(
+        self,
+        id: str,
+        *,
+        key: str,
+        parent: typing.Optional[str] = OMIT,
+        label: typing.Optional[str] = OMIT,
+        completion: typing.Optional[GoalCompletion] = OMIT,
+        due_at: typing.Optional[str] = OMIT,
+        completed_at: typing.Optional[str] = OMIT,
+        metric: typing.Optional[str] = OMIT,
+        target: typing.Optional[float] = OMIT,
+        start: typing.Optional[str] = OMIT,
+        steps: typing.Optional[typing.Sequence[GoalStepRequest]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GoalResponse:
+        """
+        Create a goal for a user, or with `parent` a step at the end of that goal's steps.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        key : str
+            The goal's key, unique per user. 1–100 letters, numbers, hyphens or underscores, and not `plural` or `singular`.
+
+        parent : typing.Optional[str]
+            The key of a goal to add this to as a step, after its last. The parent can't be a step, can't have more than 100 steps, and the request can't have `steps`.
+
+        label : typing.Optional[str]
+            What the goal is, as messages name it, e.g. "Spanish B1 exam".
+
+        completion : typing.Optional[GoalCompletion]
+            How the goal is completed. Defaults to `manual`.
+
+        due_at : typing.Optional[str]
+            When the goal is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone. Required with `completion: none`.
+
+        completed_at : typing.Optional[str]
+            When the user completed the goal, if they already have, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.
+
+        metric : typing.Optional[str]
+            The metric's key. Required with `completion: metric`, and only for it.
+
+        target : typing.Optional[float]
+            The metric total that completes it. Required with `completion: metric`, and only for it.
+
+        start : typing.Optional[str]
+            `completion: metric` only. The date, in the user's timezone, the metric total counts from. Defaults to today.
+
+        steps : typing.Optional[typing.Sequence[GoalStepRequest]]
+            The goal's steps, in order, each with its own key.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GoalResponse
+            The goal, created.
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            "1.32.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+        client.users.create_goal(
+            id="user-123",
+            key="spanish-exam",
+            label="Spanish B1 exam",
+            completion="none",
+            due_at="2026-11-20T09:00:00Z",
+        )
+        """
+        _response = self._raw_client.create_goal(
+            id,
+            key=key,
+            parent=parent,
+            label=label,
+            completion=completion,
+            due_at=due_at,
+            completed_at=completed_at,
+            metric=metric,
+            target=target,
+            start=start,
+            steps=steps,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_goal(self, id: str, key: str, *, request_options: typing.Optional[RequestOptions] = None) -> GoalResponse:
+        """
+        Get a user's goal or step by its key, with a goal's steps.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        key : str
+            The goal's or step's key.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GoalResponse
+            The goal.
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            "1.32.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+        client.users.get_goal(
+            id="user-123",
+            key="spanish-exam",
+        )
+        """
+        _response = self._raw_client.get_goal(id, key, request_options=request_options)
+        return _response.data
+
+    def delete_goal(self, id: str, key: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Delete a user's goal.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        key : str
+            The goal's key.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            "1.32.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+        client.users.delete_goal(
+            id="user-123",
+            key="spanish-exam",
+        )
+        """
+        _response = self._raw_client.delete_goal(id, key, request_options=request_options)
+        return _response.data
+
+    def update_goal(
+        self,
+        id: str,
+        key: str,
+        *,
+        label: typing.Optional[str] = OMIT,
+        completion: typing.Optional[GoalCompletion] = OMIT,
+        due_at: typing.Optional[str] = OMIT,
+        completed_at: typing.Optional[str] = OMIT,
+        metric: typing.Optional[str] = OMIT,
+        target: typing.Optional[float] = OMIT,
+        start: typing.Optional[str] = OMIT,
+        steps: typing.Optional[typing.Sequence[GoalStepRequest]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GoalResponse:
+        """
+        Update a goal for a user.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        key : str
+            The goal's key.
+
+        label : typing.Optional[str]
+            What the goal is, as messages name it. Null clears it.
+
+        completion : typing.Optional[GoalCompletion]
+            How the goal is completed. Changing it to `none` uncompletes the goal, and needs it to have a `dueAt`; changing it to `metric` needs a `metric` and `target`.
+
+        due_at : typing.Optional[str]
+            When the goal is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone. Null clears it, except with `completion: none`.
+
+        completed_at : typing.Optional[str]
+            When the user completed the goal, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Null uncompletes it. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.
+
+        metric : typing.Optional[str]
+            `completion: metric` only. The metric's key. Changing the metric, target or start checks the goal against its target again, which can complete or uncomplete it; other changes leave a completed goal completed.
+
+        target : typing.Optional[float]
+            `completion: metric` only. The metric total that completes it.
+
+        start : typing.Optional[str]
+            `completion: metric` only. The date, in the user's timezone, the metric total counts from.
+
+        steps : typing.Optional[typing.Sequence[GoalStepRequest]]
+            Replaces the goal's steps, in order: a step whose key the goal has is updated, the others are added, and steps left out are deleted. Not for a step, since steps are one level deep.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GoalResponse
+            The goal, updated.
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            "1.32.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+        client.users.update_goal(
+            id="user-123",
+            key="first-essay",
+            completed_at="2026-11-12T14:21:08Z",
+        )
+        """
+        _response = self._raw_client.update_goal(
+            id,
+            key,
+            label=label,
+            completion=completion,
+            due_at=due_at,
+            completed_at=completed_at,
+            metric=metric,
+            target=target,
+            start=start,
+            steps=steps,
             request_options=request_options,
         )
         return _response.data
@@ -677,7 +990,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -724,7 +1037,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -764,7 +1077,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -819,7 +1132,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -875,7 +1188,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -918,7 +1231,7 @@ class UsersClient:
         from trophy import TrophyApi
 
         client = TrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1003,7 +1316,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1054,7 +1367,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1128,7 +1441,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1216,7 +1529,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1272,7 +1585,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1327,7 +1640,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi, NotificationPreferences
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1375,7 +1688,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1421,7 +1734,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1484,7 +1797,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1540,7 +1853,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1608,7 +1921,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1634,6 +1947,359 @@ class AsyncUsersClient:
             end_date=end_date,
             skip=skip,
             limit=limit,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def goals(
+        self,
+        id: str,
+        *,
+        status: typing.Optional[GoalStatus] = None,
+        skip: typing.Optional[int] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[GoalResponse]:
+        """
+        Get a user's goals, each with its steps. Filter by status, and page through them with `skip` and `limit`.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        status : typing.Optional[GoalStatus]
+            When set, only return goals with this status. A goal's steps come with it, whatever their own status.
+
+        skip : typing.Optional[int]
+            Number of goals to skip. Defaults to 0.
+
+        limit : typing.Optional[int]
+            Maximum number of goals to return. Defaults to 100 and cannot exceed 100.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[GoalResponse]
+            The user's goals, soonest due first and then those with no due time.
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            "1.32.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.goals(
+                id="user-123",
+                status="active",
+                skip=1,
+                limit=1,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.goals(
+            id, status=status, skip=skip, limit=limit, request_options=request_options
+        )
+        return _response.data
+
+    async def create_goal(
+        self,
+        id: str,
+        *,
+        key: str,
+        parent: typing.Optional[str] = OMIT,
+        label: typing.Optional[str] = OMIT,
+        completion: typing.Optional[GoalCompletion] = OMIT,
+        due_at: typing.Optional[str] = OMIT,
+        completed_at: typing.Optional[str] = OMIT,
+        metric: typing.Optional[str] = OMIT,
+        target: typing.Optional[float] = OMIT,
+        start: typing.Optional[str] = OMIT,
+        steps: typing.Optional[typing.Sequence[GoalStepRequest]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GoalResponse:
+        """
+        Create a goal for a user, or with `parent` a step at the end of that goal's steps.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        key : str
+            The goal's key, unique per user. 1–100 letters, numbers, hyphens or underscores, and not `plural` or `singular`.
+
+        parent : typing.Optional[str]
+            The key of a goal to add this to as a step, after its last. The parent can't be a step, can't have more than 100 steps, and the request can't have `steps`.
+
+        label : typing.Optional[str]
+            What the goal is, as messages name it, e.g. "Spanish B1 exam".
+
+        completion : typing.Optional[GoalCompletion]
+            How the goal is completed. Defaults to `manual`.
+
+        due_at : typing.Optional[str]
+            When the goal is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone. Required with `completion: none`.
+
+        completed_at : typing.Optional[str]
+            When the user completed the goal, if they already have, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.
+
+        metric : typing.Optional[str]
+            The metric's key. Required with `completion: metric`, and only for it.
+
+        target : typing.Optional[float]
+            The metric total that completes it. Required with `completion: metric`, and only for it.
+
+        start : typing.Optional[str]
+            `completion: metric` only. The date, in the user's timezone, the metric total counts from. Defaults to today.
+
+        steps : typing.Optional[typing.Sequence[GoalStepRequest]]
+            The goal's steps, in order, each with its own key.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GoalResponse
+            The goal, created.
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            "1.32.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.create_goal(
+                id="user-123",
+                key="spanish-exam",
+                label="Spanish B1 exam",
+                completion="none",
+                due_at="2026-11-20T09:00:00Z",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create_goal(
+            id,
+            key=key,
+            parent=parent,
+            label=label,
+            completion=completion,
+            due_at=due_at,
+            completed_at=completed_at,
+            metric=metric,
+            target=target,
+            start=start,
+            steps=steps,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_goal(
+        self, id: str, key: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GoalResponse:
+        """
+        Get a user's goal or step by its key, with a goal's steps.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        key : str
+            The goal's or step's key.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GoalResponse
+            The goal.
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            "1.32.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.get_goal(
+                id="user-123",
+                key="spanish-exam",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_goal(id, key, request_options=request_options)
+        return _response.data
+
+    async def delete_goal(self, id: str, key: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Delete a user's goal.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        key : str
+            The goal's key.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            "1.32.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.delete_goal(
+                id="user-123",
+                key="spanish-exam",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete_goal(id, key, request_options=request_options)
+        return _response.data
+
+    async def update_goal(
+        self,
+        id: str,
+        key: str,
+        *,
+        label: typing.Optional[str] = OMIT,
+        completion: typing.Optional[GoalCompletion] = OMIT,
+        due_at: typing.Optional[str] = OMIT,
+        completed_at: typing.Optional[str] = OMIT,
+        metric: typing.Optional[str] = OMIT,
+        target: typing.Optional[float] = OMIT,
+        start: typing.Optional[str] = OMIT,
+        steps: typing.Optional[typing.Sequence[GoalStepRequest]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GoalResponse:
+        """
+        Update a goal for a user.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        key : str
+            The goal's key.
+
+        label : typing.Optional[str]
+            What the goal is, as messages name it. Null clears it.
+
+        completion : typing.Optional[GoalCompletion]
+            How the goal is completed. Changing it to `none` uncompletes the goal, and needs it to have a `dueAt`; changing it to `metric` needs a `metric` and `target`.
+
+        due_at : typing.Optional[str]
+            When the goal is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone. Null clears it, except with `completion: none`.
+
+        completed_at : typing.Optional[str]
+            When the user completed the goal, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Null uncompletes it. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.
+
+        metric : typing.Optional[str]
+            `completion: metric` only. The metric's key. Changing the metric, target or start checks the goal against its target again, which can complete or uncomplete it; other changes leave a completed goal completed.
+
+        target : typing.Optional[float]
+            `completion: metric` only. The metric total that completes it.
+
+        start : typing.Optional[str]
+            `completion: metric` only. The date, in the user's timezone, the metric total counts from.
+
+        steps : typing.Optional[typing.Sequence[GoalStepRequest]]
+            Replaces the goal's steps, in order: a step whose key the goal has is updated, the others are added, and steps left out are deleted. Not for a step, since steps are one level deep.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GoalResponse
+            The goal, updated.
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            "1.32.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.update_goal(
+                id="user-123",
+                key="first-essay",
+                completed_at="2026-11-12T14:21:08Z",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_goal(
+            id,
+            key,
+            label=label,
+            completion=completion,
+            due_at=due_at,
+            completed_at=completed_at,
+            metric=metric,
+            target=target,
+            start=start,
+            steps=steps,
             request_options=request_options,
         )
         return _response.data
@@ -1671,7 +2337,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1726,7 +2392,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1774,7 +2440,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1837,7 +2503,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1901,7 +2567,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )
@@ -1952,7 +2618,7 @@ class AsyncUsersClient:
         from trophy import AsyncTrophyApi
 
         client = AsyncTrophyApi(
-            "1.29.0",
+            "1.32.0",
             tenant_id="YOUR_TENANT_ID",
             api_key="YOUR_API_KEY",
         )

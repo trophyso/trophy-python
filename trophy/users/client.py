@@ -7,6 +7,7 @@ from ..core.request_options import RequestOptions
 from ..types.get_user_points_response import GetUserPointsResponse
 from ..types.goal_completion import GoalCompletion
 from ..types.goal_response import GoalResponse
+from ..types.goal_status import GoalStatus
 from ..types.goal_step_request import GoalStepRequest
 from ..types.messaging_preferences import MessagingPreferences
 from ..types.metric_response import MetricResponse
@@ -649,14 +650,31 @@ class UsersClient:
         )
         return _response.data
 
-    def goals(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[GoalResponse]:
+    def goals(
+        self,
+        id: str,
+        *,
+        status: typing.Optional[GoalStatus] = None,
+        skip: typing.Optional[int] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[GoalResponse]:
         """
-        Get all of a user's goals.
+        Get a user's goals, each with its steps. Filter by status, and page through them with `skip` and `limit`.
 
         Parameters
         ----------
         id : str
             The user's ID in your database.
+
+        status : typing.Optional[GoalStatus]
+            When set, only return goals with this status. A goal's steps come with it, whatever their own status.
+
+        skip : typing.Optional[int]
+            Number of goals to skip. Defaults to 0.
+
+        limit : typing.Optional[int]
+            Maximum number of goals to return. Defaults to 100 and cannot exceed 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -677,9 +695,12 @@ class UsersClient:
         )
         client.users.goals(
             id="user-123",
+            status="active",
+            skip=1,
+            limit=1,
         )
         """
-        _response = self._raw_client.goals(id, request_options=request_options)
+        _response = self._raw_client.goals(id, status=status, skip=skip, limit=limit, request_options=request_options)
         return _response.data
 
     def create_goal(
@@ -691,7 +712,7 @@ class UsersClient:
         label: typing.Optional[str] = OMIT,
         completion: typing.Optional[GoalCompletion] = OMIT,
         due_at: typing.Optional[str] = OMIT,
-        completed: typing.Optional[bool] = OMIT,
+        completed_at: typing.Optional[str] = OMIT,
         metric: typing.Optional[str] = OMIT,
         target: typing.Optional[float] = OMIT,
         start: typing.Optional[str] = OMIT,
@@ -721,8 +742,8 @@ class UsersClient:
         due_at : typing.Optional[str]
             When the goal is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone. Required with `completion: none`.
 
-        completed : typing.Optional[bool]
-            Whether the user has already completed the goal. Defaults to `false`, the only value allowed with `completion: none`. Not with `completion: metric`, which completes when its metric reaches the target.
+        completed_at : typing.Optional[str]
+            When the user completed the goal, if they already have, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.
 
         metric : typing.Optional[str]
             The metric's key, required with `completion: metric`.
@@ -768,13 +789,50 @@ class UsersClient:
             label=label,
             completion=completion,
             due_at=due_at,
-            completed=completed,
+            completed_at=completed_at,
             metric=metric,
             target=target,
             start=start,
             steps=steps,
             request_options=request_options,
         )
+        return _response.data
+
+    def get_goal(self, id: str, key: str, *, request_options: typing.Optional[RequestOptions] = None) -> GoalResponse:
+        """
+        Get a user's goal or step by its key, with a goal's steps.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        key : str
+            The goal's or step's key.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GoalResponse
+            The goal.
+
+        Examples
+        --------
+        from trophy import TrophyApi
+
+        client = TrophyApi(
+            "1.32.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+        client.users.get_goal(
+            id="user-123",
+            key="spanish-exam",
+        )
+        """
+        _response = self._raw_client.get_goal(id, key, request_options=request_options)
         return _response.data
 
     def delete_goal(self, id: str, key: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
@@ -821,7 +879,7 @@ class UsersClient:
         label: typing.Optional[str] = OMIT,
         completion: typing.Optional[GoalCompletion] = OMIT,
         due_at: typing.Optional[str] = OMIT,
-        completed: typing.Optional[bool] = OMIT,
+        completed_at: typing.Optional[str] = OMIT,
         metric: typing.Optional[str] = OMIT,
         target: typing.Optional[float] = OMIT,
         start: typing.Optional[str] = OMIT,
@@ -848,8 +906,8 @@ class UsersClient:
         due_at : typing.Optional[str]
             When the goal is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone. Null clears it, except with `completion: none`.
 
-        completed : typing.Optional[bool]
-            Whether the user has completed the goal. `true` on a completed goal keeps when it was completed. Only `false` with `completion: none`, and not with `completion: metric`.
+        completed_at : typing.Optional[str]
+            When the user completed the goal, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Null uncompletes it. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.
 
         metric : typing.Optional[str]
             The metric's key, with `completion: metric`. Changing the metric, target or start checks the goal against its target again.
@@ -883,7 +941,7 @@ class UsersClient:
         client.users.update_goal(
             id="user-123",
             key="first-essay",
-            completed=True,
+            completed_at="2026-11-12T14:21:08Z",
         )
         """
         _response = self._raw_client.update_goal(
@@ -892,7 +950,7 @@ class UsersClient:
             label=label,
             completion=completion,
             due_at=due_at,
-            completed=completed,
+            completed_at=completed_at,
             metric=metric,
             target=target,
             start=start,
@@ -1894,15 +1952,30 @@ class AsyncUsersClient:
         return _response.data
 
     async def goals(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        status: typing.Optional[GoalStatus] = None,
+        skip: typing.Optional[int] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[GoalResponse]:
         """
-        Get all of a user's goals.
+        Get a user's goals, each with its steps. Filter by status, and page through them with `skip` and `limit`.
 
         Parameters
         ----------
         id : str
             The user's ID in your database.
+
+        status : typing.Optional[GoalStatus]
+            When set, only return goals with this status. A goal's steps come with it, whatever their own status.
+
+        skip : typing.Optional[int]
+            Number of goals to skip. Defaults to 0.
+
+        limit : typing.Optional[int]
+            Maximum number of goals to return. Defaults to 100 and cannot exceed 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1928,12 +2001,17 @@ class AsyncUsersClient:
         async def main() -> None:
             await client.users.goals(
                 id="user-123",
+                status="active",
+                skip=1,
+                limit=1,
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.goals(id, request_options=request_options)
+        _response = await self._raw_client.goals(
+            id, status=status, skip=skip, limit=limit, request_options=request_options
+        )
         return _response.data
 
     async def create_goal(
@@ -1945,7 +2023,7 @@ class AsyncUsersClient:
         label: typing.Optional[str] = OMIT,
         completion: typing.Optional[GoalCompletion] = OMIT,
         due_at: typing.Optional[str] = OMIT,
-        completed: typing.Optional[bool] = OMIT,
+        completed_at: typing.Optional[str] = OMIT,
         metric: typing.Optional[str] = OMIT,
         target: typing.Optional[float] = OMIT,
         start: typing.Optional[str] = OMIT,
@@ -1975,8 +2053,8 @@ class AsyncUsersClient:
         due_at : typing.Optional[str]
             When the goal is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone. Required with `completion: none`.
 
-        completed : typing.Optional[bool]
-            Whether the user has already completed the goal. Defaults to `false`, the only value allowed with `completion: none`. Not with `completion: metric`, which completes when its metric reaches the target.
+        completed_at : typing.Optional[str]
+            When the user completed the goal, if they already have, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.
 
         metric : typing.Optional[str]
             The metric's key, required with `completion: metric`.
@@ -2030,13 +2108,60 @@ class AsyncUsersClient:
             label=label,
             completion=completion,
             due_at=due_at,
-            completed=completed,
+            completed_at=completed_at,
             metric=metric,
             target=target,
             start=start,
             steps=steps,
             request_options=request_options,
         )
+        return _response.data
+
+    async def get_goal(
+        self, id: str, key: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GoalResponse:
+        """
+        Get a user's goal or step by its key, with a goal's steps.
+
+        Parameters
+        ----------
+        id : str
+            The user's ID in your database.
+
+        key : str
+            The goal's or step's key.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GoalResponse
+            The goal.
+
+        Examples
+        --------
+        import asyncio
+
+        from trophy import AsyncTrophyApi
+
+        client = AsyncTrophyApi(
+            "1.32.0",
+            tenant_id="YOUR_TENANT_ID",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.users.get_goal(
+                id="user-123",
+                key="spanish-exam",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_goal(id, key, request_options=request_options)
         return _response.data
 
     async def delete_goal(self, id: str, key: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
@@ -2091,7 +2216,7 @@ class AsyncUsersClient:
         label: typing.Optional[str] = OMIT,
         completion: typing.Optional[GoalCompletion] = OMIT,
         due_at: typing.Optional[str] = OMIT,
-        completed: typing.Optional[bool] = OMIT,
+        completed_at: typing.Optional[str] = OMIT,
         metric: typing.Optional[str] = OMIT,
         target: typing.Optional[float] = OMIT,
         start: typing.Optional[str] = OMIT,
@@ -2118,8 +2243,8 @@ class AsyncUsersClient:
         due_at : typing.Optional[str]
             When the goal is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone. Null clears it, except with `completion: none`.
 
-        completed : typing.Optional[bool]
-            Whether the user has completed the goal. `true` on a completed goal keeps when it was completed. Only `false` with `completion: none`, and not with `completion: metric`.
+        completed_at : typing.Optional[str]
+            When the user completed the goal, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Null uncompletes it. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.
 
         metric : typing.Optional[str]
             The metric's key, with `completion: metric`. Changing the metric, target or start checks the goal against its target again.
@@ -2158,7 +2283,7 @@ class AsyncUsersClient:
             await client.users.update_goal(
                 id="user-123",
                 key="first-essay",
-                completed=True,
+                completed_at="2026-11-12T14:21:08Z",
             )
 
 
@@ -2170,7 +2295,7 @@ class AsyncUsersClient:
             label=label,
             completion=completion,
             due_at=due_at,
-            completed=completed,
+            completed_at=completed_at,
             metric=metric,
             target=target,
             start=start,

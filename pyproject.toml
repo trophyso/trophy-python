@@ -5,7 +5,8 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "trophy"
 version = "1.32.0b0"
-description = "A Python library for the Trophy API"
+description = "A Python library for Trophy, the 1:1 customer engagement platform for consumer web and mobile apps"
+keywords = ["trophy", "customer-engagement", "lifecycle-marketing", "personalization", "gamification", "api", "sdk"]
 license = {text = "MIT"}
 readme = "README.md"
 dependencies = [

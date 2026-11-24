@@ -37,11 +37,14 @@ class GoalStepRequest(UniversalBaseModel):
             description="When the step is due, as an ISO 8601 date and time. Without an offset, it's in the user's timezone.",
         ),
     ] = None
-    completed: typing.Optional[bool] = pydantic.Field(default=None)
-    """
-    Whether the user has completed the step.
-    """
-
+    completed_at: typing_extensions.Annotated[
+        typing.Optional[str],
+        FieldMetadata(alias="completedAt"),
+        pydantic.Field(
+            alias="completedAt",
+            description="When the user completed the step, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Null uncompletes it. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.",
+        ),
+    ] = None
     metric: typing.Optional[str] = pydantic.Field(default=None)
     """
     The metric's key, required with `completion: metric`.

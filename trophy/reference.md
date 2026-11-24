@@ -1354,7 +1354,7 @@ client.users.rewards(
 <dl>
 <dd>
 
-Get all of a user's goals.
+Get a user's goals, each with its steps. Filter by status, and page through them with `skip` and `limit`.
 </dd>
 </dl>
 </dd>
@@ -1380,6 +1380,9 @@ client = TrophyApi(
 
 client.users.goals(
     id="user-123",
+    status="active",
+    skip=1,
+    limit=1,
 )
 
 ```
@@ -1397,6 +1400,30 @@ client.users.goals(
 <dd>
 
 **id:** `str` — The user's ID in your database.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[GoalStatus]` — When set, only return goals with this status. A goal's steps come with it, whatever their own status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skip:** `typing.Optional[int]` — Number of goals to skip. Defaults to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of goals to return. Defaults to 100 and cannot exceed 100.
     
 </dd>
 </dl>
@@ -1522,7 +1549,7 @@ client.users.create_goal(
 <dl>
 <dd>
 
-**completed:** `typing.Optional[bool]` — Whether the user has already completed the goal. Defaults to `false`, the only value allowed with `completion: none`. Not with `completion: metric`, which completes when its metric reaches the target.
+**completed_at:** `typing.Optional[str]` — When the user completed the goal, if they already have, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.
     
 </dd>
 </dl>
@@ -1555,6 +1582,89 @@ client.users.create_goal(
 <dd>
 
 **steps:** `typing.Optional[typing.List[GoalStepRequest]]` — The goal's steps, in order, each with its own key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.users.<a href="src/trophy/users/client.py">get_goal</a>(...) -> GoalResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a user's goal or step by its key, with a goal's steps.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from trophy import TrophyApi
+from trophy.environment import TrophyApiEnvironment
+
+client = TrophyApi(
+    api_key="<value>",
+    sdk_version="<X-SDK-VERSION>",
+    environment=TrophyApiEnvironment.PRODUCTION,
+)
+
+client.users.get_goal(
+    id="user-123",
+    key="spanish-exam",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The user's ID in your database.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `str` — The goal's or step's key.
     
 </dd>
 </dl>
@@ -1696,7 +1806,7 @@ client = TrophyApi(
 client.users.update_goal(
     id="user-123",
     key="first-essay",
-    completed=True,
+    completed_at="2026-11-12T14:21:08Z",
 )
 
 ```
@@ -1753,7 +1863,7 @@ client.users.update_goal(
 <dl>
 <dd>
 
-**completed:** `typing.Optional[bool]` — Whether the user has completed the goal. `true` on a completed goal keeps when it was completed. Only `false` with `completion: none`, and not with `completion: metric`.
+**completed_at:** `typing.Optional[str]` — When the user completed the goal, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Null uncompletes it. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.
     
 </dd>
 </dl>

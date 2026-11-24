@@ -10,12 +10,17 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel, update_forward_refs
 from ..core.serialization import FieldMetadata
 from .goal_completion import GoalCompletion
-from .goal_response_status import GoalResponseStatus
+from .goal_status import GoalStatus
 
 
 class GoalResponse(UniversalBaseModel):
     """
     A user's goal or step.
+    """
+
+    id: str = pydantic.Field()
+    """
+    The goal's unique ID. A goal deleted and created again with the same key gets a new one.
     """
 
     key: str = pydantic.Field()
@@ -39,24 +44,20 @@ class GoalResponse(UniversalBaseModel):
         FieldMetadata(alias="completedAt"),
         pydantic.Field(alias="completedAt", description="When the user completed the goal, or null if they haven't."),
     ] = None
-    status: GoalResponseStatus = pydantic.Field()
+    status: GoalStatus
+    steps: typing.List["GoalResponse"] = pydantic.Field()
     """
-    `completed` when `completedAt` is set. Otherwise, once `dueAt` has passed, `missed` for a goal with `completion: manual` or `metric` and `ended` for one with `completion: none`. Otherwise `active`.
-    """
-
-    steps: typing.Optional[typing.List["GoalResponse"]] = pydantic.Field(default=None)
-    """
-    A goal with steps only. Its steps, in order.
+    Its steps, in order. Empty for a goal without steps, and for a step.
     """
 
-    done: typing.Optional[int] = pydantic.Field(default=None)
+    done: int = pydantic.Field()
     """
-    A goal with steps only. How many of its steps are completed.
+    How many of its steps are completed.
     """
 
-    total: typing.Optional[int] = pydantic.Field(default=None)
+    total: int = pydantic.Field()
     """
-    A goal with steps only. How many steps it has.
+    How many steps it has.
     """
 
     metric: typing.Optional[str] = pydantic.Field(default=None)
@@ -77,6 +78,16 @@ class GoalResponse(UniversalBaseModel):
     current: typing.Optional[float] = pydantic.Field(default=None)
     """
     `completion: metric` only. The metric total since `start`.
+    """
+
+    created: dt.datetime = pydantic.Field()
+    """
+    When the goal was created.
+    """
+
+    updated: dt.datetime = pydantic.Field()
+    """
+    When the goal was last changed.
     """
 
     if IS_PYDANTIC_V2:

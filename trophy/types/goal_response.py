@@ -28,6 +28,11 @@ class GoalResponse(UniversalBaseModel):
     The goal's key, unique per user.
     """
 
+    parent: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The key of the goal it's a step of, or null if it has no parent.
+    """
+
     label: typing.Optional[str] = pydantic.Field(default=None)
     """
     What the goal is, as messages name it.

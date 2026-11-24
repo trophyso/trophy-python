@@ -47,17 +47,17 @@ class GoalStepRequest(UniversalBaseModel):
     ] = None
     metric: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The metric's key, required with `completion: metric`.
+    The metric's key. Required with `completion: metric`, and only for it.
     """
 
     target: typing.Optional[float] = pydantic.Field(default=None)
     """
-    The metric total that completes it, required with `completion: metric`.
+    The metric total that completes it. Required with `completion: metric`, and only for it.
     """
 
     start: typing.Optional[str] = pydantic.Field(default=None)
     """
-    With `completion: metric`, the date, in the user's timezone, the metric total counts from. Defaults to today.
+    `completion: metric` only. The date, in the user's timezone, the metric total counts from. Defaults to today.
     """
 
     if IS_PYDANTIC_V2:

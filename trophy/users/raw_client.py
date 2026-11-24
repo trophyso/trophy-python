@@ -1393,13 +1393,13 @@ class RawUsersClient:
             When the user completed the goal, if they already have, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.
 
         metric : typing.Optional[str]
-            The metric's key, required with `completion: metric`.
+            The metric's key. Required with `completion: metric`, and only for it.
 
         target : typing.Optional[float]
-            The metric total that completes it, required with `completion: metric`.
+            The metric total that completes it. Required with `completion: metric`, and only for it.
 
         start : typing.Optional[str]
-            With `completion: metric`, the date, in the user's timezone, the metric total counts from. Defaults to today.
+            `completion: metric` only. The date, in the user's timezone, the metric total counts from. Defaults to today.
 
         steps : typing.Optional[typing.Sequence[GoalStepRequest]]
             The goal's steps, in order, each with its own key.
@@ -1723,13 +1723,13 @@ class RawUsersClient:
             When the user completed the goal, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Null uncompletes it. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.
 
         metric : typing.Optional[str]
-            The metric's key, with `completion: metric`. Changing the metric, target or start checks the goal against its target again.
+            `completion: metric` only. The metric's key. Changing the metric, target or start checks the goal against its target again, which can complete or uncomplete it; other changes leave a completed goal completed.
 
         target : typing.Optional[float]
-            The metric total that completes it, with `completion: metric`.
+            `completion: metric` only. The metric total that completes it.
 
         start : typing.Optional[str]
-            With `completion: metric`, the date, in the user's timezone, the metric total counts from.
+            `completion: metric` only. The date, in the user's timezone, the metric total counts from.
 
         steps : typing.Optional[typing.Sequence[GoalStepRequest]]
             Replaces the goal's steps, in order: a step whose key the goal has is updated, the others are added, and steps left out are deleted. Not for a step, since steps are one level deep.
@@ -3791,13 +3791,13 @@ class AsyncRawUsersClient:
             When the user completed the goal, if they already have, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.
 
         metric : typing.Optional[str]
-            The metric's key, required with `completion: metric`.
+            The metric's key. Required with `completion: metric`, and only for it.
 
         target : typing.Optional[float]
-            The metric total that completes it, required with `completion: metric`.
+            The metric total that completes it. Required with `completion: metric`, and only for it.
 
         start : typing.Optional[str]
-            With `completion: metric`, the date, in the user's timezone, the metric total counts from. Defaults to today.
+            `completion: metric` only. The date, in the user's timezone, the metric total counts from. Defaults to today.
 
         steps : typing.Optional[typing.Sequence[GoalStepRequest]]
             The goal's steps, in order, each with its own key.
@@ -4121,13 +4121,13 @@ class AsyncRawUsersClient:
             When the user completed the goal, as an ISO 8601 date and time. Without an offset, it's in the user's timezone, and a time after now is read as now. Null uncompletes it. Not with `completion: none`, which is never completed, or `completion: metric`, which completes when its metric reaches the target.
 
         metric : typing.Optional[str]
-            The metric's key, with `completion: metric`. Changing the metric, target or start checks the goal against its target again.
+            `completion: metric` only. The metric's key. Changing the metric, target or start checks the goal against its target again, which can complete or uncomplete it; other changes leave a completed goal completed.
 
         target : typing.Optional[float]
-            The metric total that completes it, with `completion: metric`.
+            `completion: metric` only. The metric total that completes it.
 
         start : typing.Optional[str]
-            With `completion: metric`, the date, in the user's timezone, the metric total counts from.
+            `completion: metric` only. The date, in the user's timezone, the metric total counts from.
 
         steps : typing.Optional[typing.Sequence[GoalStepRequest]]
             Replaces the goal's steps, in order: a step whose key the goal has is updated, the others are added, and steps left out are deleted. Not for a step, since steps are one level deep.

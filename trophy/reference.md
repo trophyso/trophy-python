@@ -1557,7 +1557,7 @@ client.users.create_goal(
 <dl>
 <dd>
 
-**metric:** `typing.Optional[str]` — The metric's key, required with `completion: metric`.
+**metric:** `typing.Optional[str]` — The metric's key. Required with `completion: metric`, and only for it.
     
 </dd>
 </dl>
@@ -1565,7 +1565,7 @@ client.users.create_goal(
 <dl>
 <dd>
 
-**target:** `typing.Optional[float]` — The metric total that completes it, required with `completion: metric`.
+**target:** `typing.Optional[float]` — The metric total that completes it. Required with `completion: metric`, and only for it.
     
 </dd>
 </dl>
@@ -1573,7 +1573,7 @@ client.users.create_goal(
 <dl>
 <dd>
 
-**start:** `typing.Optional[str]` — With `completion: metric`, the date, in the user's timezone, the metric total counts from. Defaults to today.
+**start:** `typing.Optional[str]` — `completion: metric` only. The date, in the user's timezone, the metric total counts from. Defaults to today.
     
 </dd>
 </dl>
@@ -1871,7 +1871,7 @@ client.users.update_goal(
 <dl>
 <dd>
 
-**metric:** `typing.Optional[str]` — The metric's key, with `completion: metric`. Changing the metric, target or start checks the goal against its target again.
+**metric:** `typing.Optional[str]` — `completion: metric` only. The metric's key. Changing the metric, target or start checks the goal against its target again, which can complete or uncomplete it; other changes leave a completed goal completed.
     
 </dd>
 </dl>
@@ -1879,7 +1879,7 @@ client.users.update_goal(
 <dl>
 <dd>
 
-**target:** `typing.Optional[float]` — The metric total that completes it, with `completion: metric`.
+**target:** `typing.Optional[float]` — `completion: metric` only. The metric total that completes it.
     
 </dd>
 </dl>
@@ -1887,7 +1887,7 @@ client.users.update_goal(
 <dl>
 <dd>
 
-**start:** `typing.Optional[str]` — With `completion: metric`, the date, in the user's timezone, the metric total counts from.
+**start:** `typing.Optional[str]` — `completion: metric` only. The date, in the user's timezone, the metric total counts from.
     
 </dd>
 </dl>
